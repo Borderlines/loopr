@@ -1,0 +1,7 @@
+*.log
+.env
+env/
+node_modules/
+static/.webassets-cache
+static/gen
+static/bower_components

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="" ng-app="loopr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        {% assets filters="less", output="gen/style.css",
+            "loopr/styles/normalize.css",
+            "loopr/styles/style.less"
+        %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
+        {% endassets %}
+
+    </head>
+    <body>
+        <nav class="left">
+            <div class="wrapper">
+                <div class="logo">L8pr</div>
+                <div class="">Log out</div>
+                <div class="">Login</div>
+            </div>
+        </nav>
+        <div ng-view></div>
+
+        {% assets output="gen/loopr.js",
+            "bower_components/modernizr/modernizr.js",
+            "bower_components/angular/angular.min.js",
+            "bower_components/angular-route/angular-route.min.js",
+            "loopr/main.js",
+            "loopr/api.service.js",
+            "loopr/create-youtube-show.controller.js"
+        %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+
+    </body>
+</html>

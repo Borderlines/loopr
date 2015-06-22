@@ -1,0 +1,23 @@
+<div ng-include="'static/loopr/partials/loop.html'"></div>
+<div class="create-show content">
+    <form>
+        <input type="text"/>
+        <button class="">Add</button>
+    </form>
+    <ul>
+        <li ng-repeat="link in vm.links">
+            <pre>{{ link | json }}</pre>
+        </li>
+    </ul>
+</div>
+<nav class="right">
+    <div class="create">
+        <div class="wrapper">
+            <h2>Create a new:</h2>
+            <ul>
+                <li>Video Show</li>
+                <li>Tweet Show</li>
+            </ul>
+        </div>
+    </div>
+</nav>

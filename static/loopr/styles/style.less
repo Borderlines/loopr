@@ -1,0 +1,37 @@
+body {
+
+}
+@NAV_WIDTH: 100px;
+@HEADER_WIDTH: 200px;
+
+nav {
+    position: absolute;
+    bottom: 0;
+    .wrapper {
+        padding: 10px;
+    }
+}
+nav.left {
+    top:0;
+    left: 0;
+    width: @NAV_WIDTH;
+    background-color: #1A1A1A;
+    color: white;
+    .logo {
+        margin:20px 0;
+    }
+}
+nav.right {
+    top:@HEADER_WIDTH;
+    right: 0;
+    width: 300px;
+    background-color: #E6E6E6;
+    .create {
+        background-color: #F2F2F2;
+    }
+}
+
+.content {
+    margin: 20px 20px 20px @NAV_WIDTH + 20px;
+}
+@import "loop.less";
