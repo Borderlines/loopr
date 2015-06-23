@@ -1,0 +1,17 @@
+.create-show {
+    li {
+        &:hover {
+            .illustration {display: block;}
+            font-weight: bold;
+        }
+        
+        .illustration {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            right: @RIGHT_NAV_WIDTH;
+            opacity: .4;
+            z-index: 0;
+        }
+    }
+}

@@ -7,6 +7,6 @@
         };
     }
 
-    angular.module('loopr').factory('api', apiService);
+    angular.module('loopr.api', []).factory('api', apiService);
 
 })();

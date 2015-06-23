@@ -1,7 +1,8 @@
 body {
 
 }
-@NAV_WIDTH: 100px;
+@NAV_WIDTH: 200px;
+@RIGHT_NAV_WIDTH: 300px;
 @HEADER_WIDTH: 200px;
 
 nav {
@@ -12,6 +13,7 @@ nav {
     }
 }
 nav.left {
+    z-index: 20;
     top:0;
     left: 0;
     width: @NAV_WIDTH;
@@ -22,9 +24,10 @@ nav.left {
     }
 }
 nav.right {
+    z-index: 10;
     top:@HEADER_WIDTH;
     right: 0;
-    width: 300px;
+    width: @RIGHT_NAV_WIDTH;
     background-color: #E6E6E6;
     .create {
         background-color: #F2F2F2;
@@ -34,4 +37,7 @@ nav.right {
 .content {
     margin: 20px 20px 20px @NAV_WIDTH + 20px;
 }
+
+
 @import "loop.less";
+@import "create-youtube-show.less";

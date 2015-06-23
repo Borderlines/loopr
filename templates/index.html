@@ -7,8 +7,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        {% assets filters="less", output="gen/style.css",
-            "loopr/styles/normalize.css",
+        {% assets output="gen/vendors.css",
+            "loopr/styles/normalize.css"
+        %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
+        {% endassets %}
+        {% assets filters="less", output="gen/loopr.css", depends="loopr/styles/*.less",
             "loopr/styles/style.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
@@ -25,13 +29,19 @@
         </nav>
         <div ng-view></div>
 
-        {% assets output="gen/loopr.js",
+        {% assets output="gen/vendors.js",
             "bower_components/modernizr/modernizr.js",
             "bower_components/angular/angular.min.js",
             "bower_components/angular-route/angular-route.min.js",
+            "bower_components/angular-resource/angular-resource.min.js",
+            "bower_components/angular-embedly/em-minified/angular-embedly.min.js",
+            "bower_components/angular-embed/dist/angular-embed.min.js"
+        %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+        {% assets output="gen/loopr.js",
             "loopr/main.js",
-            "loopr/api.service.js",
-            "loopr/create-youtube-show.controller.js"
+            "loopr/api.service.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}
