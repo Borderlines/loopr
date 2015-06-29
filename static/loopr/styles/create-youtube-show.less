@@ -1,17 +1,35 @@
 .create-show {
-    li {
+    margin-right: @RIGHT_NAV_WIDTH;
+    padding: 20px;
+    table {
+        table-layout    : fixed;
+    }
+    tr {
         &:hover {
             .illustration {display: block;}
             font-weight: bold;
         }
-        
-        .illustration {
-            display: none;
-            position: absolute;
-            bottom: 0;
-            right: @RIGHT_NAV_WIDTH;
-            opacity: .4;
-            z-index: 0;
+        td {
+            &.title div {
+                max-height: 20px;
+                overflow: hidden;
+            }
+            &.reorder {
+                span {
+                    float: right;
+                    &:first-of-type {
+                        float: left;
+                    }
+                }
+            }        
+            .illustration {
+                display: none;
+                position: absolute;
+                bottom: 0;
+                right: @RIGHT_NAV_WIDTH;
+                opacity: .4;
+                z-index: 0;
+            }
         }
     }
 }

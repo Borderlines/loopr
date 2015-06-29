@@ -8,20 +8,21 @@ app = Eve(__name__, template_folder='templates')
 assets = Environment(app)
 app.register_resource('shows', {
     # most global settings can be overridden at resource level
-    'resource_methods': ['GET', 'POST'],
+    'resource_methods': ['GET', 'POST', 'DELETE'],
+    'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
+    'allow_unknown': True,
     'schema': {
         # Schema definition, based on Cerberus grammar. Check the Cerberus project
         # (https://github.com/nicolaiarocci/cerberus) for details.
         'title': {
-            'required': True,
             'type': 'string'
         },
         'description': {
             'type': 'string'
         },
         'type': {
-            'type': 'list',
-            'allowed': ['TweetShow', 'YoutubeShow']
+            'type': 'string',
+            'allowed': ['TweetShow', 'VideoShow']
         }
     }
 })
