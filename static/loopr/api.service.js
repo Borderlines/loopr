@@ -25,6 +25,16 @@
                 }
                 return element;
             });
+            // add a response interceptor
+            RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+                if (operation === "getList") {
+                    var extractedData;
+                    extractedData = data._items;
+                    extractedData.meta = data._meta;
+                    return extractedData;
+                }
+                return data;
+            });
         }]);
 
 })();

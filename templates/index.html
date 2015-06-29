@@ -27,6 +27,9 @@
                 <div class="">Login</div>
             </div>
         </nav>
+
+        <div ng-include="'static/loopr/partials/loop.html'"></div>
+
         <div ng-view></div>
 
         {% assets output="gen/vendors.js",
@@ -43,6 +46,8 @@
         {% endassets %}
         {% assets output="gen/loopr.js",
             "loopr/main.js",
+            "loopr/shows.ctrl.js",
+            "loopr/video-show.ctrl.js",
             "loopr/api.service.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>

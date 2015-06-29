@@ -1,0 +1,16 @@
+<nav class="right">
+    <div class="create">
+        <div class="wrapper">
+            <h2>Add a new</h2>
+            <ul>
+                <li><a href="/#/show">Video Show</a></li>
+                <li><a ng-click="">Tweet Show</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="shows content">
+    <ul>
+        <li ng-repeat="show in vm.shows"><a href="/#/show/{{show._id}}">{{ show. title }} ({{ show.links.length || 0 }})</a></li>
+    </ul>
+</div>
