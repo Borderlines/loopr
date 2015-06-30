@@ -1,10 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf8 -*-
 
 from eve import Eve
 from flask.ext.assets import Environment
 from flask import render_template
 
-app = Eve(__name__, template_folder='templates')
+app = Eve(__name__, template_folder='templates', settings='settings.py')
 assets = Environment(app)
 app.register_resource('shows', {
     # most global settings can be overridden at resource level
