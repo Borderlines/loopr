@@ -4,8 +4,10 @@
 from eve import Eve
 from flask.ext.assets import Environment
 from flask import render_template
+import os
 
-app = Eve(__name__, template_folder='templates', settings='settings.py')
+CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+app = Eve(__name__, template_folder='templates', settings=os.path.join(CURRENT_DIR, 'settings.py'))
 assets = Environment(app)
 app.register_resource('shows', {
     # most global settings can be overridden at resource level
