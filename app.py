@@ -10,7 +10,6 @@ CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 app = Eve(__name__, template_folder='templates', settings=os.path.join(CURRENT_DIR, 'settings.py'))
 assets = Environment(app)
 app.register_resource('shows', {
-    # most global settings can be overridden at resource level
     'resource_methods': ['GET', 'POST', 'DELETE'],
     'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
     'allow_unknown': True,
