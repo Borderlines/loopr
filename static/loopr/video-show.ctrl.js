@@ -41,6 +41,12 @@
                     vm.show.links.push(link);
                     vm.saveShow();
                 });
+            },
+            reorderLink: function(link, direction) {
+                var current = vm.show.links.indexOf(link);
+                var next = current + direction;
+                vm.show.links.splice(next, 0, vm.show.links.splice(current, 1)[0]);
+                vm.saveShow();
             }
         });
         Shows.one($routeParams.showId).get().then(function(show) {

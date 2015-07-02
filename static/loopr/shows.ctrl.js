@@ -4,7 +4,7 @@
     ShowsCtrl.$inject = ['Shows'];
     function ShowsCtrl(Shows) {
         var vm = this;
-        Shows.getList().then(function(shows) {
+        Shows.getList({timestamp:Date.now()}).then(function(shows) {
             vm.shows = shows;
         });
     }
