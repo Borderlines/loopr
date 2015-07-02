@@ -22,14 +22,13 @@
         <col width="15%" />
         <col width="30px" />
         <col width="15%" />
-        <col width="0%" />
         <tr ng-repeat="link in vm.show.links">
             <td class="title"><div>{{ $index + 1 }}. {{ link.title }}</div></td>
             <td>{{ link.provider_name }}</td>
             <td>21m</td>
             <td class="reorder"><span ng-show="!$first">&#8593;</span> <span ng-show="!$last">&#8595;</span></td>
             <td><a ng-click="vm.removeVideo(link)">X</a></td>
-            <td><img class="illustration" ng-src="{{ link.thumbnail }}"/></td>
         </tr>
     </table>
+    <img class="illustration" ng-src="{{ vm.show.thumbnail || vm.show.links[0].thumbnail }}"/>
 </div>

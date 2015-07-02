@@ -16,7 +16,7 @@
             <a href="/#/show/{{show._id}}">
             <div class="show" style="width:200px;">
                 <div class="show__illustration">
-                    <img src="{{show.links[0].thumbnail}}"/>
+                    <img ng-src="{{show.links[0].thumbnail}}"/>
                 </div>
                 <div class="bottom">
                     <div class="show__title">{{ show.title || show.links[0].title }}</div>
