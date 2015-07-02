@@ -11,6 +11,6 @@
 </nav>
 <div class="shows content">
     <ul>
-        <li ng-repeat="show in vm.shows"><a href="/#/show/{{show._id}}">{{ show. title }} ({{ show.links.length || 0 }})</a></li>
+        <li ng-repeat="show in vm.shows"><a href="/#/show/{{show._id}}">[{{ show.type }}] {{ show.title }} ({{ show.links.length || 0 }})</a></li>
     </ul>
 </div>

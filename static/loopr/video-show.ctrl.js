@@ -4,23 +4,20 @@
     EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route'];
     function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route) {
         var vm = this;
-        if (angular.isDefined($routeParams.showId)) {
-            Shows.one($routeParams.showId).get().then(function(show) {
-                vm.show = show;
-            });
-        } else {
+        if (!angular.isDefined($routeParams.showId)) {
             Shows.post({type: 'VideoShow'}).then(function(new_show) {
                 vm.show = new_show;
                 $route.updateParams({showId: vm.show._id});
             });
         }
         angular.extend(vm, {
+            // show: Shows.one($routeParams.showId).get().$object,
             removeVideo: function(link) {
                 vm.show.links.splice(vm.show.links.indexOf(link), 1);
                 vm.saveShow();
             },
             saveShow: function() {
-                vm.show.put().then(function(show) {
+                vm.show.save().then(function(show) {
                     vm.show._etag = show._etag;
                 });
             },
@@ -40,6 +37,9 @@
                     vm.saveShow();
                 });
             }
+        });
+        Shows.one($routeParams.showId).get().then(function(show) {
+            vm.show = show;
         });
     }
 
