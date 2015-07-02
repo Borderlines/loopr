@@ -1,7 +1,7 @@
 <nav class="right">
     <div class="create">
         <div class="wrapper">
-            <h2>Add a new</h2>
+            <h2>Create a new show</h2>
             <ul>
                 <li><a href="/#/show">Video Show</a></li>
                 <li><a ng-click="">Tweet Show</a></li>
@@ -10,7 +10,20 @@
     </div>
 </nav>
 <div class="shows content">
+    <h2>Your Shows</h2>
     <ul>
-        <li ng-repeat="show in vm.shows"><a href="/#/show/{{show._id}}">[{{ show.type }}] {{ show.title }} ({{ show.links.length || 0 }})</a></li>
+        <li ng-repeat="show in vm.shows">
+            <a href="/#/show/{{show._id}}">
+            <div class="show" style="width:200px;">
+                <div class="show__illustration">
+                    <img src="{{show.links[0].thumbnail}}"/>
+                </div>
+                <div class="bottom">
+                    <div class="show__title">{{ show.title || show.links[0].title }}</div>
+                    <div class="show__info">5min {{ show.type }} ({{ show.links.length || 0 }}x)</div>
+                </div>
+            </div>
+        </a>
+        </li>
     </ul>
 </div>

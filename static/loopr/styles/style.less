@@ -11,6 +11,7 @@ nav {
     .wrapper {
         padding: 10px;
     }
+    position: fixed;
 }
 nav.left {
     z-index: 20;
@@ -25,19 +26,21 @@ nav.left {
 }
 nav.right {
     z-index: 10;
-    top:@HEADER_WIDTH;
+    top:0;
     right: 0;
     width: @RIGHT_NAV_WIDTH;
     background-color: #E6E6E6;
+    padding-top: @HEADER_WIDTH;
     .create {
         background-color: #F2F2F2;
     }
 }
 
 .content {
-    margin: 20px 20px 20px @NAV_WIDTH + 20px;
+    margin: 20px @RIGHT_NAV_WIDTH + 20px 20px @NAV_WIDTH + 20px;
 }
 
 
 @import "loop.less";
 @import "create-youtube-show.less";
+@import "shows-list.less";
