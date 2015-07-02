@@ -12,7 +12,7 @@
 <div class="shows content">
     <h2>Your Shows</h2>
     <ul>
-        <li ng-repeat="show in vm.shows">
+        <li ng-repeat="show in vm.shows track by show._id">
             <a href="/#/show/{{show._id}}">
             <div class="show" style="width:200px;">
                 <div class="show__illustration">

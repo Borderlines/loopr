@@ -25,6 +25,7 @@
                 }
                 return element;
             });
+            RestangularProvider.setDefaultHttpFields({cache: true});
             // add a response interceptor
             RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
                 if (operation === "getList") {

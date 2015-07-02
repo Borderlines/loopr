@@ -11,10 +11,15 @@
             });
         }
         angular.extend(vm, {
-            // show: Shows.one($routeParams.showId).get().$object,
             removeVideo: function(link) {
                 vm.show.links.splice(vm.show.links.indexOf(link), 1);
                 vm.saveShow();
+            },
+            removeShow: function() {
+                vm.show.remove().then(function() {
+                    $location.url('/shows');
+                    $route.reload();
+                });
             },
             saveShow: function() {
                 vm.show.save().then(function(show) {
