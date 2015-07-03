@@ -4,10 +4,13 @@
 from eve import Eve
 from flask.ext.assets import Environment
 from flask import render_template
+from apiclient.discovery import build
 import os
+import datetime
+import re
 
-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-app = Eve(__name__, template_folder='templates', settings=os.path.join(CURRENT_DIR, 'settings.py'))
+root = os.path.dirname(os.path.realpath(__file__))
+app = Eve(__name__, template_folder='templates', settings=os.path.join(root, 'settings.py'))
 assets = Environment(app)
 app.register_resource('shows', {
     'datasource': {
@@ -18,8 +21,6 @@ app.register_resource('shows', {
     'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
     'allow_unknown': True,
     'schema': {
-        # Schema definition, based on Cerberus grammar. Check the Cerberus project
-        # (https://github.com/nicolaiarocci/cerberus) for details.
         'title': {
             'type': 'string'
         },
@@ -32,6 +33,28 @@ app.register_resource('shows', {
         }
     }
 })
+
+
+def post_shows_put_callback(item, original):
+    for link in item.get('links', []):
+        if not link.get('duration', False) and 'https://www.youtube.com/watch?v=' in link.get('url'):
+            youtube = build('youtube', 'v3', developerKey=app.config.get('GOOGLE_API_KEY'))
+            search_response = youtube.videos().list(
+                part='contentDetails',
+                id=link.get('url').replace('https://www.youtube.com/watch?v=', ''),
+                maxResults=1
+            ).execute()
+            result = search_response.get("items", [])
+            duration = re.split('\D', result[0].get('contentDetails').get('duration'))
+            duration = [int(d) for d in duration if d != '']
+            if len(duration) == 2:
+                duration = datetime.timedelta(minutes=duration[0], seconds=duration[1])
+            elif len(duration) == 3:
+                duration = datetime.timedelta(hours=duration[0], minutes=duration[1], seconds=duration[2])
+            link['duration'] = duration.seconds
+
+
+app.on_replace_shows += post_shows_put_callback
 
 
 @app.route('/')

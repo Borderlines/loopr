@@ -39,7 +39,7 @@
         <tr ng-repeat="link in vm.show.links">
             <td class="title"><div>{{ $index + 1 }}. {{ link.title }}</div></td>
             <td>{{ link.provider_name }}</td>
-            <td>21m</td>
+            <td>{{ link.duration | seconds }}</td>
             <td class="reorder"><span ng-show="!$first"><a ng-click="vm.reorderLink(link, -1)">&#8593;</a></span> <span ng-show="!$last"><a ng-click="vm.reorderLink(link, 1)">&#8595;</a></span></td>
             <td><a ng-click="vm.removeVideo(link)">X</a></td>
         </tr>
