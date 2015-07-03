@@ -6,6 +6,7 @@
         return Restangular.service('shows');
     }
 
+
     angular.module('loopr.api', ['restangular'])
         .factory('Shows', Shows)
         .config(['RestangularProvider', function(RestangularProvider) {

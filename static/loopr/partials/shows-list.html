@@ -14,13 +14,13 @@
     <ul>
         <li ng-repeat="show in vm.shows track by show._id">
             <a href="/#/show/{{show._id}}">
-            <div class="show" style="width:200px;">
+            <div class="show">
                 <div class="show__illustration">
                     <img ng-src="{{show.links[0].thumbnail}}"/>
                 </div>
                 <div class="bottom">
                     <div class="show__title">{{ show.title || show.links[0].title }}</div>
-                    <div class="show__info">5min {{ show.type }} ({{ show.links.length || 0 }}x)</div>
+                    <div class="show__info">{{ vm.getShowDuration(show) | seconds }} {{ show.type }} ({{ show.links.length || 0 }}x)</div>
                 </div>
             </div>
         </a>
