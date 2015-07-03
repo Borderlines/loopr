@@ -21,9 +21,15 @@
                     $route.reload();
                 });
             },
-            saveShow: function() {
-                vm.show.save().then(function(show) {
-                    vm.show._etag = show._etag;
+            saveShow: function(new_show) {
+                new_show = new_show || vm.show;
+                new_show.save().then(function() {
+                    vm.loadShow();
+                });
+            },
+            loadShow: function() {
+                return Shows.one($routeParams.showId).get({timestamp:Date.now()}).then(function(show) {
+                    vm.show = show;
                 });
             },
             addVideo: function(link) {
@@ -38,9 +44,10 @@
                     if (!vm.show.links) {
                         vm.show.links = [];
                     }
-                    vm.show.links.push(link);
+                    var new_show = vm.show.clone();
+                    new_show.links.push(link);
                     vm.url = undefined;
-                    vm.saveShow();
+                    vm.saveShow(new_show);
                 });
             },
             reorderLink: function(link, direction) {
@@ -50,9 +57,7 @@
                 vm.saveShow();
             }
         });
-        Shows.one($routeParams.showId).get().then(function(show) {
-            vm.show = show;
-        });
+        vm.loadShow();
     }
 
     angular.module('loopr').controller('EditVideoShowCtrl', EditVideoShowCtrl);
