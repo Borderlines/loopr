@@ -47,7 +47,9 @@ def post_shows_put_callback(item, original):
             result = search_response.get("items", [])
             duration = re.split('\D', result[0].get('contentDetails').get('duration'))
             duration = [int(d) for d in duration if d != '']
-            if len(duration) == 2:
+            if len(duration) == 1:
+                duration = datetime.timedelta(seconds=duration[0])
+            elif len(duration) == 2:
                 duration = datetime.timedelta(minutes=duration[0], seconds=duration[1])
             elif len(duration) == 3:
                 duration = datetime.timedelta(hours=duration[0], minutes=duration[1], seconds=duration[2])

@@ -39,6 +39,7 @@
                         vm.show.links = [];
                     }
                     vm.show.links.push(link);
+                    vm.url = undefined;
                     vm.saveShow();
                 });
             },

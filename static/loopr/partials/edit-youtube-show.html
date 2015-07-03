@@ -27,8 +27,8 @@
     <form>
         <input type="text" ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" placeholder="title"/>
         <br/>
-        <input type="text" ng-model="url" placeholder="video link"/>
-        <button ng-click="vm.addVideo(url)">Add</button>
+        <input type="text" ng-model="vm.url" placeholder="video link"/>
+        <button ng-click="vm.addVideo(vm.url)">Add</button>
     </form>
     <table>
         <col width="50%" />
