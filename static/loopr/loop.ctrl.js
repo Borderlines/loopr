@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    LoopCtrl.$inject = ['Loops', '$location', 'login', '$rootScope', '$scope'];
-    function LoopCtrl(Loops, $location, login, $rootScope, $scope) {
+    LoopCtrl.$inject = ['Loops', '$location', 'login', '$rootScope', '$scope', 'Restangular'];
+    function LoopCtrl(Loops, $location, login, $rootScope, $scope, Restangular) {
         var vm = this;
 
         angular.extend(vm, {
@@ -20,6 +20,9 @@
             refreshLoop: function() {
                 Loops.getList({user_id: login.user._id, embedded:{shows:1}}).then(function(loop) {
                     vm.loop = loop[0];
+                    vm.loop.shows = vm.loop.shows.map(function(show) {
+                        return Restangular.restangularizeElement(null, show, 'shows');
+                    });
                 });
             },
             startAddingMode: function(show) {
