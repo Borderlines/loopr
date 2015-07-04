@@ -7,12 +7,14 @@
 
         angular.extend(vm, {
             deleteFromLoop: function(index) {
-                console.log('ss');
                 var loop = vm.loop.clone();
                 loop.shows.splice(index, 1);
                 loop.shows = loop.shows.map(function(e) {return e._id;});
                 loop.save();
                 vm.refreshLoop();
+            },
+            openShow: function(show) {
+                $location.url('/show/' + show._id);
             },
             refreshLoop: function() {
                 Loops.getList({user_id: login.user._id, embedded:{shows:1}}).then(function(loop) {

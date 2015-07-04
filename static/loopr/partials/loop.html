@@ -1,6 +1,6 @@
 <div class="main_loop" ng-controller="LoopCtrl as loopCtrl">
     <ul>
-        <li ng-repeat="show in loopCtrl.loop.shows">
+        <li ng-repeat="show in loopCtrl.loop.shows" ng-click="loopCtrl.openShow(show)">
             <div class="show" resizable ng-style="{width: (windowWidth - 450) / {{loopCtrl.loop.shows.length}}+'px'}">
                 <div class="show__illustration">
                     <div class="show__illustration" style="background-image:url({{show.links[0].thumbnail}})">
