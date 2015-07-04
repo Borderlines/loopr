@@ -13,22 +13,24 @@
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
         {% assets filters="less", output="gen/loopr.css", depends="loopr/styles/*.less",
-            "loopr/styles/style.less"
+            "loopr/styles/main.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lekton:400,400italic,700' rel='stylesheet' type='text/css'>
 
     </head>
     <body>
         <nav class="left">
             <div class="wrapper">
-                <div class="logo">L8pr</div>
-                <div class="">LOOP</div>
+                <div class="logo">L8pR</div>
+                <h3>LOOP</h3>
                 <div class=""><a href="/#/shows">Shows</a></div>
-                <div class="">Strip</div>
-
-                <div class="">Log out</div>
-                <div class="">Login</div>
+                <div class=""><a>Strip</a></div>
+                <h3>Account</h3>
+                <div class=""><a>Log out</a></div>
+                <div class=""><a href="/#/create-user">Login</a></div>
             </div>
         </nav>
 
@@ -41,6 +43,7 @@
             "bower_components/angular/angular.min.js",
             "bower_components/angular-route/angular-route.min.js",
             "bower_components/angular-resource/angular-resource.min.js",
+            "bower_components/angular-sanitize/angular-sanitize.min.js",
             "bower_components/lodash/lodash.min.js",
             "bower_components/restangular/dist/restangular.min.js",
             "bower_components/angular-embedly/em-minified/angular-embedly.min.js",
@@ -52,6 +55,7 @@
             "loopr/main.js",
             "loopr/shows.ctrl.js",
             "loopr/video-show.ctrl.js",
+            "loopr/create-user.ctrl.js",
             "loopr/api.service.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>

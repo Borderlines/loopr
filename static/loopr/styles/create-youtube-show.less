@@ -1,7 +1,8 @@
 .create-show {
-    margin-right: @RIGHT_NAV_WIDTH;
-    padding: 20px;
     table {
+        z-index: 1;
+        position: relative;
+        clear: both;
         table-layout: fixed;
     }
     tr {
@@ -9,6 +10,7 @@
             font-weight: bold;
         }
         td {
+            padding-right: 20px;
             &.title div {
                 max-height: 20px;
                 overflow: hidden;

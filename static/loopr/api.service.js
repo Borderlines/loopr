@@ -6,9 +6,14 @@
         return Restangular.service('shows');
     }
 
+    Accounts.$inject = ['Restangular'];
+    function Accounts(Restangular) {
+        return Restangular.service('accounts');
+    }
 
     angular.module('loopr.api', ['restangular'])
         .factory('Shows', Shows)
+        .factory('Accounts', Accounts)
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
             RestangularProvider.setRestangularFields({
@@ -26,7 +31,7 @@
                 }
                 return element;
             });
-            RestangularProvider.setDefaultHttpFields({cache: true});
+            RestangularProvider.setDefaultHttpFields({cache: false});
             // add a response interceptor
             RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
                 if (operation === "getList") {

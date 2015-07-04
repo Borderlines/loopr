@@ -8,9 +8,25 @@ from apiclient.discovery import build
 import os
 import datetime
 import re
+from eve.auth import BasicAuth
+from werkzeug.security import check_password_hash
+from eve.auth import TokenAuth
+import bcrypt
+from eve import Eve
+from eve.auth import BasicAuth
+
+
+class BasicAuth(BasicAuth):
+    def check_auth(self, username, password, allowed_roles, resource, method):
+        # use Eve's own db driver; no additional connections/resources are used
+        print(username, password)
+        accounts = app.data.driver.db['accounts']
+        account = accounts.find_one({'username': username})
+        return account and account['password'] == password
+
 
 root = os.path.dirname(os.path.realpath(__file__))
-app = Eve(__name__, template_folder='templates', settings=os.path.join(root, 'settings.py'))
+app = Eve(__name__, template_folder='templates', auth=None, settings=os.path.join(root, 'settings.py'))
 assets = Environment(app)
 app.register_resource('shows', {
     'datasource': {
@@ -57,6 +73,32 @@ def post_shows_put_callback(item, original):
 
 
 app.on_replace_shows += post_shows_put_callback
+
+app.register_resource('accounts', {
+    # the standard account entry point is defined as
+    # '/accounts/<ObjectId>'. We define  an additional read-only entry
+    # point accessible at '/accounts/<username>'.
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'username',
+    },
+    # We also disable endpoint caching as we don't want client apps to
+    # cache account data.
+    'cache_control': '',
+    'cache_expires': 0,
+    # Finally, let's add the schema definition for this endpoint.
+    'schema': {
+        'username': {
+            'type': 'string',
+            'required': True,
+            'unique': True,
+        },
+        'password': {
+            'type': 'string',
+            'required': True,
+        }
+    }
+})
 
 
 @app.route('/')

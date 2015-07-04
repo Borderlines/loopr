@@ -1,23 +1,23 @@
 <nav class="right">
-    <div class="create">
-        <div class="wrapper">
-            <ul>
-                <li><a>Add to loop</a></li>
-                <li><a ng-click="vm.removeShow()">Delete this show</a></li>
-            </ul>
-        </div>
+    <div class="first-block block">
+        <ul>
+            <li><a>Add to loop</a></li>
+            <li><a ng-click="vm.removeShow()">Delete this show</a></li>
+        </ul>
     </div>
-    <div>
-        Options
+    <div class="block">
+        <h3>Options</h3>
         <ul>
             <li>
-                <label>Shuffle Mode
-                    <input type="checkbox" ng-model="checkboxModel.value2">
+
+                <label><input type="checkbox" ng-model="checkboxModel.value2">
+                    Shuffle Mode
                 </label>
             </li>
             <li>
-                <label>Hide the STRIP for this show
-                    <input type="checkbox" ng-model="checkboxModel.value1">
+
+                <label><input type="checkbox" ng-model="checkboxModel.value1">
+                    Hide the STRIP for this show
                 </label>
             </li>
         </ul>
@@ -25,22 +25,19 @@
 </nav>
 <div class="create-show content">
     <form>
-        <input type="text" ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" placeholder="title"/>
-        <br/>
+        <h2 ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" contenteditable="true"></h2>
+        <label>Link
+
+        </label>
         <input type="text" ng-model="vm.url" placeholder="video link"/>
-        <button ng-click="vm.addVideo(vm.url)">Add</button>
+        <button ng-click="vm.addVideo(vm.url)">+ Add</button>
     </form>
     <table>
-        <col width="50%" />
-        <col width="15%" />
-        <col width="15%" />
-        <col width="30px" />
-        <col width="15%" />
         <tr ng-repeat="link in vm.show.links">
             <td class="title"><div>{{ $index + 1 }}. {{ link.title }}</div></td>
             <td>{{ link.provider_name }}</td>
             <td>{{ link.duration | seconds }}</td>
-            <td class="reorder"><span ng-show="!$first"><a ng-click="vm.reorderLink(link, -1)">&#8593;</a></span> <span ng-show="!$last"><a ng-click="vm.reorderLink(link, 1)">&#8595;</a></span></td>
+            <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
             <td><a ng-click="vm.removeVideo(link)">X</a></td>
         </tr>
     </table>

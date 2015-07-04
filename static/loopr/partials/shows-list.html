@@ -1,29 +1,25 @@
 <nav class="right">
-    <div class="create">
-        <div class="wrapper">
-            <h2>Create a new show</h2>
-            <ul>
-                <li><a href="/#/show">Video Show</a></li>
-                <li><a ng-click="">Tweet Show</a></li>
-            </ul>
-        </div>
+    <div class="first-block block">
+        <h3>Create a new show</h3>
+        <ul>
+            <li><a href="/#/show">Video Show</a></li>
+            <li><a ng-click="">Tweet Show</a></li>
+        </ul>
     </div>
 </nav>
 <div class="shows content">
     <h2>Your Shows</h2>
     <ul>
-        <li ng-repeat="show in vm.shows track by show._id">
-            <a href="/#/show/{{show._id}}">
+        <li ng-repeat="show in vm.shows track by show._id" ng-click="vm.openShow(show)">
             <div class="show">
                 <div class="show__illustration">
                     <img ng-src="{{show.links[0].thumbnail}}"/>
                 </div>
                 <div class="bottom">
-                    <div class="show__title">{{ show.title || show.links[0].title }}</div>
-                    <div class="show__info">{{ vm.getShowDuration(show) | seconds }} {{ show.type }} ({{ show.links.length || 0 }}x)</div>
+                    <div class="show__title"><a>{{ show.title || show.links[0].title }}</a></div>
+                    <div class="show__info">{{ vm.getShowDuration(show) | seconds }} <span class="right">{{ show.type }} ({{ show.links.length || 0 }}x)</span></div>
                 </div>
             </div>
-        </a>
         </li>
     </ul>
 </div>

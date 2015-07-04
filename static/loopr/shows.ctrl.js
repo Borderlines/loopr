@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    ShowsCtrl.$inject = ['Shows'];
-    function ShowsCtrl(Shows) {
+    ShowsCtrl.$inject = ['Shows', '$location'];
+    function ShowsCtrl(Shows, $location) {
         var vm = this;
 
         angular.extend(vm, {
@@ -10,6 +10,9 @@
                 if (angular.isDefined(show.links)) {
                     return show.links.reduce(function(a, b) {return  a + b.duration;}, 0);
                 }
+            },
+            openShow: function(show) {
+                $location.url('/show/' + show._id);
             }
         })
 

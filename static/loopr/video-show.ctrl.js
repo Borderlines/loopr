@@ -5,7 +5,7 @@
     function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route) {
         var vm = this;
         if (!angular.isDefined($routeParams.showId)) {
-            Shows.post({type: 'VideoShow'}).then(function(new_show) {
+            Shows.post({type: 'VideoShow', title: 'Your Show'}).then(function(new_show) {
                 vm.show = new_show;
                 $route.updateParams({showId: vm.show._id});
             });
@@ -28,7 +28,7 @@
                 });
             },
             loadShow: function() {
-                return Shows.one($routeParams.showId).get({timestamp:Date.now()}).then(function(show) {
+                return Shows.one($routeParams.showId).get().then(function(show) {
                     vm.show = show;
                 });
             },
