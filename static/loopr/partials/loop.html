@@ -18,6 +18,6 @@
     <div class="main_loop__info">
         <div class="main_loop__info__title">Main Loop</div>
         <div>{{ loopCtrl.loop.shows.length }} Shows</div>
-        <div>5h42m</div>
+        <div>{{ loopCtrl.loop.duration() | seconds }}</div>
     </div>
 </div>

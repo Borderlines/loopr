@@ -22,6 +22,17 @@
 
     Loops.$inject = ['Restangular'];
     function Loops(Restangular) {
+        Restangular.extendModel('loops', function(model) {
+            model.duration = function() {
+                if (angular.isDefined(model.shows)) {
+                    model.shows = model.shows.map(function(show) {
+                        return Restangular.restangularizeElement(null, show, 'shows');
+                    });
+                    return model.shows.reduce(function(a, b) {return  a + b.duration();}, 0);
+                }
+            };
+            return model;
+        });
         return Restangular.service('loops');
     }
 
