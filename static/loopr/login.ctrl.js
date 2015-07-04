@@ -1,21 +1,21 @@
 (function() {
     'use strict';
 
-    CreateUserCtrl.$inject = ['Accounts', 'Restangular'];
-    function CreateUserCtrl(Accounts, Restangular) {
+    CreateUserCtrl.$inject = ['Accounts', 'Restangular', 'login', '$location'];
+    function CreateUserCtrl(Accounts, Restangular, login, $location) {
         var vm = this;
-
         angular.extend(vm, {
             createUser: function() {
                 Accounts.post({username: vm.username, password: vm.password}).then(function(data) {
-                    console.log(data);
+                    login.login(vm.username, vm.password);
+                    $location.url('/');
                 });
             },
             login: function() {
-                // Restangular.setDefaultHeaders({'Authorization':'Basic '+btoa(vm.username2 + ":" + vm.password2)});
+                login.login(vm.username, vm.password);
+                $location.url('/');
             }
         });
-
     }
 
     angular.module('loopr').controller('CreateUserCtrl', CreateUserCtrl);

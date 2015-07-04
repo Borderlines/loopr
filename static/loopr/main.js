@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr', ['ngRoute', 'loopr.api', 'angular-embed', 'ngSanitize'])
+    angular.module('loopr', ['ngRoute', 'loopr.api', 'angular-embed', 'ngSanitize', 'LocalStorageModule'])
         .config(['$routeProvider',
             function($routeProvider) {
                 $routeProvider
@@ -16,32 +16,54 @@
                     controllerAs: 'vm'
                 })
                 .when('/create-user', {
-                    templateUrl: 'static/loopr/partials/create-user.html',
+                    templateUrl: 'static/loopr/partials/login.html',
                     controller: 'CreateUserCtrl',
                     controllerAs: 'vm'
                 })
                 .otherwise({
-                    redirectTo: '/create-user'
+                    redirectTo: '/shows'
                 });
             }
         ])
-        .service('login', function() {
-            var auth = '1234';
-            return function() {
-                // login: function()
-                auth: auth
-            }
-        })
-        .directive('clickLink', ['$location', function($location) {
-            return {
-                link: function(scope, element, attrs) {
-                    element.on('click', function() {
-                        scope.$apply(function() {
-                            $location.path(attrs.clickLink);
+        .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
+            localStorageServiceProvider
+                .setPrefix('loopr')
+                .setStorageType('localStorage')
+                .setNotify(true, true);
+        }])
+        .run(['login', function(login) {
+            login.login();
+        }])
+        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', function(Restangular, localStorageService, Accounts, $rootScope) {
+            var user = localStorageService.get('user');
+            var service = {
+                login: function(username, password) {
+                    if (angular.isDefined(username)) {
+                        localStorageService.set('auth', btoa(username + ":" + password));
+                    } else if (user) {
+                        username = user.username;
+                    }
+                    if (angular.isDefined(username)) {
+                        Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
+                        Accounts.one(username).get().then(function(data) {
+                            localStorageService.set('user', data);
+                            user = data;
+                            $rootScope.user = data;
                         });
-                    });
-                }
-            }
+                    }
+                },
+                logout: function() {
+                    localStorageService.remove('user');
+                    localStorageService.remove('auth');
+                    Restangular.setDefaultHeaders({'Authorization':''});
+                    user = undefined;
+                    $rootScope.user = undefined;
+                },
+                auth: localStorageService.get('auth'),
+                user: user
+            };
+            $rootScope.logout = service.logout;
+            return service;
         }])
         .directive('contenteditable', ['$sce', function($sce) {
             return {

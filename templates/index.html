@@ -22,17 +22,8 @@
 
     </head>
     <body>
-        <nav class="left">
-            <div class="wrapper">
-                <div class="logo">L8pR</div>
-                <h3>LOOP</h3>
-                <div class=""><a href="/#/shows">Shows</a></div>
-                <div class=""><a>Strip</a></div>
-                <h3>Account</h3>
-                <div class=""><a>Log out</a></div>
-                <div class=""><a href="/#/create-user">Login</a></div>
-            </div>
-        </nav>
+
+        <div ng-include="'static/loopr/partials/menu.html'"></div>
 
         <div ng-include="'static/loopr/partials/loop.html'"></div>
 
@@ -46,6 +37,7 @@
             "bower_components/angular-sanitize/angular-sanitize.min.js",
             "bower_components/lodash/lodash.min.js",
             "bower_components/restangular/dist/restangular.min.js",
+            "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "bower_components/angular-embedly/em-minified/angular-embedly.min.js",
             "bower_components/angular-embed/dist/angular-embed.min.js"
         %}
@@ -55,7 +47,7 @@
             "loopr/main.js",
             "loopr/shows.ctrl.js",
             "loopr/video-show.ctrl.js",
-            "loopr/create-user.ctrl.js",
+            "loopr/login.ctrl.js",
             "loopr/api.service.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
