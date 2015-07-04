@@ -19,7 +19,7 @@ a, a[ng-click], a:visited, a:active {
 h3 {
     font-style: italic;
     font-weight: 400;
-    margin-top: 0px;
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -61,10 +61,11 @@ nav.right {
     box-sizing: border-box;
     background-color: #E6E6E6;
     .block {
-        padding: 20px 20px 0 20px;
+        padding: 0px 20px 0 20px;
     }
     .first-block {
-        padding-top: @HEADER_WIDTH + 20px;
+        padding-top: @HEADER_WIDTH;
+        padding-bottom: 20px;
         background-color: #F2F2F2;
     }
 }
@@ -143,5 +144,5 @@ nav.right {
 }
 
 @import "loop.less";
-@import "create-youtube-show.less";
+@import "edit-youtube-show.less";
 @import "shows-list.less";
