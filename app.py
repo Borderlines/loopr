@@ -9,9 +9,9 @@ import os
 import datetime
 import re
 from eve.auth import BasicAuth
-from werkzeug.security import check_password_hash
-from eve.auth import TokenAuth
-import bcrypt
+# from werkzeug.security import check_password_hash
+# from eve.auth import TokenAuth
+# import bcrypt
 from eve import Eve
 from eve.auth import BasicAuth
 
@@ -22,17 +22,20 @@ class BasicAuth(BasicAuth):
         print(username, password)
         accounts = app.data.driver.db['accounts']
         account = accounts.find_one({'username': username})
+        if account and '_id' in account:
+            self.set_request_auth_value(account['_id'])
         return account and account['password'] == password
 
 
 root = os.path.dirname(os.path.realpath(__file__))
-app = Eve(__name__, template_folder='templates', auth=None, settings=os.path.join(root, 'settings.py'))
+app = Eve(__name__, template_folder='templates', auth=BasicAuth, settings=os.path.join(root, 'settings.py'))
 assets = Environment(app)
 app.register_resource('shows', {
     'datasource': {
         # 'filter': {'links.1': {'$exists': True}},
         'default_sort': [('_created', -1)]
     },
+    'auth_field': 'user_id',
     'resource_methods': ['GET', 'POST', 'DELETE'],
     'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
     'allow_unknown': True,
@@ -82,6 +85,7 @@ app.register_resource('accounts', {
         'url': 'regex("[\w]+")',
         'field': 'username',
     },
+    'public_methods': ['POST'],
     # We also disable endpoint caching as we don't want client apps to
     # cache account data.
     'cache_control': '',

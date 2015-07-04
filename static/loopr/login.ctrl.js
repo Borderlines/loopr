@@ -7,13 +7,13 @@
         angular.extend(vm, {
             createUser: function() {
                 Accounts.post({username: vm.username, password: vm.password}).then(function(data) {
-                    login.login(vm.username, vm.password);
-                    $location.url('/');
+                    vm.login();
                 });
             },
             login: function() {
-                login.login(vm.username, vm.password);
-                $location.url('/');
+                return login.login(vm.username, vm.password).then(function(){
+                    $location.url('/');
+                });
             }
         });
     }

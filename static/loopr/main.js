@@ -15,7 +15,7 @@
                     controller: 'EditVideoShowCtrl',
                     controllerAs: 'vm'
                 })
-                .when('/create-user', {
+                .when('/login', {
                     templateUrl: 'static/loopr/partials/login.html',
                     controller: 'CreateUserCtrl',
                     controllerAs: 'vm'
@@ -34,7 +34,8 @@
         .run(['login', function(login) {
             login.login();
         }])
-        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', function(Restangular, localStorageService, Accounts, $rootScope) {
+        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
+        function(Restangular, localStorageService, Accounts, $rootScope, $location) {
             var user = localStorageService.get('user');
             var service = {
                 login: function(username, password) {
@@ -45,10 +46,11 @@
                     }
                     if (angular.isDefined(username)) {
                         Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
-                        Accounts.one(username).get().then(function(data) {
+                        return Accounts.one(username).get().then(function(data) {
                             localStorageService.set('user', data);
-                            user = data;
+                            service.user = data;
                             $rootScope.user = data;
+                            return service.user;
                         });
                     }
                 },
@@ -56,8 +58,9 @@
                     localStorageService.remove('user');
                     localStorageService.remove('auth');
                     Restangular.setDefaultHeaders({'Authorization':''});
-                    user = undefined;
-                    $rootScope.user = undefined;
+                    service.user = null;
+                    $rootScope.user = null;
+                    $location.url('/');
                 },
                 auth: localStorageService.get('auth'),
                 user: user

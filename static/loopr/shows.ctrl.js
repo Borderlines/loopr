@@ -1,10 +1,12 @@
 (function() {
     'use strict';
 
-    ShowsCtrl.$inject = ['Shows', '$location'];
-    function ShowsCtrl(Shows, $location) {
+    ShowsCtrl.$inject = ['Shows', '$location', 'login'];
+    function ShowsCtrl(Shows, $location, login) {
         var vm = this;
-
+        if (!login.user) {
+            return $location.url('/login');
+        }
         angular.extend(vm, {
             getShowDuration: function(show) {
                 if (angular.isDefined(show.links)) {
@@ -15,7 +17,6 @@
                 $location.url('/show/' + show._id);
             }
         })
-
         Shows.getList({timestamp:Date.now()}).then(function(shows) {
             vm.shows = shows;
         });
