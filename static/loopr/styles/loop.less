@@ -21,7 +21,28 @@
         font-size: 2em;
         padding-top: 20px;
     }
+    .adding-placeholder:last-child {
+        width: 60px;
+    }
+    .adding-placeholder {
+        display: none;
+        background-color: #AD5FAD;
+        &:hover {
+            background-color: #C234C2;
+        }
+        height: 200px;
+        float: left;
+        width: 20px;
+        cursor: pointer;
+    }
+    &.adding-mode {
+        li {padding: 0px 0px;}
+        .adding-placeholder {
+            display: block;
+        }
+    }
     .show {
+        float: left;
         max-width: 125px;
         height: 200px;
         overflow: hidden;

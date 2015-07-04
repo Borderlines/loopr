@@ -1,17 +1,19 @@
-<div class="main_loop" ng-controller="LoopCtrl as loopCtrl">
+<div class="main_loop" ng-class="{'adding-mode': loopCtrl.addingMode}">
     <ul>
         <li ng-repeat="show in loopCtrl.loop.shows" ng-click="loopCtrl.openShow(show)">
+            <div class="adding-placeholder" ng-click="loopCtrl.addAtPosition($index); $event.stopPropagation();"></div>
             <div class="show" resizable ng-style="{width: (windowWidth - 450) / {{loopCtrl.loop.shows.length}}+'px'}">
                 <div class="show__illustration">
                     <div class="show__illustration" style="background-image:url({{show.links[0].thumbnail}})">
                 </div>
-                <div class="delete" ng-click="loopCtrl.deleteFromLoop($index)">X</div>
                 <div class="bottom">
+                    <div class="action" ng-click="loopCtrl.deleteFromLoop($index)">x</div>
                     <div class="show__title"><a>{{ show.title }}</a></div>
                     <div class="show__info">{{ show.duration() | seconds }}</div>
                 </div>
             </div>
         </li>
+        <div class="adding-placeholder" ng-click="loopCtrl.addAtPosition(loopCtrl.loop.shows.length); $event.stopPropagation();"></div>
     </ul>
     <div class="main_loop__info">
         <div class="main_loop__info__title">Main Loop</div>

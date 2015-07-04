@@ -56,13 +56,8 @@
                 vm.show.links.splice(next, 0, vm.show.links.splice(current, 1)[0]);
                 vm.saveShow();
             },
-            addToLoop: function() {
-                Loops.getList({user_id: login.user._id}).then(function(loops) {
-                    var loop = loops[0];
-                    loop.shows.push(vm.show._id);
-                    loop.save();
-                    $rootScope.$broadcast('loopUpdated');
-                });
+            addToLoopMode: function() {
+                $rootScope.$broadcast('openAddingShowMode', vm.show);
             }
         });
         vm.loadShow();
