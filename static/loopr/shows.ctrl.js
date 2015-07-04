@@ -8,11 +8,6 @@
             return $location.url('/login');
         }
         angular.extend(vm, {
-            getShowDuration: function(show) {
-                if (angular.isDefined(show.links)) {
-                    return show.links.reduce(function(a, b) {return  a + b.duration;}, 0);
-                }
-            },
             openShow: function(show) {
                 $location.url('/show/' + show._id);
             }

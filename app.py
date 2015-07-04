@@ -19,7 +19,6 @@ from eve.auth import BasicAuth
 class BasicAuth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource, method):
         # use Eve's own db driver; no additional connections/resources are used
-        print(username, password)
         accounts = app.data.driver.db['accounts']
         account = accounts.find_one({'username': username})
         if account and '_id' in account:
@@ -52,6 +51,24 @@ app.register_resource('shows', {
         }
     }
 })
+app.register_resource('loops', {
+    'auth_field': 'user_id',
+    'resource_methods': ['GET', 'POST', 'DELETE'],
+    'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
+    'schema': {
+        'shows': {
+            'type': 'list',
+            'schema': {
+                'type': 'objectid',
+                'data_relation': {
+                    'resource': 'shows',
+                    'field': '_id',
+                    'embeddable': True
+                }
+            }
+        }
+    }
+})
 
 
 def post_shows_put_callback(item, original):
@@ -78,6 +95,9 @@ def post_shows_put_callback(item, original):
 app.on_replace_shows += post_shows_put_callback
 
 app.register_resource('accounts', {
+    'datasource': {
+        'projection': {'username': 1}
+    },
     # the standard account entry point is defined as
     # '/accounts/<ObjectId>'. We define  an additional read-only entry
     # point accessible at '/accounts/<username>'.
@@ -103,6 +123,14 @@ app.register_resource('accounts', {
         }
     }
 })
+
+
+def post_accounts_inserted_callback(items):
+    loops = app.data.driver.db['loops']
+    for item in items:
+        loops.save({'shows': [], 'user_id': item['_id']})
+
+app.on_inserted_accounts += post_accounts_inserted_callback
 
 
 @app.route('/')

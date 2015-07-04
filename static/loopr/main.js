@@ -92,6 +92,19 @@
                 }
             };
         }])
+        .directive('resizable', function($window) {
+            return function($scope) {
+                $scope.initializeWindowSize = function() {
+                    $scope.windowHeight = $window.innerHeight;
+                    return $scope.windowWidth = $window.innerWidth;
+                };
+                $scope.initializeWindowSize();
+                return angular.element($window).bind('resize', function() {
+                    $scope.initializeWindowSize();
+                    return $scope.$apply();
+                });
+            };
+        })
         .filter('seconds', function() {
             return function(time) {
                 if (angular.isDefined(time) && angular.isNumber(time) && !isNaN(time)) {

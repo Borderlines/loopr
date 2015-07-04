@@ -1,8 +1,9 @@
+<div ng-include="'static/loopr/partials/loop.html'"></div>
 <nav class="right">
     <div class="first-block block">
         <h3>Actions</h3>
         <ul>
-            <li><a>Add to loop</a></li>
+            <li><a ng-click="vm.addToLoop()">Add to loop</a></li>
             <li><a ng-click="vm.removeShow()">Delete this show</a></li>
         </ul>
     </div>
@@ -16,7 +17,6 @@
                 </label>
             </li>
             <li>
-
                 <label><input type="checkbox" ng-model="checkboxModel.value1">
                     Hide the STRIP for this show
                 </label>

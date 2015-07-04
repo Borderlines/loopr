@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route'];
-    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route) {
+    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', 'Loops', 'login', '$rootScope'];
+    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route, Loops, login, $rootScope) {
         var vm = this;
         if (!angular.isDefined($routeParams.showId)) {
             Shows.post({type: 'VideoShow', title: 'Your Show'}).then(function(new_show) {
@@ -55,6 +55,14 @@
                 var next = current + direction;
                 vm.show.links.splice(next, 0, vm.show.links.splice(current, 1)[0]);
                 vm.saveShow();
+            },
+            addToLoop: function() {
+                Loops.getList({user_id: login.user._id}).then(function(loops) {
+                    var loop = loops[0];
+                    loop.shows.push(vm.show._id);
+                    loop.save();
+                    $rootScope.$broadcast('loopUpdated');
+                });
             }
         });
         vm.loadShow();

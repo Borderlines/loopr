@@ -3,16 +3,31 @@
 
     Shows.$inject = ['Restangular'];
     function Shows(Restangular) {
+        Restangular.extendModel('shows', function(model) {
+            model.duration = function() {
+                if (angular.isDefined(model.links)) {
+                    return model.links.reduce(function(a, b) {return  a + b.duration;}, 0);
+                }
+            };
+            return model;
+        });
         return Restangular.service('shows');
     }
+
 
     Accounts.$inject = ['Restangular'];
     function Accounts(Restangular) {
         return Restangular.service('accounts');
     }
 
+    Loops.$inject = ['Restangular'];
+    function Loops(Restangular) {
+        return Restangular.service('loops');
+    }
+
     angular.module('loopr.api', ['restangular'])
         .factory('Shows', Shows)
+        .factory('Loops', Loops)
         .factory('Accounts', Accounts)
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
