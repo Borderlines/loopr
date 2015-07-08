@@ -8,22 +8,26 @@
                 .when('/shows', {
                     controller: 'ShowsCtrl',
                     templateUrl: 'static/loopr/editor/shows-list/shows-list.html',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    activetab: 'shows'
                 })
                 .when('/show/:showId?', {
                     templateUrl: 'static/loopr/editor/edit-video-show/edit-youtube-show.html',
                     controller: 'EditVideoShowCtrl',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    activetab: 'shows'
                 })
                 .when('/strip', {
                     controller: 'EditStripCtrl',
                     templateUrl: 'static/loopr/editor/edit-strip/edit-strip.html',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    activetab: 'strip'
                 })
                 .when('/login', {
                     templateUrl: 'static/loopr/editor/login/login.html',
                     controller: 'CreateUserCtrl',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    activetab: 'login'
                 })
                 .otherwise({
                     redirectTo: '/shows'
@@ -36,8 +40,9 @@
                 .setStorageType('localStorage')
                 .setNotify(true, true);
         }])
-        .run(['login', function(login) {
+        .run(['login', '$rootScope', '$route', function(login, $rootScope, $route) {
             login.login();
+            $rootScope.$route = $route;
         }])
         .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
         function(Restangular, localStorageService, Accounts, $rootScope, $location) {

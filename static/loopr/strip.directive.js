@@ -16,7 +16,7 @@
                 h = checkTime(today.getHours()),
                 m = checkTime(today.getMinutes());
                 vm.time = h + ":" + m;
-        }, 500);
+        }, 2000);
     }
 
     angular.module('loopr.strip', [])
