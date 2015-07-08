@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
         {% assets filters="less", output="gen/loopr-editor.css", depends="loopr/**/*.less",
-            "loopr/editor/styles/main.less"
+            "loopr/editor/main.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
@@ -22,7 +22,19 @@
     </head>
     <body>
 
-        <div ng-include="'static/loopr/editor/partials/menu.html'"></div>
+        <nav class="left">
+            <div class="wrapper">
+                <div class="logo">L8pR</div>
+                <h3>LOOP</h3>
+                <div class=""><a href="/#/shows">Shows</a></div>
+                <div class=""><a href="/#/strip">Strip</a></div>
+                <h3>Account</h3>
+                <div class=""><a ng-href="/#/loop/{{'{{'}} user.username {{'}}'}}">{{'{{'}} user.username {{'}}'}}</a></div>
+
+                <div class="" ng-show="user"><a ng-click="logout()">Log out</a></div>
+                <div class="" ng-hide="user"><a href="/#/login">Login</a></div>
+            </div>
+        </nav>
 
         <div ng-view></div>
 
@@ -42,11 +54,11 @@
         {% endassets %}
         {% assets output="gen/loopr-editor.js",
             "loopr/editor/main.js",
-            "loopr/editor/shows.ctrl.js",
-            "loopr/editor/video-show.ctrl.js",
-            "loopr/editor/edit-strip.ctrl.js",
-            "loopr/editor/loop.ctrl.js",
-            "loopr/editor/login.ctrl.js",
+            "loopr/editor/shows-list/shows.ctrl.js",
+            "loopr/editor/edit-video-show/video-show.ctrl.js",
+            "loopr/editor/edit-strip/edit-strip.ctrl.js",
+            "loopr/editor/loop/loop.ctrl.js",
+            "loopr/editor/login/login.ctrl.js",
             "loopr/api.service.js",
             "loopr/strip.directive.js"
         %}

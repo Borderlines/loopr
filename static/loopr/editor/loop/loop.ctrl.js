@@ -55,7 +55,7 @@
         return {
             controller: 'LoopCtrl',
             controllerAs: 'loopCtrl',
-            templateUrl: 'static/loopr/editor/partials/loop.html'
+            templateUrl: 'static/loopr/editor/loop/loop.html'
         }
     });
 

@@ -7,21 +7,21 @@
                 $routeProvider
                 .when('/shows', {
                     controller: 'ShowsCtrl',
-                    templateUrl: 'static/loopr/editor/partials/shows-list.html',
+                    templateUrl: 'static/loopr/editor/shows-list/shows-list.html',
                     controllerAs: 'vm'
                 })
                 .when('/show/:showId?', {
-                    templateUrl: 'static/loopr/editor/partials/edit-youtube-show.html',
+                    templateUrl: 'static/loopr/editor/edit-video-show/edit-youtube-show.html',
                     controller: 'EditVideoShowCtrl',
                     controllerAs: 'vm'
                 })
                 .when('/strip', {
                     controller: 'EditStripCtrl',
-                    templateUrl: 'static/loopr/editor/partials/edit-strip.html',
+                    templateUrl: 'static/loopr/editor/edit-strip/edit-strip.html',
                     controllerAs: 'vm'
                 })
                 .when('/login', {
-                    templateUrl: 'static/loopr/editor/partials/login.html',
+                    templateUrl: 'static/loopr/editor/login/login.html',
                     controller: 'CreateUserCtrl',
                     controllerAs: 'vm'
                 })
