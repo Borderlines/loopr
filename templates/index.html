@@ -25,9 +25,10 @@
         <nav class="left">
             <div class="wrapper">
                 <div class="logo">L8pR</div>
-                <h3>LOOP</h3>
                 <div class="" ng-class="{active: $route.current.activetab == 'shows'}"><a href="/#/shows">Shows</a></div>
                 <div class="" ng-class="{active: $route.current.activetab == 'strip'}"><a href="/#/strip">Strip</a></div>
+                <br/>
+                <div class="">> <a target="_blank" ng-href="/loop/#/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
                 <h3>Account</h3>
                 <div class=""><a ng-href="/#/loop/{{'{{'}} user.username {{'}}'}}">{{'{{'}} user.username {{'}}'}}</a></div>
                 <div class="" ng-show="user"><a ng-click="logout()">Log out</a></div>
