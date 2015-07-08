@@ -12,13 +12,13 @@
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
-        {% assets filters="less", output="gen/loopr-editor.css", depends="loopr/editor/**/**.less",
+        {% assets filters="less", output="gen/loopr-editor.css", depends="loopr/**/*.less",
             "loopr/editor/styles/main.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
         <link href='//fonts.googleapis.com/css?family=Lekton:400,400italic,700' rel='stylesheet' type='text/css'>
-
+        <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
 
@@ -44,9 +44,11 @@
             "loopr/editor/main.js",
             "loopr/editor/shows.ctrl.js",
             "loopr/editor/video-show.ctrl.js",
+            "loopr/editor/edit-strip.ctrl.js",
             "loopr/editor/loop.ctrl.js",
             "loopr/editor/login.ctrl.js",
-            "loopr/api.service.js"
+            "loopr/api.service.js",
+            "loopr/strip.directive.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}

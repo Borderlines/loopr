@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr', ['ngRoute', 'loopr.api', 'angular-embed', 'ngSanitize', 'LocalStorageModule'])
+    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'angular-embed', 'ngSanitize', 'LocalStorageModule'])
         .config(['$routeProvider',
             function($routeProvider) {
                 $routeProvider
@@ -13,6 +13,11 @@
                 .when('/show/:showId?', {
                     templateUrl: 'static/loopr/editor/partials/edit-youtube-show.html',
                     controller: 'EditVideoShowCtrl',
+                    controllerAs: 'vm'
+                })
+                .when('/strip', {
+                    controller: 'EditStripCtrl',
+                    templateUrl: 'static/loopr/editor/partials/edit-strip.html',
                     controllerAs: 'vm'
                 })
                 .when('/login', {
