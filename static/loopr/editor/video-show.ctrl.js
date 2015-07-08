@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', 'Loops', 'login', '$rootScope'];
-    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route, Loops, login, $rootScope) {
+    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', '$rootScope'];
+    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route, $rootScope) {
         var vm = this;
         if (!angular.isDefined($routeParams.showId)) {
             Shows.post({type: 'VideoShow', title: 'Your Show'}).then(function(new_show) {
