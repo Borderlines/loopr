@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr.player', ['ngRoute', 'loopr.api', 'youtube-embed'])
+    angular.module('loopr.player', ['ngRoute', 'loopr.api', 'loopr.strip', 'youtube-embed'])
         .config(['$routeProvider',
             function($routeProvider) {
                 $routeProvider

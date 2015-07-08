@@ -2,3 +2,20 @@ html, body, div[ng-view] {
     height: 100%;
     overflow: hidden;
 }
+
+iframe {
+    position: absolute;
+    z-index: 5;
+}
+
+.strip {
+    position: absolute;
+    z-index: 10;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+
+}
+@import "../../../bower_components/components-font-awesome/less/font-awesome.less";
+@fa-font-path: "/static/bower_components/components-font-awesome/fonts";
+@import "../../styles/strip.less";

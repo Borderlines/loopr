@@ -1,6 +1,30 @@
 <div class="strip-demo">
     <strip></strip>
 </div>
-<div class="content">
-    strip
+<div class="edit-strip content">
+    <form>
+        <h2>Your Strip</h2>
+        <label>Twitter accounts (none = all)
+
+        </label>
+        <input type="text" ng-model="vm.accounts" placeholder="@loopr"/>
+        <button ng-click="vm.addAccounts(vm.accounts)">+ Add</button>
+    </form>
+    <table>
+        <tr>
+            <th>Source</th>
+            <th>Filter</th>
+            <th></th>
+            <th>Rule</th>
+            <th>Ord.</th>
+        </tr>
+        <tr ng-repeat="query in vm.strip.queries">
+            <td class="accounts"><div>{{ $index + 1 }}. {{ query.accounts.join(',&nbsp;') }}</div></td>
+            <td>{{ query.filters.join(', ') }}</td>
+            <td>Twitter</td>
+            <td>{{ query.count }} last</td>
+            <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
+            <td><a ng-click="vm.removeAcount(link)">X</a></td>
+        </tr>
+    </table>
 </div>

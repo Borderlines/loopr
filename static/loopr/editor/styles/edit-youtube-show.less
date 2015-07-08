@@ -1,45 +1,8 @@
 .create-show {
-    table {
-        z-index: 1;
-        position: relative;
-        clear: both;
-        table-layout: fixed;
-    }
-    tr {
-        &:hover {
-            font-weight: bold;
-        }
-        td {
-            padding-right: 20px;
-            padding-bottom: 5px;
-            &:nth-child(4) {
-                white-space:nowrap;
-            }
-            a:nth-child(1) {
-                float:right;
-                padding-left: 10px;
-            }
-            &.title div {
-                max-height: 20px;
-                overflow: hidden;
-            }
-            &.reorder {
-                span {
-                    float: right;
-                    &:first-of-type {
-                        float: left;
-                    }
-                }
-            }
-        }
-    }
     form {
         z-index: 1;
         position: relative;
-        input[type="text"] {
-            float: left;
-            opacity: .8;
-        }
+
     }
     .illustration {
         position: fixed;

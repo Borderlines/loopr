@@ -3,9 +3,10 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval'];
-    function StripCtrl($interval) {
+    StripCtrl.$inject = ['$interval', '$scope'];
+    function StripCtrl($interval, $scope) {
         var vm = this;
+
         // set time
         $interval(function() {
             function checkTime(i) {
@@ -21,7 +22,9 @@
     angular.module('loopr.strip', [])
         .directive('strip', function() {
             return {
-                scope: true,
+                scope: {
+                    title: '='
+                },
                 restrict: 'E',
                 controller: StripCtrl,
                 controllerAs: 'strip',

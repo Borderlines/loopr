@@ -10,9 +10,10 @@
             user: {},
             loop: {},
             youtubeConfig: {
-                // controls: 0,
+                controls: 0,
                 autoplay: 1,
-                showinfo: 0
+                showinfo: 0,
+                wmode: 'opaque'
             },
             playShow: function(show, index) {
                 if (!angular.isDefined(show)) {
