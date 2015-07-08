@@ -12,7 +12,7 @@
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
-        {% assets filters="less", output="gen/loopr-editor.css", depends="loopr/**/*.less",
+        {% assets filters="less", output="gen/loopr-editor.css", depends="loopr/editor/**/**.less",
             "loopr/editor/styles/main.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
