@@ -1,0 +1,66 @@
+(function() {
+    'use strict';
+
+    PlayerCtrl.$inject = ['Shows', 'Loops', 'Accounts', '$location', '$routeParams', '$rootScope'];
+    function PlayerCtrl(Shows, Loops, Accounts, $location, $routeParams, $rootScope) {
+        var vm = this;
+
+        angular.extend(vm, {
+            currentShow: {},
+            user: {},
+            loop: {},
+            youtubeConfig: {
+                // controls: 0,
+                autoplay: 1,
+                showinfo: 0
+            },
+            playShow: function(show) {
+                vm.currentShow = show;
+                if (show.type === 'VideoShow') {
+                    vm.playVideoShow(show);
+                }
+            },
+            playVideoShow: function(show, index) {
+                index = index || 0;
+                vm.currentItem = show.links[index];
+                vm.youtubeUrl = vm.currentItem.url;
+            },
+            nextShow: function() {
+                var current_index = vm.loop.shows.indexOf(vm.currentShow);
+                if (current_index > -1 && current_index + 1 < vm.loop.shows.length) {
+                    var next_show = vm.loop.shows[current_index + 1];
+                    vm.playShow(next_show);
+                }
+
+            },
+            previous: function() {
+
+            }
+        });
+        Accounts.one($routeParams.username).get().then(function(user) {
+            Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
+                vm.loop = loop[0];
+                vm.playShow(vm.loop.shows[0]);
+            });
+        });
+        $rootScope.$on('youtube.player.ended', function ($event, player) {
+            var current_item_index = vm.currentShow.links.indexOf(vm.currentItem);
+            if (vm.currentShow.links.length - 1 > current_item_index) {
+                // next item
+                vm.playVideoShow(vm.currentShow, current_item_index + 1);
+
+            } else {
+                // next show
+                vm.nextShow();
+            }
+
+            vm.currentShow
+            // vm.youtubeUrl = show.links[0].url;
+
+        });
+
+    }
+
+    angular.module('loopr.player').controller('PlayerCtrl', PlayerCtrl);
+
+})();

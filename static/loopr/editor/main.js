@@ -7,16 +7,16 @@
                 $routeProvider
                 .when('/shows', {
                     controller: 'ShowsCtrl',
-                    templateUrl: 'static/loopr/partials/shows-list.html',
+                    templateUrl: 'static/loopr/editor/partials/shows-list.html',
                     controllerAs: 'vm'
                 })
                 .when('/show/:showId?', {
-                    templateUrl: 'static/loopr/partials/edit-youtube-show.html',
+                    templateUrl: 'static/loopr/editor/partials/edit-youtube-show.html',
                     controller: 'EditVideoShowCtrl',
                     controllerAs: 'vm'
                 })
                 .when('/login', {
-                    templateUrl: 'static/loopr/partials/login.html',
+                    templateUrl: 'static/loopr/editor/partials/login.html',
                     controller: 'CreateUserCtrl',
                     controllerAs: 'vm'
                 })

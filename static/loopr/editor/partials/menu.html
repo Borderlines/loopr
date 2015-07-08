@@ -5,7 +5,8 @@
         <div class=""><a href="/#/shows">Shows</a></div>
         <div class=""><a>Strip</a></div>
         <h3>Account</h3>
-        {{ user.username }}
+        <div class=""><a ng-href="/#/loop/{{ user.username }}">{{ user.username }}</a></div>
+
         <div class="" ng-show="user"><a ng-click="logout()">Log out</a></div>
         <div class="" ng-hide="user"><a href="/#/login">Login</a></div>
     </div>

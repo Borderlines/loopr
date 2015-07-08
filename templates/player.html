@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="" ng-app="loopr">
+<html lang="" ng-app="loopr.player">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,8 +12,8 @@
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
-        {% assets filters="less", output="gen/loopr-editor.css", depends="loopr/**/*.less",
-            "loopr/editor/styles/main.less"
+        {% assets filters="less", output="gen/loopr-player.css", depends="loopr/**/*.less",
+            "loopr/player/styles/player.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
@@ -22,10 +22,8 @@
     </head>
     <body>
 
-        <div ng-include="'static/loopr/editor/partials/menu.html'"></div>
-
         <div ng-view></div>
-
+        <script src="https://www.youtube.com/iframe_api"></script>
         {% assets output="gen/vendors.js",
             "bower_components/modernizr/modernizr.js",
             "bower_components/angular/angular.min.js",
@@ -36,16 +34,14 @@
             "bower_components/restangular/dist/restangular.min.js",
             "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "bower_components/angular-embedly/em-minified/angular-embedly.min.js",
-            "bower_components/angular-embed/dist/angular-embed.min.js"
+            "bower_components/angular-embed/dist/angular-embed.min.js",
+            "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}
-        {% assets output="gen/loopr-editor.js",
-            "loopr/editor/main.js",
-            "loopr/editor/shows.ctrl.js",
-            "loopr/editor/video-show.ctrl.js",
-            "loopr/editor/loop.ctrl.js",
-            "loopr/editor/login.ctrl.js",
+        {% assets output="gen/loopr-player.js",
+            "loopr/player/main.js",
+            "loopr/player/player.ctrl.js",
             "loopr/api.service.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>

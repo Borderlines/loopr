@@ -9,11 +9,6 @@ import os
 import datetime
 import re
 from eve.auth import BasicAuth
-# from werkzeug.security import check_password_hash
-# from eve.auth import TokenAuth
-# import bcrypt
-from eve import Eve
-from eve.auth import BasicAuth
 
 
 class BasicAuth(BasicAuth):
@@ -55,7 +50,15 @@ app.register_resource('loops', {
     'auth_field': 'user_id',
     'resource_methods': ['GET', 'POST', 'DELETE'],
     'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
+    'public_methods': ['GET'],
     'schema': {
+        'user_id': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'accounts',
+                'field': '_id'
+            }
+        },
         'shows': {
             'type': 'list',
             'schema': {
@@ -105,7 +108,8 @@ app.register_resource('accounts', {
         'url': 'regex("[\w]+")',
         'field': 'username',
     },
-    'public_methods': ['POST'],
+    'public_methods': ['POST', 'GET'],
+    'public_item_methods': ['GET'],
     # We also disable endpoint caching as we don't want client apps to
     # cache account data.
     'cache_control': '',
@@ -136,6 +140,11 @@ app.on_inserted_accounts += post_accounts_inserted_callback
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/loop')
+def player():
+    return render_template('player.html')
 
 if __name__ == '__main__':
     debug = True
