@@ -9,6 +9,7 @@ import os
 import datetime
 import re
 from eve.auth import BasicAuth
+from urllib.parse import urlparse
 
 
 class BasicAuth(BasicAuth):
@@ -74,13 +75,36 @@ app.register_resource('loops', {
 })
 
 
+def video_id(value):
+    """
+    Examples:
+    - http://youtu.be/SA2iWivDJiE
+    - http://www.youtube.com/watch?v=_oPAwA_Udwc&feature=feedu
+    - http://www.youtube.com/embed/SA2iWivDJiE
+    - http://www.youtube.com/v/SA2iWivDJiE?version=3&amp;hl=en_US
+    """
+    query = urlparse(value)
+    if query.hostname == 'youtu.be':
+        return query.path[1:]
+    if query.hostname in ('www.youtube.com', 'youtube.com'):
+        if query.path == '/watch':
+            p = urlparse.parse_qs(query.query)
+            return p['v'][0]
+        if query.path[:7] == '/embed/':
+            return query.path.split('/')[2]
+        if query.path[:3] == '/v/':
+            return query.path.split('/')[2]
+    # fail?
+    return None
+
+
 def post_shows_put_callback(item, original):
     for link in item.get('links', []):
-        if not link.get('duration', False) and 'https://www.youtube.com/watch?v=' in link.get('url'):
+        if not link.get('duration', False) and 'youtu' in link.get('url'):
             youtube = build('youtube', 'v3', developerKey=app.config.get('GOOGLE_API_KEY'))
             search_response = youtube.videos().list(
                 part='contentDetails',
-                id=link.get('url').replace('https://www.youtube.com/watch?v=', ''),
+                id=video_id(link.get('url')),
                 maxResults=1
             ).execute()
             result = search_response.get("items", [])
