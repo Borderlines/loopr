@@ -65,7 +65,7 @@
                     // previous item
                     self.playShow(self.currentShow, current_item_index - 1);
                 } else {
-                    // previous show
+                    // previous show and last item
                     self.previousShow(true);
                 }
             },
