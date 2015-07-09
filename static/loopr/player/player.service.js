@@ -89,6 +89,11 @@
                 return self.playShow(self.loop.shows[previous_show], index);
             }
         });
+
+        $rootScope.$on('player.previousShow', self.previousShow);
+        $rootScope.$on('player.previousItem', self.previousItem);
+        $rootScope.$on('player.nextItem', self.nextItem);
+        $rootScope.$on('player.nextShow', self.nextShow);
         return self;
     }
 

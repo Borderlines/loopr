@@ -3,12 +3,23 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', 'Player'];
-    function StripCtrl($interval, $scope, Player) {
+    StripCtrl.$inject = ['$interval', '$rootScope'];
+    function StripCtrl($interval, $scope) {
         var vm = this;
 
         angular.extend(vm, {
-            Player: Player
+            previousShow: function() {
+                $scope.$broadcast('player.previousShow');
+            },
+            previousItem: function() {
+                $scope.$broadcast('player.previousItem');
+            },
+            nextItem: function() {
+                $scope.$broadcast('player.nextItem');
+            },
+            nextShow: function() {
+                $scope.$broadcast('player.nextShow');
+            }
         })
 
         // set time
