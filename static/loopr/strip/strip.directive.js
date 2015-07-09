@@ -28,7 +28,7 @@
                 restrict: 'E',
                 controller: StripCtrl,
                 controllerAs: 'strip',
-                templateUrl: '/static/loopr/partials/strip.html'
+                templateUrl: '/static/loopr/strip/strip.html'
             }
         });
 

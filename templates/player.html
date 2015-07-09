@@ -7,11 +7,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        {% assets output="gen/vendors.css",
-            "loopr/styles/normalize.css"
-        %}
-        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
-        {% endassets %}
         {% assets filters="less", output="gen/loopr-player.css", depends="loopr/**/*.less",
             "loopr/player/styles/player.less"
         %}
@@ -43,7 +38,7 @@
             "loopr/player/main.js",
             "loopr/player/player.ctrl.js",
             "loopr/api.service.js",
-            "loopr/strip.directive.js"
+            "loopr/strip/strip.directive.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}
