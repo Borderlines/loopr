@@ -8,19 +8,11 @@
         var vm = this;
 
         angular.extend(vm, {
-            previousShow: function() {
-                $scope.$broadcast('player.previousShow');
-            },
-            previousItem: function() {
-                $scope.$broadcast('player.previousItem');
-            },
-            nextItem: function() {
-                $scope.$broadcast('player.nextItem');
-            },
-            nextShow: function() {
-                $scope.$broadcast('player.nextShow');
-            }
-        })
+            previousShow: function() {$scope.$broadcast('player.previousShow');},
+            previousItem: function() {$scope.$broadcast('player.previousItem');},
+            nextItem: function() {$scope.$broadcast('player.nextItem');},
+            nextShow: function() {$scope.$broadcast('player.nextShow');}
+        });
 
         // set time
         $interval(function() {
@@ -32,6 +24,7 @@
                 m = checkTime(today.getMinutes());
                 vm.time = h + ":" + m;
         }, 2000);
+
     }
 
     angular.module('loopr.strip', [])
@@ -39,6 +32,7 @@
             return {
                 scope: {
                     title: '=',
+                    progression: '=',
                     logo: '='
                 },
                 restrict: 'E',

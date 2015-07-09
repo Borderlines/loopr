@@ -7,14 +7,16 @@
         height: 5px;
         background: white;
         width: 100%;
+        position: relative;
         .progress-bar {
             height: 5px;
             margin-right: 106px;
             background-color: #E0DDDB;
             .progression {
+                transition-duration: 1s;
+                transition-property: width;
                 background-color: #AEAEAE;
                 height: 100%;
-                width: 50%;
             }
         }
         .navigation {
