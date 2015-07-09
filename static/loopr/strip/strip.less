@@ -3,9 +3,50 @@
     margin:0 auto;
     font-size: 1.5em;
     font-family: 'Montserrat', sans-serif;
+    .controllers {
+        height: 5px;
+        background: white;
+        width: 100%;
+        .progress-bar {
+            height: 5px;
+            margin-right: 106px;
+            background-color: #E0DDDB;
+            .progression {
+                background-color: #AEAEAE;
+                height: 100%;
+                width: 50%;
+            }
+        }
+        .navigation {
+            position: absolute;
+            right:0;
+            top: -13px;
+            font-size: .6em;
+            background-color: white;
+            > div {
+                cursor: pointer;
+                background-color: #EDEDED;
+                padding:0 5px;
+                display: inline-block;
+                &:hover {
+                    background-color: #B3AEAE;
+                }
+            }
+        }
+    }
     .upper-strip {
         background: white;
         padding:20px;
+        position: relative;
+        .logo {
+            position: absolute;
+            right: 10px;
+            top: 6px;
+            font-size: 2em;
+        }
+        .body {
+            margin-right: 40px;
+        }
     }
     .lower-strip {
         color: white;

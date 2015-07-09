@@ -1,6 +1,16 @@
 <div class="strip">
+    <div class="controllers">
+        <div class="progress-bar"><div class="progression"></div></div>
+        <div class="navigation">
+            <div ng-click="strip.Player.previousShow()"><i class="fa fa-fast-backward"></i></div>
+            <div ng-click="strip.Player.previousItem()"><i class="fa fa-backward"></i></div>
+            <div ng-click="strip.Player.nextItem()"><i class="fa fa-forward"></i></div>
+            <div ng-click="strip.Player.nextShow()"><i class="fa fa-fast-forward"></i></div>
+        </div>
+    </div>
     <div class="upper-strip">
-        {{ title }}
+        <div class="body">{{ title }}</div>
+        <div class="logo"><i class="fa {{ logo }}"></i></div>
     </div>
     <div class="lower-strip">
         <div class="logo">

@@ -3,9 +3,13 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope'];
-    function StripCtrl($interval, $scope) {
+    StripCtrl.$inject = ['$interval', '$scope', 'Player'];
+    function StripCtrl($interval, $scope, Player) {
         var vm = this;
+
+        angular.extend(vm, {
+            Player: Player
+        })
 
         // set time
         $interval(function() {
@@ -23,7 +27,8 @@
         .directive('strip', function() {
             return {
                 scope: {
-                    title: '='
+                    title: '=',
+                    logo: '='
                 },
                 restrict: 'E',
                 controller: StripCtrl,
