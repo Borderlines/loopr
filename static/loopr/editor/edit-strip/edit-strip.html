@@ -1,5 +1,5 @@
 <div class="strip-demo">
-    <strip title="'Current Title Show'" logo="'fa-youtube-square'"></strip>
+    <strip lines="['Les shows à ne pas louper', 'Pour looper ce que t\'as loupé', 'Loopr']" logo="'fa-youtube-square'" progression="50"></strip>
 </div>
 <div class="edit-strip content">
     <form>
@@ -7,7 +7,7 @@
         <label>Twitter accounts (none = all)
 
         </label>
-        <input type="text" ng-model="vm.accounts" placeholder="@loopr"/>
+        <input type="text" ng-model="vm.accounts" placeholder="#japanspirits from:hejorama OR from:vied12"/>
         <button ng-click="vm.addAccounts(vm.accounts)">+ Add</button>
     </form>
     <table>

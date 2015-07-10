@@ -22,6 +22,7 @@
         <script src="https://www.youtube.com/iframe_api"></script>
         {% assets output="gen/vendors.js",
             "bower_components/modernizr/modernizr.js",
+            "bower_components/jquery/dist/jquery.min.js",
             "bower_components/angular/angular.min.js",
             "bower_components/angular-route/angular-route.min.js",
             "bower_components/angular-resource/angular-resource.min.js",
@@ -31,8 +32,7 @@
             "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "bower_components/angular-embedly/em-minified/angular-embedly.min.js",
             "bower_components/angular-embed/dist/angular-embed.min.js",
-            "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js",
-            "bower_components/jquery/dist/jquery.min.js"
+            "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}

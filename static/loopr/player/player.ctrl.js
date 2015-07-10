@@ -21,13 +21,13 @@
             Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 Player.setLoop(loop[0]);
                 Player.playShow();
-                var underlines = [];
-                loop[0].strip_queries.forEach(function(query) {
-                    query.results.forEach(function(tweet) {
-                        underlines.push('@'+tweet.user.name+': '+tweet.text);
-                    });
-                });
-                vm.underlines = underlines;
+                // var underlines = [];
+                // loop[0].strip_queries.forEach(function(query) {
+                //     query.results.forEach(function(tweet) {
+                //         underlines.push('@'+tweet.user.name+': '+tweet.text);
+                //     });
+                // });
+                // vm.underlines = underlines;
             });
         });
         $rootScope.$on('youtube.player.error', function() {

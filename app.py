@@ -131,7 +131,7 @@ app.on_replace_shows += pre_shows_put_callback
 def pre_loops_put_callback(item, original):
     if 'strip_queries' in item:
         for query in item['strip_queries']:
-            if len(query.get('results', [])) < 1:
+            if len(query.get('results', []) or []) < 1:
                 results = search_twitter(query['accounts'])
                 query['results'] = results
 
@@ -200,7 +200,9 @@ def search_twitter(query):
         access_token=app.config.get('TWITTER_ACCESS_TOKEN'),
         access_token_secret=app.config.get('TWITTER_ACCESS_TOKEN_SECRET')
     )
-    return [ts.search_tweets_iterable(tso).next() for x in range(5)]
+    import itertools
+    return list(itertools.islice(ts.search_tweets_iterable(tso), 0, 5))
+
 
 if __name__ == '__main__':
     debug = True

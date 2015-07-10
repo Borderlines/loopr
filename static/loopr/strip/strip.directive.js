@@ -3,15 +3,25 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout'];
-    function StripCtrl($interval, $scope, $rootScope, $timeout) {
+    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops', 'login'];
+    function StripCtrl($interval, $scope, $rootScope, $timeout, Loops, login) {
         var vm = this;
 
         angular.extend(vm, {
+            underlines: [],
             previousShow: function() {$rootScope.$broadcast('player.previousShow');},
             previousItem: function() {$rootScope.$broadcast('player.previousItem');},
             nextItem: function() {$rootScope.$broadcast('player.nextItem');},
             nextShow: function() {$rootScope.$broadcast('player.nextShow');}
+        });
+        Loops.getList({where: {user_id: login.user._id}}).then(function(loop) {
+            var underlines = [];
+            loop[0].strip_queries.forEach(function(query) {
+                query.results.forEach(function(tweet) {
+                    underlines.push('@'+tweet.user.name+': '+tweet.text);
+                });
+            });
+            vm.underlines = underlines;
         });
         // Texts
         var animations = [];
@@ -37,7 +47,8 @@
         });
         // underlines
         var underline_animations = [];
-        $scope.$watch('underlines', function(underlines, old_value) {
+        $scope.$watch(angular.bind(this, function () {return this.underlines;}),
+        function(underlines, old_value) {
             if (!underlines) {return;}
             underline_animations.forEach(function(animation) {
                 $timeout.cancel(animation);

@@ -34,49 +34,9 @@
                 });
             }
         ])
-        .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
-            localStorageServiceProvider
-                .setPrefix('loopr')
-                .setStorageType('localStorage')
-                .setNotify(true, true);
-        }])
         .run(['login', '$rootScope', '$route', function(login, $rootScope, $route) {
             login.login();
             $rootScope.$route = $route;
-        }])
-        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
-        function(Restangular, localStorageService, Accounts, $rootScope, $location) {
-            var user = localStorageService.get('user');
-            var service = {
-                login: function(username, password) {
-                    if (angular.isDefined(username)) {
-                        localStorageService.set('auth', btoa(username + ":" + password));
-                    } else if (user) {
-                        username = user.username;
-                    }
-                    if (angular.isDefined(username)) {
-                        Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
-                        return Accounts.one(username).get().then(function(data) {
-                            localStorageService.set('user', data);
-                            service.user = data;
-                            $rootScope.user = data;
-                            return service.user;
-                        });
-                    }
-                },
-                logout: function() {
-                    localStorageService.remove('user');
-                    localStorageService.remove('auth');
-                    Restangular.setDefaultHeaders({'Authorization':''});
-                    service.user = null;
-                    $rootScope.user = null;
-                    $location.url('/');
-                },
-                auth: localStorageService.get('auth'),
-                user: user
-            };
-            $rootScope.logout = service.logout;
-            return service;
         }])
         .directive('contenteditable', ['$sce', function($sce) {
             return {
