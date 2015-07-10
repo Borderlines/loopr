@@ -24,7 +24,7 @@
                 var underlines = [];
                 loop[0].strip_queries.forEach(function(query) {
                     query.results.forEach(function(tweet) {
-                        underlines.push(tweet.text);
+                        underlines.push('@'+tweet.user.name+': '+tweet.text);
                     });
                 });
                 vm.underlines = underlines;
@@ -49,7 +49,7 @@
         $rootScope.$on('player.play', function ($event, item, show) {
             $interval.cancel(vm.progressionTracker);
             vm.progression = 0;
-            vm.lines = [item.title, show.title, item.title];
+            vm.lines = [item.title, 'Show ' + '<b>'+show.title+'</b>', item.title];
             if (item.provider_name === 'YouTube') {
                 vm.youtubeUrl = item.url;
             }
