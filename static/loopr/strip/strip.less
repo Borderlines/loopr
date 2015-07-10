@@ -1,18 +1,18 @@
 .strip {
     width: 94%;
-    margin: 0px auto 30px auto;
-    font-size: 1.5em;
+    margin: 0px auto 40px auto;
+    font-size: 1.4em;
     font-family: 'Montserrat', sans-serif;
     .controllers {
         height: 5px;
         background: white;
         width: 100%;
         position: relative;
+        opacity: 0.9;
         .progress-bar {
             height: 5px;
             margin-right: 85px;
             background-color: #E0DDDB;
-            opacity: 0.8;
             .progression {
                 transition-duration: 1s;
                 transition-property: width;
@@ -39,20 +39,22 @@
                 &:hover {
                     background-color: #00A99D;
                     opacity: 0.75;
+                    color: #FFF;
                 }
             }
         }
     }
     .upper-strip {
         background: white;
-        padding:20px;
+        padding:15px;
+        padding-left: 25px;
         position: relative;
-        opacity: 0.95;
+        opacity: 0.90;
         .logo {
             position: absolute;
-            right: 10px;
-            top: 6px;
-            font-size: 2em;
+            right: 20px;
+            top: 8px;
+            font-size: 1.5em;
         }
             overflow: hidden;
         .body {
@@ -64,28 +66,32 @@
     }
     .lower-strip {
         color: white;
-        padding: 10px;
+        padding: 12px;
         position: relative;
-        background-color: black;
+        background-color: #222;
         opacity: 0.95;
         .body {
             font-family: 'Lekton';
             opacity: .8;
             margin-right: 74px;
-            margin-left: 34px;
-            font-size: 0.6em;
-            line-height: 1.2em;
+            margin-left: 48px;
+            margin-top: 4px;
+            font-size: 0.7em;
+            line-height: 1.4em;
             .strip-underline {
                 position: relative;
             }
         }
         .logo {
             float: left;
+            margin-left: 10px;
         }
         .time {
             position: absolute;
-            top: 11px;
-            right: 10px;
+            top: 12px;
+            right: 20px;
+            font-size: 0.8em;
+            font-weight: 400;
         }
     }
 }
