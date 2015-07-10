@@ -8,7 +8,7 @@
             progressionTracker: undefined,
             progression: 0,
             lines: [],
-            underlines: [],
+            // underlines: [],
             Player: Player,
             youtubeConfig: {
                 controls: 0,
@@ -17,10 +17,11 @@
                 wmode: 'opaque'
             }
         });
-        Accounts.one($routeParams.username).get().then(function(user) {
-            Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
+        vm.loop = Accounts.one($routeParams.username).get().then(function(user) {
+            return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 Player.setLoop(loop[0]);
                 Player.playShow();
+                return loop[0];
                 // var underlines = [];
                 // loop[0].strip_queries.forEach(function(query) {
                 //     query.results.forEach(function(tweet) {
