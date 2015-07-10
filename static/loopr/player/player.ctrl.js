@@ -21,16 +21,25 @@
                 Player.playShow();
             });
         });
-        $rootScope.$on('youtube.player.error', Player.nextItem);
-        $rootScope.$on('youtube.player.ended', Player.nextItem);
+        $rootScope.$on('youtube.player.error', function() {
+            $interval.cancel(vm.progressionTracker);
+            vm.progression = 0;
+            Player.nextItem();
+        });
+        $rootScope.$on('youtube.player.ended', function() {
+            $interval.cancel(vm.progressionTracker);
+            vm.progression = 0;
+            Player.nextItem();
+        });
         $rootScope.$on('youtube.player.playing', function(e, player) {
             vm.progressionTracker = $interval(function() {
                 vm.progression = (player.getCurrentTime() / player.getDuration()) * 100;
             }, 250);
         });
-        $rootScope.$on('player.play', function ($event, item) {
+        $rootScope.$on('player.play', function ($event, item, show) {
             $interval.cancel(vm.progressionTracker);
             vm.progression = 0;
+            vm.lines = [item.title, show.title, item.title];
             if (item.provider_name === 'YouTube') {
                 vm.youtubeUrl = item.url;
             }
