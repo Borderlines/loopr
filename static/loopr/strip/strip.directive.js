@@ -13,7 +13,7 @@
             nextItem: function() {$rootScope.$broadcast('player.nextItem');},
             nextShow: function() {$rootScope.$broadcast('player.nextShow');}
         });
-
+        // Texts
         var animations = [];
         $scope.$watch('lines', function(lines, old_value) {
             if (!lines) {return;}
@@ -21,24 +21,21 @@
                 $timeout.cancel(animation);
             });
             lines.forEach(function(line, index) {
-                // (function(line) {
-                    animations.push($timeout(function() {
+                animations.push($timeout(function() {
+                    $('.strip-line').stop().animate({
+                        top: -70
+                        // opacity: 0
+                    }, 1000, function() {
+                        $(this).html(line);
                         $('.strip-line').stop().animate({
-                            top: -70
-                            // opacity: 0
-                        }, 1000, function() {
-                            $(this).html(line);
-                            $('.strip-line').stop().animate({
-                                // opacity: 1,
-                                top: 0
-                            }, 1000);
-                        });
-                    }, 10000 * index));
-                // })(line);
+                            // opacity: 1,
+                            top: 0
+                        }, 1000);
+                    });
+                }, 10000 * index));
             });
         });
-
-        // set time
+        // Set Time
         $interval(function() {
             function checkTime(i) {
                 return (i < 10) ? "0" + i : i;

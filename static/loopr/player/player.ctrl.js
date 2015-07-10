@@ -32,6 +32,7 @@
             Player.nextItem();
         });
         $rootScope.$on('youtube.player.playing', function(e, player) {
+            $interval.cancel(vm.progressionTracker);
             vm.progressionTracker = $interval(function() {
                 vm.progression = (player.getCurrentTime() / player.getDuration()) * 100;
             }, 250);
