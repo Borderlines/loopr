@@ -1,32 +1,43 @@
 (function() {
     'use strict';
 
-    EditStripCtrl.$inject = ['Shows', '$location', 'login', '$rootScope'];
-    function EditStripCtrl(Shows, $location, login, $rootScope) {
+    EditStripCtrl.$inject = ['Shows', '$location', 'login', '$rootScope', 'Loops'];
+    function EditStripCtrl(Shows, $location, login, $rootScope, Loops) {
         var vm = this;
         if (!login.user) {
             return $location.url('/login');
         }
         angular.extend(vm, {
-            strip: {
-                queries: [{
-                    accounts: ['@vied12', 'hejorama'],
-                    count: 9,
-                    filters: ['#mlf', '#japan']
-                },{
-                    accounts: ['@vied12', 'hejorama'],
-                    count: 9,
-                    filters: ['#mlf', '#japan']
-                },{
-                    accounts: ['@vied12', 'hejorama'],
-                    count: 9,
-                    filters: ['#mlf', '#japan']
-                }]
+            loop: {},
+            deleteQuery: function(index) {
+                var loop = vm.loop.clone();
+                loop.strip_queries.splice(index, 1);
+                loop.save();
+                vm.refresh();
             },
             addAccounts: function(accounts) {
-
+                accounts = accounts.split(' ');
+                var query = {
+                    accounts: accounts,
+                    count: 5,
+                    filters: []
+                };
+                var loop = vm.loop.clone();
+                if (!angular.isDefined(loop.strip_queries)) {
+                    loop.strip_queries = [];
+                }
+                loop.strip_queries.push(query);
+                loop.save().then(function(loop) {
+                    vm.refresh();
+                });
+            },
+            refresh: function() {
+                Loops.getList({where: {user_id: login.user._id}}).then(function(loop) {
+                    vm.loop = loop[0];
+                });
             }
-        })
+        });
+        vm.refresh();
     }
 
     angular.module('loopr').controller('EditStripCtrl', EditStripCtrl);

@@ -10,3 +10,4 @@ simplejson==3.7.3
 webassets==0.10.1
 google-api-python-client==1.4.1
 bcrypt==2.0.0
+TwitterSearch==1.0.1

@@ -70,6 +70,12 @@ app.register_resource('loops', {
                     'embeddable': True
                 }
             }
+        },
+        'strip_queries': {
+            'type': 'list',
+            'schema': {
+                'type': 'dict'
+            }
         }
     }
 })
@@ -98,9 +104,9 @@ def video_id(value):
     return None
 
 
-def post_shows_put_callback(item, original):
+def pre_shows_put_callback(item, original):
     for link in item.get('links', []):
-        if not link.get('duration', False) and 'youtu' in link.get('url'):
+        if not link.get('duration', False) and link.get('provider_name', None) == 'YouTube':
             youtube = build('youtube', 'v3', developerKey=app.config.get('GOOGLE_API_KEY'))
             search_response = youtube.videos().list(
                 part='contentDetails',
@@ -119,7 +125,17 @@ def post_shows_put_callback(item, original):
             link['duration'] = duration.seconds
 
 
-app.on_replace_shows += post_shows_put_callback
+app.on_replace_shows += pre_shows_put_callback
+
+
+def pre_loops_put_callback(item, original):
+    if 'strip_queries' in item:
+        for query in item['strip_queries']:
+            if len(query.get('results', [])) < 1:
+                results = search_twitter(query['accounts'])
+                query['results'] = results
+
+app.on_replace_loops += pre_loops_put_callback
 
 app.register_resource('accounts', {
     'datasource': {
@@ -169,6 +185,22 @@ def index():
 @app.route('/loop')
 def player():
     return render_template('player.html')
+
+
+def search_twitter(query):
+    from TwitterSearch import TwitterSearch, TwitterSearchOrder
+    tso = TwitterSearchOrder()
+    tso.set_keywords(query)
+    # tso.set_language('en')
+    tso.set_include_entities(False)
+    # it's about time to create a TwitterSearch object with our secret tokens
+    ts = TwitterSearch(
+        consumer_key=app.config.get('TWITTER_CONSUMER_KEY'),
+        consumer_secret=app.config.get('TWITTER_CONSUMER_SECRET'),
+        access_token=app.config.get('TWITTER_ACCESS_TOKEN'),
+        access_token_secret=app.config.get('TWITTER_ACCESS_TOKEN_SECRET')
+    )
+    return [ts.search_tweets_iterable(tso).next() for x in range(5)]
 
 if __name__ == '__main__':
     debug = True

@@ -35,6 +35,28 @@
                 }, 10000 * index));
             });
         });
+        // underlines
+        var underline_animations = [];
+        $scope.$watch('underlines', function(underlines, old_value) {
+            if (!underlines) {return;}
+            underline_animations.forEach(function(animation) {
+                $timeout.cancel(animation);
+            });
+            underlines.forEach(function(line, index) {
+                underline_animations.push($timeout(function() {
+                    $('.strip-underline').stop().animate({
+                        bottom: -70
+                        // opacity: 0
+                    }, 1000, function() {
+                        $(this).html(line);
+                        $('.strip-underline').stop().animate({
+                            // opacity: 1,
+                            bottom: 0
+                        }, 1000);
+                    });
+                }, 15000 * index));
+            });
+        });
         // Set Time
         $interval(function() {
             function checkTime(i) {
@@ -53,6 +75,7 @@
                 scope: {
                     title: '=',
                     lines: '=',
+                    underlines: '=',
                     progression: '=',
                     logo: '='
                 },

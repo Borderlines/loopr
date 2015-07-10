@@ -18,13 +18,13 @@
             <th>Rule</th>
             <th>Ord.</th>
         </tr>
-        <tr ng-repeat="query in vm.strip.queries">
+        <tr ng-repeat="query in vm.loop.strip_queries">
             <td class="accounts"><div>{{ $index + 1 }}. {{ query.accounts.join(',&nbsp;') }}</div></td>
             <td>{{ query.filters.join(', ') }}</td>
             <td>Twitter</td>
             <td>{{ query.count }} last</td>
             <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
-            <td><a ng-click="vm.removeAcount(link)">X</a></td>
+            <td><a ng-click="vm.deleteQuery($index)">X</a></td>
         </tr>
     </table>
 </div>
