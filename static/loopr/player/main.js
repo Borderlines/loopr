@@ -9,6 +9,16 @@
                     controller: 'PlayerCtrl',
                     templateUrl: '/static/loopr/player/partials/player.html',
                     controllerAs: 'vm'
+                })
+                .when('/:username/:show', {
+                    controller: 'PlayerCtrl',
+                    templateUrl: '/static/loopr/player/partials/player.html',
+                    controllerAs: 'vm'
+                })
+                .when('/:username/:show/:item', {
+                    controller: 'PlayerCtrl',
+                    templateUrl: '/static/loopr/player/partials/player.html',
+                    controllerAs: 'vm'
                 });
             }
         ]);

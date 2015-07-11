@@ -1,14 +1,13 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Shows', 'Loops', 'Accounts', '$routeParams', '$rootScope', '$interval'];
-    function PlayerCtrl(Player, Shows, Loops, Accounts, $routeParams, $rootScope, $interval) {
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Accounts', '$routeParams', '$rootScope', '$interval', '$location'];
+    function PlayerCtrl(Player, Loops, Accounts, $routeParams, $rootScope, $interval, $location) {
         var vm = this;
         angular.extend(vm, {
             progressionTracker: undefined,
             progression: 0,
             lines: [],
-            // underlines: [],
             Player: Player,
             youtubeConfig: {
                 controls: 0,
@@ -20,7 +19,8 @@
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 Player.setLoop(loop[0]);
-                Player.playShow();
+                var show = loop[0].shows.find(function(show) { return show._id === $routeParams.show;});
+                Player.playShow(show, $routeParams.item);
                 vm.loop = loop[0];
                 return loop[0];
             });
@@ -48,6 +48,8 @@
             if (item.provider_name === 'YouTube') {
                 vm.youtubeUrl = item.url;
             }
+            // deep linking
+            $location.path([$routeParams.username, show._id, show.links.indexOf(item)].join('/'));
         });
     }
 
