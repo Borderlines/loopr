@@ -5,8 +5,10 @@
 </youtube-video>
 <strip title="vm.Player.currentItem.title"
        lines="vm.lines"
+       ng-hide="vm.Player.currentShow.settings.hide_strip"
        strip-queries="vm.loop.strip_queries"
        underlines="vm.underlines"
        logo="'fa-youtube-square'"
        progression="vm.progression">
 </strip>
+{{ vm.loop.settings.hide_strip }}

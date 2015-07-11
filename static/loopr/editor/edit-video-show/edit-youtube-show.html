@@ -13,12 +13,12 @@
         <h3>Options</h3>
         <ul>
             <li>
-                <label><input type="checkbox" ng-model="checkboxModel.value2">
+                <label><input type="checkbox" ng-model="vm.show.settings.shuffle" ng-change="vm.saveShow()">
                     Shuffle Mode
                 </label>
             </li>
             <li>
-                <label><input type="checkbox" ng-model="checkboxModel.value1">
+                <label><input type="checkbox" ng-model="vm.settings.hide_strip" ng-change="vm.saveShow()">
                     Hide the STRIP for this show
                 </label>
             </li>

@@ -44,6 +44,9 @@ app.register_resource('shows', {
         'type': {
             'type': 'string',
             'allowed': ['TweetShow', 'VideoShow']
+        },
+        'settings': {
+            'type': 'dict'
         }
     }
 })
