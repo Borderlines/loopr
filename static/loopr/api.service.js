@@ -20,8 +20,8 @@
         return Restangular.service('accounts');
     }
 
-    Loops.$inject = ['Restangular'];
-    function Loops(Restangular) {
+    Loops.$inject = ['Restangular', 'Shows'];
+    function Loops(Restangular, Shows) {
         Restangular.extendModel('loops', function(model) {
             model.duration = function() {
                 if (angular.isDefined(model.shows)) {
@@ -40,46 +40,6 @@
         .factory('Shows', Shows)
         .factory('Loops', Loops)
         .factory('Accounts', Accounts)
-        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
-        function(Restangular, localStorageService, Accounts, $rootScope, $location) {
-            var user = localStorageService.get('user');
-            var service = {
-                login: function(username, password) {
-                    if (angular.isDefined(username)) {
-                        localStorageService.set('auth', btoa(username + ":" + password));
-                    } else if (user) {
-                        username = user.username;
-                    }
-                    if (angular.isDefined(username)) {
-                        Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
-                        return Accounts.one(username).get().then(function(data) {
-                            localStorageService.set('user', data);
-                            service.user = data;
-                            $rootScope.user = data;
-                            return service.user;
-                        });
-                    }
-                },
-                logout: function() {
-                    localStorageService.remove('user');
-                    localStorageService.remove('auth');
-                    Restangular.setDefaultHeaders({'Authorization':''});
-                    service.user = null;
-                    $rootScope.user = null;
-                    $location.url('/');
-                },
-                auth: localStorageService.get('auth'),
-                user: user
-            };
-            $rootScope.logout = service.logout;
-            return service;
-        }])
-        .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
-            localStorageServiceProvider
-                .setPrefix('loopr')
-                .setStorageType('localStorage')
-                .setNotify(true, true);
-        }])
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
             RestangularProvider.setRestangularFields({
