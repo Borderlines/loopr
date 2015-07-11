@@ -14,9 +14,7 @@
             nextItem: function() {$rootScope.$broadcast('player.nextItem');},
             nextShow: function() {$rootScope.$broadcast('player.nextShow');}
         });
-        console.log($scope.loop);
         $scope.loop.then(function(loop) {
-            console.log(2, loop);
             var underlines = [];
             loop.strip_queries.forEach(function(query) {
                 query.results.forEach(function(tweet) {

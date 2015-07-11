@@ -5,13 +5,13 @@
         <ul>
             <li><a ng-click="vm.addToLoopMode()">Add to loop</a></li>
             <li><a ng-click="vm.removeShow()">Delete this show</a></li>
+            <li>Merge this show with another</li>
         </ul>
     </div>
     <div class="block">
         <h3>Options</h3>
         <ul>
             <li>
-
                 <label><input type="checkbox" ng-model="checkboxModel.value2">
                     Shuffle Mode
                 </label>
@@ -35,8 +35,8 @@
     </form>
     <table>
         <tr ng-repeat="link in vm.show.links">
-            <td class="title"><div>{{ $index + 1 }}. {{ link.title }}</div></td>
-            <td>{{ link.provider_name }}</td>
+            <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="{{ link.url }}">{{ link.title }}</a></div></td>
+            <td><i class="fa fa-youtube"></i></td>
             <td>{{ link.duration | seconds }}</td>
             <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
             <td><a ng-click="vm.removeVideo(link)">X</a></td>
