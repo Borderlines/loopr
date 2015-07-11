@@ -39,7 +39,7 @@
                             if (index == underlines.length - 1) {
                                 showUnderlines(underlines);
                             }
-                        }, 4000 * index));
+                        }, 15000 * index));
                     });
                 }
                 showUnderlines(underlines);
