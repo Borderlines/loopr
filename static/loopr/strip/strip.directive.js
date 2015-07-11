@@ -14,8 +14,9 @@
             nextItem: function() {$rootScope.$broadcast('player.nextItem');},
             nextShow: function() {$rootScope.$broadcast('player.nextShow');}
         });
+        // Underlines
+        var underline_animations = [];
         $scope.$watch('stripQueries', function(queries, old_value) {
-
             if (queries) {
                 var underlines = [];
                 queries.forEach(function(query) {
@@ -23,7 +24,19 @@
                         underlines.push('@'+tweet.user.name+': '+tweet.text);
                     });
                 });
-                vm.underlines = underlines;
+                underline_animations.forEach($timeout.cancel);
+                underlines.forEach(function(line, index) {
+                    underline_animations.push($timeout(function() {
+                        $('.strip-underline').stop().animate({
+                            opacity: 0
+                        }, 1000, function() {
+                            $(this).html(line);
+                            $('.strip-underline').stop().animate({
+                                opacity: 1
+                            }, 1000);
+                        });
+                    }, 15000 * index));
+                });
             }
         });
         // Texts
@@ -46,27 +59,6 @@
                         }, 1000);
                     });
                 }, 10000 * index));
-            });
-        });
-        // underlines
-        var underline_animations = [];
-        $scope.$watch(angular.bind(this, function () {return this.underlines;}),
-        function(underlines, old_value) {
-            if (!underlines) {return;}
-            underline_animations.forEach(function(animation) {
-                $timeout.cancel(animation);
-            });
-            underlines.forEach(function(line, index) {
-                underline_animations.push($timeout(function() {
-                    $('.strip-underline').stop().animate({
-                        opacity: 0
-                    }, 1000, function() {
-                        $(this).html(line);
-                        $('.strip-underline').stop().animate({
-                            opacity: 1
-                        }, 1000);
-                    });
-                }, 15000 * index));
             });
         });
         // Set Time
