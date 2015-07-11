@@ -7,7 +7,7 @@
         angular.extend(vm, {
             progressionTracker: undefined,
             progression: 0,
-            lines: [],
+            lines: undefined,
             Player: Player,
             youtubeConfig: {
                 controls: 0,
@@ -49,7 +49,7 @@
                 vm.youtubeUrl = item.url;
             }
             // deep linking
-            $location.path([$routeParams.username, show._id, show.links.indexOf(item)].join('/'));
+            $location.search({show: show._id, item:show.links.indexOf(item)})
         });
     }
 
