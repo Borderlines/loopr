@@ -25,18 +25,24 @@
                     });
                 });
                 underline_animations.forEach($timeout.cancel);
-                underlines.forEach(function(line, index) {
-                    underline_animations.push($timeout(function() {
-                        $('.strip-underline').stop().animate({
-                            opacity: 0
-                        }, 1000, function() {
-                            $(this).html(line);
+                var showUnderlines = function (underlines) {
+                    underlines.forEach(function(line, index) {
+                        underline_animations.push($timeout(function() {
                             $('.strip-underline').stop().animate({
-                                opacity: 1
-                            }, 1000);
-                        });
-                    }, 15000 * index));
-                });
+                                opacity: 0
+                            }, 1000, function() {
+                                $(this).html(line);
+                                $('.strip-underline').stop().animate({
+                                    opacity: 1
+                                }, 1000);
+                            });
+                            if (index == underlines.length - 1) {
+                                showUnderlines(underlines);
+                            }
+                        }, 4000 * index));
+                    });
+                }
+                showUnderlines(underlines);
             }
         });
         // Texts
