@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Accounts', '$routeParams', '$rootScope', '$interval', '$location'];
-    function PlayerCtrl(Player, Loops, Accounts, $routeParams, $rootScope, $interval, $location) {
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Accounts', '$routeParams', '$rootScope', '$interval', '$location', 'hotkeys', '$scope'];
+    function PlayerCtrl(Player, Loops, Accounts, $routeParams, $rootScope, $interval, $location, hotkeys, $scope) {
         var vm = this;
         angular.extend(vm, {
             progressionTracker: undefined,
@@ -51,7 +51,18 @@
             // deep linking
             $location.search({show: show._id, item:show.links.indexOf(item)})
         });
-    }
+        hotkeys.bindTo($scope)
+        .add({
+            combo: 'right',
+            description: 'next item',
+            callback: vm.Player.nextItem
+        })
+        .add({
+            combo: 'left',
+            description: 'previous item',
+            callback: vm.Player.previousItem
+        });
+}
 
     angular.module('loopr.player').controller('PlayerCtrl', PlayerCtrl);
 

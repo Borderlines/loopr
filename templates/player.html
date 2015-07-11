@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         {% assets filters="less", output="gen/loopr-player.css", depends="/static/loopr/**.less",
-            "loopr/player/styles/player.less"
+            "loopr/player/styles/player.less",
+            "bower_components/angular-hotkeys/build/hotkeys.min.css"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
@@ -34,7 +35,8 @@
             "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "bower_components/angular-embedly/em-minified/angular-embedly.min.js",
             "bower_components/angular-embed/dist/angular-embed.min.js",
-            "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js"
+            "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js",
+            "bower_components/angular-hotkeys/build/hotkeys.min.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}
