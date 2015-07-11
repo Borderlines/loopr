@@ -18,7 +18,7 @@
                 $location.url('/show/' + show._id);
             },
             refreshLoop: function() {
-                Loops.getList({where: {user_id: login.user._id}, embedded:{shows:1}}).then(function(loop) {
+                Loops.getList({where: {user_id: login.user._id}, embedded:{shows:1}, timestamp:Date.now()}).then(function(loop) {
                     vm.loop = loop[0];
                 });
             },
