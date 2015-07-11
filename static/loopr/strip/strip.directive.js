@@ -14,14 +14,17 @@
             nextItem: function() {$rootScope.$broadcast('player.nextItem');},
             nextShow: function() {$rootScope.$broadcast('player.nextShow');}
         });
-        $scope.loop.then(function(loop) {
-            var underlines = [];
-            loop.strip_queries.forEach(function(query) {
-                query.results.forEach(function(tweet) {
-                    underlines.push('@'+tweet.user.name+': '+tweet.text);
+        $scope.$watch('stripQueries', function(queries, old_value) {
+
+            if (queries) {
+                var underlines = [];
+                queries.forEach(function(query) {
+                    query.results.forEach(function(tweet) {
+                        underlines.push('@'+tweet.user.name+': '+tweet.text);
+                    });
                 });
-            });
-            vm.underlines = underlines;
+                vm.underlines = underlines;
+            }
         });
         // Texts
         var animations = [];
@@ -82,7 +85,7 @@
         .directive('strip', function() {
             return {
                 scope: {
-                    loop: '=',
+                    stripQueries: '=',
                     title: '=',
                     lines: '=',
                     underlines: '=',

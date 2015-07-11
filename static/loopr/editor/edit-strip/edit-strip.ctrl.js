@@ -8,7 +8,7 @@
             return $location.url('/login');
         }
         angular.extend(vm, {
-            loop: {},
+            loop: undefined,
             deleteQuery: function(index) {
                 var loop = vm.loop.clone();
                 loop.strip_queries.splice(index, 1);
@@ -32,8 +32,9 @@
                 });
             },
             refresh: function() {
-                Loops.getList({where: {user_id: login.user._id}}).then(function(loop) {
+                return Loops.getList({where: {user_id: login.user._id}}).then(function(loop) {
                     vm.loop = loop[0];
+                    return loop[0];
                 });
             }
         });
