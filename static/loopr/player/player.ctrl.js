@@ -19,7 +19,7 @@
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 Player.setLoop(loop[0]);
-                var show = loop[0].shows.find(function(show) { return show._id === $routeParams.show;});
+                var show = _.find(loop[0].shows, function(show) { return show._id === $routeParams.show;})
                 Player.playShow(show, $routeParams.item);
                 vm.loop = loop[0];
                 return loop[0];
