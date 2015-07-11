@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        {% assets filters="less", output="gen/loopr-player.css", depends="loopr/**/*.less",
+        {% assets filters="less", output="gen/loopr-player.css", depends="/static/loopr/**.less",
             "loopr/player/styles/player.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
