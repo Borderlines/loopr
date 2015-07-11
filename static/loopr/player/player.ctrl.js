@@ -61,6 +61,16 @@
             combo: 'left',
             description: 'previous item',
             callback: vm.Player.previousItem
+        })
+        .add({
+            combo: 'up',
+            description: 'next show',
+            callback: vm.Player.nextShow
+        })
+        .add({
+            combo: 'down',
+            description: 'previous show',
+            callback: vm.Player.previousShow
         });
 }
 
