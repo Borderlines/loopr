@@ -49,9 +49,8 @@
         var animations = [];
         $scope.$watch('lines', function(lines, old_value) {
             if (!lines) {return;}
-            animations.forEach(function(animation) {
-                $timeout.cancel(animation);
-            });
+            animations.forEach($timeout.cancel);
+            animations = [];
             lines.forEach(function(line, index) {
                 animations.push($timeout(function() {
                     $('.strip-line').stop().animate({
