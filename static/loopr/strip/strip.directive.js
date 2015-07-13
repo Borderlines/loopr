@@ -3,8 +3,8 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops'];
-    function StripCtrl($interval, $scope, $rootScope, $timeout, Loops) {
+    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops', '$element'];
+    function StripCtrl($interval, $scope, $rootScope, $timeout, Loops, $element) {
         var vm = this;
 
         angular.extend(vm, {
@@ -28,11 +28,17 @@
                 var showUnderlines = function (underlines) {
                     underlines.forEach(function(line, index) {
                         underline_animations.push($timeout(function() {
-                            $('.strip-underline').stop().animate({
-                                opacity: 0
+                            var wrapper = $element.find('.lower-strip .body');
+                            var text = $element.find('.lower-strip .strip-underline');
+                            wrapper.height(text.height());
+                            $(text).stop().animate({
+                                opacity: 0,
                             }, 1000, function() {
                                 $(this).html(line);
-                                $('.strip-underline').stop().animate({
+                                $(wrapper).animate({
+                                    height: text.height()
+                                });
+                                $(text).stop().animate({
                                     opacity: 1
                                 }, 1000);
                             });
@@ -52,12 +58,18 @@
             animations.forEach($timeout.cancel);
             animations = [];
             lines.forEach(function(line, index) {
+                var wrapper = $element.find('.upper-strip .body');
+                var text = $element.find('.upper-strip .strip-line');
+                wrapper.height(text.height());
                 animations.push($timeout(function() {
                     $('.strip-line').stop().animate({
                         top: -70
                         // opacity: 0
                     }, 1000, function() {
                         $(this).html(line);
+                        $(wrapper).animate({
+                            height: text.height()
+                        });
                         $('.strip-line').stop().animate({
                             // opacity: 1,
                             top: 0
