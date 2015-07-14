@@ -21,7 +21,9 @@
                 var underlines = [];
                 queries.forEach(function(query) {
                     query.results.forEach(function(tweet) {
-                        underlines.push('@'+tweet.user.name+': '+tweet.text);
+                        underlines.push('<a href="https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str +
+                        '" target="_blank"><b>@'+tweet.user.screen_name+'</b> ' +
+                        tweet.text + '</a>');
                     });
                 });
                 underline_animations.forEach($timeout.cancel);
