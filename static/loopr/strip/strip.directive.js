@@ -28,16 +28,11 @@
                 var showUnderlines = function (underlines) {
                     underlines.forEach(function(line, index) {
                         underline_animations.push($timeout(function() {
-                            var wrapper = $element.find('.lower-strip .body');
-                            var text = $element.find('.lower-strip .strip-underline');
-                            wrapper.height(text.height());
+                            var text = $element.find('.lower-strip .wrapper-inner');
                             $(text).stop().animate({
                                 opacity: 0,
                             }, 1000, function() {
                                 $(this).html(line);
-                                $(wrapper).animate({
-                                    height: text.height()
-                                });
                                 $(text).stop().animate({
                                     opacity: 1
                                 }, 1000);
@@ -58,20 +53,13 @@
             animations.forEach($timeout.cancel);
             animations = [];
             lines.forEach(function(line, index) {
-                var wrapper = $element.find('.upper-strip .body');
-                var text = $element.find('.upper-strip .strip-line');
-                wrapper.height(text.height());
+                var text = $element.find('.upper-strip .wrapper-inner');
                 animations.push($timeout(function() {
-                    $('.strip-line').stop().animate({
+                    text.stop().animate({
                         top: -70
-                        // opacity: 0
                     }, 1000, function() {
                         $(this).html(line);
-                        $(wrapper).animate({
-                            height: text.height()
-                        });
-                        $('.strip-line').stop().animate({
-                            // opacity: 1,
+                        text.stop().animate({
                             top: 0
                         }, 1000);
                     });
@@ -90,7 +78,7 @@
         }, 2000);
     }
 
-    angular.module('loopr.strip', [])
+    angular.module('loopr.strip', ['ngSanitize'])
         .directive('strip', function() {
             return {
                 scope: {
@@ -105,7 +93,24 @@
                 controller: StripCtrl,
                 controllerAs: 'strip',
                 templateUrl: '/static/loopr/strip/strip.html'
-            }
+            };
+        })
+        .directive('dynamicHeight', function() {
+            return {
+                restrict: 'A',
+                link: function($scope, element) {
+                    $scope.$watch(function() {
+                        return element.children()[0].offsetHeight;
+                    },
+                    function(value, old) {
+                        if (value === 0 || Math.abs(old - value) < 5 ) {
+                            return;
+                        }
+                        var new_height = Math.max(element.children()[0].offsetHeight, 28);
+                        $(element).css('height', new_height + 'px');
+                    });
+                }
+            };
         });
 
 })();
