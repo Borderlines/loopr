@@ -11,14 +11,15 @@
                 var loop = vm.loop.clone();
                 loop.shows.splice(index, 1);
                 loop.shows = loop.shows.map(function(e) {return e._id;});
-                loop.save();
-                vm.refreshLoop();
+                loop.save().then(function() {
+                    vm.refreshLoop();
+                });
             },
             openShow: function(show) {
                 $location.url('/show/' + show._id);
             },
             refreshLoop: function() {
-                Loops.getList({where: {user_id: login.user._id}, embedded:{shows:1}, timestamp:Date.now()}).then(function(loop) {
+                return Loops.getList({where: {user_id: login.user._id}, embedded:{shows:1}, timestamp:Date.now()}).then(function(loop) {
                     vm.loop = loop[0];
                 });
             },
@@ -30,10 +31,11 @@
                 var loop = vm.loop.clone();
                 loop.shows.splice(index, 0, vm.showToAdd);
                 loop.shows = loop.shows.map(function(e) {return e._id;});
-                loop.save();
-                vm.refreshLoop();
-                vm.addingMode = false;
-                vm.showToAdd = undefined;
+                loop.save().then(function() {
+                    vm.refreshLoop();
+                    vm.addingMode = false;
+                    vm.showToAdd = undefined;
+                });
             }
         });
         vm.refreshLoop();
