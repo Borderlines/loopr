@@ -6,7 +6,7 @@
             <li><a ng-click="vm.addToLoopMode()">Add to loop</a></li>
             <li><a ng-click="vm.removeShow()">Delete this show</a></li>
             <li>Merge this show with another</li>
-            <li><a target="_blank" ng-href="/loop/#/{{user.username}}/?show={{vm.show._id}}">Watch loop from here</a></li>
+            <li><a target="_blank" ng-href="/loop/{{user.username}}/?show={{vm.show._id}}">Watch loop from here</a></li>
         </ul>
     </div>
     <div class="block">
@@ -36,7 +36,7 @@
     </form>
     <table>
         <tr ng-repeat="link in vm.show.links">
-            <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="/loop/#/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a></div></td>
+            <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="/loop/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a></div></td>
             <td><i class="fa fa-youtube"></i></td>
             <td>{{ link.duration | seconds }}</td>
             <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>

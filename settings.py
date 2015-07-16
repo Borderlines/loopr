@@ -10,7 +10,7 @@ import os
 MONGO_DBNAME = 'loopr-dev'
 if os.environ.get('MONGOLAB_URI'):
     MONGO_URI = os.environ.get('MONGOLAB_URI')
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 URL_PREFIX = 'api'
 LESS_BIN = os.environ.get('LESS_BIN')
 RESOURCE_METHODS = ['GET', 'POST', 'DELETE']

@@ -3,10 +3,11 @@
 
 from eve import Eve
 from flask.ext.assets import Environment
-from flask import render_template
+from flask import render_template, request
 import os
 from eve.auth import BasicAuth
 import api
+from bson.objectid import ObjectId
 
 
 class BasicAuth(BasicAuth):
@@ -30,11 +31,22 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/loop')
-def player():
-    return render_template('player.html')
+@app.route('/loop/<username>')
+def player(username=None):
+    user = app.data.driver.db['accounts'].find_one({'username': username})
+    loop = app.data.driver.db['loops'].find({'user_id': user['_id']})[0]
+    nb_show = str(len(loop['shows']))
+    scope = {
+        'user': user,
+        'nb_show': nb_show
+    }
+    if request.args.get('show'):
+        scope['show'] = app.data.driver.db['shows'].find({'_id': ObjectId(request.args.get('show'))})[0]
+    if request.args.get('item'):
+        scope['item'] = scope['show']['links'][int(request.args.get('item'))]
+    return render_template('player.html', **scope)
 
 
 if __name__ == '__main__':
-    debug = True
+    debug = app.config.get('DEBUG')
     app.run(debug=debug, use_reloader=debug)

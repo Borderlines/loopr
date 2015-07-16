@@ -26,9 +26,9 @@
                 <div class="" ng-class="{active: $route.current.activetab == 'shows'}"><a href="/#/shows">Shows</a></div>
                 <div class="" ng-class="{active: $route.current.activetab == 'strip'}"><a href="/#/strip">Strip</a></div>
                 <br/>
-                <div class="">> <a target="_blank" ng-href="/loop/#/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
+                <div class="">>&nbsp;<a target="_blank" ng-href="/loop/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
                 <h3>Account</h3>
-                <div class=""><a ng-href="/#/loop/{{'{{'}} user.username {{'}}'}}">{{'{{'}} user.username {{'}}'}}</a></div>
+                <div class="">{{'{{'}} user.username {{'}}'}}</div>
                 <div class="" ng-show="user"><a ng-click="logout()">Log out</a></div>
                 <div class="" ng-hide="user" ng-class="{active: $route.current.activetab == 'login'}"><a href="/#/login">Login</a></div>
             </div>
