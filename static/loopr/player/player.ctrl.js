@@ -45,7 +45,12 @@
         $rootScope.$on('player.play', function ($event, item, show) {
             $interval.cancel(vm.progressionTracker);
             vm.progression = 0;
-            vm.lines = [item.title, 'Show ' + '<b>'+show.title+'</b>', item.title];
+            var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
+            if (item.subtitle) {
+                lines.push(item.subtitle);
+            }
+            lines.push(item.title);
+            vm.lines = lines;
             if (item.provider_name === 'YouTube') {
                 vm.youtubeUrl = item.url;
             }
