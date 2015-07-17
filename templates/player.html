@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title ng-bind="Player.currentItem.title + ' | LoopR'"></title>
         <meta property="og:title" content="{{ (item and item.title ) or (show and show.title) or user.username + '\'s loop' }}"/>
         <meta property="og:description" content="{{ (show and show.title) or nb_show + ' shows' }}" />
         <meta property="og:site_name" content="LoopR"/>
@@ -11,7 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         {% assets filters="less", output="gen/loopr-player.css", depends="/static/loopr/**.less",
-            "loopr/player/styles/player.less",
+            "loopr/player/styles/player.less"
+        %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
+        {% endassets %}
+        {% assets output="gen/vendors.css",
             "bower_components/angular-hotkeys/build/hotkeys.min.css"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
@@ -19,10 +23,8 @@
         <link href='//fonts.googleapis.com/css?family=Lekton:400,400italic,700' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
     </head>
     <body>
-
         <div ng-view></div>
         <script src="https://www.youtube.com/iframe_api"></script>
         {% assets output="gen/vendors.js",

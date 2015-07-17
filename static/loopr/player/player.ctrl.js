@@ -16,6 +16,7 @@
                 wmode: 'opaque'
             }
         });
+        $rootScope.Player = vm.Player;
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 Player.setLoop(loop[0]);
