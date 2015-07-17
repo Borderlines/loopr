@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', '$rootScope'];
-    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route, $rootScope) {
+    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', '$rootScope', '$q'];
+    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route, $rootScope, $q) {
         var vm = this;
         if (!angular.isDefined($routeParams.showId)) {
             Shows.post({type: 'VideoShow', title: 'Your Show'}).then(function(new_show) {
@@ -23,7 +23,7 @@
             },
             saveShow: function(new_show) {
                 new_show = new_show || vm.show;
-                new_show.save().then(function() {
+                return new_show.save().then(function() {
                     vm.loadShow();
                 });
             },
@@ -33,7 +33,17 @@
                 });
             },
             addVideo: function(link) {
-                embedService.get(link).then(function(data) {
+                if (link.indexOf(', ') > -1) {
+                    var links = link.split(', ');
+                    var promise = $q.when();
+                    links.forEach(function(link) {
+                        promise = promise.then(function() {
+                            return vm.addVideo(link);
+                        });
+                    });
+                    return promise;
+                }
+                return embedService.get(link).then(function(data) {
                     var link = {
                         url: data.url,
                         thumbnail: data.thumbnail_url,
@@ -47,7 +57,7 @@
                     var new_show = vm.show.clone();
                     new_show.links.push(link);
                     vm.url = undefined;
-                    vm.saveShow(new_show);
+                    return vm.saveShow(new_show);
                 });
             },
             reorderLink: function(link, direction) {
