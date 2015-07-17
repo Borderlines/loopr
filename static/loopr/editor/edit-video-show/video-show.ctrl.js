@@ -24,7 +24,7 @@
             saveShow: function(new_show) {
                 new_show = new_show || vm.show;
                 return new_show.save().then(function() {
-                    vm.loadShow();
+                    return vm.loadShow();
                 });
             },
             loadShow: function() {
