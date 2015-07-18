@@ -19,11 +19,22 @@
         $rootScope.Player = vm.Player;
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
-                Player.setLoop(loop[0]);
-                var show = _.find(loop[0].shows, function(show) { return show._id === $routeParams.show;})
+                loop = loop[0];
+                // shuffle ?
+                function shuffle(o) {
+                    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+                    return o;
+                }
+                loop.shows.forEach(function(show) {
+                    if (show.settings && show.settings.shuffle) {
+                        shuffle(show.links);
+                    }
+                });
+                Player.setLoop(loop);
+                var show = _.find(loop.shows, function(show) { return show._id === $routeParams.show;})
                 Player.playShow(show, $routeParams.item);
-                vm.loop = loop[0];
-                return loop[0];
+                vm.loop = loop;
+                return loop;
             });
         });
         $rootScope.$on('youtube.player.error', function() {
