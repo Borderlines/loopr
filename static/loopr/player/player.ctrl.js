@@ -27,7 +27,13 @@
                 }
                 loop.shows.forEach(function(show) {
                     if (show.settings && show.settings.shuffle) {
+                        if (angular.isDefined($routeParams.item)) {
+                            var item_to_save = show.links[$routeParams.item];
+                        }
                         shuffle(show.links);
+                        if (angular.isDefined(item_to_save)) {
+                            show.links.splice($routeParams.item, 0, show.links.splice(show.links.indexOf(item_to_save), 1)[0])
+                        }
                     }
                 });
                 Player.setLoop(loop);
