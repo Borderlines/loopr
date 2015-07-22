@@ -28,7 +28,7 @@ api.register_api(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('editor.html')
 
 
 @app.route('/loop/<username>')
@@ -45,6 +45,11 @@ def player(username=None):
     if request.args.get('item'):
         scope['item'] = scope['show']['links'][int(request.args.get('item'))]
     return render_template('player.html', **scope)
+
+
+@app.route('/catalog')
+def catalog():
+    return render_template('catalog.html')
 
 
 if __name__ == '__main__':

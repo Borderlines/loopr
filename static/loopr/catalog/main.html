@@ -1,0 +1,19 @@
+<ul>
+    <li ng-repeat="loop in vm.loops" class="loop">
+        <a ng-href="/loop/{{loop.user.username}}" target="_self">{{ loop.user.username }}</a>
+        <ul>
+            <li ng-repeat="show in loop.shows" class="show">
+                <a ng-href="/loop/{{loop.user.username}}/?show={{show._id}}" target="_self">{{ show.title }}</a>
+                <div class="thumb">
+                    <a  ng-repeat="link in show.links"
+                        target="_self"
+                        ng-href="/loop/{{loop.user.username}}/?show={{show._id}}&item={{$index}}"
+                        ng-style="{left: $index * 50}">
+                        <img ng-src="{{link.thumbnail}}"/>
+                        <span class="text-content"><span>{{ link.title }}</span></span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
