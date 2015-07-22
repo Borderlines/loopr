@@ -1,3 +1,6 @@
+@THUMB_HEIGHT: 75px;
+@THUMB_HEIGHT_BIG: 100px;
+
 html, body {
     font-family: 'Montserrat', sans-serif;
 }
@@ -10,7 +13,7 @@ li {
 
 }
 .thumb  {
-    height : 100px;
+    height : @THUMB_HEIGHT_BIG;
     position: relative;
     a {
         position: absolute;
@@ -19,7 +22,7 @@ li {
                 z-index: 99;
             img {
                 max-width: auto;
-                height: 100px;
+                height: @THUMB_HEIGHT_BIG;
             }
             span.text-content {
                 opacity: 1;
@@ -29,7 +32,7 @@ li {
     img {
         transition-duration: .25s;
         transition-property: height;
-        height: 75px;
+        height: @THUMB_HEIGHT;
     }
 }
 
@@ -39,7 +42,7 @@ span.text-content {
     color: white;
     cursor: pointer;
     display: table;
-    height: 100px;
+    height: @THUMB_HEIGHT_BIG;
     left: 0;
     top: 0;
     overflow: hidden;
