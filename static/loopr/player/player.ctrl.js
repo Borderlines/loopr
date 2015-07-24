@@ -27,17 +27,18 @@
                 }
                 loop.shows.forEach(function(show) {
                     if (show.settings && show.settings.shuffle) {
+                        var item_to_save;
                         if (angular.isDefined($routeParams.item)) {
-                            var item_to_save = show.links[$routeParams.item];
+                            item_to_save = show.links[$routeParams.item];
                         }
                         shuffle(show.links);
                         if (angular.isDefined(item_to_save)) {
-                            show.links.splice($routeParams.item, 0, show.links.splice(show.links.indexOf(item_to_save), 1)[0])
+                            show.links.splice($routeParams.item, 0, show.links.splice(show.links.indexOf(item_to_save), 1)[0]);
                         }
                     }
                 });
                 Player.setLoop(loop);
-                var show = _.find(loop.shows, function(show) { return show._id === $routeParams.show;})
+                var show = _.find(loop.shows, function(show) { return show._id === $routeParams.show;});
                 Player.playShow(show, $routeParams.item);
                 vm.loop = loop;
                 return loop;
@@ -72,7 +73,7 @@
                 vm.youtubeUrl = item.url;
             }
             // deep linking
-            $location.search({show: show._id, item:show.links.indexOf(item)})
+            $location.search({show: show._id, item:show.links.indexOf(item)});
         });
         hotkeys.bindTo($scope)
         .add({
