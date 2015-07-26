@@ -55,7 +55,7 @@
             top: 8px;
             font-size: 1.5em;
         }
-            overflow: hidden;
+        overflow: hidden;
         .wrapper {
             margin-right: 40px;
             transition-duration: 1s;
@@ -64,6 +64,15 @@
             .wrapper-inner {
                 position: relative;
             }
+        }
+        transition-duration: 2s;
+        top:0;
+        transition-property: top;
+        &.ng-hide:not(.ng-hide-animate) {
+            display: block !important;
+        }
+        &.ng-hide {
+            top: 200px;
         }
     }
     .lower-strip {
@@ -105,6 +114,17 @@
             right: 20px;
             font-size: 0.8em;
             font-weight: 400;
+        }
+    }
+    transition-property: margin, opacity;
+    transition-duration: 1s;
+    &.reduced {
+        margin: 0px 40px 0 40px;
+        opacity: .7;
+        .controllers {
+            position: absolute;
+            bottom: 0;
+            z-index: 9;
         }
     }
 }

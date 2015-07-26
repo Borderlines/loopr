@@ -1,4 +1,4 @@
-<div class="strip">
+<div class="strip" ng-class="{'reduced': strip.reduced_mode}">
     <div class="controllers">
         <div class="progress-bar"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
         <div class="navigation">
@@ -8,7 +8,7 @@
             <div ng-click="strip.nextShow()"><i class="fa fa-angle-double-right"></i></div>
         </div>
     </div>
-    <div class="upper-strip">
+    <div class="upper-strip" ng-hide="strip.reduced_mode">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner"></div>
         </div>
