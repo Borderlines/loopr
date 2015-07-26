@@ -7,10 +7,11 @@
     right: 0;
     background-color: #40BFB6;
     height: @HEADER_HEIGHT;
+    padding-left: 30px;
     li {
         float: left;
         list-style: none;
-        padding: 0 5px;
+        padding: 0 8px;
     }
 
     &__info {
@@ -28,19 +29,21 @@
     }
     .adding-placeholder {
         display: none;
-        background-color: #AD5FAD;
+        background-color: #FF00FF;
         &:hover {
-            background-color: #C234C2;
+            background-color: #FF0099;
         }
         height: @HEADER_HEIGHT;
         float: left;
-        width: 20px;
+        width: 30px;
         cursor: pointer;
     }
     &.adding-mode {
-        li {padding: 0px 0px;}
+        li {padding: 0px 20px 0px 0px;}
         .adding-placeholder {
             display: block;
+            width: 38px;
+            margin-left: -30px;
         }
     }
     .show {
