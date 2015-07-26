@@ -26,7 +26,13 @@ class Loop(object):
                     }
                 }
             },
-            'strip_queries': {
+            'twitter_queries': {
+                'type': 'list',
+                'schema': {
+                    'type': 'dict'
+                }
+            },
+            'strip_messages': {
                 'type': 'list',
                 'schema': {
                     'type': 'dict'
@@ -35,24 +41,36 @@ class Loop(object):
         }
     }
 
-    def on_update(updated, original):
-        def search_twitter(query):
-            from TwitterSearch import TwitterSearch, TwitterSearchOrder
-            tso = TwitterSearchOrder()
-            tso.set_keywords(query)
-            # tso.set_language('en')
-            tso.set_include_entities(False)
-            # it's about time to create a TwitterSearch object with our secret tokens
-            ts = TwitterSearch(
-                consumer_key=app.config.get('TWITTER_CONSUMER_KEY'),
-                consumer_secret=app.config.get('TWITTER_CONSUMER_SECRET'),
-                access_token=app.config.get('TWITTER_ACCESS_TOKEN'),
-                access_token_secret=app.config.get('TWITTER_ACCESS_TOKEN_SECRET')
-            )
-            import itertools
-            return list(itertools.islice(ts.search_tweets_iterable(tso), 0, 5))
-        if 'strip_queries' in updated:
-            for query in updated['strip_queries']:
-                if len(query.get('results', []) or []) < 1:
-                    results = search_twitter(query['accounts'])
-                    query['results'] = results
+    def search_twitter(query, count):
+        from TwitterSearch import TwitterSearch, TwitterSearchOrder
+        import itertools
+        tso = TwitterSearchOrder()
+        tso.set_keywords(query)
+        # tso.set_language('en')
+        tso.set_include_entities(False)
+        # it's about time to create a TwitterSearch object with our secret tokens
+        ts = TwitterSearch(
+            consumer_key=app.config.get('TWITTER_CONSUMER_KEY'),
+            consumer_secret=app.config.get('TWITTER_CONSUMER_SECRET'),
+            access_token=app.config.get('TWITTER_ACCESS_TOKEN'),
+            access_token_secret=app.config.get('TWITTER_ACCESS_TOKEN_SECRET')
+        )
+        return list(itertools.islice(ts.search_tweets_iterable(tso), 0, int(count)))
+
+    def retrieve_tweets(loop):
+        twitter_queries = loop.get('twitter_queries', [])
+        # search every query
+        for query in twitter_queries:
+            query['results'] = Loop.search_twitter(query.get('keywords'), query.get('count'))
+        # update loop
+        loop['twitter_queries'] = twitter_queries
+        # save
+        app.data.driver.db['loops'].update({'_id': loop['_id']},
+                                           {'$set': {'twitter_queries': twitter_queries}})
+        return loop
+
+    def on_updated(updated, original):
+        if 'twitter_queries' in updated:
+            loop = original.copy()
+            loop.update(updated)
+            Loop.retrieve_tweets(loop)

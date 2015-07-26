@@ -11,22 +11,21 @@
             loop: undefined,
             deleteQuery: function(index) {
                 var loop = vm.loop.clone();
-                loop.strip_queries.splice(index, 1);
+                loop.twitter_queries.splice(index, 1);
                 loop.save();
                 vm.refresh();
             },
-            addAccounts: function(accounts) {
-                accounts = accounts.split(' ');
+            addAccounts: function(keywords) {
                 var query = {
-                    accounts: accounts,
+                    keywords: keywords.split(' '),
                     count: 5,
                     filters: []
                 };
                 var loop = vm.loop.clone();
-                if (!angular.isDefined(loop.strip_queries)) {
-                    loop.strip_queries = [];
+                if (!angular.isDefined(loop.twitter_queries)) {
+                    loop.twitter_queries = [];
                 }
-                loop.strip_queries.push(query);
+                loop.twitter_queries.push(query);
                 loop.save().then(function(loop) {
                     vm.refresh();
                 });

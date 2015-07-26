@@ -2,7 +2,7 @@
     <strip lines="['Les shows à ne pas louper', 'Pour looper ce que t\'as loupé', 'Loopr']"
     logo="'fa-youtube-square'"
     progression="50"
-    strip-queries="vm.loop.strip_queries"
+    strip-queries="vm.loop.twitter_queries"
     ></strip>
 </div>
 <div class="edit-strip content">
@@ -22,8 +22,8 @@
             <th>Rule</th>
             <th>Ord.</th>
         </tr>
-        <tr ng-repeat="query in vm.loop.strip_queries">
-            <td class="accounts"><div>{{ $index + 1 }}. {{ query.accounts.join(',&nbsp;') }}</div></td>
+        <tr ng-repeat="query in vm.loop.twitter_queries">
+            <td class="accounts"><div>{{ $index + 1 }}. {{ query.keywords.join(',&nbsp;') }}</div></td>
             <td>{{ query.filters.join(', ') }}</td>
             <td>Twitter</td>
             <td>{{ query.count }} last</td>
