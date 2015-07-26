@@ -65,15 +65,6 @@
                 position: relative;
             }
         }
-        transition-duration: 2s;
-        top:0;
-        transition-property: top;
-        &.ng-hide:not(.ng-hide-animate) {
-            display: block !important;
-        }
-        &.ng-hide {
-            top: 200px;
-        }
     }
     .lower-strip {
         color: white;
@@ -121,10 +112,11 @@
     &.reduced {
         margin: 0px 40px 0 40px;
         opacity: .7;
-        .controllers {
-            position: absolute;
-            bottom: 0;
-            z-index: 9;
-        }
+    }
+    .ng-hide:not(.ng-hide-animate) {
+        transition-property: opacity;
+        transition-duration: .25s;
+        display: block !important;
+        opacity: 0;
     }
 }

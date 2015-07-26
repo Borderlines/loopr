@@ -52,9 +52,10 @@
         var animations = [];
         $scope.$watch('lines', function(lines, old_value) {
             if (!lines) {return;}
+            vm.reduced_mode = false;
             animations.forEach($timeout.cancel);
             animations = [];
-            var delay_between_animations = 2000;
+            var delay_between_animations = 5000;
             lines.forEach(function(line, index) {
                 var text = $element.find('.upper-strip .wrapper-inner');
                 animations.push($timeout(function() {

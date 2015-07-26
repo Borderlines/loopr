@@ -1,13 +1,5 @@
 <div class="strip" ng-class="{'reduced': strip.reduced_mode}">
-    <div class="controllers">
-        <div class="progress-bar"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
-        <div class="navigation">
-            <div ng-click="strip.previousShow()"><i class="fa fa-angle-double-left"></i></div>
-            <div ng-click="strip.previousItem()"><i class="fa fa-angle-left"></i></div>
-            <div ng-click="strip.nextItem()"><i class="fa fa-angle-right"></i></div>
-            <div ng-click="strip.nextShow()"><i class="fa fa-angle-double-right"></i></div>
-        </div>
-    </div>
+    <ng-include src="'/static/loopr/strip/controllers.html'" ng-hide="strip.reduced_mode"></ng-include>
     <div class="upper-strip" ng-hide="strip.reduced_mode">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner"></div>
@@ -26,4 +18,5 @@
         </div>
         <div style="clear:both"> </div>
     </div>
+    <ng-include src="'/static/loopr/strip/controllers.html'" ng-show="strip.reduced_mode"></ng-include>
 </div>
