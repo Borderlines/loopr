@@ -1,16 +1,21 @@
 (function() {
     'use strict';
 
-    EditVideoShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', '$rootScope', '$q'];
-    function EditVideoShowCtrl(Shows, embedService, $location, $routeParams, $route, $rootScope, $q) {
+    EditShowCtrl.$inject = ['Shows', 'embedService', '$location', '$routeParams', '$route', '$rootScope', '$q'];
+    function EditShowCtrl(Shows, embedService, $location, $routeParams, $route, $rootScope, $q) {
         var vm = this;
-        if (!angular.isDefined($routeParams.showId)) {
-            Shows.post({type: 'VideoShow', title: 'Your Show'}).then(function(new_show) {
-                vm.show = new_show;
-                $route.updateParams({showId: vm.show._id});
-            });
-        }
+        var MAPPING = {
+            'VideoShow': 'video-show',
+            'MusicShow': 'music-show'
+        };
         angular.extend(vm, {
+            createShow: function(params, redirect) {
+                return Shows.post(params).then(function(new_show) {
+                    if (redirect) {
+                        $route.updateParams({showId: new_show._id});
+                    }
+                });
+            },
             removeVideo: function(link) {
                 vm.show.links.splice(vm.show.links.indexOf(link), 1);
                 vm.saveShow();
@@ -70,9 +75,14 @@
                 $rootScope.$broadcast('openAddingShowMode', vm.show);
             }
         });
-        vm.loadShow();
+        // redirect to the specific route/controller
+        if (angular.isDefined($routeParams.showId)) {
+            Shows.one($routeParams.showId).get().then(function(show) {
+                $location.url('/' + MAPPING[show.type] + '/' + show._id);
+            });
+        }
     }
 
-    angular.module('loopr').controller('EditVideoShowCtrl', EditVideoShowCtrl);
+    angular.module('loopr').controller('EditShowCtrl', EditShowCtrl);
 
 })();

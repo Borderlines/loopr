@@ -11,10 +11,20 @@
                     controllerAs: 'vm',
                     activetab: 'shows'
                 })
-                .when('/video-show/:showId?', {
-                    templateUrl: 'static/loopr/editor/edit-video-show/edit-video-show.html',
-                    controller: 'EditVideoShowCtrl',
+                .when('/show/:showId?', {
+                    templateUrl: 'static/loopr/editor/edit-show/template.html',
+                    controller: 'EditShowCtrl',
                     controllerAs: 'vm',
+                    activetab: 'shows'
+                })
+                .when('/video-show/:showId?', {
+                    templateUrl: 'static/loopr/editor/edit-show/template.html',
+                    controller: 'EditVideoShowCtrl',
+                    activetab: 'shows'
+                })
+                .when('/music-show/:showId?', {
+                    templateUrl: 'static/loopr/editor/edit-show/template.html',
+                    controller: 'EditMusicShowCtrl',
                     activetab: 'shows'
                 })
                 .when('/strip', {
