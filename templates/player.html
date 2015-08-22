@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title ng-bind="Player.currentItem.title + ' | LoopR'"></title>
-        <meta property="og:title" content="{{ (item and item.title ) or (show and show.title) or user.username + '\'s loop' }}"/>
-        <meta property="og:description" content="{{ (item and show and show.title) or (show and user.username + '\'s loop') or nb_show + ' shows' }}" />
+        <meta property="og:title" content="{{ (item and item.title ) or (show and 'Show ' + show.title) or user.username + '\'s loop' }}"/>
+        <meta property="og:description" content="{{ (item and show and 'Show ' + show.title + ' by ' + user.username) or (show and user.username + '\'s loop') or nb_show + ' shows' }}" />
         <meta property="og:site_name" content="LoopR"/>
         <meta property="og:image" content="{{ item and item.thumbnail or (show and show.links[0] and show.links[0].thumbnail) or url_for('static', filename='logo.png', _external=True) }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
