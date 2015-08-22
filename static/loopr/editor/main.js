@@ -11,8 +11,8 @@
                     controllerAs: 'vm',
                     activetab: 'shows'
                 })
-                .when('/show/:showId?', {
-                    templateUrl: 'static/loopr/editor/edit-video-show/edit-youtube-show.html',
+                .when('/video-show/:showId?', {
+                    templateUrl: 'static/loopr/editor/edit-video-show/edit-video-show.html',
                     controller: 'EditVideoShowCtrl',
                     controllerAs: 'vm',
                     activetab: 'shows'
