@@ -3,15 +3,15 @@
     <div class="first-block block">
         <h3>Create a new show</h3>
         <ul>
-            <li><a href="/#/show">Video Show</a></li>
-            <!-- <li><a ng-click="">Tweet Show</a></li> -->
+            <li><a href="/#/video-show">Video Show</a></li>
+            <li><a href="/#/music-show">Music Show</a></li>
         </ul>
     </div>
 </nav>
 <div class="shows content">
     <h2>Your Shows</h2>
     <ul>
-        <li ng-repeat="show in vm.shows track by show._id" ng-click="vm.openShow(show)">
+        <li ng-repeat="show in vm.shows track by show._id" ng-click="openShow(show)">
             <div class="show">
                 <div class="show__illustration" style="background-image:url({{show.links[0].thumbnail}})">
                 </div>

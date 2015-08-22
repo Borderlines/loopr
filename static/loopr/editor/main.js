@@ -40,9 +40,15 @@
                 .setStorageType('localStorage')
                 .setNotify(true, true);
         }])
-        .run(['login', '$rootScope', '$route', function(login, $rootScope, $route) {
+        .run(['login', '$rootScope', '$route', '$location', function(login, $rootScope, $route, $location) {
             login.login();
-            $rootScope.$route = $route;
+            // Add to Root Scope
+            angular.extend($rootScope, {
+                $route: $route,
+                openShow: function(show) {
+                    $location.url('/show/' + show._id);
+                }
+            });
         }])
         .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
         function(Restangular, localStorageService, Accounts, $rootScope, $location) {
@@ -50,7 +56,7 @@
             var service = {
                 login: function(username, password) {
                     if (angular.isDefined(username)) {
-                        localStorageService.set('auth', btoa(username + ":" + password));
+                        localStorageService.set('auth', btoa(username + ':' + password));
                     } else if (user) {
                         username = user.username;
                     }
@@ -83,7 +89,7 @@
                 restrict: 'A', // only activate on element attribute
                 require: '?ngModel', // get a hold of NgModelController
                 link: function(scope, element, attrs, ngModel) {
-                  if (!ngModel) return; // do nothing if no ng-model
+                  if (!ngModel) {return;} // do nothing if no ng-model
                   // Specify how UI should be updated
                   ngModel.$render = function() {
                     element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
@@ -106,7 +112,7 @@
             return function($scope) {
                 $scope.initializeWindowSize = function() {
                     $scope.windowHeight = $window.innerHeight;
-                    return $scope.windowWidth = $window.innerWidth;
+                    $scope.windowWidth = $window.innerWidth;
                 };
                 $scope.initializeWindowSize();
                 return angular.element($window).bind('resize', function() {
@@ -122,13 +128,13 @@
                     time = time - hours * 3600;
                     var minutes = Math.floor(time / 60);
                     var seconds = time - minutes * 60;
-                    var time_str = ''
+                    var time_str = '';
                     if (hours > 0) {
                         time_str += hours + 'h';
                     }
                     return time_str + minutes + 'm' + seconds + 's';
                 }
-            }
+            };
         });
 
 })();
