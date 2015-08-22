@@ -55,7 +55,7 @@
             top: 8px;
             font-size: 1.5em;
         }
-            overflow: hidden;
+        overflow: hidden;
         .wrapper {
             margin-right: 40px;
             transition-duration: 1s;
@@ -106,5 +106,17 @@
             font-size: 0.8em;
             font-weight: 400;
         }
+    }
+    transition-property: margin, opacity;
+    transition-duration: 1s;
+    &.reduced {
+        margin: 0px 40px 0 40px;
+        opacity: .7;
+    }
+    .ng-hide:not(.ng-hide-animate) {
+        transition-property: opacity;
+        transition-duration: .25s;
+        display: block !important;
+        opacity: 0;
     }
 }

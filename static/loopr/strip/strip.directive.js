@@ -32,19 +32,19 @@
                         underline_animations.push($timeout(function() {
                             var text = $element.find('.lower-strip .wrapper-inner');
                             $(text).stop().animate({
-                                opacity: 0,
+                                opacity: 0
                             }, 1000, function() {
                                 $(this).html(line);
                                 $(text).stop().animate({
                                     opacity: 1
                                 }, 1000);
                             });
-                            if (index == underlines.length - 1) {
+                            if (index === underlines.length - 1) {
                                 showUnderlines(underlines);
                             }
                         }, 15000 * index));
                     });
-                }
+                };
                 showUnderlines(underlines);
             }
         });
@@ -52,8 +52,10 @@
         var animations = [];
         $scope.$watch('lines', function(lines, old_value) {
             if (!lines) {return;}
+            vm.reduced_mode = false;
             animations.forEach($timeout.cancel);
             animations = [];
+            var delay_between_animations = 5000;
             lines.forEach(function(line, index) {
                 var text = $element.find('.upper-strip .wrapper-inner');
                 animations.push($timeout(function() {
@@ -65,22 +67,26 @@
                             top: 0
                         }, 1000);
                     });
-                }, 10000 * index));
+                }, delay_between_animations * index));
             });
+            // hide after every msg were displayed
+            animations.push($timeout(function() {
+                vm.reduced_mode = true;
+            }, delay_between_animations * lines.length));
         });
         // Set Time
         $interval(function() {
             function checkTime(i) {
-                return (i < 10) ? "0" + i : i;
+                return (i < 10) ? '0' + i : i;
             }
             var today = new Date(),
                 h = checkTime(today.getHours()),
                 m = checkTime(today.getMinutes());
-                vm.time = h + ":" + m;
+                vm.time = h + ':' + m;
         }, 2000);
     }
 
-    angular.module('loopr.strip', ['ngSanitize'])
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate'])
         .directive('strip', function() {
             return {
                 scope: {
