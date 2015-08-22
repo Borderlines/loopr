@@ -24,7 +24,7 @@ class Show(object):
             },
             'type': {
                 'type': 'string',
-                'allowed': ['TweetShow', 'VideoShow']
+                'allowed': ['MusicShow', 'VideoShow']
             },
             'settings': {
                 'type': 'dict'

@@ -9,6 +9,34 @@
             'MusicShow': 'music-show'
         };
         angular.extend(vm, {
+            addLink: function(link) {
+                if (link.indexOf(', ') > -1) {
+                    var links = link.split(', ');
+                    var promise = $q.when();
+                    links.forEach(function(link) {
+                        promise = promise.then(function() {
+                            return vm.addVideo(link);
+                        });
+                    });
+                    return promise;
+                }
+                return embedService.get(link).then(function(data) {
+                    var link = {
+                        url: data.url,
+                        thumbnail: data.thumbnail_url,
+                        author_name: data.author_name,
+                        title: data.title,
+                        provider_name: data.provider_name
+                    };
+                    if (!vm.show.links) {
+                        vm.show.links = [];
+                    }
+                    var new_show = vm.show.clone();
+                    new_show.links.push(link);
+                    vm.url = undefined;
+                    return vm.saveShow(new_show);
+                });
+            },
             createShow: function(params, redirect) {
                 return Shows.post(params).then(function(new_show) {
                     if (redirect) {
@@ -35,34 +63,6 @@
             loadShow: function() {
                 return Shows.one($routeParams.showId).get().then(function(show) {
                     vm.show = show;
-                });
-            },
-            addVideo: function(link) {
-                if (link.indexOf(', ') > -1) {
-                    var links = link.split(', ');
-                    var promise = $q.when();
-                    links.forEach(function(link) {
-                        promise = promise.then(function() {
-                            return vm.addVideo(link);
-                        });
-                    });
-                    return promise;
-                }
-                return embedService.get(link).then(function(data) {
-                    var link = {
-                        url: data.url,
-                        thumbnail: data.thumbnail_url,
-                        author_name: data.author_name,
-                        title: data.title,
-                        provider_name: data.provider_name
-                    };
-                    if (!vm.show.links) {
-                        vm.show.links = [];
-                    }
-                    var new_show = vm.show.clone();
-                    new_show.links.push(link);
-                    vm.url = undefined;
-                    return vm.saveShow(new_show);
                 });
             },
             reorderLink: function(link, direction) {
