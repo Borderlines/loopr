@@ -1,12 +1,7 @@
 <soundcloud-viz ng-if="vm.Player.currentItem.provider_name == 'SoundCloud'"
-                soundcloud-item="vm.Player.currentItem">
-</soundcloud-viz>
-<youtube-video ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
-               video-url="vm.youtubeUrl"
-               player-vars="vm.youtubeConfig"
-               player-width="'100%'"
-               player-height="'100%'">
-</youtube-video>
+                soundcloud-item="vm.Player.currentItem"></soundcloud-viz>
+<youtube        ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
+                item="vm.Player.currentItem"></youtube>
 <strip title="vm.Player.currentItem.title"
        lines="vm.lines"
        ng-hide="vm.Player.currentShow.settings.hide_strip"

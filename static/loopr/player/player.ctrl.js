@@ -5,16 +5,8 @@
     function PlayerCtrl(Player, Loops, Accounts, $routeParams, $rootScope, $interval, $location, hotkeys, $scope) {
         var vm = this;
         angular.extend(vm, {
-            progressionTracker: undefined,
-            progression: 0,
             lines: undefined,
-            Player: Player,
-            youtubeConfig: {
-                controls: 0,
-                autoplay: 1,
-                showinfo: 0,
-                wmode: 'opaque'
-            }
+            Player: Player
         });
         $rootScope.Player = vm.Player;
         Accounts.one($routeParams.username).get().then(function(user) {
@@ -45,19 +37,17 @@
             });
         });
         $rootScope.$on('player.play', function ($event, item, show) {
-            $interval.cancel(vm.progressionTracker);
-            vm.progression = 0;
             var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
             if (item.subtitle) {
                 lines.push(item.subtitle);
             }
             lines.push(item.title);
             vm.lines = lines;
-            // clean
-            vm.youtubeUrl = undefined;
-            if (item.provider_name === 'YouTube') {
-                vm.youtubeUrl = item.url;
-            }
+            // // clean
+            // vm.youtubeUrl = undefined;
+            // if (item.provider_name === 'YouTube') {
+            //     vm.youtubeUrl = item.url;
+            // }
             // set the logo
             var logos = {
                 Youtube: 'fa-youtube-square',
@@ -67,26 +57,6 @@
             // deep linking
             $location.search({show: show._id, item:show.links.indexOf(item)});
         });
-        // YOUTUBE
-        $rootScope.$on('youtube.player.error', function() {
-            $interval.cancel(vm.progressionTracker);
-            vm.progression = 0;
-            Player.nextItem();
-        });
-        $rootScope.$on('youtube.player.ended', function() {
-            $interval.cancel(vm.progressionTracker);
-            vm.progression = 0;
-            Player.nextItem();
-        });
-        $rootScope.$on('youtube.player.playing', function(e, player) {
-            trackProgression(player.getCurrentTime.bind(player), player.getDuration.bind(player));
-        });
-        function trackProgression(current, total) {
-            $interval.cancel(vm.progressionTracker);
-            vm.progressionTracker = $interval(function() {
-                Player.setCurrentPosition((current() / total()) * 100);
-            }, 250);
-        }
         // HOTKEYS
         hotkeys.bindTo($scope)
         .add({
