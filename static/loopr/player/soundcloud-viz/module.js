@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    SoundcloudVizDirective.$inject = ['Player'];
-    function SoundcloudVizDirective(Player) {
+    SoundcloudVizDirective.$inject = ['Player', '$interval'];
+    function SoundcloudVizDirective(Player, $interval) {
         return {
             scope: {
                 soundcloudItem: '='
@@ -9,6 +9,7 @@
             restrict: 'E',
             link: function(scope, element) {
                 var soundcloudPlayer;
+                var progressionTracker;
                 scope.$watch('soundcloudItem', function(n , o) {
                     if (angular.isDefined(soundcloudPlayer)) {
                         soundcloudPlayer.stop();
@@ -20,14 +21,17 @@
                         SC.stream('/tracks/' + data.id, function(sound){
                             soundcloudPlayer = sound;
                             soundcloudPlayer.play();
-                            // Player.setCurrentPosition()
-                            // trackProgression(sound.getCurrentPosition.bind(sound), sound.getDuration.bind(sound));
+                            $interval.cancel(progressionTracker);
+                            progressionTracker = $interval(function() {
+                                Player.setCurrentPosition((sound.getCurrentPosition() /  sound.getDuration()) * 100);
+                            }, 250);
                         });
                     });
                 });
                 scope.$on('$destroy', function() {
                     if (angular.isDefined(soundcloudPlayer)) {
                         soundcloudPlayer.stop();
+                        $interval.cancel(progressionTracker);
                     }
                 });
             },

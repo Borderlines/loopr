@@ -84,7 +84,7 @@
         function trackProgression(current, total) {
             $interval.cancel(vm.progressionTracker);
             vm.progressionTracker = $interval(function() {
-                vm.progression = (current() / total()) * 100;
+                Player.setCurrentPosition((current() / total()) * 100);
             }, 250);
         }
         // HOTKEYS

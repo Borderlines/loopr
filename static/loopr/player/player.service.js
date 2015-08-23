@@ -5,12 +5,13 @@
     function Player($rootScope) {
         var self = this;
         angular.extend(self, {
+            currentPosition: 0,
             loop: undefined,
             currentShow: undefined,
             currentItem: undefined,
-            // setCurrentPosition: function(position) {
-            //     self.currentPosition = position;
-            // },
+            setCurrentPosition: function(position) {
+                self.currentPosition = position;
+            },
             setLoop: function(loop) {
                 self.loop = loop;
             },
