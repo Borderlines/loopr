@@ -1,6 +1,5 @@
 <soundcloud-viz ng-if="vm.Player.currentItem.provider_name == 'SoundCloud'"
-                soundcloud-artwork='vm.soundCloudArtwork'
-                soundcloud-illustration='vm.soundCloudIllustration'>
+                soundcloud-item="vm.Player.currentItem">
 </soundcloud-viz>
 <youtube-video ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
                video-url="vm.youtubeUrl"

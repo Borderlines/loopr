@@ -12,6 +12,7 @@
                     <div class="show__info">{{ show.duration() | seconds }}
                         <span class="right">
                             <span ng-if="show.type === 'VideoShow'"><i class="fa fa-youtube"></i></span>
+                            <span ng-if="show.type === 'MusicShow'"><i class="fa fa-soundcloud"></i></span>
                         </span>
                     </div>
                 </div>

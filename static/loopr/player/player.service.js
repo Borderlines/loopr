@@ -8,6 +8,9 @@
             loop: undefined,
             currentShow: undefined,
             currentItem: undefined,
+            // setCurrentPosition: function(position) {
+            //     self.currentPosition = position;
+            // },
             setLoop: function(loop) {
                 self.loop = loop;
             },
