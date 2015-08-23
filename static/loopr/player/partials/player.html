@@ -1,3 +1,7 @@
+<div class="soundCloudVis"
+     ng-if="vm.Player.currentItem.provider_name == 'SoundCloud'"
+     ng-style="{'background-image': 'url('+vm.soundCloudIllustration+')'}">
+</div>
 <youtube-video ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
                video-url="vm.youtubeUrl"
                player-vars="vm.youtubeConfig"

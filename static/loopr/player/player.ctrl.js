@@ -56,16 +56,22 @@
             // clean
             if (angular.isDefined(vm.soundCloudPlayer)) {
                 vm.soundCloudPlayer.stop();
-                vm.youtubeUrl = undefined;
+                vm.soundCloudPlayer = undefined;
             }
+            vm.youtubeUrl = undefined;
             if (item.provider_name === 'YouTube') {
                 vm.youtubeUrl = item.url;
             } else if (item.provider_name === 'SoundCloud') {
                 SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                 SC.get('/resolve/', {url: item.url}, function(data) {
+                    vm.soundCloudIllustration = data.waveform_url.replace('large', 't500x500');
                     SC.stream('/tracks/' + data.id, function(sound){
+                        if (angular.isDefined(vm.soundCloudPlayer)) {
+                            vm.soundCloudPlayer.stop();
+                        }
                         vm.soundCloudPlayer = sound;
                         sound.play();
+                        trackProgression(sound.getCurrentPosition.bind(sound), sound.getDuration.bind(sound));
                     });
                 });
             }
@@ -84,11 +90,14 @@
             Player.nextItem();
         });
         $rootScope.$on('youtube.player.playing', function(e, player) {
+            trackProgression(player.getCurrentTime.bind(player), player.getDuration.bind(player));
+        });
+        function trackProgression(current, total) {
             $interval.cancel(vm.progressionTracker);
             vm.progressionTracker = $interval(function() {
-                vm.progression = (player.getCurrentTime() / player.getDuration()) * 100;
+                vm.progression = (current() / total()) * 100;
             }, 250);
-        });
+        }
         // HOTKEYS
         hotkeys.bindTo($scope)
         .add({
