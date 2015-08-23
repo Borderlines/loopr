@@ -1,4 +1,5 @@
-<youtube-video video-url="vm.youtubeUrl"
+<youtube-video ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
+               video-url="vm.youtubeUrl"
                player-vars="vm.youtubeConfig"
                player-width="'100%'"
                player-height="'100%'">

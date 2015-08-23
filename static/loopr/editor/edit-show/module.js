@@ -26,6 +26,7 @@
                         thumbnail: data.thumbnail_url,
                         author_name: data.author_name,
                         title: data.title,
+                        html: data.html,
                         provider_name: data.provider_name
                     };
                     if (!vm.show.links) {

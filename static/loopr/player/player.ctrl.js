@@ -44,6 +44,35 @@
                 return loop;
             });
         });
+        $rootScope.$on('player.play', function ($event, item, show) {
+            $interval.cancel(vm.progressionTracker);
+            vm.progression = 0;
+            var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
+            if (item.subtitle) {
+                lines.push(item.subtitle);
+            }
+            lines.push(item.title);
+            vm.lines = lines;
+            // clean
+            if (angular.isDefined(vm.soundCloudPlayer)) {
+                vm.soundCloudPlayer.stop();
+                vm.youtubeUrl = undefined;
+            }
+            if (item.provider_name === 'YouTube') {
+                vm.youtubeUrl = item.url;
+            } else if (item.provider_name === 'SoundCloud') {
+                SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
+                SC.get('/resolve/', {url: item.url}, function(data) {
+                    SC.stream('/tracks/' + data.id, function(sound){
+                        vm.soundCloudPlayer = sound;
+                        sound.play();
+                    });
+                });
+            }
+            // deep linking
+            $location.search({show: show._id, item:show.links.indexOf(item)});
+        });
+        // YOUTUBE
         $rootScope.$on('youtube.player.error', function() {
             $interval.cancel(vm.progressionTracker);
             vm.progression = 0;
@@ -60,21 +89,7 @@
                 vm.progression = (player.getCurrentTime() / player.getDuration()) * 100;
             }, 250);
         });
-        $rootScope.$on('player.play', function ($event, item, show) {
-            $interval.cancel(vm.progressionTracker);
-            vm.progression = 0;
-            var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
-            if (item.subtitle) {
-                lines.push(item.subtitle);
-            }
-            lines.push(item.title);
-            vm.lines = lines;
-            if (item.provider_name === 'YouTube') {
-                vm.youtubeUrl = item.url;
-            }
-            // deep linking
-            $location.search({show: show._id, item:show.links.indexOf(item)});
-        });
+        // HOTKEYS
         hotkeys.bindTo($scope)
         .add({
             combo: 'right',
