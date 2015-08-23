@@ -76,6 +76,12 @@
                     });
                 });
             }
+            // set the logo
+            var logos = {
+                Youtube: 'fa-youtube-square',
+                SoundCloud: 'fa-soundcloud'
+            }
+            vm.logo = logos[item.provider_name];
             // deep linking
             $location.search({show: show._id, item:show.links.indexOf(item)});
         });
