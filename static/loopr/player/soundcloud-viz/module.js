@@ -16,14 +16,19 @@
                     }
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
-                        scope.soundcloudArtwork = data.artwork_url.replace('large', 't500x500');
-                        scope.soundcloudIllustration = data.waveform_url;
-                        SC.stream('/tracks/' + data.id, function(sound){
+                        angular.extend(scope, {
+                            soundcloudArtwork: data.artwork_url.replace('large', 't500x500'),
+                            soundcloudIllustration: data.waveform_url
+                        });
+                        SC.stream('/tracks/' + data.id, function(sound) {
                             soundcloudPlayer = sound;
                             soundcloudPlayer.play();
                             $interval.cancel(progressionTracker);
                             progressionTracker = $interval(function() {
                                 Player.setCurrentPosition((sound.getCurrentPosition() /  sound.getDuration()) * 100);
+                                if (sound.getCurrentPosition() >  sound.getDuration() - 5){
+                                    Player.nextItem();
+                                }
                             }, 250);
                         });
                     });
