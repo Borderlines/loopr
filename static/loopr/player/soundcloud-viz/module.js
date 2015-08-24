@@ -31,10 +31,11 @@
                             var giphy_url = '//api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=';
                             var giphy_keywords = ['dance'];
                             Restangular.oneUrl('giphy', giphy_url + giphy_keywords.join('+')).get().then(function(data) {
+                                var image_url = data.data.image_original_url.replace('http://', '//');
                                 $('<img>')
-                                .attr('src', data.data.image_original_url.replace('http://', '//'))
+                                .attr('src', image_url)
                                 .on('load', function() {
-                                    scope.soundcloudArtwork = data.data.image_original_url;
+                                    scope.soundcloudArtwork = image_url;
                                     gifTimeout = $timeout(updateGif, 5000);
                                 });
                             });
