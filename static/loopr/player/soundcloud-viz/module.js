@@ -28,11 +28,11 @@
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         function updateGif() {
-                            var giphy_url = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=';
+                            var giphy_url = '//api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=';
                             var giphy_keywords = ['dance'];
                             Restangular.oneUrl('giphy', giphy_url + giphy_keywords.join('+')).get().then(function(data) {
                                 $('<img>')
-                                .attr('src', data.data.image_original_url)
+                                .attr('src', data.data.image_original_url.replace('http://', '//'))
                                 .on('load', function() {
                                     scope.soundcloudArtwork = data.data.image_original_url;
                                     gifTimeout = $timeout(updateGif, 5000);

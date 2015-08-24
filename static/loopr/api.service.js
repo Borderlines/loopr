@@ -60,7 +60,7 @@
             RestangularProvider.setDefaultHttpFields({cache: false});
             // add a response interceptor
             RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-                if (operation === "getList") {
+                if (operation === 'getList') {
                     var extractedData;
                     extractedData = data._items;
                     extractedData.meta = data._meta;
