@@ -10,10 +10,19 @@
             link: function(scope, element) {
                 var soundcloudPlayer;
                 var progressionTracker;
-                scope.$watch('soundcloudItem', function(n , o) {
+
+                function clear() {
                     if (angular.isDefined(soundcloudPlayer)) {
                         soundcloudPlayer.stop();
                     }
+                    $interval.cancel(progressionTracker);
+                    Player.setCurrentPosition(0);
+                    scope.soundcloudArtwork = undefined;
+                    scope.soundcloudIllustration = undefined;
+                }
+
+                scope.$watch('soundcloudItem', function(n , o) {
+                    clear();
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         angular.extend(scope, {
@@ -34,16 +43,13 @@
                     });
                 });
                 scope.$on('$destroy', function() {
-                    if (angular.isDefined(soundcloudPlayer)) {
-                        soundcloudPlayer.stop();
-                        $interval.cancel(progressionTracker);
-                    }
+                    clear();
                 });
             },
             template: [
                 '<div class="soundCloudViz"',
                 'ng-style="{\'background-image\': \'url(\'+soundcloudIllustration+\')\'}">',
-                    '<img ng-src="{{soundcloudArtwork}}"/>',
+                    '<img src="{{soundcloudArtwork}}"/>',
                 '</div>'
             ].join('')
         };
