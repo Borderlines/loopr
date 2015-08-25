@@ -11,6 +11,8 @@
                 var soundcloudPlayer;
                 var progressionTracker;
                 var gifTimeout;
+                var layoutTimeout;
+                var layouts = ['default', 'symmetry'];
 
                 function clear() {
                     $timeout.cancel(gifTimeout);
@@ -28,7 +30,7 @@
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         function updateGif() {
-                            var giphy_url = '//api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=';
+                            var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
                             var giphy_keywords = ['dance'];
                             Restangular.oneUrl('giphy', giphy_url + giphy_keywords.join('+')).get().then(function(data) {
                                 var image_url = data.data.image_original_url.replace('http://', '//');
@@ -36,11 +38,20 @@
                                 .attr('src', image_url)
                                 .on('load', function() {
                                     scope.soundcloudArtwork = image_url;
+                                    $timeout.cancel(gifTimeout);
                                     gifTimeout = $timeout(updateGif, 5000);
                                 });
                             });
                         }
+
+                        function updateLayout() {
+                            scope.layout = layouts[(layouts.indexOf(scope.layout) + 1) % layouts.length];
+                            $timeout.cancel(layoutTimeout);
+                            layoutTimeout = $timeout(updateLayout, 5000);
+                        }
+
                         updateGif();
+                        updateLayout();
                         angular.extend(scope, {
                             soundcloudIllustration: data.waveform_url
                         });
@@ -62,9 +73,10 @@
                 });
             },
             template: [
-                '<div class="soundCloudViz"',
+                '<div class="soundCloudViz {{ layout }}"',
                 'ng-style="{\'background-image\': \'url(\'+soundcloudIllustration+\')\'}">',
                     '<img src="{{soundcloudArtwork}}"/>',
+                    '<img src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
                 '</div>'
             ].join('')
         };

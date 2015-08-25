@@ -17,6 +17,21 @@ iframe {
     left: 0;
     background-repeat: no-repeat;
     background-position: center center;
+    &.symmetry {
+        img {width: 50%;}
+        img:nth-child(1) {
+            float: left;
+        }
+        img:nth-child(2) {
+            float: right;
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+            -ms-filter: "FlipH";
+        }
+    }
     img {
         display: block;
         margin: 0 auto;
