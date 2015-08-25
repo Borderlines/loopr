@@ -15,6 +15,7 @@
                 var layouts = ['default', 'symmetry'];
 
                 function clear() {
+                    $timeout.cancel(layoutTimeout);
                     $timeout.cancel(gifTimeout);
                     if (angular.isDefined(soundcloudPlayer)) {
                         soundcloudPlayer.stop();
@@ -30,6 +31,7 @@
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         function updateGif() {
+                            $timeout.cancel(gifTimeout);
                             var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
                             var giphy_keywords = ['dance'];
                             Restangular.oneUrl('giphy', giphy_url + giphy_keywords.join('+')).get().then(function(data) {
@@ -38,20 +40,19 @@
                                 .attr('src', image_url)
                                 .on('load', function() {
                                     scope.soundcloudArtwork = image_url;
-                                    $timeout.cancel(gifTimeout);
-                                    gifTimeout = $timeout(updateGif, 5000);
+                                    updateLayout();
+                                    gifTimeout = $timeout(updateGif, 10000);
                                 });
                             });
                         }
 
                         function updateLayout() {
-                            scope.layout = layouts[(layouts.indexOf(scope.layout) + 1) % layouts.length];
                             $timeout.cancel(layoutTimeout);
+                            scope.layout = layouts[(layouts.indexOf(scope.layout) + 1) % layouts.length];
                             layoutTimeout = $timeout(updateLayout, 5000);
                         }
 
                         updateGif();
-                        updateLayout();
                         angular.extend(scope, {
                             soundcloudIllustration: data.waveform_url
                         });
