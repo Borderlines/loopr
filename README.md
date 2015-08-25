@@ -1,13 +1,13 @@
-# LoopR
+# L8pr
 _Berlin, July 2015_
 
 Turn your computer screen into a TV show.
 
-Perfect to animate your second screen, LoopR is a tool that helps you to build
+Perfect to animate your second screen, L8pr is a tool that helps you to build
 a TV Show from a range of Internet services like Youtube, Instagram, Twitter,
 Soundcloud ...
 
-Made first for TV addicts, LoopR makes you comsume Internet in a passive way with all the benefits of interactivity.
+Made first for TV addicts, L8pr makes you comsume Internet in a passive way with all the benefits of interactivity.
 
 
 ## Installation

@@ -7,7 +7,7 @@ import os
 # MONGO_PORT = 27017
 # MONGO_USERNAME = 'user'
 # MONGO_PASSWORD = 'user
-MONGO_DBNAME = 'loopr-dev'
+MONGO_DBNAME = 'L8pr-dev'
 if os.environ.get('MONGOLAB_URI'):
     MONGO_URI = os.environ.get('MONGOLAB_URI')
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
