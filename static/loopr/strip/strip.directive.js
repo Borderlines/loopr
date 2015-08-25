@@ -70,10 +70,10 @@
                     });
                 }, delay_between_animations * index));
             });
-            // hide after every msg were displayed
-            animations.push($timeout(function() {
-                vm.reduced_mode = true;
-            }, delay_between_animations * lines.length));
+            // // hide after every msg were displayed
+            // animations.push($timeout(function() {
+            //     vm.reduced_mode = true;
+            // }, delay_between_animations * lines.length));
         });
         // Set Time
         $interval(function() {
