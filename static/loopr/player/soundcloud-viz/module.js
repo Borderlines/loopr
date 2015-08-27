@@ -13,6 +13,8 @@
                 var gifTimeout;
                 var layoutTimeout;
                 var layouts = ['default', 'symmetry'];
+                var giphy_keywords = ['dance', 'dancing', 'abstract'];
+                var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
 
                 function clear() {
                     $timeout.cancel(layoutTimeout);
@@ -32,9 +34,8 @@
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         function updateGif() {
                             $timeout.cancel(gifTimeout);
-                            var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
-                            var giphy_keywords = ['dance'];
-                            Restangular.oneUrl('giphy', giphy_url + giphy_keywords.join('+')).get().then(function(data) {
+                            scope.keyword = giphy_keywords[(giphy_keywords.indexOf(scope.keyword) + 1) % giphy_keywords.length];
+                            Restangular.oneUrl('giphy', giphy_url + scope.keyword).get().then(function(data) {
                                 var image_url = data.data.image_original_url.replace('http://', '//');
                                 $('<img>')
                                 .attr('src', image_url)
