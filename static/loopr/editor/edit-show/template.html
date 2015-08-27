@@ -15,7 +15,7 @@
             <li ng-repeat="option in vm.options">
                 <label>
                     {{ option.label }}
-                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()">
+                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{debounce: 2000}">
                 </label>
             </li>
             <li>
