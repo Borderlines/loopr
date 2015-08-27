@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    SoundcloudVizDirective.$inject = ['Player', '$interval', 'Restangular', '$timeout'];
-    function SoundcloudVizDirective(Player, $interval, Restangular, $timeout) {
+    SoundcloudVizDirective.$inject = ['Player', '$interval', 'Restangular', '$timeout', '$q'];
+    function SoundcloudVizDirective(Player, $interval, Restangular, $timeout, $q) {
         return {
             scope: {
                 soundcloudItem: '='
@@ -20,7 +20,10 @@
                     $timeout.cancel(layoutTimeout);
                     $timeout.cancel(gifTimeout);
                     if (angular.isDefined(soundcloudPlayer)) {
-                        soundcloudPlayer.stop();
+                        soundcloudPlayer.then(function(sound) {
+                            sound.stop();
+                        });
+                        soundcloudPlayer = null;
                     }
                     $interval.cancel(progressionTracker);
                     Player.setCurrentPosition(0);
@@ -30,6 +33,8 @@
 
                 scope.$watch('soundcloudItem', function(n , o) {
                     clear();
+                    var soundDeferred = $q.defer();
+                    soundcloudPlayer = soundDeferred.promise;
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         function updateGif() {
@@ -58,8 +63,8 @@
                             soundcloudIllustration: data.waveform_url
                         });
                         SC.stream('/tracks/' + data.id, function(sound) {
-                            soundcloudPlayer = sound;
-                            soundcloudPlayer.play();
+                            sound.play();
+                            soundDeferred.resolve(sound);
                             $interval.cancel(progressionTracker);
                             progressionTracker = $interval(function() {
                                 Player.setCurrentPosition((sound.getCurrentPosition() /  sound.getDuration()) * 100);
