@@ -16,6 +16,16 @@
                 var giphy_keywords = ['dance', 'dancing', 'abstract'];
                 var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
 
+                scope.playPause = function() {
+                    soundcloudPlayer.then(function(sound) {
+                        if (sound.getState() === 'paused') {
+                            play();
+                        } else {
+                            pause();
+                        }
+                    });
+                };
+
                 function clear() {
                     $timeout.cancel(layoutTimeout);
                     $timeout.cancel(gifTimeout);
@@ -31,13 +41,22 @@
                     scope.soundcloudIllustration = undefined;
                 }
 
-                scope.$watch('soundcloudItem', function(n , o) {
-                    clear();
-                    var soundDeferred = $q.defer();
-                    soundcloudPlayer = soundDeferred.promise;
-                    SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
-                    SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
+                function pause() {
+                        $timeout.cancel(layoutTimeout);
+                        $timeout.cancel(gifTimeout);
+                    soundcloudPlayer.then(function(sound) {
+                        sound.pause();
+                        scope.soundcloudArtwork = undefined;
+                    });
+                }
+                function play() {
                         function updateGif() {
+                            function updateLayout() {
+                                $timeout.cancel(layoutTimeout);
+                                scope.layout = layouts[(layouts.indexOf(scope.layout) + 1) % layouts.length];
+                                layoutTimeout = $timeout(updateLayout, 5000);
+                            }
+
                             $timeout.cancel(gifTimeout);
                             scope.keyword = giphy_keywords[(giphy_keywords.indexOf(scope.keyword) + 1) % giphy_keywords.length];
                             Restangular.oneUrl('giphy', giphy_url + scope.keyword).get().then(function(data) {
@@ -52,18 +71,25 @@
                             });
                         }
 
-                        function updateLayout() {
-                            $timeout.cancel(layoutTimeout);
-                            scope.layout = layouts[(layouts.indexOf(scope.layout) + 1) % layouts.length];
-                            layoutTimeout = $timeout(updateLayout, 5000);
-                        }
-
+                    soundcloudPlayer.then(function(sound) {
+                        sound.play();
                         updateGif();
+                    });
+                }
+
+                scope.$watch('soundcloudItem', function(n , o) {
+                    clear();
+                    var soundDeferred = $q.defer();
+                    soundcloudPlayer = soundDeferred.promise;
+                    SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
+                    SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
+
                         angular.extend(scope, {
                             soundcloudIllustration: data.waveform_url
                         });
                         SC.stream('/tracks/' + data.id, function(sound) {
-                            sound.play();
+                            // sound.play();
+                            play();
                             soundDeferred.resolve(sound);
                             $interval.cancel(progressionTracker);
                             progressionTracker = $interval(function() {
@@ -84,6 +110,7 @@
                 'ng-style="{\'background-image\': \'url(\'+soundcloudIllustration+\')\'}">',
                     '<img src="{{soundcloudArtwork}}"/>',
                     '<img src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
+                    '<div class="overlay" ng-click="playPause()"></div>"',
                 '</div>'
             ].join('')
         };
