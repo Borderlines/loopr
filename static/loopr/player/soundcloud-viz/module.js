@@ -13,7 +13,7 @@
                 var gifTimeout;
                 var layoutTimeout;
                 var layouts = ['default', 'symmetry'];
-                var giphy_keywords = ['dance', 'dancing', 'abstract'];
+                var giphy_keywords = Player.currentShow.settings.giphyTags.split(',');
                 var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
 
                 scope.playPause = function() {

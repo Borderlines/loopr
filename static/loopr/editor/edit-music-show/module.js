@@ -7,11 +7,18 @@
                                $location, $routeParams, $route, $rootScope, $q) {
         var vm = $controller('EditShowCtrl as vm', {'$scope': $scope});
         angular.extend(vm, {
-            example: 'https://soundcloud.com/chances-with-wolves/live-on-xray-fm'
-        })
+            example: 'https://soundcloud.com/xxx/yyy',
+            options: [
+                {
+                    type: 'text',
+                    label: 'Giphy Tags',
+                    name: 'giphyTags'
+                }
+            ]
+        });
         // create a new item and redirect to it
         if (!angular.isDefined($routeParams.showId)) {
-            return vm.createShow({type: 'MusicShow', title: 'A Music Show'}, true);
+            return vm.createShow({type: 'MusicShow', title: 'A Music Show', settings: {giphyTags: 'dance,dancing,abstract'}}, true);
         }
         // load the shows
         vm.loadShow();

@@ -11,7 +11,13 @@
     </div>
     <div class="block">
         <h3>Options</h3>
-        <ul>
+        <ul class="options">
+            <li ng-repeat="option in vm.options">
+                <label>
+                    {{ option.label }}
+                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()">
+                </label>
+            </li>
             <li>
                 <label><input type="checkbox" ng-model="vm.show.settings.shuffle" ng-change="vm.saveShow()">
                     Shuffle Mode
