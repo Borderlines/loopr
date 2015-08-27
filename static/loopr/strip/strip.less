@@ -2,43 +2,47 @@
     margin: 0px 40px 40px 40px;
     font-size: 1.4em;
     font-family: 'Montserrat', sans-serif;
-    .controllers {
+    .progress-bar {
         height: 5px;
-        background: white;
-        width: 100%;
-        position: relative;
-        opacity: 0.9;
-        .progress-bar {
-            height: 5px;
-            margin-right: 85px;
-            background-color: #E0DDDB;
-            .progression {
-                transition-duration: 1s;
-                transition-property: width;
-                background-color: #00A99D;
-                opacity: 0.75;
-                height: 100%;
-            }
+        background-color: #E0DDDB;
+        .progression {
+            transition-duration: 1s;
+            transition-property: width;
+            background-color: #00A99D;
+            opacity: 0.75;
+            height: 100%;
         }
+    }
+    .controllers {
+        position: relative;
+        background: white;
+        min-height: 30px;
+        padding:15px;
+        padding-left: 25px;
+        font-family: 'Lekton';
+        opacity: 0.70;
         .navigation {
             position: absolute;
-            right:0;
-            top: -13px;
-            font-size: .6em;
-            background-color: white;
-            width: 85px;
-            text-align: center;
-
+            top: 23px;
+            > div:nth-child(2) {
+                margin-right: 60px;
+            }
             > div {
-                cursor: pointer;
-                background-color: #FFF;
-                padding:0 5px;
+                font-size: 8em;
                 display: inline-block;
+                font-size: 1.5em;
+                cursor: pointer;
+                margin-right: 20px;
                 &:hover {
-                    background-color: #00A99D;
-                    opacity: 0.75;
-                    color: #FFF;
+                    color: #00A99D;
                 }
+            }
+        }
+        .info {
+            margin-left: 300px;
+            span {
+                font-size: 1.2em;
+                font-weigh: 700;
             }
         }
     }
@@ -77,9 +81,8 @@
             opacity: .8;
             margin-right: 74px;
             margin-left: 48px;
-            margin-top: 4px;
             font-size: 0.7em;
-            line-height: 1.4em;
+            line-height: 2em;
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
@@ -105,6 +108,7 @@
             right: 20px;
             font-size: 0.8em;
             font-weight: 400;
+            line-height: 1.7em;
         }
     }
     transition-property: margin, opacity;

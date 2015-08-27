@@ -9,10 +9,10 @@
 
         angular.extend(vm, {
             underlines: [],
-            previousShow: function() {$rootScope.$broadcast('player.previousShow');},
-            previousItem: function() {$rootScope.$broadcast('player.previousItem');},
-            nextItem: function() {$rootScope.$broadcast('player.nextItem');},
-            nextShow: function() {$rootScope.$broadcast('player.nextShow');}
+            previousShow: $scope.player.previousShow,
+            previousItem: $scope.player.previousItem,
+            nextItem: $scope.player.nextItem,
+            nextShow: $scope.player.nextShow,
         });
         // Underlines
         var underline_animations = [];
@@ -91,11 +91,11 @@
             return {
                 scope: {
                     stripQueries: '=',
-                    title: '=',
                     lines: '=',
-                    underlines: '=',
                     progression: '=',
-                    logo: '='
+                    logo: '=',
+                    player: '=',
+                    showController: '='
                 },
                 restrict: 'E',
                 controller: StripCtrl,

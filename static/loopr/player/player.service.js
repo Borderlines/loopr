@@ -53,7 +53,10 @@
                 self.currentItem = show.links[index];
                 $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
             },
-            nextItem: function() {
+            nextItem: function(play) {
+                if (!angular.isDefined(play)) {
+                    play = true;
+                }
                 var current_item_index = self.currentShow.links.indexOf(self.currentItem);
                 if (self.currentShow.links.length - 1 > current_item_index) {
                     // next item

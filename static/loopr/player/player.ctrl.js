@@ -43,14 +43,9 @@
             }
             lines.push(item.title);
             vm.lines = lines;
-            // // clean
-            // vm.youtubeUrl = undefined;
-            // if (item.provider_name === 'YouTube') {
-            //     vm.youtubeUrl = item.url;
-            // }
             // set the logo
             var logos = {
-                Youtube: 'fa-youtube-square',
+                YouTube: 'fa-youtube-square',
                 SoundCloud: 'fa-soundcloud'
             };
             vm.logo = logos[item.provider_name];
@@ -78,6 +73,13 @@
             combo: 'down',
             description: 'previous show',
             callback: vm.Player.previousShow
+        })
+        .add({
+            combo: 'c',
+            description: 'Show the controller',
+            callback: function() {
+                vm.showController = !vm.showController;
+            }
         });
 }
 
