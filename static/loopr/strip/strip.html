@@ -13,8 +13,8 @@
             <div ng-click="strip.nextShow()"><i class="fa fa-angle-double-right"></i></div>
         </div>
         <div class="info">
-            <div>Current video <span ng-bind="player.currentItem.title"></span></div>
-            <div>Current show <span ng-bind="player.currentShow.title"></span></div>
+            <div>Next <span ng-bind="player.getNextItem().title"></span></div>
+            <div>Next show <span ng-bind="player.getNextShow().title"></span></div>
         </div>
     </div>
     <div class="progress-bar"><div class="progression" ng-style="{width: progression + '%'}"></div></div>

@@ -53,10 +53,15 @@
                 self.currentItem = show.links[index];
                 $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
             },
-            nextItem: function(play) {
-                if (!angular.isDefined(play)) {
-                    play = true;
+            getNextItem: function() {
+                var current_item_index = self.currentShow.links.indexOf(self.currentItem);
+                if (self.currentShow.links.length - 1 > current_item_index) {
+                    return self.currentShow.links[current_item_index + 1];
+                } else {
+                    return self.getNextShow().links[0];
                 }
+            },
+            nextItem: function() {
                 var current_item_index = self.currentShow.links.indexOf(self.currentItem);
                 if (self.currentShow.links.length - 1 > current_item_index) {
                     // next item
@@ -76,13 +81,16 @@
                     self.previousShow(true);
                 }
             },
-            nextShow: function() {
+            getNextShow: function() {
                 var current_index = self.loop.shows.indexOf(self.currentShow);
                 var next_show = 0;
                 if (current_index > -1 && current_index + 1 < self.loop.shows.length) {
                     next_show = current_index + 1;
                 }
-                return self.playShow(self.loop.shows[next_show]);
+                return self.loop.shows[next_show];
+            },
+            nextShow: function() {
+                return self.playShow(self.getNextShow());
             },
             previousShow: function(last) {
                 last = last === true;
@@ -92,15 +100,11 @@
                     previous_show = self.loop.shows.length - 1;
                 }
                 var show = self.loop.shows[previous_show];
-                var index = last ? show.links.length - 1 : 0
+                var index = last ? show.links.length - 1 : 0;
                 return self.playShow(self.loop.shows[previous_show], index);
             }
         });
 
-        $rootScope.$on('player.previousShow', self.previousShow);
-        $rootScope.$on('player.previousItem', self.previousItem);
-        $rootScope.$on('player.nextItem', self.nextItem);
-        $rootScope.$on('player.nextShow', self.nextShow);
         return self;
     }
 
