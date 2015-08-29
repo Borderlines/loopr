@@ -8,12 +8,16 @@
         var vm = this;
 
         angular.extend(vm, {
-            underlines: [],
-            previousShow: $scope.player.previousShow,
-            previousItem: $scope.player.previousItem,
-            nextItem: $scope.player.nextItem,
-            nextShow: $scope.player.nextShow,
+            underlines: []
         });
+        if ($scope.player) {
+            angular.extend(vm, {
+                previousShow: $scope.player.previousShow,
+                previousItem: $scope.player.previousItem,
+                nextItem: $scope.player.nextItem,
+                nextShow: $scope.player.nextShow
+            });
+        }
         // Underlines
         var underline_animations = [];
         $scope.$watch('stripQueries', function(queries, old_value) {
