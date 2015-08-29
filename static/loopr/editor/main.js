@@ -91,8 +91,21 @@
                 auth: localStorageService.get('auth'),
                 user: user
             };
+            $rootScope.$on('unauthorized', service.logout);
             $rootScope.logout = service.logout;
             return service;
+        }])
+        .config(['$httpProvider', function($httpProvider) {
+            $httpProvider.interceptors.push('APIInterceptor');
+        }])
+        .service('APIInterceptor', ['$rootScope', function($rootScope) {
+            var service = this;
+            service.responseError = function(response) {
+                if (response.status === 401) {
+                    $rootScope.$broadcast('unauthorized');
+                }
+                return response;
+            };
         }])
         .directive('contenteditable', ['$sce', function($sce) {
             return {
