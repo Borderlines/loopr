@@ -38,8 +38,7 @@
                         vm.users = users;
                     });
                 }],
-                controllerAs: 'vm',
-                // reloadOnSearch:false
+                controllerAs: 'vm'
             })
             .when('/:username', {
                 templateUrl: '/static/loopr/catalog/user.html',
@@ -47,8 +46,7 @@
                     var vm = this;
                     vm.user = $routeParams.username;
                 }],
-                controllerAs: 'vm',
-                // reloadOnSearch:false
+                controllerAs: 'vm'
             });
             $locationProvider.html5Mode({enabled: true, requireBase: true});
         }])

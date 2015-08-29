@@ -12,7 +12,7 @@
                 var progressionTracker;
                 var gifTimeout;
                 var layoutTimeout;
-                var layouts = ['default', 'symmetry'];
+                var layouts = ['default', 'symmetry', 'repeat'];
                 var giphy_keywords = Player.currentShow.settings && Player.currentShow.settings.giphyTags.split(',') || [];
                 var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
 
@@ -107,8 +107,12 @@
                     '<div class="background"',
                         'ng-style="{\'background-image\': \'url(\'+background+\')\'}">',
                     '</div>',
-                    '<img ng-src="{{soundcloudArtwork}}"/>',
+                    '<img ng-src="{{soundcloudArtwork}}" ng-if="layout !== \'repeat\'"/>',
                     '<img ng-src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
+                    '<div class="repeatable"',
+                        'ng-style="{\'background-image\': \'url(\'+soundcloudArtwork+\')\'}"',
+                        'ng-if="layout === \'repeat\'">',
+                    '</div>',
                     '<div class="overlay" ng-click="playPause()"></div>"',
                 '</div>'
             ].join('')

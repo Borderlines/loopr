@@ -25,6 +25,18 @@ iframe {
         background-repeat: no-repeat;
         background-position: center center;
     }
+    &.repeat {
+        .repeatable {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-repeat: repeat;
+        }
+
+    }
     &.symmetry {
         img {width: 50%;}
         img:nth-child(1) {
