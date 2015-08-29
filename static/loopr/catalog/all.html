@@ -1,0 +1,9 @@
+<div class="content">
+    <div class="catalog__filters">Latest Shows from all</div>
+    <div ng-repeat="user in vm.users">
+        <div class="catalog__user"><a ng-href="/catalog/{{ user.username }}" ng-bind="user.username"></a>'s Shows (3 latest)</div>
+        <catalog user="user"
+                 max-show="3">
+        </catalog>
+    </div>
+</div>

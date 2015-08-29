@@ -45,10 +45,19 @@ nav.left {
     padding: 50px 20px 0 20px;
     background-color: #1A1A1A;
     .logo {
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        padding: 5px 10px;
-        display: inline-block;
-        margin-bottom: 20px;
+        position: relative;
+        left: -30px;
+        top: -60px;
+        height: 150px;
+        width: 150px;
+        img {
+            position: absolute;
+        }
+        &:hover {
+            img:nth-child(2) {
+                display: none;
+            }
+        }
     }
     .active a {
         font-weight: 400;
@@ -65,6 +74,7 @@ nav.right {
     width: @RIGHT_NAV_WIDTH;
     box-sizing: border-box;
     background-color: #E6E6E6;
+    overflow: auto;
     .block {
         padding: 0px 20px 0 20px;
     }
@@ -75,7 +85,11 @@ nav.right {
     }
 }
 .content {
-    margin: @HEADER_HEIGHT + 40px @RIGHT_NAV_WIDTH + 20px 20px @NAV_WIDTH + 30px;
+    margin: 40px 20px 20px @NAV_WIDTH + 30px;
+    &.in-frame {
+        margin-top: @HEADER_HEIGHT + 40px;
+        margin-right: @RIGHT_NAV_WIDTH + 20px;
+    }
     input[type="text"], input[type="password"] {
         border: 1px solid rgba(240, 12, 12, 0.4);
         padding: 10px;

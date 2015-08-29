@@ -38,7 +38,6 @@
                     $interval.cancel(progressionTracker);
                     Player.setCurrentPosition(0);
                     scope.soundcloudArtwork = undefined;
-                    scope.soundcloudIllustration = undefined;
                 }
 
                 function pause() {
@@ -83,12 +82,10 @@
                     soundcloudPlayer = soundDeferred.promise;
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
-
                         angular.extend(scope, {
-                            soundcloudIllustration: data.waveform_url
+                            background: '/static/logos/L8pr-' + (Math.ceil(Math.random()*6) + 1) + '-500.gif'
                         });
-                        SC.stream('/tracks/' + data.id, function(sound) {
-                            // sound.play();
+                        SC.stream(data.uri, function(sound) {
                             play();
                             soundDeferred.resolve(sound);
                             $interval.cancel(progressionTracker);
@@ -106,10 +103,12 @@
                 });
             },
             template: [
-                '<div class="soundCloudViz {{ layout }}"',
-                'ng-style="{\'background-image\': \'url(\'+soundcloudIllustration+\')\'}">',
-                    '<img src="{{soundcloudArtwork}}"/>',
-                    '<img src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
+                '<div class="soundCloudViz {{ layout }}">',
+                    '<div class="background"',
+                        'ng-style="{\'background-image\': \'url(\'+background+\')\'}">',
+                    '</div>',
+                    '<img ng-src="{{soundcloudArtwork}}"/>',
+                    '<img ng-src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
                     '<div class="overlay" ng-click="playPause()"></div>"',
                 '</div>'
             ].join('')

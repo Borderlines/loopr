@@ -31,7 +31,7 @@
         </ul>
     </div>
 </nav>
-<div class="create-show content">
+<div class="create-show content in-frame">
     <form>
         <h2 ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" contenteditable="true"></h2>
         <label>Link
@@ -40,7 +40,7 @@
         <button ng-click="vm.addLink(vm.url)">+ Add</button>
     </form>
     <table>
-        <tr ng-repeat="link in vm.show.links">
+        <tr ng-repeat="link in vm.show.links" ng-mouseover="vm.illustration = link.thumbnail">
             <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="/loop/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a></div></td>
             <td class="subtitle"><input type="text" ng-model="link.subtitle" ng-change="vm.saveShow()" ng-model-options="{debounce: 2000}" placeholder="subtitle"/></td>
             <td>
@@ -53,5 +53,5 @@
             <td><a ng-click="vm.removeVideo(link)">X</a></td>
         </tr>
     </table>
-    <img class="illustration" ng-src="{{ vm.show.thumbnail || vm.show.links[vm.show.links.length-1].thumbnail }}"/>
+    <img class="illustration" ng-src="{{ vm.illustration || vm.show.thumbnail || vm.show.links[0].thumbnail }}"/>
 </div>

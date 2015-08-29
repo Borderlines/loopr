@@ -1,12 +1,24 @@
 <div class="strip" ng-class="{'reduced': strip.reduced_mode}">
-    <ng-include src="'/static/loopr/strip/controllers.html'" ng-hide="strip.reduced_mode"></ng-include>
-    <div class="upper-strip" ng-hide="strip.reduced_mode">
+    <div class="upper-strip" ng-hide="strip.reduced_mode" ng-click="showController = !showController">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner"></div>
         </div>
         <div class="logo"><i class="fa {{ logo }}"></i></div>
     </div>
-    <div class="lower-strip">
+    <div class="controllers" ng-if="showController">
+        <div class="navigation">
+            <div ng-click="strip.previousShow()"><i class="fa fa-angle-double-left"></i></div>
+            <div ng-click="strip.previousItem()"><i class="fa fa-angle-left"></i></div>
+            <div ng-click="strip.nextItem()"><i class="fa fa-angle-right"></i></div>
+            <div ng-click="strip.nextShow()"><i class="fa fa-angle-double-right"></i></div>
+        </div>
+        <div class="info">
+            <div>Next <span ng-bind="player.getNextItem().title"></span></div>
+            <div>Next show <span ng-bind="player.getNextShow().title"></span></div>
+        </div>
+    </div>
+    <div class="progress-bar"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
+    <div class="lower-strip" ng-click="showController = !showController">
         <div class="logo">
             <i class="fa fa-twitter"></i>
         </div>
@@ -18,5 +30,4 @@
         </div>
         <div style="clear:both"> </div>
     </div>
-    <ng-include src="'/static/loopr/strip/controllers.html'" ng-show="strip.reduced_mode"></ng-include>
 </div>
