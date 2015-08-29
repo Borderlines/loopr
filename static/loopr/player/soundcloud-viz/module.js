@@ -38,7 +38,6 @@
                     $interval.cancel(progressionTracker);
                     Player.setCurrentPosition(0);
                     scope.soundcloudArtwork = undefined;
-                    scope.soundcloudIllustration = undefined;
                 }
 
                 function pause() {
@@ -84,10 +83,9 @@
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
                         angular.extend(scope, {
-                            background: '/static/logos/L8pr-'+Math.ceil(Math.random()*7)+'.gif'
+                            background: '/static/logos/L8pr-' + (Math.ceil(Math.random()*6) + 1) + '-500.gif'
                         });
                         SC.stream(data.uri, function(sound) {
-                            // sound.play();
                             play();
                             soundDeferred.resolve(sound);
                             $interval.cancel(progressionTracker);
