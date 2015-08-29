@@ -109,8 +109,8 @@
                     '<div class="background"',
                         'ng-style="{\'background-image\': \'url(\'+background+\')\'}">',
                     '</div>',
-                    '<img src="{{soundcloudArtwork}}"/>',
-                    '<img src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
+                    '<img ng-src="{{soundcloudArtwork}}"/>',
+                    '<img ng-src="{{soundcloudArtwork}}" ng-if="layout === \'symmetry\'" />',
                     '<div class="overlay" ng-click="playPause()"></div>"',
                 '</div>'
             ].join('')
