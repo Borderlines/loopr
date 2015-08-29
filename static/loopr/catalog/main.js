@@ -1,10 +1,16 @@
 (function() {
     'use strict';
 
-    CatalogCtrl.$inject = ['Loops', 'Accounts', '$scope', 'Shows'];
-    function CatalogCtrl(Loops, Accounts, $scope, Shows) {
+    CatalogCtrl.$inject = ['Loops', 'Accounts', '$scope', 'Shows', '$q'];
+    function CatalogCtrl(Loops, Accounts, $scope, Shows, $q) {
         var vm = this;
-        Accounts.one($scope.user).get().then(function(user) {
+        var user;
+        if (typeof($scope.user) === 'object') {
+            user = $scope.user;
+        } else {
+            user = Accounts.one($scope.user).get();
+        }
+        $q.when(user).then(function(user) {
             Loops.getList({where:{user_id: user._id}, embedded:{shows:1}}).then(function(loops) {
                 var loop = loops[0];
                 angular.extend(loop, {
@@ -26,15 +32,22 @@
             $routeProvider
             .when('/catalog', {
                 templateUrl: '/static/loopr/catalog/all.html',
+                controller: ['Accounts', function(Accounts) {
+                    var vm = this;
+                    vm.users = Accounts.getList().then(function(users) {
+                        vm.users = users;
+                    });
+                }],
+                controllerAs: 'vm',
                 reloadOnSearch:false
             })
             .when('/catalog/:username', {
                 templateUrl: '/static/loopr/catalog/user.html',
-                controllerAs: 'vm',
                 controller: ['$routeParams', function($routeParams) {
                     var vm = this;
                     vm.user = $routeParams.username;
                 }],
+                controllerAs: 'vm',
                 reloadOnSearch:false
             });
             $locationProvider.html5Mode({enabled: true, requireBase: false});

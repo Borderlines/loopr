@@ -1,10 +1,7 @@
-
 <div class="catalog__filters">Latest Shows from all</div>
-<div class="catalog__user"><a href="/catalog/vied12">Vied12</a>'s Shows (5 latest)</div>
-<catalog user="'vied12'"
-         max-show="5">
-</catalog>
-<div class="catalog__user"><a href="/catalog/ben">Ben</a>'s Shows (5 latest)</div>
-<catalog user="'ben'"
-         max-show="5">
-</catalog>
+<div ng-repeat="user in vm.users">
+    <div class="catalog__user"><a href="/catalog/vied12" ng-bind="user.username"></a>'s Shows (3 latest)</div>
+    <catalog user="user"
+             max-show="3">
+    </catalog>
+</div>
