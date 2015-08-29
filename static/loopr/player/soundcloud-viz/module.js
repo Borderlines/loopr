@@ -83,11 +83,10 @@
                     soundcloudPlayer = soundDeferred.promise;
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
-
                         angular.extend(scope, {
                             soundcloudIllustration: data.waveform_url
                         });
-                        SC.stream('/tracks/' + data.id, function(sound) {
+                        SC.stream(data.uri, function(sound) {
                             // sound.play();
                             play();
                             soundDeferred.resolve(sound);
