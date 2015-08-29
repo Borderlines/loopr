@@ -3,36 +3,50 @@
 
 html, body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #E6E6E6;
 }
 li {
     list-style: none;
+    background-color: white;
+    display: inline-block;
+    margin: 5px;
+}
+ul{
+    padding: 0;
+}
+.catalog {
+    &__filters {
+        font-size: 1.7em;
+        margin-bottom: 80px;
+    }
+    &__user {
+        margin-top: 40px;
+        font-size: 1.5em;
+    }
 }
 .loop {
 }
 .show {
 
 }
-.thumb  {
-    height : @THUMB_HEIGHT_BIG;
-    position: relative;
+.title {
+    padding: 10px 10px;
     a {
-        position: absolute;
-
+        color: black;
+        text-decoration: none;
         &:hover {
-                z-index: 99;
-            img {
-                max-width: auto;
-                height: @THUMB_HEIGHT_BIG;
-            }
-            span.text-content {
-                opacity: 1;
-            }
+            text-decoration: underline;
         }
     }
+}
+.thumb  {
+    position: relative;
     img {
         transition-duration: .25s;
         transition-property: height;
         height: @THUMB_HEIGHT;
+        display: block;
+        float: left;
     }
 }
 

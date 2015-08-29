@@ -1,0 +1,15 @@
+<ul>
+    <li ng-repeat="show in vm.loop.shows track by $index" class="show">
+        <div class="thumb">
+            <a  ng-repeat="link in show.links track by $index"
+                target="_self"
+                ng-href="/loop/{{ vm.loop.user.username}}/?show={{show._id }}&item={{ $index }}">
+                <img ng-src="{{ link.thumbnail }}" title="{{link.title}}"/>
+            </a>
+            <div style="clear:both"></div>
+        </div>
+        <div class="title">
+            <a ng-href="/loop/{{ vm.loop.user.username }}/?show={{ show._id }}" target="_self">{{ show.title }}</a>
+        </div>
+    </li>
+</ul>

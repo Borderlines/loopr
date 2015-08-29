@@ -48,7 +48,8 @@ def player(username=None):
 
 
 @app.route('/catalog')
-def catalog():
+@app.route('/catalog/<path:path>')
+def catalog(path=None):
     return render_template('catalog.html')
 
 
