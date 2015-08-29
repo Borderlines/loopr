@@ -52,7 +52,7 @@
                         function updateGif() {
                             function updateLayout() {
                                 $timeout.cancel(layoutTimeout);
-                                scope.layout = layouts[(layouts.indexOf(scope.layout) + 1) % layouts.length];
+                                scope.layout = layouts[Math.floor(Math.random()*layouts.length)];
                                 layoutTimeout = $timeout(updateLayout, 5000);
                             }
 
