@@ -27,7 +27,7 @@ api.register_api(app)
 
 
 @app.route('/')
-def index():
+def index(path=None):
     return render_template('editor.html')
 
 

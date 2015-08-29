@@ -21,23 +21,7 @@
     </head>
     <body>
 
-        <nav class="left">
-            <div class="wrapper">
-                <div class="logo">
-                    {% set logo = ['2','3','4','5','6','7']|random %}
-                    <img src="{{ url_for('static', filename='logos/L8pr-'+logo+'.gif') }}"/>
-                    <img src="{{ url_for('static', filename='logos/L8pr-1.gif') }}"/>
-                </div>
-                <div class="" ng-class="{active: $route.current.activetab == 'shows'}"><a href="/#/shows">Shows</a></div>
-                <div class="" ng-class="{active: $route.current.activetab == 'strip'}"><a href="/#/strip">Strip</a></div>
-                <br/>
-                <div class="">>&nbsp;<a target="_blank" ng-href="/loop/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
-                <h3>Account</h3>
-                <div class="">{{'{{'}} user.username {{'}}'}}</div>
-                <div class="" ng-show="user"><a ng-click="logout()">Log out</a></div>
-                <div class="" ng-hide="user" ng-class="{active: $route.current.activetab == 'login'}"><a href="/#/login">Login</a></div>
-            </div>
-        </nav>
+        {% include('nav-left.html') %}
 
         <div ng-view></div>
 

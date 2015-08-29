@@ -16,8 +16,11 @@
         {% endassets %}
         <link href='//fonts.googleapis.com/css?family=Lekton:400,400italic,700' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <base href="/catalog/">
     </head>
     <body>
+
+        {% include('nav-left.html') %}
 
         <div ng-view></div>
 

@@ -30,7 +30,7 @@
     angular.module('loopr.catalog', ['ngRoute', 'loopr.api'])
         .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
             $routeProvider
-            .when('/catalog', {
+            .when('/', {
                 templateUrl: '/static/loopr/catalog/all.html',
                 controller: ['Accounts', function(Accounts) {
                     var vm = this;
@@ -39,18 +39,18 @@
                     });
                 }],
                 controllerAs: 'vm',
-                reloadOnSearch:false
+                // reloadOnSearch:false
             })
-            .when('/catalog/:username', {
+            .when('/:username', {
                 templateUrl: '/static/loopr/catalog/user.html',
                 controller: ['$routeParams', function($routeParams) {
                     var vm = this;
                     vm.user = $routeParams.username;
                 }],
                 controllerAs: 'vm',
-                reloadOnSearch:false
+                // reloadOnSearch:false
             });
-            $locationProvider.html5Mode({enabled: true, requireBase: false});
+            $locationProvider.html5Mode({enabled: true, requireBase: true});
         }])
         .directive('catalog', [function() {
             return {
