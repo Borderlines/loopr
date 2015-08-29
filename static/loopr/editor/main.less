@@ -45,10 +45,17 @@ nav.left {
     padding: 50px 20px 0 20px;
     background-color: #1A1A1A;
     .logo {
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        padding: 5px 10px;
-        display: inline-block;
-        margin-bottom: 20px;
+        position: relative;
+        left: -30px;
+        top: -60px;
+        img {
+            position: absolute;
+        }
+        &:hover {
+            img:nth-child(2) {
+                display: none;
+            }
+        }
     }
     .active a {
         font-weight: 400;

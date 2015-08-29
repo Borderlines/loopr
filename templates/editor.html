@@ -9,6 +9,7 @@
         <meta property="og:site_name" content="L8pr"/>
         <meta property="og:image" content="{{ url_for('static', filename='logo.png', _external=True) }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         {% assets filters="less", output="gen/loopr-editor.css", depends="/static/loopr/**.less",
             "loopr/editor/main.less"
@@ -22,7 +23,11 @@
 
         <nav class="left">
             <div class="wrapper">
-                <div class="logo">L8pR</div>
+                <div class="logo">
+                    {% set logo = ['2','3','4','5','6','7']|random %}
+                    <img src="{{ url_for('static', filename='logos/L8pr-'+logo+'.gif') }}"/>
+                    <img src="{{ url_for('static', filename='logos/L8pr-1.gif') }}"/>
+                </div>
                 <div class="" ng-class="{active: $route.current.activetab == 'shows'}"><a href="/#/shows">Shows</a></div>
                 <div class="" ng-class="{active: $route.current.activetab == 'strip'}"><a href="/#/strip">Strip</a></div>
                 <br/>
