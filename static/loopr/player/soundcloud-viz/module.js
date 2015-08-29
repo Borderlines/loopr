@@ -65,7 +65,7 @@
                                 .on('load', function() {
                                     scope.soundcloudArtwork = image_url;
                                     updateLayout();
-                                    gifTimeout = $timeout(updateGif, 10000);
+                                    gifTimeout = $timeout(updateGif, 15000);
                                 });
                             });
                         }
