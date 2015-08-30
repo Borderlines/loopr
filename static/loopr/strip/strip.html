@@ -3,7 +3,7 @@
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner"></div>
         </div>
-        <div class="logo"><i class="fa {{ logo }}"></i></div>
+        <div class="logo"><a ng-href="{{player.currentItem.url}}" target="_blank"><i class="fa {{ logo }}"></i></a></div>
     </div>
     <div class="controllers" ng-if="showController">
         <div class="navigation">
