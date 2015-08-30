@@ -53,7 +53,7 @@
                             function updateLayout() {
                                 $timeout.cancel(layoutTimeout);
                                 scope.layout = layouts[Math.floor(Math.random()*layouts.length)];
-                                layoutTimeout = $timeout(updateLayout, 5000);
+                                layoutTimeout = $timeout(updateLayout, 3000);
                             }
 
                             $timeout.cancel(gifTimeout);
@@ -65,7 +65,7 @@
                                 .on('load', function() {
                                     scope.soundcloudArtwork = image_url;
                                     updateLayout();
-                                    gifTimeout = $timeout(updateGif, 15000);
+                                    gifTimeout = $timeout(updateGif, 10000);
                                 });
                             });
                         }
