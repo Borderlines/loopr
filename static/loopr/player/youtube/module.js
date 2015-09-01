@@ -27,6 +27,9 @@
                     Player.setCurrentPosition(0);
                     Player.nextItem();
                 });
+                scope.$on('player.seekTo', function(e, percent) {
+                    scope.youtubePlayer.seekTo((percent/100) * scope.youtubePlayer.getDuration());
+                });
                 $rootScope.$on('youtube.player.playing', function(e, player) {
                     trackProgression(player.getCurrentTime.bind(player), player.getDuration.bind(player));
                 });
@@ -47,12 +50,13 @@
             template: [
                 '<youtube-video video-url="youtubeUrl"',
                 '               player-vars="youtubeConfig"',
+                '               player="youtubePlayer"',
                 '               player-width="\'100%\'"',
                 '               player-height="\'100%\'">',
                 '</youtube-video>'
             ].join('')
         };
     }
-    angular.module('loopr.player').directive('youtube', YoutubeDirective);
+    angular.module('loopr.player.youtube', ['youtube-embed']).directive('youtube', YoutubeDirective);
 
 })();

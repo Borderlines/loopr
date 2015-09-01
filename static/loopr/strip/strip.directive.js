@@ -15,7 +15,10 @@
                 previousShow: $scope.player.previousShow,
                 previousItem: $scope.player.previousItem,
                 nextItem: $scope.player.nextItem,
-                nextShow: $scope.player.nextShow
+                nextShow: $scope.player.nextShow,
+                setPosition: function($event) {
+                    return $scope.player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
+                }
             });
         }
         // Underlines

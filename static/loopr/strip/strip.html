@@ -17,7 +17,7 @@
             <div>Next show <span ng-bind="player.getNextShow().title"></span></div>
         </div>
     </div>
-    <div class="progress-bar"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
+    <div class="progress-bar" ng-click="strip.setPosition($event)"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
     <div class="lower-strip" ng-click="showController = !showController">
         <div class="logo">
             <i class="fa fa-twitter"></i>

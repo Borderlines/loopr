@@ -98,6 +98,11 @@
                         });
                     });
                 });
+                scope.$on('player.seekTo', function(e, percent) {
+                    soundcloudPlayer.then(function(sound) {
+                        sound.seek(Math.ceil((percent/100) * sound.getDuration()));
+                    });
+                });
                 scope.$on('$destroy', function() {
                     clear();
                 });
