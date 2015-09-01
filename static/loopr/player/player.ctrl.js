@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Accounts', '$routeParams', '$rootScope', '$interval', '$location', 'hotkeys', '$scope'];
-    function PlayerCtrl(Player, Loops, Accounts, $routeParams, $rootScope, $interval, $location, hotkeys, $scope) {
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$rootScope', '$interval', '$location', 'hotkeys', '$scope', '$q'];
+    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $rootScope, $interval, $location, hotkeys, $scope, $q) {
         var vm = this;
         angular.extend(vm, {
             lines: undefined,
@@ -29,11 +29,19 @@
                         }
                     }
                 });
-                Player.setLoop(loop);
                 var show = _.find(loop.shows, function(show) { return show._id === $routeParams.show;});
-                Player.playShow(show, $routeParams.item);
-                vm.loop = loop;
-                return loop;
+                if (!angular.isDefined(show) && $routeParams.show) {
+                    show = Shows.one($routeParams.show).get().then(function(show) {
+                        loop.shows.push(show);
+                        return show;
+                    });
+                }
+                return $q.when(show).then(function(show) {
+                    Player.setLoop(loop);
+                    Player.playShow(show, $routeParams.item);
+                    vm.loop = loop;
+                    return loop;
+                });
             });
         });
         $rootScope.$on('player.play', function ($event, item, show) {

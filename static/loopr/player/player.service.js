@@ -12,6 +12,9 @@
             setCurrentPosition: function(position) {
                 self.currentPosition = position;
             },
+            setPosition: function(percent) {
+                $rootScope.$broadcast('player.seekTo', percent);
+            },
             setLoop: function(loop) {
                 self.loop = loop;
             },

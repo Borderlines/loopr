@@ -4,7 +4,8 @@ from flask import current_app as app
 class Account(object):
     resource = {
         'datasource': {
-            'projection': {'username': 1}
+            'projection': {'username': 1},
+            'filter': {'active': True}
         },
         # the standard account entry point is defined as
         # '/accounts/<ObjectId>'. We define  an additional read-only entry
@@ -29,6 +30,10 @@ class Account(object):
             'password': {
                 'type': 'string',
                 'required': True,
+            },
+            'active': {
+                'type': 'boolean',
+                'default': True
             }
         }
     }

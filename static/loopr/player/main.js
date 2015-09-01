@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr.player', ['ngRoute', 'loopr.api', 'loopr.strip', 'youtube-embed', 'cfp.hotkeys'])
+    angular.module('loopr.player', ['ngRoute', 'loopr.api', 'loopr.strip', 'cfp.hotkeys', 'loopr.player.youtube'])
         .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
             $routeProvider
             .when('/loop/:username', {
