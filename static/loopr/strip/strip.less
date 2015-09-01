@@ -5,6 +5,11 @@
     .progress-bar {
         height: 5px;
         background-color: #E0DDDB;
+        &:hover {
+            height: 20px;
+        }
+        transition-property: height;
+        transition-duration: .25s;
         .progression {
             transition-duration: .25s;
             transition-property: width;
