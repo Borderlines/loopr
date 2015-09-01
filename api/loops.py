@@ -4,6 +4,7 @@ from flask import current_app as app
 class Loop(object):
     resource = {
         'auth_field': 'user_id',
+        'unique_to_user': True,
         'resource_methods': ['GET', 'POST', 'DELETE'],
         'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
         'public_methods': ['GET'],
