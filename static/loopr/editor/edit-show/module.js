@@ -15,7 +15,7 @@
                     var promise = $q.when();
                     links.forEach(function(link) {
                         promise = promise.then(function() {
-                            return vm.addVideo(link);
+                            return vm.addLink(link);
                         });
                     });
                     return promise;
