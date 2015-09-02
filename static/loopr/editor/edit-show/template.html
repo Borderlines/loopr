@@ -6,7 +6,7 @@
             <li><a ng-click="vm.addToLoopMode()">Add to loop</a></li>
             <li><a ng-click="vm.removeShow()">Delete this show</a></li>
             <li>Merge this show with another</li>
-            <li><a target="_blank" ng-href="/loop/{{user.username}}/?show={{vm.show._id}}">Watch loop from here</a></li>
+            <li><a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}">Watch loop from here</a></li>
         </ul>
     </div>
     <div class="block">
@@ -41,7 +41,7 @@
     </form>
     <table>
         <tr ng-repeat="link in vm.show.links" ng-mouseover="vm.illustration = link.thumbnail">
-            <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="/loop/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a></div></td>
+            <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a></div></td>
             <td class="subtitle"><input type="text" ng-model="link.subtitle" ng-change="vm.saveShow()" ng-model-options="{debounce: 2000}" placeholder="subtitle"/></td>
             <td>
                 <a ng-href="{{ link.url }}" target="_blank">

@@ -1,7 +1,7 @@
 <ul class="catalog__shows">
     <li ng-repeat="show in vm.loop.shows track by $index" class="catalog__show">
         <div class="catalog__header">
-            <a ng-href="/loop/{{ vm.loop.user.username }}/?show={{ show._id }}" target="_self">
+            <a ng-href="/{{ vm.loop.user.username }}/?show={{ show._id }}" target="_self">
                 <div class="title" ng-bind="show.title"></div>
                 <div class="subtitle">{{ show.type }} - {{ show.links.length }} items</div>
                 <div class="logo">
@@ -13,7 +13,7 @@
         <div class="thumbs">
             <a  ng-repeat="link in show.links track by $index"
                 target="_self"
-                ng-href="/loop/{{ vm.loop.user.username}}/?show={{show._id }}&item={{ $index }}">
+                ng-href="/{{ vm.loop.user.username}}/?show={{show._id }}&item={{ $index }}">
                 <img ng-src="{{ link.thumbnail }}" title="{{link.title}}"/>
             </a>
         </div>

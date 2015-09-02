@@ -31,8 +31,8 @@ def index(path=None):
     return render_template('editor.html')
 
 
-@app.route('/loop/<username>')
-def player(username=None):
+@app.route('/<username>')
+def player(username):
     user = app.data.driver.db['accounts'].find_one({'username': username})
     loop = app.data.driver.db['loops'].find({'user_id': user['_id']})[0]
     nb_show = str(len(loop['shows']))
