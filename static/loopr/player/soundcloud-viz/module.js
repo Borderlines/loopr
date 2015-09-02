@@ -103,6 +103,7 @@
                         sound.seek(Math.ceil((percent/100) * sound.getDuration()));
                     });
                 });
+                scope.$on('player.playPause', scope.playPause);
                 scope.$on('$destroy', function() {
                     clear();
                 });

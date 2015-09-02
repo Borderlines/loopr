@@ -16,6 +16,7 @@
                 previousItem: $scope.player.previousItem,
                 nextItem: $scope.player.nextItem,
                 nextShow: $scope.player.nextShow,
+                playPause: $scope.player.playPause,
                 setPosition: function($event) {
                     return $scope.player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
                 }

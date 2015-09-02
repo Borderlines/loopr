@@ -27,6 +27,13 @@
                     Player.setCurrentPosition(0);
                     Player.nextItem();
                 });
+                scope.$on('player.playPause', function() {
+                    if (scope.youtubePlayer.getPlayerState() === 2) {
+                        scope.youtubePlayer.playVideo();
+                    } else {
+                        scope.youtubePlayer.pauseVideo();
+                    }
+                });
                 scope.$on('player.seekTo', function(e, percent) {
                     scope.youtubePlayer.seekTo((percent/100) * scope.youtubePlayer.getDuration());
                 });

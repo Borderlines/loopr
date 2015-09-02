@@ -15,6 +15,9 @@
             setPosition: function(percent) {
                 $rootScope.$broadcast('player.seekTo', percent);
             },
+            playPause: function() {
+                $rootScope.$broadcast('player.playPause');
+            },
             setLoop: function(loop) {
                 self.loop = loop;
             },
