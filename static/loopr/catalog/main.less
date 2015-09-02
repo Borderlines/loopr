@@ -1,19 +1,10 @@
-@THUMB_HEIGHT: 75px;
+@THUMB_HEIGHT: 80px;
 @THUMB_HEIGHT_BIG: 100px;
 @import "../editor/main.less";
 
 html, body {
     font-family: 'Montserrat', sans-serif;
     background-color: #E6E6E6;
-}
-li {
-    list-style: none;
-    background-color: white;
-    display: inline-block;
-    margin: 5px;
-}
-ul{
-    padding: 0;
 }
 .catalog {
     &__filters {
@@ -24,30 +15,42 @@ ul{
         margin-top: 40px;
         font-size: 1.5em;
     }
-}
-.loop {
-}
-.show {
-
-}
-.title {
-    padding: 10px 10px;
-    a {
-        color: black;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
+    &__shows {
+        li {
+            list-style: none;
+            margin-bottom: 20px;
+            .catalog__header {
+                position: relative;
+                background-color: white;
+                float: left;
+                height: @THUMB_HEIGHT;
+                padding: 20px;
+                box-sizing: border-box;
+                padding-right: 90px;
+                .title {
+                    white-space: nowrap;
+                }
+                .subtitle {
+                    font-size: .6em;
+                    font-weight: 400;
+                }
+                .logo {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    font-size: 2em;
+                }
+            }
+            .thumbs {
+                img {
+                    transition-duration: .25s;
+                    transition-property: height;
+                    height: @THUMB_HEIGHT;
+                    display: block;
+                    float: left;
+                }
+            }
         }
-    }
-}
-.thumb  {
-    position: relative;
-    img {
-        transition-duration: .25s;
-        transition-property: height;
-        height: @THUMB_HEIGHT;
-        display: block;
-        float: left;
     }
 }
 

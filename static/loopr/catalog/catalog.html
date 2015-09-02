@@ -1,15 +1,22 @@
-<ul>
-    <li ng-repeat="show in vm.loop.shows track by $index" class="show">
-        <div class="thumb">
+<ul class="catalog__shows">
+    <li ng-repeat="show in vm.loop.shows track by $index" class="catalog__show">
+        <div class="catalog__header">
+            <a ng-href="/loop/{{ vm.loop.user.username }}/?show={{ show._id }}" target="_self">
+                <div class="title" ng-bind="show.title"></div>
+                <div class="subtitle">{{ show.type }} - {{ show.links.length }} items</div>
+                <div class="logo">
+                    <span ng-if="show.type === 'VideoShow'"><i class="fa fa-youtube"></i></span>
+                    <span ng-if="show.type === 'MusicShow'"><i class="fa fa-soundcloud"></i></span>
+                </div>
+            </a>
+        </div>
+        <div class="thumbs">
             <a  ng-repeat="link in show.links track by $index"
                 target="_self"
                 ng-href="/loop/{{ vm.loop.user.username}}/?show={{show._id }}&item={{ $index }}">
                 <img ng-src="{{ link.thumbnail }}" title="{{link.title}}"/>
             </a>
-            <div style="clear:both"></div>
         </div>
-        <div class="title">
-            <a ng-href="/loop/{{ vm.loop.user.username }}/?show={{ show._id }}" target="_self">{{ show.title }}</a>
-        </div>
+        <div style="clear:both"></div>
     </li>
 </ul>
