@@ -1,14 +1,15 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$rootScope', '$interval', '$location', 'hotkeys', '$scope', '$q'];
-    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $rootScope, $interval, $location, hotkeys, $scope, $q) {
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams',
+    '$location', 'hotkeys', '$scope', '$q'];
+    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams,
+        $location, hotkeys, $scope, $q) {
         var vm = this;
         angular.extend(vm, {
             lines: undefined,
             Player: Player
         });
-        $rootScope.Player = vm.Player;
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 loop = loop[0];
@@ -44,19 +45,13 @@
                 });
             });
         });
-        $rootScope.$on('player.play', function ($event, item, show) {
+        $scope.$on('player.play', function ($event, item, show) {
             var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
             if (item.subtitle) {
                 lines.push(item.subtitle);
             }
             lines.push(item.title);
             vm.lines = lines;
-            // set the logo
-            var logos = {
-                YouTube: 'fa-youtube-square',
-                SoundCloud: 'fa-soundcloud'
-            };
-            vm.logo = logos[item.provider_name];
             // deep linking
             $location.search({show: show._id, item:show.links.indexOf(item)});
         });
