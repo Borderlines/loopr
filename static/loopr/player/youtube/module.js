@@ -37,7 +37,11 @@
                 scope.$on('player.seekTo', function(e, percent) {
                     scope.youtubePlayer.seekTo((percent/100) * scope.youtubePlayer.getDuration());
                 });
+                $rootScope.$on('youtube.player.paused', function(e, player) {
+                    Player.setStatus('pause');
+                });
                 $rootScope.$on('youtube.player.playing', function(e, player) {
+                    Player.setStatus('playing');
                     trackProgression(player.getCurrentTime.bind(player), player.getDuration.bind(player));
                 });
                 function trackProgression(current, total) {

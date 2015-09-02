@@ -9,11 +9,18 @@
             loop: undefined,
             currentShow: undefined,
             currentItem: undefined,
+            currentStatus: undefined,
             setCurrentPosition: function(position) {
                 self.currentPosition = position;
             },
             setPosition: function(percent) {
                 $rootScope.$broadcast('player.seekTo', percent);
+            },
+            getStatus: function() {
+                return self.currentStatus;
+            },
+            setStatus: function(status) {
+                self.currentStatus = status;
             },
             playPause: function() {
                 $rootScope.$broadcast('player.playPause');

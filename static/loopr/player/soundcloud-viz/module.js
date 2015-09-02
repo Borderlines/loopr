@@ -41,6 +41,7 @@
                 }
 
                 function pause() {
+                    Player.setStatus('pause');
                         $timeout.cancel(layoutTimeout);
                         $timeout.cancel(gifTimeout);
                     soundcloudPlayer.then(function(sound) {
@@ -48,7 +49,9 @@
                         scope.soundcloudArtwork = undefined;
                     });
                 }
+
                 function play() {
+                    Player.setStatus('playing');
                         function updateGif() {
                             function updateLayout() {
                                 $timeout.cancel(layoutTimeout);
