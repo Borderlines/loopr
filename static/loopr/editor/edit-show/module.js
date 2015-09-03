@@ -33,7 +33,7 @@
                         vm.show.links = [];
                     }
                     var new_show = vm.show.clone();
-                    new_show.links.push(link);
+                    new_show.links.unshift(link);
                     vm.url = undefined;
                     return vm.saveShow(new_show);
                 });
