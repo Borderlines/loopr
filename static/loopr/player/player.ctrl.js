@@ -86,6 +86,11 @@
             }
         })
         .add({
+            combo: 'm',
+            description: 'Mute/Unmute',
+            callback: vm.Player.toggleMute
+        })
+        .add({
             combo: 'space',
             description: 'pause/play',
             callback: vm.Player.playPause
