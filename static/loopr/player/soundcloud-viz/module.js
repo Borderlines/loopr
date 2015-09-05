@@ -26,6 +26,28 @@
                     });
                 };
 
+                function mute() {
+                    soundcloudPlayer.then(function(sound) {
+                        sound.setVolume(0);
+                    });
+                }
+
+                function unmute() {
+                    soundcloudPlayer.then(function(sound) {
+                        sound.setVolume(1);
+                    });
+                }
+
+                scope.toggleMute = function() {
+                    soundcloudPlayer.then(function(sound) {
+                        if (sound.getVolume() === 1) {
+                            mute();
+                        } else {
+                            unmute();
+                        }
+                    });
+                };
+
                 function clear() {
                     $timeout.cancel(layoutTimeout);
                     $timeout.cancel(gifTimeout);
@@ -95,6 +117,9 @@
                         SC.stream(data.uri, function(sound) {
                             play();
                             soundDeferred.resolve(sound);
+                            if (Player.isMuted) {
+                                mute();
+                            }
                             $interval.cancel(progressionTracker);
                             progressionTracker = $interval(function() {
                                 Player.setCurrentPosition((sound.getCurrentPosition() /  sound.getDuration()) * 100);
@@ -110,6 +135,7 @@
                         sound.seek(Math.ceil((percent/100) * sound.getDuration()));
                     });
                 });
+                scope.$on('player.toggleMute', scope.toggleMute);
                 scope.$on('player.playPause', scope.playPause);
                 scope.$on('$destroy', function() {
                     clear();

@@ -10,6 +10,7 @@
             currentShow: undefined,
             currentItem: undefined,
             currentStatus: undefined,
+            isMuted: false,
             setCurrentPosition: function(position) {
                 self.currentPosition = position;
             },
@@ -27,6 +28,10 @@
             },
             setLoop: function(loop) {
                 self.loop = loop;
+            },
+            toggleMute: function() {
+                $rootScope.$broadcast('player.toggleMute');
+                self.isMuted = !self.isMuted;
             },
             playShow: function(show, index) {
                 if (!angular.isDefined(show)) {
