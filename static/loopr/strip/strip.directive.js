@@ -3,8 +3,8 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops', '$element'];
-    function StripCtrl($interval, $scope, $rootScope, $timeout, Loops, $element) {
+    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops', '$element', 'Fullscreen'];
+    function StripCtrl($interval, $scope, $rootScope, $timeout, Loops, $element, Fullscreen) {
         var vm = this;
 
         angular.extend(vm, {
@@ -19,6 +19,13 @@
                 playPause: $scope.player.playPause,
                 setPosition: function($event) {
                     return $scope.player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
+                },
+                toggleFullscreen: function() {
+                    if (Fullscreen.isEnabled()) {
+                        Fullscreen.cancel();
+                    } else {
+                        Fullscreen.all();
+                    }
                 }
             });
         }
@@ -94,7 +101,7 @@
         }, 2000);
     }
 
-    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate'])
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
         .directive('strip', function() {
             return {
                 scope: {

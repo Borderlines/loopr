@@ -26,24 +26,32 @@
         padding-left: 25px;
         font-family: 'Lekton';
         opacity: 0.70;
+        .navigation, .actions {
+            > div {
+                display: inline-block;
+                cursor: pointer;
+                &:hover {
+                    color: #00A99D;
+                }
+            }
+        }
         .navigation {
-            position: absolute;
             top: 20px;
+            position: absolute;
             .play {
                 font-size: .7em;
             }
             > div {
-                display: inline-block;
                 font-size: 1em;
-                cursor: pointer;
                 margin-right: 20px;
-                &:hover {
-                    color: #00A99D;
-                }
                 &:nth-child(6) {
-                    margin-left: 50px;
+                    margin-left: 25px;
                 }
             }
+        }
+        .actions {
+            float: right;
+            padding-top: 6px;
         }
     }
     .upper-strip {

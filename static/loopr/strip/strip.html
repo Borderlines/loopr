@@ -29,6 +29,9 @@
                 <i class="fa" ng-class="player.isMuted ? 'fa-volume-off' : 'fa-volume-up'"></i>
             </div>
         </div>
+        <div class="actions">
+            <div ng-click="strip.toggleFullscreen()"><i class="fa fa-arrows-alt"></i></div>
+        </div>
     </div>
     <div class="progress-bar" ng-click="strip.setPosition($event)"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
     <div class="lower-strip" ng-click="showController = !showController">
