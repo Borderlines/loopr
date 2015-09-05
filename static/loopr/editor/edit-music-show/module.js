@@ -10,9 +10,22 @@
             example: 'https://soundcloud.com/xxx/yyy',
             options: [
                 {
+                    type: 'checkbox',
+                    label: 'Giphy',
+                    name: 'giphy',
+                    defaultValue: true
+                },
+                {
+                    dependsOn: {giphy: true},
                     type: 'text',
                     label: 'Giphy Tags',
                     name: 'giphyTags'
+                },
+                {
+                    dependsOn: {giphy: true},
+                    type: 'checkbox',
+                    label: 'DjLayout',
+                    name: 'djLayout'
                 }
             ]
         });

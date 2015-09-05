@@ -67,7 +67,9 @@
                                 .attr('src', image_url)
                                 .on('load', function() {
                                     scope.soundcloudArtwork = image_url;
-                                    updateLayout();
+                                    if (Player.currentShow.settings.djLayout) {
+                                        updateLayout();
+                                    }
                                     gifTimeout = $timeout(updateGif, 10000);
                                 });
                             });
@@ -75,7 +77,9 @@
 
                     soundcloudPlayer.then(function(sound) {
                         sound.play();
-                        updateGif();
+                        if (Player.currentShow.settings.giphy) {
+                            updateGif();
+                        }
                     });
                 }
 

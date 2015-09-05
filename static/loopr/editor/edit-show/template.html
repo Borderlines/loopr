@@ -12,10 +12,10 @@
     <div class="block">
         <h3>Options</h3>
         <ul class="options">
-            <li ng-repeat="option in vm.options">
+            <li ng-repeat="option in vm.options" ng-if="vm.optionIsSatisifed(option)">
                 <label>
                     {{ option.label }}
-                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{debounce: 2000}">
+                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
                 </label>
             </li>
             <li>

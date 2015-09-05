@@ -84,6 +84,11 @@
             callback: function() {
                 vm.showController = !vm.showController;
             }
+        })
+        .add({
+            combo: 'space',
+            description: 'pause/play',
+            callback: vm.Player.playPause
         });
 }
 

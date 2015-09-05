@@ -74,6 +74,19 @@
             },
             addToLoopMode: function() {
                 $rootScope.$broadcast('openAddingShowMode', vm.show);
+            },
+            optionIsSatisifed: function(option) {
+                if (!angular.isDefined(vm.show) || !angular.isDefined(option.dependsOn)) {
+                    return true;
+                }
+                for (var key in option.dependsOn) {
+                    if (option.dependsOn.hasOwnProperty(key)) {
+                        if (option.dependsOn[key] !== vm.show.settings[key]) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
             }
         });
         // redirect to the specific route/controller
