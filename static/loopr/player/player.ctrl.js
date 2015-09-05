@@ -1,11 +1,12 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams',
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout',
     '$rootScope', '$location', 'hotkeys', '$scope', '$q'];
-    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams,
+    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
         $rootScope, $location, hotkeys, $scope, $q) {
         var vm = this;
+        var hideTimeout;
         angular.extend(vm, {
             lines: undefined,
             Player: Player
@@ -46,6 +47,15 @@
                 });
             });
         });
+        $scope.showAndHideStrip = _.throttle(function() {
+            if (vm.hideStrip) {
+                $timeout.cancel(hideTimeout);
+                vm.hideStrip = false;
+                hideTimeout = $timeout(function() {
+                    vm.hideStrip = true;
+                }, 5000);
+            }
+        }, 500);
         $scope.$on('player.play', function ($event, item, show) {
             var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
             if (item.subtitle) {
@@ -53,6 +63,15 @@
             }
             lines.push(item.title);
             vm.lines = lines;
+            // show strip
+            $timeout.cancel(hideTimeout);
+            vm.hideStrip = false;
+            // hide strip later if needed
+            if (Player.currentShow.settings.hide_strip) {
+                    hideTimeout = $timeout(function(){
+                    vm.hideStrip = true;
+                }, 5000);
+            }
             // deep linking
             $location.search({show: show._id, item:show.links.indexOf(item)});
         });

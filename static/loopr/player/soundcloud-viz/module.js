@@ -152,7 +152,6 @@
                         'ng-style="{\'background-image\': \'url(\'+soundcloudArtwork+\')\'}"',
                         'ng-if="layout === \'repeat\'">',
                     '</div>',
-                    '<div class="overlay" ng-click="playPause()"></div>"',
                 '</div>'
             ].join('')
         };

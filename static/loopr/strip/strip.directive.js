@@ -6,7 +6,6 @@
     StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops', '$element', 'Fullscreen'];
     function StripCtrl($interval, $scope, $rootScope, $timeout, Loops, $element, Fullscreen) {
         var vm = this;
-
         angular.extend(vm, {
             underlines: []
         });

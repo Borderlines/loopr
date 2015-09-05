@@ -2,9 +2,13 @@
                 soundcloud-item="vm.Player.currentItem"></soundcloud-viz>
 <youtube        ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
                 item="vm.Player.currentItem"></youtube>
+<div class="overlay"
+     ng-mousemove="showAndHideStrip()"
+     ng-click="vm.Player.playPause()"></div>
 <strip title="vm.Player.currentItem.title"
        lines="vm.lines"
-       ng-hide="vm.Player.currentShow.settings.hide_strip"
+       class="strip"
+       ng-class="{'hidden': vm.hideStrip}"
        strip-queries="vm.loop.twitter_queries"
        logo="vm.logo"
        player="vm.Player"

@@ -52,14 +52,6 @@ iframe {
             -ms-filter: "FlipH";
         }
     }
-    .overlay {
-        position: absolute;
-        z-index: 3;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-    }
     img {
         position: relative;
         z-index: 2;
@@ -69,12 +61,26 @@ iframe {
         height: 100%;
     }
 }
+
+.overlay {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
 .strip {
     position: absolute;
     z-index: 10;
     bottom: 0px;
     left: 0;
     right: 0;
+    opacity: 1;
+    transition-property: opacity;
+    &.hidden {
+        opacity: 0;
+    }
 }
 
 @import "../../../bower_components/components-font-awesome/less/font-awesome.less";
