@@ -29,8 +29,7 @@
                 }
             });
         }
-        // Underlines
-        var underline_animations = [];
+        // // Underlines
         $scope.$watch('stripQueries', function(queries, old_value) {
             if (queries) {
                 var underlines = [];
@@ -41,64 +40,9 @@
                         tweet.text + '</a>');
                     });
                 });
-                underline_animations.forEach($timeout.cancel);
-                var showUnderlines = function (underlines) {
-                    underlines.forEach(function(line, index) {
-                        underline_animations.push($timeout(function() {
-                            var text = $element.find('.lower-strip .wrapper-inner');
-                            $(text).stop().animate({
-                                opacity: 0
-                            }, 1000, function() {
-                                $(this).html(line);
-                                $(text).stop().animate({
-                                    opacity: 1
-                                }, 1000);
-                            });
-                            if (index === underlines.length - 1) {
-                                showUnderlines(underlines);
-                            }
-                        }, 15000 * index));
-                    });
-                };
-                showUnderlines(underlines);
+                $scope.underlines = underlines;
             }
         });
-        // Texts
-        var animations = [];
-        $scope.$watch('lines', function(lines, old_value) {
-            if (!lines) {return;}
-            vm.reduced_mode = false;
-            animations.forEach($timeout.cancel);
-            animations = [];
-            var delay_between_animations = 5000;
-            lines.forEach(function(line, index) {
-                var text = $element.find('.upper-strip .wrapper-inner');
-                animations.push($timeout(function() {
-                    text.stop().animate({
-                        top: -70
-                    }, 1000, function() {
-                        $(this).html(line);
-                        text.stop().animate({
-                            top: 0
-                        }, 1000);
-                    });
-                }, delay_between_animations * index));
-            });
-            // // hide after every msg were displayed
-            // animations.push($timeout(function() {
-            //     vm.reduced_mode = true;
-            // }, delay_between_animations * lines.length));
-        });
-        // Set Time
-        $interval(function() {
-            function checkTime(i) {
-                return (i < 10) ? '0' + i : i;
-            }
-            var today = new Date(),
-                h = checkTime(today.getHours()),
-                m = checkTime(today.getMinutes());
-                vm.time = h + ':' + m;
-        }, 2000);
     }
 
     angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
@@ -134,6 +78,66 @@
                     });
                 }
             };
-        });
+        })
+        .directive('time', ['$interval', function($interval) {
+            return {
+                restrict: 'E',
+                link: function($scope, element) {
+                    $interval(function() {
+                        function checkTime(i) {
+                            return (i < 10) ? '0' + i : i;
+                        }
+                        var today = new Date(),
+                            h = checkTime(today.getHours()),
+                            m = checkTime(today.getMinutes());
+                            $scope.time = h + ':' + m;
+                    }, 2000);
+                },
+                template: '<div class="time" ng-bind="time"></div>'
+            };
+        }])
+        .directive('banner', ['$interval', function($interval) {
+            return {
+                restrict: 'E',
+                scope: {
+                    'lines': '=',
+                    'transition': '@',
+                    'duration': '@'
+                },
+                link: function($scope, element) {
+                    var transitions = {
+                        'fade': [{opacity: 0}, {opacity: 1}],
+                        'scroll': [{top: -70}, {top: 0}]
+                    };
+                    var animation;
+                    var body = element.find('.body');
 
+                    function showTitle(title) {
+                        body.stop().animate(transitions[$scope.transition][0], 1000, function() {
+                            $(this).html(title);
+                            body.stop().animate(transitions[$scope.transition][1], 1000);
+                        });
+                    }
+
+                    $scope.$watch('lines', function(new_value) {
+                        if (!angular.isDefined(new_value)) {return;}
+                        // show title
+                        showTitle(new_value[0]);
+                        // loop over titles
+                        if (new_value.length > 1) {
+                            var current_title = new_value[1];
+                            $interval.cancel(animation);
+                            animation = $interval(function() {
+                                showTitle(current_title);
+                                current_title = new_value[(new_value.indexOf(current_title) + 1) % new_value.length];
+                            }, parseInt($scope.duration, 10) * 1000);
+                        }
+                    });
+                    $scope.$on('$destroy', function() {
+                        $interval.cancel(animation);
+                    });
+                },
+                template: '<div class="body" ng-bind-html="line"></div>'
+            };
+        }]);
 })();

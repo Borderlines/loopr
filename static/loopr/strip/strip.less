@@ -56,6 +56,7 @@
     }
     .upper-strip {
         position: relative;
+        cursor: pointer;
         background: white;
         min-height: 30px;
         padding:15px;
@@ -79,12 +80,23 @@
         }
         overflow: hidden;
         .wrapper {
-            margin-right: 40px;
+            margin-right: 200px;
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
-            .wrapper-inner {
+            .body {
                 position: relative;
+            }
+            .wrapper-inner.big {
+                position: relative;
+                padding: 20px 0;
+                color: #212121;
+                .title {
+                    font-weight: bold;
+                    font-size: 1.6em;
+                    padding: 20px 0;
+                }
+                .subtitle span {font-weight: bold;}
             }
         }
     }

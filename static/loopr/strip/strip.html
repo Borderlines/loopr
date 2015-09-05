@@ -1,9 +1,15 @@
-<div class="strip" ng-class="{'reduced': strip.reduced_mode}">
-    <div class="upper-strip" ng-hide="strip.reduced_mode" ng-click="showController = !showController">
+<div class="strip">
+    <div class="upper-strip" ng-click="showController = !showController" ng-class="{'big': showController}">
         <div class="wrapper" dynamic-height>
-            <div class="wrapper-inner"></div>
+            <div class="wrapper-inner big" ng-if="showController">
+                <div class="title">{{ player.currentItem.title }}</div>
+                <div class="subtitle">Show <span ng-bind="player.currentShow.title"></span></div>
+            </div>
+            <div class="wrapper-inner" ng-if="!showController">
+                <banner lines="lines" transition="scroll" duration="5"></banner>
+            </div>
         </div>
-        <div class="logo" ng-switch="player.currentItem.provider_name">
+        <div class="logo" ng-if="!showController" ng-switch="player.currentItem.provider_name">
             <a ng-switch-when="YouTube" ng-href="{{ player.currentItem.url }}" target="_blank">
                 <i class="fa fa-youtube-square"></i>
             </a>
@@ -33,17 +39,19 @@
             <div ng-click="strip.toggleFullscreen()"><i class="fa fa-arrows-alt"></i></div>
         </div>
     </div>
-    <div class="progress-bar" ng-click="strip.setPosition($event)"><div class="progression" ng-style="{width: progression + '%'}"></div></div>
+    <div class="progress-bar" ng-click="strip.setPosition($event)">
+        <div class="progression" ng-style="{width: progression + '%'}"></div>
+    </div>
     <div class="lower-strip" ng-click="showController = !showController">
         <div class="logo">
             <i class="fa fa-twitter"></i>
         </div>
         <div class="wrapper" dynamic-height>
-            <div class="wrapper-inner"></div>
+            <div class="wrapper-inner">
+                <banner lines="underlines" transition="fade" duration="15"></banner>
+            </div>
         </div>
-        <div class="time">
-            {{ strip.time }}
-        </div>
+        <time></time>
         <div style="clear:both"> </div>
     </div>
 </div>

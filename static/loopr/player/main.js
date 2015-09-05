@@ -6,7 +6,7 @@
             $routeProvider
             .when('/:username', {
                 controller: 'PlayerCtrl',
-                templateUrl: '/static/loopr/player/partials/player.html',
+                templateUrl: '/static/loopr/player/player.html',
                 controllerAs: 'vm',
                 reloadOnSearch:false
             });
