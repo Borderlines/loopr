@@ -4,8 +4,7 @@ from flask import current_app as app
 class Account(object):
     resource = {
         'datasource': {
-            'projection': {'username': 1},
-            'filter': {'active': True}
+            'projection': {'username': 1, 'email': 1, 'active': 1}
         },
         # the standard account entry point is defined as
         # '/accounts/<ObjectId>'. We define  an additional read-only entry
@@ -41,6 +40,10 @@ class Account(object):
             }
         }
     }
+
+    def on_get(request, lookup):
+        if 'username' not in lookup and '_id' not in lookup:
+            lookup['active'] = True
 
     def on_created(docs):
         loops = app.data.driver.db['loops']

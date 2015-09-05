@@ -1,10 +1,10 @@
 (function() {
     'use strict';
 
-    EditMusicShowCtrl.$inject = ['$controller', '$scope', 'Shows', 'embedService',
-                                 '$location', '$routeParams', '$route', '$rootScope', '$q'];
-    function EditMusicShowCtrl($controller, $scope, Shows, embedService,
-                               $location, $routeParams, $route, $rootScope, $q) {
+    EditMusicShowCtrl.$inject = ['$controller', '$scope',
+                                 '$routeParams', '$rootScope', '$q'];
+    function EditMusicShowCtrl($controller, $scope,
+                               routeParams, $rootScope, $q) {
         var vm = $controller('EditShowCtrl as vm', {'$scope': $scope});
         angular.extend(vm, {
             example: 'https://soundcloud.com/xxx/yyy',

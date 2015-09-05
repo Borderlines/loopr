@@ -12,7 +12,8 @@ EVENTS = (
     ('on_update', 'on_replace'),
     ('on_updated', 'on_replaced'),
     ('on_create', 'on_insert'),
-    ('on_created', 'on_inserted')
+    ('on_created', 'on_inserted'),
+    ('on_get', 'on_pre_GET')
 )
 
 

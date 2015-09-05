@@ -39,6 +39,12 @@
                     controllerAs: 'vm',
                     activetab: 'login'
                 })
+                .when('/account', {
+                    templateUrl: 'static/loopr/editor/account/template.html',
+                    controller: 'AccountCtrl',
+                    controllerAs: 'vm',
+                    activetab: 'account'
+                })
                 .otherwise({
                     redirectTo: '/shows'
                 });

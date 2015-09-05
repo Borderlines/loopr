@@ -1,0 +1,32 @@
+<nav class="right">
+    <div class="first-block block">
+    </div>
+    <div class="block">
+        <h3>Options</h3>
+        <ul class="options">
+            <li>
+                <label>
+                    Hide the loop in the catalog
+                    <input type="checkbox" ng-model="vm.hide" ng-change="vm.patch({active: !vm.hide})">
+                </label>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="content account">
+    <form>
+        <h2>Email</h2>
+        <div ng-bind="vm.user.email"></div>
+        <input type="email" ng-model="vm.new_email" placeholder="new Email"/>
+        <button ng-disabled="!vm.new_email" ng-click="vm.changeEmail()">change</button>
+    </form>
+    <form>
+        <h2>Password</h2>
+        <input type="password" ng-model="vm.new_password1" placeholder="new password"/>
+        <input type="password" ng-model="vm.new_password2" placeholder="confirm password"/>
+        <button ng-click="vm.changePassword()"
+                ng-disabled="!vm.new_password1 || vm.new_password1 !== vm.new_password2">
+            change
+        </button>
+    </form>
+</div>

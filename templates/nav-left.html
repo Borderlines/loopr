@@ -5,14 +5,26 @@
             <img src="{{ url_for('static', filename='logos/L8pr-'+logo+'.gif') }}"/>
             <img src="{{ url_for('static', filename='logos/L8pr-1.gif') }}"/>
         </div>
-        <div class="" ng-class="{active: $route.current.activetab == 'shows'}"><a href="/#/shows">Shows</a></div>
-        <div class="" ng-class="{active: $route.current.activetab == 'strip'}"><a href="/#/strip">Strip</a></div>
+        <div class="" ng-class="{active: $route.current.activetab == 'shows'}">
+            <a href="/#/shows">Shows</a>
+        </div>
+        <div class="" ng-class="{active: $route.current.activetab == 'strip'}">
+            <a href="/#/strip">Strip</a>
+        </div>
+        <br/>
         <div><a href="/catalog">Catalog</a></div>
         <br/>
         <div class="">>&nbsp;<a target="_blank" ng-href="/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
-        <h3>Account</h3>
+        <br/>
         <div class="">{{'{{'}} user.username {{'}}'}}</div>
-        <div class="" ng-show="user"><a ng-click="logout()">Log out</a></div>
-        <div class="" ng-hide="user" ng-class="{active: $route.current.activetab == 'login'}"><a href="/#/login">Login</a></div>
+        <div ng-class="{active: $route.current.activetab == 'account'}" ng-show="user">
+            <a href="/#/account">Account</a>
+        </div>
+        <div ng-show="user">
+            <a ng-click="logout()">Log out</a>
+        </div>
+        <div ng-hide="user" ng-class="{active: $route.current.activetab == 'login'}">
+            <a href="/#/login">Login</a>
+        </div>
     </div>
 </nav>
