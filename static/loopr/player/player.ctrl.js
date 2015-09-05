@@ -15,6 +15,7 @@
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 loop = loop[0];
+                loop.user = user;
                 // shuffle ?
                 function shuffle(o) {
                     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -41,8 +42,8 @@
                 }
                 return $q.when(show).then(function(show) {
                     Player.setLoop(loop);
-                    Player.playShow(show, $routeParams.item);
                     vm.loop = loop;
+                    Player.playShow(show, $routeParams.item);
                     return loop;
                 });
             });
@@ -57,7 +58,8 @@
             }
         }, 500);
         $scope.$on('player.play', function ($event, item, show) {
-            var lines = [item.title, 'Show ' + '<b>'+show.title+'</b>'];
+            var lines = [item.title,
+                        ['Show', '<b>'+show.title+'</b>', 'by', vm.loop.user.username].join(' ')];
             if (item.subtitle) {
                 lines.push(item.subtitle);
             }

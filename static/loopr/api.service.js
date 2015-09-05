@@ -20,8 +20,8 @@
         return Restangular.service('accounts');
     }
 
-    Loops.$inject = ['Restangular', 'Shows'];
-    function Loops(Restangular, Shows) {
+    Loops.$inject = ['Restangular'];
+    function Loops(Restangular) {
         Restangular.extendModel('loops', function(model) {
             model.duration = function() {
                 if (angular.isDefined(model.shows)) {
