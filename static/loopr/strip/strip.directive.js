@@ -112,8 +112,11 @@
                     var animation;
                     var body = element.find('.body');
 
-                    function showTitle(title) {
-                        body.stop().animate(transitions[$scope.transition][0], 1000, function() {
+                    function showTitle(title, fast) {
+                        if (!angular.isDefined(fast)) {
+                            fast = false;
+                        }
+                        body.stop().animate(transitions[$scope.transition][0], fast? 0 : 1000, function() {
                             $(this).html(title);
                             body.stop().animate(transitions[$scope.transition][1], 1000);
                         });
@@ -122,7 +125,7 @@
                     $scope.$watch('lines', function(new_value) {
                         if (!angular.isDefined(new_value)) {return;}
                         // show title
-                        showTitle(new_value[0]);
+                        showTitle(new_value[0], true);
                         // loop over titles
                         if (new_value.length > 1) {
                             var current_title = new_value[1];
