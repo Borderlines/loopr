@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    AccountCtrl.$inject = ['Accounts', '$scope', 'login', '$location'];
-    function AccountCtrl(Accounts, $scope, login, $location) {
+    AccountCtrl.$inject = ['Accounts', '$scope', 'login', '$location', 'gravatarService'];
+    function AccountCtrl(Accounts, $scope, login, $location, gravatarService) {
         var vm = this;
         if (!login.user) {
             return $location.url('/login');
@@ -23,6 +23,7 @@
             loadAccount: function() {
                 return Accounts.one($scope.user.username).get({time: new Date()}).then(function(user) {
                     vm.user = user;
+                    vm.avatar = gravatarService.url(vm.user.email, {size: 250});
                     return user;
                 });
             }

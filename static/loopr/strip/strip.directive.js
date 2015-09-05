@@ -53,7 +53,8 @@
                     progression: '=',
                     logo: '=',
                     player: '=',
-                    showController: '='
+                    showController: '=',
+                    avatar: '='
                 },
                 restrict: 'E',
                 controller: StripCtrl,

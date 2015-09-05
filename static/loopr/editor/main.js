@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'angular-embed', 'ngSanitize', 'LocalStorageModule'])
+    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'angular-embed',
+                            'ngSanitize', 'LocalStorageModule', 'ui.gravatar'])
         .config(['$routeProvider',
             function($routeProvider) {
                 $routeProvider

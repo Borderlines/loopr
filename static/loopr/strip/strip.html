@@ -9,6 +9,8 @@
                 <banner lines="lines" transition="scroll" duration="5"></banner>
             </div>
         </div>
+        <div class="avatar" ng-if="showController" ng-style="{'background-image': 'url('+avatar+')'}">
+        </div>
         <div class="logo" ng-if="!showController" ng-switch="player.currentItem.provider_name">
             <a ng-switch-when="YouTube" ng-href="{{ player.currentItem.url }}" target="_blank">
                 <i class="fa fa-youtube-square"></i>

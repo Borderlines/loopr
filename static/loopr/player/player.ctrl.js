@@ -2,9 +2,9 @@
     'use strict';
 
     PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout',
-    '$rootScope', '$location', 'hotkeys', '$scope', '$q'];
+    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'gravatarService'];
     function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
-        $rootScope, $location, hotkeys, $scope, $q) {
+        $rootScope, $location, hotkeys, $scope, $q, gravatarService) {
         var vm = this;
         var hideTimeout;
         angular.extend(vm, {
@@ -15,6 +15,7 @@
         Accounts.one($routeParams.username).get().then(function(user) {
             return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 loop = loop[0];
+                user.avatar = gravatarService.url(user.email, {size: 150, d: 'mm'});
                 loop.user = user;
                 // shuffle ?
                 function shuffle(o) {
