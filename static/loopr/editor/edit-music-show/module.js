@@ -4,7 +4,7 @@
     EditMusicShowCtrl.$inject = ['$controller', '$scope',
                                  '$routeParams', '$rootScope', '$q'];
     function EditMusicShowCtrl($controller, $scope,
-                               routeParams, $rootScope, $q) {
+                               $routeParams, $rootScope, $q) {
         var vm = $controller('EditShowCtrl as vm', {'$scope': $scope});
         angular.extend(vm, {
             example: 'https://soundcloud.com/xxx/yyy',
