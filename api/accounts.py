@@ -10,7 +10,7 @@ class Account(object):
         # '/accounts/<ObjectId>'. We define  an additional read-only entry
         # point accessible at '/accounts/<username>'.
         'additional_lookup': {
-            'url': 'regex("[\w]+")',
+            'url': 'regex("[\w\-]+")',
             'field': 'username',
         },
         'public_methods': ['POST', 'GET'],
