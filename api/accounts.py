@@ -4,7 +4,7 @@ from flask import current_app as app
 class Account(object):
     resource = {
         'datasource': {
-            'projection': {'username': 1, 'email': 1, 'active': 1}
+            'projection': {'username': 1, 'email': 1, 'active': 1, 'favorites': 1}
         },
         # the standard account entry point is defined as
         # '/accounts/<ObjectId>'. We define  an additional read-only entry
@@ -37,6 +37,16 @@ class Account(object):
             'email': {
                 'type': 'string',
                 'regex': '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+            },
+            'favorites': {
+                'type': 'list',
+                'schema': {
+                    'type': 'objectid',
+                    'data_relation': {
+                        'resource': 'accounts',
+                        'field': '_id'
+                    }
+                }
             }
         }
     }

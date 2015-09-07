@@ -3,8 +3,10 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', '$rootScope', '$timeout', 'Loops', '$element', 'Fullscreen'];
-    function StripCtrl($interval, $scope, $rootScope, $timeout, Loops, $element, Fullscreen) {
+    StripCtrl.$inject = ['$interval', '$scope', 'login',
+                         'Fullscreen', 'Accounts', 'gravatarService'];
+    function StripCtrl($interval, $scope, login,
+                       Fullscreen, Accounts, gravatarService) {
         var vm = this;
         angular.extend(vm, {
             underlines: []
@@ -25,9 +27,38 @@
                     } else {
                         Fullscreen.all();
                     }
+                },
+                addToFavs: function() {
+                    login.login().then(function(user) {
+                        user.favorites = user.favorites || [];
+                        var to_fav = $scope.player.loop.user._id;
+                        // add
+                        if (user.favorites.indexOf(to_fav) === -1) {
+                            user.favorites.push(to_fav);
+                            user.patch(_.pick(user, 'favorites'));
+                            $scope.inFavorites = true;
+                        // remove
+                        } else {
+                            user.favorites.splice(user.favorites.indexOf(to_fav), 1);
+                            user.patch(_.pick(user, 'favorites'));
+                            $scope.inFavorites = false;
+                        }
+                    });
                 }
             });
         }
+        $scope.$on('player.play', function ($event, item, show) {
+            // update avatar
+            Accounts.one(show.user_id).get()
+            .then(function(user) {
+                $scope.avatar = gravatarService.url(user.email, {size: 150, d: 'mm'});
+                return user;
+            });
+            login.login().then(function(user) {
+                $scope.inFavorites = user.favorites.indexOf(show.user_id) > -1;
+            });
+        });
+
         // // Underlines
         $scope.$watch('stripQueries', function(queries, old_value) {
             if (queries) {
@@ -53,8 +84,7 @@
                     progression: '=',
                     logo: '=',
                     player: '=',
-                    showController: '=',
-                    avatar: '='
+                    showController: '='
                 },
                 restrict: 'E',
                 controller: StripCtrl,

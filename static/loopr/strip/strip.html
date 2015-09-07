@@ -9,7 +9,9 @@
                 <banner lines="lines" transition="scroll" duration="5"></banner>
             </div>
         </div>
-        <div class="avatar" ng-if="showController" ng-style="{'background-image': 'url('+avatar+')'}">
+        <div class="avatar" ng-if="showController">
+            <div class="background" ng-style="{'background-image': 'url('+avatar+')'}"></div>
+            <div class="add-to-favs" ng-class="{'active': inFavorites}" ng-click="strip.addToFavs(); $event.stopPropagation();"><i class="fa fa-star"></i></div>
         </div>
         <div class="logo" ng-if="!showController" ng-switch="player.currentItem.provider_name">
             <a ng-switch-when="YouTube" ng-href="{{ player.currentItem.url }}" target="_blank">

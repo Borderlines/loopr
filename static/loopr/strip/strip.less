@@ -66,18 +66,40 @@
         opacity: 0.90;
         .avatar {
             position: absolute;
-            background-repeat: no-repeat;
-            background-size: cover;
             right: 0;
-            width: 100px;
-            height: 100px;
             bottom: 0;
-            -webkit-filter: grayscale(100%);
-            -moz-filter: grayscale(100%);
-            -ms-filter: grayscale(100%);
-            -o-filter: grayscale(100%);
-            filter: grayscale(100%);
-            filter: gray;
+            .background {
+                width: 100px;
+                height: 100px;
+                background-repeat: no-repeat;
+                background-size: cover;
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -ms-filter: grayscale(100%);
+                -o-filter: grayscale(100%);
+                filter: grayscale(100%);
+                filter: gray;
+            }
+            &:hover {
+                .add-to-favs:not(.active){opacity: 1;}
+            }
+            .add-to-favs {
+                background-color: rgba(0, 0, 0, 0.37);
+                text-align: center;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                color: white;
+                padding: 10px;
+                &:not(.active){opacity: 0;}
+                &:hover {
+                    background-color: rgba(64, 191, 182, 0.43);
+                }
+                &.active {
+                    color: #40BFB6;
+                }
+            }
         }
         .logo {
             position: absolute;

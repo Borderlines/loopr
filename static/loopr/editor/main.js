@@ -51,12 +51,6 @@
                 });
             }
         ])
-        .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
-            localStorageServiceProvider
-                .setPrefix('loopr')
-                .setStorageType('localStorage')
-                .setNotify(true, true);
-        }])
         .run(['login', '$rootScope', '$route', '$location', function(login, $rootScope, $route, $location) {
             login.login();
             // Add to Root Scope
@@ -66,41 +60,6 @@
                     $location.url('/show/' + show._id);
                 }
             });
-        }])
-        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
-        function(Restangular, localStorageService, Accounts, $rootScope, $location) {
-            var user = localStorageService.get('user');
-            var service = {
-                login: function(username, password) {
-                    if (angular.isDefined(username)) {
-                        localStorageService.set('auth', btoa(username + ':' + password));
-                    } else if (user) {
-                        username = user.username;
-                    }
-                    if (angular.isDefined(username)) {
-                        Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
-                        return Accounts.one(username).get().then(function(data) {
-                            localStorageService.set('user', data);
-                            service.user = data;
-                            $rootScope.user = data;
-                            return service.user;
-                        });
-                    }
-                },
-                logout: function() {
-                    localStorageService.remove('user');
-                    localStorageService.remove('auth');
-                    Restangular.setDefaultHeaders({'Authorization':''});
-                    service.user = null;
-                    $rootScope.user = null;
-                    $location.url('/');
-                },
-                auth: localStorageService.get('auth'),
-                user: user
-            };
-            $rootScope.$on('unauthorized', service.logout);
-            $rootScope.logout = service.logout;
-            return service;
         }])
         .config(['$httpProvider', function($httpProvider) {
             $httpProvider.interceptors.push('APIInterceptor');

@@ -12,8 +12,7 @@
                 {
                     type: 'checkbox',
                     label: 'Giphy',
-                    name: 'giphy',
-                    defaultValue: true
+                    name: 'giphy'
                 },
                 {
                     dependsOn: {giphy: true},
