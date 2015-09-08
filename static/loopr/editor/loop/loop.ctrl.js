@@ -16,7 +16,7 @@
                 });
             },
             refreshLoop: function() {
-                return Loops.getList({where: {user_id: login.user._id}, embedded:{shows:1}, timestamp:Date.now()}).then(function(loop) {
+                return Loops.getList({where: {user_id: $rootScope.user._id}, embedded:{shows:1}, timestamp:Date.now()}).then(function(loop) {
                     vm.loop = loop[0];
                 });
             },

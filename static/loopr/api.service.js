@@ -48,10 +48,7 @@
         .factory('Accounts', Accounts)
         .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
         function(Restangular, localStorageService, Accounts, $rootScope, $location) {
-            var username;
-            if (localStorageService.get('user')) {
-                username = localStorageService.get('user').username;
-            }
+            $rootScope.user = {};
             var service = {
                 login: function(username, password) {
                     if (angular.isDefined(username)) {
@@ -63,7 +60,7 @@
                         Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
                         return Accounts.one(username).get({timestamp: new Date()}).then(function(data) {
                             localStorageService.set('user', data);
-                            service.username = data.username;
+                            service.user = data;
                             $rootScope.user = data;
                             return data;
                         });
@@ -78,7 +75,7 @@
                     $location.url('/');
                 },
                 auth: localStorageService.get('auth'),
-                user: username,
+                user: $rootScope.user,
                 getCurrentUser: function() {
                     return Accounts.one(localStorageService.get('user')._id).get();
                 }
