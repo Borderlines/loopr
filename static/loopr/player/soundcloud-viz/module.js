@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    SoundcloudVizDirective.$inject = ['Player', '$interval', 'Restangular', '$timeout', '$q'];
-    function SoundcloudVizDirective(Player, $interval, Restangular, $timeout, $q) {
+    SoundcloudVizDirective.$inject = ['Player', '$interval', '$timeout', '$q', '$http'];
+    function SoundcloudVizDirective(Player, $interval, $timeout, $q, $http) {
         return {
             scope: {
                 soundcloudItem: '='
@@ -83,8 +83,8 @@
 
                             $timeout.cancel(gifTimeout);
                             scope.keyword = giphy_keywords[(giphy_keywords.indexOf(scope.keyword) + 1) % giphy_keywords.length];
-                            Restangular.oneUrl('giphy', giphy_url + scope.keyword).get().then(function(data) {
-                                var image_url = data.data.image_original_url.replace('http://', '//');
+                            $http.get(giphy_url + scope.keyword).then(function(data) {
+                                var image_url = data.data.data.image_original_url.replace('http://', '//');
                                 $('<img>')
                                 .attr('src', image_url)
                                 .on('load', function() {
