@@ -12,3 +12,4 @@ google-api-python-client==1.4.1
 bcrypt==2.0.0
 TwitterSearch==1.0.1
 Flask-Script==2.0.5
+soundcloud==0.4.1
