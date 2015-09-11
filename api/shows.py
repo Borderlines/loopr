@@ -38,8 +38,8 @@ class Show(object):
             if not link.get('duration', False):
                 if link.get('provider_name', None) == 'YouTube':
                     link['duration'] = get_youtube_duration(link.get('url'))
-            if link.get('provider_name', None) == 'SoundCloud':
-                link['duration'] = get_soundcloud_duration(link.get('url'))
+                if link.get('provider_name', None) == 'SoundCloud':
+                    link['duration'] = get_soundcloud_duration(link.get('url'))
 
 
 def get_soundcloud_duration(url):
