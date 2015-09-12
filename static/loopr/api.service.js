@@ -96,6 +96,7 @@
                     delete element._updated;
                     delete element._links;
                     delete element._created;
+                    delete element.user_id;
                     delete element._etag;
                     delete element._status;
                 }
