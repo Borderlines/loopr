@@ -55,17 +55,19 @@ class Loop(object):
         return list(itertools.islice(ts.search_tweets_iterable(tso), 0, int(query.get('count', 5))))
 
     def get_rss(query):
-        page = urllib.request.urlopen(query.get('query'))
-        soup = BeautifulSoup(page, 'html.parser')
-        link = soup.find('link', type='application/rss+xml')
-        if link:
-            d = feedparser.parse(link.get('href'))
-            return {
-                'link': d['feed']['link'],
-                'title': d['feed']['title'],
-                'subtitle': d['feed']['subtitle'],
-                'items': d['items'][:int(query.get('count', 5))]
-            }
+        if 'rss' in query.get('query') or 'atom' in query.get('query'):
+            link = query.get('query')
+        else:
+            page = urllib.request.urlopen(query.get('query'))
+            soup = BeautifulSoup(page, 'html.parser')
+            link = soup.find('link', type='application/rss+xml').get('href')
+        feed = feedparser.parse(link)
+        return {
+            'link': feed['feed']['link'],
+            'title': feed['feed']['title'],
+            'subtitle': feed['feed']['subtitle'],
+            'items': feed['items'][:int(query.get('count', 5))]
+        }
 
     def retrieve_content(loop):
         queries = loop.get('strip_messages', [])
