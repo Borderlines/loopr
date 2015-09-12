@@ -11,21 +11,24 @@
             loop: undefined,
             deleteQuery: function(index) {
                 var loop = vm.loop.clone();
-                loop.twitter_queries.splice(index, 1);
+                loop.strip_messages.splice(index, 1);
                 loop.save();
                 vm.refresh();
             },
-            addAccounts: function(keywords) {
-                var query = {
-                    keywords: keywords.split(' '),
-                    count: 5,
-                    filters: []
+            addAccounts: function(query) {
+                function isUrl(s) {
+                    var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+                    return regexp.test(s);
+                }
+                var content = {
+                    query: query,
+                    type: isUrl(query)? 'rss' : 'twitter'
                 };
                 var loop = vm.loop.clone();
-                if (!angular.isDefined(loop.twitter_queries)) {
-                    loop.twitter_queries = [];
+                if (!angular.isDefined(loop.strip_messages)) {
+                    loop.strip_messages = [];
                 }
-                loop.twitter_queries.push(query);
+                loop.strip_messages.push(content);
                 loop.save().then(function(loop) {
                     vm.refresh();
                 });

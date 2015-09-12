@@ -64,11 +64,19 @@
             if (queries) {
                 var underlines = [];
                 queries.forEach(function(query) {
-                    query.results.forEach(function(tweet) {
-                        underlines.push('<a href="https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str +
-                        '" target="_blank"><b>@'+tweet.user.screen_name+'</b> ' +
-                        tweet.text + '</a>');
-                    });
+                    if (query.type === 'twitter') {
+                        query.results.forEach(function(tweet) {
+                            underlines.push('<a href="https://twitter.com/'+tweet.user.screen_name+'/status/'+tweet.id_str +
+                            '" target="_blank"><b>@'+tweet.user.screen_name+'</b> ' +
+                            tweet.text + '</a>');
+                        });
+                    }
+                    if (query.type === 'rss') {
+                        query.results.items.forEach(function(rss) {
+                            underlines.push('<a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
+                            rss.title + '</a>');
+                        });
+                    }
                 });
                 $scope.underlines = underlines;
             }

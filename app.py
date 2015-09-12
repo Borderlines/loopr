@@ -20,39 +20,41 @@ class BasicAuth(BasicAuth):
         return account and account['password'] == password
 
 
-root = os.path.dirname(os.path.realpath(__file__))
-app = Eve(__name__, template_folder='templates', auth=BasicAuth, settings=os.path.join(root, 'settings.py'))
-assets = Environment(app)
-api.register_api(app)
+def get_app():
+    root = os.path.dirname(os.path.realpath(__file__))
+    app = Eve(__name__, template_folder='templates', auth=BasicAuth, settings=os.path.join(root, 'settings.py'))
+    Environment(app)
+    api.register_api(app)
+
+    @app.route('/')
+    def index(path=None):
+        return render_template('editor.html')
+
+    @app.route('/<username>')
+    def player(username):
+        user = app.data.driver.db['accounts'].find_one({'username': username})
+        loop = app.data.driver.db['loops'].find({'user_id': user['_id']})[0]
+        nb_show = str(len(loop['shows']))
+        scope = {
+            'user': user,
+            'nb_show': nb_show
+        }
+        if request.args.get('show'):
+            scope['show'] = app.data.driver.db['shows'].find({'_id': ObjectId(request.args.get('show'))})[0]
+        if request.args.get('item'):
+            scope['item'] = scope['show']['links'][int(request.args.get('item'))]
+        return render_template('player.html', **scope)
+
+    @app.route('/catalog')
+    @app.route('/catalog/<path:path>')
+    def catalog(path=None):
+        return render_template('catalog.html')
+    return app
 
 
-@app.route('/')
-def index(path=None):
-    return render_template('editor.html')
-
-
-@app.route('/<username>')
-def player(username):
-    user = app.data.driver.db['accounts'].find_one({'username': username})
-    loop = app.data.driver.db['loops'].find({'user_id': user['_id']})[0]
-    nb_show = str(len(loop['shows']))
-    scope = {
-        'user': user,
-        'nb_show': nb_show
-    }
-    if request.args.get('show'):
-        scope['show'] = app.data.driver.db['shows'].find({'_id': ObjectId(request.args.get('show'))})[0]
-    if request.args.get('item'):
-        scope['item'] = scope['show']['links'][int(request.args.get('item'))]
-    return render_template('player.html', **scope)
-
-
-@app.route('/catalog')
-@app.route('/catalog/<path:path>')
-def catalog(path=None):
-    return render_template('catalog.html')
-
+app = get_app()
 
 if __name__ == '__main__':
+    app = get_app()
     debug = app.config.get('DEBUG')
     app.run(debug=debug, use_reloader=debug)

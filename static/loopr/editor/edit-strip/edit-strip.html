@@ -3,7 +3,7 @@
     lines="['Les shows à ne pas louper', 'L8pr']"
     logo="'fa-youtube-square'"
     progression="50"
-    strip-queries="vm.loop.twitter_queries"
+    strip-queries="vm.loop.strip_messages"
     ></strip>
 </div>
 <div class="edit-strip content in-frame">
@@ -12,21 +12,24 @@
         <label>Twitter accounts (none = all)
 
         </label>
-        <input type="text" ng-model="vm.accounts" placeholder="#japanspirits from:hejorama OR from:vied12"/>
+        <input type="text" name="strip_source" ng-model="vm.accounts" placeholder="#japanspirits from:hejorama OR from:vied12"/>
         <button ng-click="vm.addAccounts(vm.accounts)">+ Add</button>
     </form>
     <table>
         <tr>
             <th>Source</th>
-            <th>Filter</th>
-            <th></th>
+            <th>Type</th>
             <th>Rule</th>
             <th>Ord.</th>
         </tr>
-        <tr ng-repeat="query in vm.loop.twitter_queries">
-            <td class="accounts"><div>{{ $index + 1 }}. {{ query.keywords.join(',&nbsp;') }}</div></td>
-            <td>{{ query.filters.join(', ') }}</td>
-            <td>Twitter</td>
+        <tr ng-repeat="query in vm.loop.strip_messages">
+            <td class="accounts">
+                {{ $index + 1 }}. {{ query.query }}
+            </td>
+            <td ng-switch="query.type">
+                <span ng-switch-when="twitter">Twitter</span>
+                <span ng-switch-when="rss">Feed</span>
+            </td>
             <td>{{ query.count }} last</td>
             <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
             <td><a ng-click="vm.deleteQuery($index)">X</a></td>
