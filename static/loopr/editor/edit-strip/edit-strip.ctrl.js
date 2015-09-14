@@ -28,7 +28,16 @@
                 if (!angular.isDefined(loop.strip_messages)) {
                     loop.strip_messages = [];
                 }
-                loop.strip_messages.push(content);
+                loop.strip_messages.unshift(content);
+                loop.save().then(function(loop) {
+                    vm.refresh();
+                });
+            },
+            reorderLink: function(item, direction) {
+                var current = vm.loop.strip_messages.indexOf(item);
+                var next = current + direction;
+                var loop = vm.loop.clone();
+                loop.strip_messages.splice(next, 0, loop.strip_messages.splice(current, 1)[0]);
                 loop.save().then(function(loop) {
                     vm.refresh();
                 });

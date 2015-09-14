@@ -40,7 +40,16 @@
     </form>
     <table>
         <tr ng-repeat="link in vm.show.links" ng-mouseover="vm.illustration = link.thumbnail">
-            <td class="title"><div>{{ $index + 1 }}. <a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a></div></td>
+            <td class="title">
+                <span class="reorder">
+                    <a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a>
+                    <a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a>
+                </span>
+                <span class="index">
+                    {{ $index + 1 }}.
+                </span>
+                <a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a>
+            </td>
             <td class="subtitle"><input type="text" ng-model="link.subtitle" ng-change="vm.saveShow()" ng-model-options="{debounce: 2000}" placeholder="subtitle"/></td>
             <td>
                 <a ng-href="{{ link.url }}" target="_blank">
@@ -48,7 +57,6 @@
                 </a>
             </td>
             <td>{{ link.duration | seconds }}</td>
-            <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
             <td><a ng-click="vm.removeVideo(link)">X</a></td>
         </tr>
     </table>

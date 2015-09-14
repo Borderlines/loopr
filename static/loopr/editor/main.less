@@ -61,7 +61,8 @@ nav.left {
     }
     .active a {
         font-weight: 400;
-        text-decoration:underline;
+        // text-decoration:underline;
+        color: #FB2844;
         cursor: default;
     }
     a {color: white;}
@@ -128,14 +129,22 @@ nav.right {
         clear: both;
         // table-layout: fixed;
         width: 100%;
+        border-spacing:0;
+        border-collapse: collapse;
     }
     tr {
+        width: 100%;
+        position: relative;
         &:hover {
             font-weight: bold;
+            .reorder {display:inline;}
+            .index {display:none;}
+            td, td:first-child:before, td:last-child:after {
+                background-color: #FE5667;
+            }
         }
         th {text-align: left;}
         td {
-            border-bottom: 1px solid rgba(240, 12, 12, 0.2);
             padding-right: 20px;
             padding-bottom: 5px;
             padding-top:6px;
@@ -146,14 +155,24 @@ nav.right {
                 max-height: 20px;
                 overflow: hidden;
             }
-            &.reorder {
-                span {
-                    float: right;
-                    &:first-of-type {
-                        float: left;
-                    }
-                }
-            }
+            .reorder {display: none;}
+            .index {display: inline;}
+        }
+        td:first-child:before,
+        td:last-child:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100vw;
+            display: block;
+            border: inherit;
+        }
+        td:first-child:before {
+            right: 100%;
+        }
+        td:last-child:after {
+            left: 100%
         }
     }
 }

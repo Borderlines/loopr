@@ -20,18 +20,23 @@
             <th>Source</th>
             <th>Type</th>
             <th>Rule</th>
-            <th>Ord.</th>
         </tr>
         <tr ng-repeat="query in vm.loop.strip_messages">
             <td class="accounts">
-                {{ $index + 1 }}. {{ query.query }}
+                <span class="reorder">
+                    <a ng-click="vm.reorderLink(query, -1)" ng-show="!$first">&#8593;</a>
+                    <a ng-click="vm.reorderLink(query, 1)" ng-show="!$last">&#8595;</a>
+                </span>
+                <span class="index">
+                    {{ $index + 1 }}.
+                </span>
+                 {{ query.query }}
             </td>
             <td ng-switch="query.type">
                 <span ng-switch-when="twitter">Twitter</span>
                 <span ng-switch-when="rss">Feed</span>
             </td>
             <td>{{ query.count }} last</td>
-            <td class="reorder"><a ng-click="vm.reorderLink(link, -1)" ng-show="!$first">&#8593;</a><a ng-click="vm.reorderLink(link, 1)" ng-show="!$last">&#8595;</a></span></td>
             <td><a ng-click="vm.deleteQuery($index)">X</a></td>
         </tr>
     </table>
