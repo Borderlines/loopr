@@ -180,5 +180,15 @@
                 },
                 template: '<div class="body" ng-bind-html="line"></div>'
             };
+        }]).directive('l8prShare', ['$interval', function($interval) {
+            return {
+                restrict: 'E',
+                templateUrl: '/static/loopr/strip/share.html',
+                controllerAs: 'vm',
+                controller: ['Player', function(Player) {
+                    var vm = this;
+                    vm.Player = Player;
+                }]
+            };
         }]);
 })();
