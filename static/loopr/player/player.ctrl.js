@@ -107,7 +107,7 @@
             }
         })
         .add({
-            combo: 'ctrl',
+            combo: 'alt',
             description: 'Show the controller',
             callback: function() {
                 vm.showController = !vm.showController;
