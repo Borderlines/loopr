@@ -59,14 +59,14 @@
         min-height: 30px;
         padding:15px;
         padding-left: 25px;
-        opacity: 0.90;
+        opacity: 0.95;
         .avatar {
             position: absolute;
             right: 0;
             bottom: 0;
             .background {
-                width: 100px;
-                height: 100px;
+                width: 60px;
+                height: 60px;
                 background-repeat: no-repeat;
                 background-size: cover;
                 -webkit-filter: grayscale(100%);
@@ -87,7 +87,6 @@
                 right: 0;
                 bottom: 0;
                 color: white;
-                padding: 10px;
                 &:not(.active){opacity: 0;}
                 &:hover {
                     background-color: rgba(64, 191, 182, 0.43);
@@ -120,17 +119,18 @@
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
+            padding-bottom: 5px;
             .body {
                 position: relative;
             }
             .wrapper-inner.big {
                 position: relative;
-                padding: 20px 0;
                 color: #212121;
                 .title {
                     font-weight: bold;
-                    font-size: 1.6em;
-                    padding: 20px 0;
+                    font-size: 2em;
+                    padding-bottom: 20px;
+                    padding-top: 15px;
                 }
                 .subtitle span {font-weight: bold;}
             }
