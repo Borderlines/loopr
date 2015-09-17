@@ -107,6 +107,13 @@
             }
         })
         .add({
+            combo: 'ctrl',
+            description: 'Show the controller',
+            callback: function() {
+                vm.showController = !vm.showController;
+            }
+        })
+        .add({
             combo: 'm',
             description: 'Mute/Unmute',
             callback: vm.Player.toggleMute
