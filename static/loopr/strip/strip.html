@@ -3,7 +3,7 @@
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner big" ng-if="showController">
                 <div class="title">{{ player.currentItem.title }}</div>
-                <div class="subtitle">Show <span ng-bind="player.currentShow.title"></span> by <span ng-bind="player.currentShow.username"></span></div>
+                <div class="subtitle">Show <span ng-bind="player.currentShow.title"></span> by <span ng-bind="player.currentShow.user"></span></div>
             </div>
             <div class="wrapper-inner" ng-if="!showController">
                 <banner lines="lines" transition="scroll" duration="5"></banner>
