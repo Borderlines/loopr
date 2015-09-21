@@ -18,13 +18,13 @@
         <br/>
         <div ng-bind="user.username"></div>
         <div ng-class="{active: $route.current.activetab == 'account'}" ng-show="user">
-            <a href="/#/account">Account</a>
+            <a href="/#/account">account</a>
         </div>
         <div ng-show="user">
-            <a ng-click="logout()">Log out</a>
+            <a ng-click="logout()">log out</a>
         </div>
         <div ng-hide="user" ng-class="{active: $route.current.activetab == 'login'}">
-            <a href="/#/login">Login</a>
+            <a href="/#/login">login</a>
         </div>
     </div>
 </nav>
