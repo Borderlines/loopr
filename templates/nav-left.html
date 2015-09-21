@@ -16,7 +16,8 @@
         <br/>
         <div class="">>&nbsp;<a target="_blank" ng-href="/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
         <br/>
-        <div ng-bind="user.username"></div>
+        <br/>
+        <div ng-bind="user.username" style="font-weight: 700"></div>
         <div ng-class="{active: $route.current.activetab == 'account'}" ng-show="user">
             <a href="/#/account">account</a>
         </div>
