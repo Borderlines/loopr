@@ -31,10 +31,7 @@ class Loop(object):
                 }
             },
             'strip_messages': {
-                'type': 'list',
-                'schema': {
-                    'type': 'dict'
-                }
+                'type': 'list'
             }
         }
     }
