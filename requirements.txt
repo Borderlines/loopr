@@ -1,4 +1,5 @@
 gunicorn==19.3.0
+Eve==0.5.3
 Events==0.2.1
 Flask==0.10.1
 Flask-Assets==0.10
@@ -12,4 +13,3 @@ Flask-Script==2.0.5
 soundcloud==0.4.1
 beautifulsoup4==4.4.0
 feedparser==5.2.1
-git+git://github.com/nicolaiarocci/eve@16c9bf44e8621cf7d91516f5cae8466f983ec843#egg=Eve
