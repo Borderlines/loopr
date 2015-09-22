@@ -77,9 +77,7 @@ class Loop(object):
         }
         for query in queries:
             if 'results' not in query or len(query['results']) < 1:
-                print(query)
                 query['results'] = sources[query['type']](query)
-                print(query['query'], query['results'])
         app.data.driver.db['loops'].update({'_id': loop['_id']},
                                            {'$set': {'strip_messages': queries}})
 
