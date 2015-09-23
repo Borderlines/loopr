@@ -3,9 +3,9 @@
     <div class="first-block block">
         <ul>
             <li><a ng-click="vm.addToLoopMode()">Add this Show to the loop</a></li>
+            <li><a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}">> Watch loop from here</a></li>
             <br />
             <li><a ng-click="vm.removeShow()">Delete this show</a></li>
-            <li><a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}">> Watch loop from here</a></li>
         </ul>
     </div>
     <div class="block">
