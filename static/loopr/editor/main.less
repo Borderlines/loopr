@@ -19,9 +19,9 @@ a, a[ng-click], a:visited, a:active {
 h2 {
     font-family: "Montserrat";
     font-size: 2em;
-    color: #ed1c24;
+    color: #333;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -70,10 +70,14 @@ nav.left {
         }
     }
     .active a {
-        font-weight: 700;
+        font-weight: 400;
         text-decoration:underline;
         color: #FFF;
         cursor: default;
+        &:hover {
+        font-weight: 700;
+        color: #00BBB6;
+        }
     }
     a {color: white;}
     color: white;
@@ -95,7 +99,7 @@ nav.right {
         background-color: #F2F2F2;
     }
     .active a {
-        font-weight: 700;
+        font-weight: 400;
     //    text-decoration:underline;
         color: #000;
         cursor: default;
