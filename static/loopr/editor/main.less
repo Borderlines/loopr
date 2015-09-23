@@ -11,7 +11,7 @@ a, a[ng-click], a:visited, a:active {
     text-decoration: none;
     cursor: pointer;
     color: black;
-    font-weight: 400;
+    // font-weight: 400;
     &:hover {
         text-decoration: underline;
     }
@@ -25,6 +25,7 @@ h3 {
 ul {margin: 0; padding: 0}
 li {
     list-style: none;
+    
 }
 
 nav {
@@ -84,6 +85,16 @@ nav.right {
         margin-top: @HEADER_HEIGHT;
         padding: 20px 30px 30px 30px;
         background-color: #F2F2F2;
+    }
+    .active a {
+        font-weight: 700;
+    //    text-decoration:underline;
+        color: #FFF;
+        cursor: default;
+    }
+    a {
+        color: white;
+        font-weight: 700;
     }
 }
 .content {
