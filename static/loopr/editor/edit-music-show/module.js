@@ -17,7 +17,7 @@
                 {
                     dependsOn: {giphy: true},
                     type: 'text',
-                    label: 'Giphy hashtags',
+                    label: 'add Giphy hashtags',
                     name: 'giphyTags'
                 },
                 {
