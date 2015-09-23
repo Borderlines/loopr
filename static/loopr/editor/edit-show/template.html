@@ -35,6 +35,7 @@
     <form>
         <div class="type-show">Show</div>
         <h2 ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" contenteditable="true"></h2>
+        <label></label>
         <input type="text" ng-model="vm.url" placeholder="{{ vm.example || 'video link' }}"/>
         <button ng-click="vm.addLink(vm.url)">+ Add</button>
     </form>
