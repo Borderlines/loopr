@@ -116,34 +116,36 @@ nav.right {
         margin-right: @RIGHT_NAV_WIDTH + 20px;
     }
     input[type="text"], input[type="password"], input[type="email"] {
-        border: 1px solid rgba(240, 12, 12, 0.4);
-        padding: 10px;
+        border: 0px none;
+        background-color: #E6E6E1;
+        padding: 15px;
         margin-bottom: 20px;
         min-width: 400px;
         display: block;
-        opacity: .8;
+        opacity: .9;
     }
     label + input[type="text"] {
         float: left;
     }
     label {
-    display: block;
+        display: block;
+        color: #00BBB6;
     }
     button {
         &:hover {
-            background-color: rgba(240, 12, 12, .7);
+            opacity: 1;
         }
-        height: 41px;
-        background-color: rgba(240, 12, 12, 0.9);
+        height: 50px;
+        background-color: #00A99D;
         border: 0px;
-        color: white;
-        text-transform: uppercase;
-        padding: 5px 20px;
+        color: #222;
+        padding: 10px;
         font-weight: 400;
-        font-size: 1.2em;
+        font-size: 1em;
         font-style: italic;
+        opacity: 0.7;
         &:disabled {
-            opacity:.5;
+            opacity:.4;
 
         }
     }
