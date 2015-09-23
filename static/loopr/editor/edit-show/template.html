@@ -33,8 +33,9 @@
 </nav>
 <div class="create-show content in-frame">
     <form>
+        <label>Show</label>
         <h2 ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" contenteditable="true"></h2>
-        <label>Link
+        <label>Add a link
         </label>
         <input type="text" ng-model="vm.url" placeholder="{{ vm.example || 'video link' }}"/>
         <button ng-click="vm.addLink(vm.url)">+ Add</button>
