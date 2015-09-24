@@ -12,7 +12,7 @@
                 $rootScope.$broadcast('openAddingShowMode', show);
             }
         });
-        Shows.getList({timestamp:Date.now()}).then(function(shows) {
+        Shows.getList({max_results: 50}).then(function(shows) {
             vm.shows = shows;
         });
     }
