@@ -17,7 +17,7 @@
         <div class="">>&nbsp;<a target="_blank" ng-href="/{{'{{'}} user.username {{'}}'}}">Watch</a></div>
         <br/>
         <br/>
-        <div ng-bind="user.username" style="font-weight: 700"></div>
+        <div ng-bind="user.username" style="font-weight: 700;"></div>
         <div ng-class="{active: $route.current.activetab == 'account'}" ng-show="user">
             <a href="/#/account">account</a>
         </div>
@@ -27,7 +27,6 @@
         <div ng-hide="user" ng-class="{active: $route.current.activetab == 'login'}">
             <a href="/#/login">login</a>
         </div>
-        <br /><br />
-        <div style="color: rgba(200,200,200,0.7)">Feedback</div>
+        <div style="color: rgba(200,200,200,0.7); padding-top: 60px;">Feedback</div>
     </div>
 </nav>
