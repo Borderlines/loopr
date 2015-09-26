@@ -11,14 +11,8 @@ class Loop(object):
         'resource_methods': ['GET', 'POST', 'DELETE'],
         'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
         'public_methods': ['GET'],
+        'auth_field': 'user_id',
         'schema': {
-            'user_id': {
-                'type': 'objectid',
-                'data_relation': {
-                    'resource': 'accounts',
-                    'field': '_id'
-                }
-            },
             'shows': {
                 'type': 'list',
                 'schema': {
