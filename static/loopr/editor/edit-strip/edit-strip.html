@@ -9,11 +9,11 @@
 <div class="edit-strip content in-frame">
     <form>
         <h2>Your Strip</h2>
-        <label>Twitter accounts (none = all)
-
+        <label class="strip-label">
+            (Enter a TWITTER account <b>(from:user)</b> or Hashtag <b>(#Hashtag)</b>, or a url for RSS FEED.)
         </label>
         <input type="text" name="strip_source" ng-model="vm.accounts" placeholder="#japanspirits from:hejorama OR from:vied12"/>
-        <button ng-click="vm.addAccounts(vm.accounts)">+ Add</button>
+        <button class="strip-button" ng-click="vm.addAccounts(vm.accounts)">+ Add</button>
     </form>
     <table>
         <tr>
