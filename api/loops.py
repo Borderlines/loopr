@@ -11,7 +11,6 @@ class Loop(object):
         'resource_methods': ['GET', 'POST', 'DELETE'],
         'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
         'public_methods': ['GET'],
-        'auth_field': 'user_id',
         'schema': {
             'shows': {
                 'type': 'list',
