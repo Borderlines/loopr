@@ -51,6 +51,7 @@
             // update avatar
             Accounts.one(show.user_id).get()
             .then(function(user) {
+                $scope.author = user;
                 $scope.avatar = gravatarService.url(user.email, {size: 150, d: 'mm'});
                 return user;
             });
