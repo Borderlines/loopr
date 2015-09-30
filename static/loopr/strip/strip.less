@@ -170,7 +170,6 @@
             line-height: 2em;
             transition-duration: 1s;
             transition-property: height;
-            overflow: hidden;
             .wrapper-inner {
                 position: relative;
                 p {padding: 0; margin: 0; display: inline-block;}
@@ -182,11 +181,20 @@
                         text-decoration: underline;
                     }
                 }
+                i {
+                    margin-right: 10px;
+                }
+                .tweet {
+                    img {
+                        width: 45px;
+                        z-index: 12;
+                        float: left;
+                        position: absolute;
+                        left: -50px;
+                        top: 8px;
+                    }
+                }
             }
-        }
-        .logo {
-            float: left;
-            margin-left: 10px;
         }
         .time {
             position: absolute;
