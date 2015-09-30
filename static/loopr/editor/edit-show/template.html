@@ -33,7 +33,7 @@
 </nav>
 <div class="create-show content in-frame">
     <form>
-        <div class="type-show">Show</div>
+        <div class="type-show" ng-bind="vm.show.type">Show</div>
         <h2 ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" contenteditable="true"></h2>
         <label></label>
         <input type="text" ng-model="vm.url" placeholder="{{ vm.example || 'Paste a Youtube video link here' }}"/>
