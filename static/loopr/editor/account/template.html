@@ -14,14 +14,18 @@
     </div>
 </nav>
 <div class="content account">
+    <div class="user-name">
+        <b>Ben</b>
+        <br />l8pr.tv/Ben
+    </div>
     <form>
-        <h2>Email</h2>
+        <div class="titre">Email</div>
         <div ng-bind="vm.user.email"></div>
         <input type="email" ng-model="vm.new_email" placeholder="new Email"/>
         <button ng-disabled="!vm.new_email" ng-click="vm.changeEmail()">change</button>
     </form>
     <form>
-        <h2>Password</h2>
+        <div class="titre">Change your password</div>
         <input type="password" ng-model="vm.new_password1" placeholder="new password"/>
         <input type="password" ng-model="vm.new_password2" placeholder="confirm password"/>
         <button ng-click="vm.changePassword()"
