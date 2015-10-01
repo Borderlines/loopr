@@ -15,8 +15,8 @@
 </nav>
 <div class="content account">
     <div class="user-name">
-        <b>Ben</b>
-        <br />l8pr.tv/ben
+        <b ng-bind="vm.user.username"></b>
+        <br /><a ng-href="/{{vm.user.username}}">l8pr.tv/{{vm.user.username}}</a>
     </div>
     <form>
         <div class="titre">Email</div>
