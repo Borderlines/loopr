@@ -5,7 +5,7 @@
                 <div class="title">{{ player.currentItem.title }}</div>
                 <div class="subtitle">
                     Show <span ng-bind="player.currentShow.title"></span>
-                    <a href="/catalog/{{ author.username }}" target="_blank" class="upper-strip__author">by {{ author.username }}</a>
+                    by<a href="/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a>
                 </div>
             </div>
             <div class="wrapper-inner" ng-if="!showController">
