@@ -21,9 +21,10 @@
     <form>
         <div class="titre">Email</div>
         <div ng-bind="vm.user.email"></div>
-        <label></label>
+        <label>
         <input type="email" ng-model="vm.new_email" placeholder="new Email"/>
         <button ng-disabled="!vm.new_email" ng-click="vm.changeEmail()">change</button>
+        </label>
     </form>
     <form>
         <div class="titre">Change your password</div>
