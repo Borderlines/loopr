@@ -4,8 +4,8 @@
             <div class="wrapper-inner big" ng-if="showController">
                 <div class="title">{{ player.currentItem.title }}</div>
                 <div class="subtitle">
-                    Show <span ng-bind="player.currentShow.title"></span>
-                    by<a href="/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a>
+                    Show <span ng-bind="player.currentShow.title"></span>by
+                    <a href="/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a>
                 </div>
             </div>
             <div class="wrapper-inner" ng-if="!showController">
