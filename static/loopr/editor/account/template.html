@@ -18,6 +18,7 @@
         <b ng-bind="vm.user.username"></b>
         <br /><a ng-href="/{{vm.user.username}}">l8pr.tv/{{vm.user.username}}</a>
     </div>
+    <br />
     <form>
         <div class="titre">Email</div>
         <div ng-bind="vm.user.email"></div>
@@ -26,6 +27,7 @@
         <button ng-disabled="!vm.new_email" ng-click="vm.changeEmail()">change</button>
         </label>
     </form>
+    <br />
     <form>
         <div class="titre">Change your password</div>
         <input type="password" ng-model="vm.new_password1" placeholder="new password"/>
