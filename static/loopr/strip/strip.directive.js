@@ -4,11 +4,13 @@
     'use strict';
 
     StripCtrl.$inject = ['$interval', '$scope', 'login',
-                         'Fullscreen', 'Accounts', 'gravatarService'];
+                         'Fullscreen', 'Accounts', 'gravatarService', 'upperStrip', 'lowerStrip'];
     function StripCtrl($interval, $scope, login,
-                       Fullscreen, Accounts, gravatarService) {
+                       Fullscreen, Accounts, gravatarService, upperStrip, lowerStrip) {
         var vm = this;
         angular.extend(vm, {
+            upperStrip: upperStrip,
+            lowerStrip: lowerStrip,
             underlines: []
         });
         if ($scope.player) {
@@ -59,39 +61,51 @@
                 $scope.inFavorites = user.favorites.indexOf(show.user_id) > -1;
             });
         });
+    }
 
-        // // Underlines
-        $scope.$watch('stripQueries', function(queries, old_value) {
-            if (queries) {
-                var underlines = [];
-                queries.forEach(function(query) {
-                    if (query.type === 'twitter') {
-                        query.results.forEach(function(tweet) {
-                            underlines.push('<div class="tweet"><a href="https://twitter.com/' +
-                            tweet.user.screen_name+'/status/'+tweet.id_str +
-                            '" target="_blank"><b>@'+tweet.user.name+'</b> ' +
-                            '<img src="'+tweet.user.profile_image_url+'"/>' +
-                            tweet.text + '</a></div>');
-                        });
-                    }
-                    if (query.type === 'rss') {
-                        query.results.items.forEach(function(rss) {
-                            underlines.push('<div class="rss"><i class="fa fa-rss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
-                            rss.title + '</a></rss>');
-                        });
-                    }
-                });
-                $scope.underlines = underlines;
+    function bannerService() {
+        var service = {
+            banner: [],
+            setBanner: function(banner) {
+                service.banner = banner;
+            },
+            addQueries: function(queries) {
+                if (queries) {
+                    var underlines = [];
+                    queries.forEach(function(query) {
+                        if (query.type === 'twitter') {
+                            query.results.forEach(function(tweet) {
+                                underlines.push('<div class="tweet"><a href="https://twitter.com/' +
+                                tweet.user.screen_name+'/status/'+tweet.id_str +
+                                '" target="_blank"><b>@'+tweet.user.name+'</b> ' +
+                                '<img src="'+tweet.user.profile_image_url+'"/>' +
+                                tweet.text + '</a></div>');
+                            });
+                        }
+                        if (query.type === 'rss') {
+                            query.results.items.forEach(function(rss) {
+                                underlines.push('<div class="rss"><i class="fa fa-rss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
+                                rss.title + '</a></rss>');
+                            });
+                        }
+                    });
+                    service.setBanner(underlines);
+                }
             }
-        });
+        };
+        return service;
     }
 
     angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
+        .factory('lowerStrip', function() {
+            return bannerService();
+        })
+        .factory('upperStrip', function() {
+            return bannerService();
+        })
         .directive('strip', function() {
             return {
                 scope: {
-                    stripQueries: '=',
-                    lines: '=',
                     progression: '=',
                     logo: '=',
                     player: '=',

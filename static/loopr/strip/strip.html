@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="wrapper-inner" ng-if="!showController">
-                <banner lines="lines" transition="scroll" duration="5"></banner>
+                <banner lines="strip.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
         <div class="avatar" ng-if="showController">
@@ -51,7 +51,7 @@
     <div class="lower-strip" ng-click="showController = !showController">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner">
-                <banner lines="underlines" transition="fade" duration="15"></banner>
+                <banner lines="strip.lowerStrip.banner" transition="fade" duration="15"></banner>
             </div>
         </div>
         <time></time>

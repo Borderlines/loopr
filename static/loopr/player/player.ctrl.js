@@ -2,13 +2,12 @@
     'use strict';
 
     PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout',
-    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen'];
+    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip'];
     function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
-        $rootScope, $location, hotkeys, $scope, $q, Fullscreen) {
+        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip) {
         var vm = this;
         var hideTimeout;
         angular.extend(vm, {
-            lines: undefined,
             Player: Player
         });
         $rootScope.Player = Player;
@@ -42,6 +41,7 @@
                 }
                 return $q.when(show).then(function(show) {
                     Player.setLoop(loop);
+                    lowerStrip.addQueries(loop.strip_messages);
                     vm.loop = loop;
                     Player.playShow(show, $routeParams.item);
                     return loop;
@@ -64,7 +64,7 @@
                 lines.push(item.subtitle);
             }
             lines.push(item.title);
-            vm.lines = lines;
+            upperStrip.setBanner(lines);
             // show strip
             $timeout.cancel(hideTimeout);
             vm.hideStrip = false;

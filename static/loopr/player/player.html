@@ -5,11 +5,9 @@
 <div class="overlay"
      ng-mousemove="showAndHideStrip()"
      ng-click="vm.Player.playPause()"></div>
-<strip title="vm.Player.currentItem.title"
-       lines="vm.lines"
+<strip
        class="strip"
        ng-class="{'hidden': vm.hideStrip}"
-       strip-queries="vm.loop.strip_messages"
        logo="vm.logo"
        player="vm.Player"
        show-controller="vm.showController"
