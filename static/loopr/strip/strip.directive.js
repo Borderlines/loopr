@@ -84,7 +84,7 @@
                         }
                         if (query.type === 'rss') {
                             query.results.items.forEach(function(rss) {
-                                underlines.push('<div class="rss"><i class="fa fa-rss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
+                                underlines.push('<div class="rss"><i class="icon-sourceRss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
                                 rss.title + '</a></rss>');
                             });
                         }
