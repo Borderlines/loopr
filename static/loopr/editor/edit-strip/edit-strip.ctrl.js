@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    EditStripCtrl.$inject = ['Shows', '$location', 'login', '$rootScope', 'Loops', 'upperStrip', 'lowerStrip'];
-    function EditStripCtrl(Shows, $location, login, $rootScope, Loops, upperStrip, lowerStrip) {
+    EditStripCtrl.$inject = ['Shows', '$location', 'login', '$rootScope', 'Loops'];
+    function EditStripCtrl(Shows, $location, login, $rootScope, Loops) {
         var vm = this;
         if (!login.user) {
             return $location.url('/login');
@@ -45,8 +45,6 @@
             refresh: function() {
                 return Loops.getList({where: {user_id: login.user._id}}).then(function(loop) {
                     vm.loop = loop[0];
-                    lowerStrip.addQueries(vm.loop.strip_messages);
-                    upperStrip.setBanner(['L8pr']);
                     return loop[0];
                 });
             }

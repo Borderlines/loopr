@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    Player.$inject = ['$rootScope', 'localStorageService'];
-    function Player($rootScope, localStorageService) {
+    Player.$inject = ['$rootScope'];
+    function Player($rootScope) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -10,7 +10,7 @@
             currentShow: undefined,
             currentItem: undefined,
             currentStatus: undefined,
-            isMuted: localStorageService.get('muted'),
+            isMuted: false,
             setCurrentPosition: function(position) {
                 self.currentPosition = position;
             },
@@ -32,7 +32,6 @@
             toggleMute: function() {
                 $rootScope.$broadcast('player.toggleMute');
                 self.isMuted = !self.isMuted;
-                localStorageService.set('muted', self.isMuted);
             },
             playShow: function(show, index) {
                 if (!angular.isDefined(show)) {
