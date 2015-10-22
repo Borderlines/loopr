@@ -33,7 +33,7 @@
                 addToFavs: function() {
                     login.login().then(function(user) {
                         user.favorites = user.favorites || [];
-                        var to_fav = $scope.player.loop.user._id;
+                        var to_fav = $scope.player.loop.user.username;
                         // add
                         if (user.favorites.indexOf(to_fav) === -1) {
                             user.favorites.push(to_fav);

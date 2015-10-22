@@ -11,6 +11,7 @@
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         {% assets filters="less", output="gen/loopr-editor.css", depends="/static/loopr/**.less",
+            "loopr/catalog/main.less",
             "loopr/editor/main.less"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
@@ -53,7 +54,8 @@
             "loopr/editor/login/login.ctrl.js",
             "loopr/editor/account/module.js",
             "loopr/api.service.js",
-            "loopr/strip/strip.directive.js"
+            "loopr/strip/strip.directive.js",
+            "loopr/catalog/main.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}

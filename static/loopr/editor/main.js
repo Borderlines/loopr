@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'angular-embed',
+    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'loopr.catalog', 'angular-embed',
                             'ngSanitize', 'LocalStorageModule', 'ui.gravatar'])
         .config(['$routeProvider',
             function($routeProvider) {
@@ -45,6 +45,21 @@
                     controller: 'AccountCtrl',
                     controllerAs: 'vm',
                     activetab: 'account'
+                })
+                .when('/catalog', {
+                    templateUrl: 'static/loopr/catalog/all.html',
+                    controller: 'CatalogAllUsers',
+                    controllerAs: 'vm'
+                })
+                .when('/catalog/favorites', {
+                    templateUrl: 'static/loopr/catalog/favorites.html',
+                    controller: 'CatalogFavorites',
+                    controllerAs: 'vm'
+                })
+                .when('/catalog/:username', {
+                    templateUrl: 'static/loopr/catalog/user.html',
+                    controller: 'CatalogUser',
+                    controllerAs: 'vm'
                 })
                 .otherwise({
                     redirectTo: '/shows'
