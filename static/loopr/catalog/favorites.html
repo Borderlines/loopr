@@ -1,9 +1,11 @@
 <div class="content">
     <div class="catalog__filters">Latest Shows from my favorites <a href="/#/catalog">all</a></div>
     <div ng-repeat="user in vm.users">
-        <div class="catalog__user"><a ng-href="/#/catalog/{{ user }}" ng-bind="user"></a>'s Shows (3 latest)</div>
-        <catalog user="user"
-                 max-show="3">
+        <div class="catalog__user">
+            <add-to-favorite user="user"></add-to-favorite>
+            <a ng-href="/#/catalog/{{ user }}" ng-bind="user"></a>'s Shows
+        </div>
+        <catalog user="user">
         </catalog>
     </div>
 </div>

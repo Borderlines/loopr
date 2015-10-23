@@ -3,9 +3,9 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', 'login',
+    StripCtrl.$inject = ['$interval', '$scope',
                          'Fullscreen', 'Accounts', 'gravatarService', 'upperStrip', 'lowerStrip'];
-    function StripCtrl($interval, $scope, login,
+    function StripCtrl($interval, $scope,
                        Fullscreen, Accounts, gravatarService, upperStrip, lowerStrip) {
         var vm = this;
         angular.extend(vm, {
@@ -29,23 +29,6 @@
                     } else {
                         Fullscreen.all();
                     }
-                },
-                addToFavs: function() {
-                    login.login().then(function(user) {
-                        user.favorites = user.favorites || [];
-                        var to_fav = $scope.player.loop.user.username;
-                        // add
-                        if (user.favorites.indexOf(to_fav) === -1) {
-                            user.favorites.push(to_fav);
-                            user.patch(_.pick(user, 'favorites'));
-                            $scope.inFavorites = true;
-                        // remove
-                        } else {
-                            user.favorites.splice(user.favorites.indexOf(to_fav), 1);
-                            user.patch(_.pick(user, 'favorites'));
-                            $scope.inFavorites = false;
-                        }
-                    });
                 }
             });
         }
@@ -56,9 +39,6 @@
                 $scope.author = user;
                 $scope.avatar = gravatarService.url(user.email, {size: 150, d: 'mm'});
                 return user;
-            });
-            login.login().then(function(user) {
-                $scope.inFavorites = user.favorites.indexOf(show.user_id) > -1;
             });
         });
     }

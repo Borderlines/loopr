@@ -1,11 +1,14 @@
 @THUMB_HEIGHT: 80px;
 @THUMB_HEIGHT_BIG: 100px;
-@import "../editor/main.less";
 
-html, body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #E6E6E6;
+.add-to-favs {
+    color: gray;
+    cursor: pointer;
+    &.active {
+        color: #40BFB6;
+    }
 }
+
 .catalog {
     &__filters {
         font-size: 1.7em;
@@ -51,24 +54,5 @@ html, body {
                 }
             }
         }
-    }
-}
-
-span.text-content {
-    position: absolute;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    cursor: pointer;
-    display: table;
-    height: @THUMB_HEIGHT_BIG;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-    width:100%;
-    opacity: 0;
-    span {
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
     }
 }
