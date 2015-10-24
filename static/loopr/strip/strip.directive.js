@@ -29,6 +29,10 @@
                     } else {
                         Fullscreen.all();
                     }
+                },
+                panelOpened: 'share',
+                openPanel: function(panel_name) {
+                    vm.panelOpened = panel_name;
                 }
             });
         }
@@ -75,7 +79,7 @@
         return service;
     }
 
-    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
+    angular.module('loopr.strip', ['loopr.strip.panels', 'ngSanitize', 'ngAnimate', 'FBAngular'])
         .factory('lowerStrip', function() {
             return bannerService();
         })
@@ -175,16 +179,6 @@
                     });
                 },
                 template: '<div class="body" ng-bind-html="line"></div>'
-            };
-        }]).directive('l8prShare', ['$interval', function($interval) {
-            return {
-                restrict: 'E',
-                templateUrl: '/static/loopr/strip/share.html',
-                controllerAs: 'vm',
-                controller: ['Player', function(Player) {
-                    var vm = this;
-                    vm.Player = Player;
-                }]
             };
         }]);
 })();

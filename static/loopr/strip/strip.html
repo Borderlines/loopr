@@ -28,9 +28,9 @@
             </div>
         </div>
     </div>
-    <div class="superextended">
+    <div class="superextended" ng-if="strip.panelOpened">
         <div class="background"></div>
-        <l8pr-share></l8pr-share>
+        <l8pr-share ng-if="strip.panelOpened === 'share'"></l8pr-share>
     </div>
     <div class="controllers" ng-if="showController">
         <div class="navigation">
@@ -47,6 +47,7 @@
         </div>
         <div class="actions">
             <div ng-click="strip.toggleFullscreen()"><div class="icon icon-opt-fullscreen"></div></div>
+            <div ng-click="strip.openPanel('share')"><div class="icon icon-opt-share"></div></div>
         </div>
     </div>
     <div class="progress-bar" ng-click="strip.setPosition($event)">
