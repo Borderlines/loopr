@@ -1,27 +1,35 @@
 <nav class="right account">
-    <div class="first-block block" ng-style="{'background-image': 'url('+vm.avatar+')'}">
+    <div class="first-block-account block" ng-style="{'background-image': 'url('+vm.avatar+')'}">
     </div>
     <div class="block">
         <h3>Options</h3>
         <ul class="options">
             <li>
                 <label>
-                    Hide the loop in the catalog
                     <input type="checkbox" ng-model="vm.hide" ng-change="vm.patch({active: !vm.hide})">
+                    Don't display my Loop in the catalog
                 </label>
             </li>
         </ul>
     </div>
 </nav>
 <div class="content account">
+    <div class="user-name">
+        <b ng-bind="vm.user.username"></b>
+        <br /><a ng-href="/{{vm.user.username}}">l8pr.tv/{{vm.user.username}}</a>
+    </div>
+    <br />
     <form>
-        <h2>Email</h2>
+        <div class="titre">Email</div>
         <div ng-bind="vm.user.email"></div>
+        <label>
         <input type="email" ng-model="vm.new_email" placeholder="new Email"/>
         <button ng-disabled="!vm.new_email" ng-click="vm.changeEmail()">change</button>
+        </label>
     </form>
+    <br />
     <form>
-        <h2>Password</h2>
+        <div class="titre">Change your password</div>
         <input type="password" ng-model="vm.new_password1" placeholder="new password"/>
         <input type="password" ng-model="vm.new_password2" placeholder="confirm password"/>
         <button ng-click="vm.changePassword()"

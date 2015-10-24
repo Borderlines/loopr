@@ -27,28 +27,22 @@
     }
 
 
-    angular.module('loopr.catalog', ['ngRoute', 'loopr.api'])
-        .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-            $routeProvider
-            .when('/', {
-                templateUrl: '/static/loopr/catalog/all.html',
-                controller: ['Accounts', function(Accounts) {
-                    var vm = this;
-                    vm.users = Accounts.getList().then(function(users) {
-                        vm.users = users;
-                    });
-                }],
-                controllerAs: 'vm'
-            })
-            .when('/:username', {
-                templateUrl: '/static/loopr/catalog/user.html',
-                controller: ['$routeParams', function($routeParams) {
-                    var vm = this;
-                    vm.user = $routeParams.username;
-                }],
-                controllerAs: 'vm'
+    angular.module('loopr.catalog', ['loopr.api'])
+        .controller('CatalogAllUsers', ['Accounts', function(Accounts) {
+            var vm = this;
+            vm.users = Accounts.getList().then(function(users) {
+                vm.users = users;
             });
-            $locationProvider.html5Mode({enabled: true, requireBase: true});
+        }])
+        .controller('CatalogFavorites', ['Accounts', 'login', function(Accounts, login) {
+            var vm = this;
+            login.getCurrentUser().then(function(user) {
+                vm.users = user.favorites;
+            });
+        }])
+        .controller('CatalogUser', ['$routeParams', function($routeParams) {
+            var vm = this;
+            vm.user = $routeParams.username;
         }])
         .directive('catalog', [function() {
             return {

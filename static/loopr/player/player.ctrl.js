@@ -2,13 +2,12 @@
     'use strict';
 
     PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout',
-    '$rootScope', '$location', 'hotkeys', '$scope', '$q'];
+    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip'];
     function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
-        $rootScope, $location, hotkeys, $scope, $q) {
+        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip) {
         var vm = this;
         var hideTimeout;
         angular.extend(vm, {
-            lines: undefined,
             Player: Player
         });
         $rootScope.Player = Player;
@@ -42,6 +41,7 @@
                 }
                 return $q.when(show).then(function(show) {
                     Player.setLoop(loop);
+                    lowerStrip.addQueries(loop.strip_messages);
                     vm.loop = loop;
                     Player.playShow(show, $routeParams.item);
                     return loop;
@@ -64,7 +64,7 @@
                 lines.push(item.subtitle);
             }
             lines.push(item.title);
-            vm.lines = lines;
+            upperStrip.setBanner(lines);
             // show strip
             $timeout.cancel(hideTimeout);
             vm.hideStrip = false;
@@ -79,6 +79,34 @@
         });
         // HOTKEYS
         hotkeys.bindTo($scope)
+        .add({
+            combo: ['ctrl', 'c'],
+            description: 'Show the controller',
+            callback: function() {
+                vm.showController = !vm.showController;
+            }
+        })
+        .add({
+            combo: 'm',
+            description: 'Mute/Unmute',
+            callback: vm.Player.toggleMute
+        })
+        .add({
+            combo: 'space',
+            description: 'pause/play',
+            callback: vm.Player.playPause
+        })
+        .add({
+            combo: 'f',
+            description: 'Full screen',
+            callback: function() {
+                if (Fullscreen.isEnabled()) {
+                    Fullscreen.cancel();
+                } else {
+                    Fullscreen.all();
+                }
+            }
+        })
         .add({
             combo: 'right',
             description: 'next item',
@@ -98,23 +126,6 @@
             combo: 'down',
             description: 'previous show',
             callback: vm.Player.previousShow
-        })
-        .add({
-            combo: 'c',
-            description: 'Show the controller',
-            callback: function() {
-                vm.showController = !vm.showController;
-            }
-        })
-        .add({
-            combo: 'm',
-            description: 'Mute/Unmute',
-            callback: vm.Player.toggleMute
-        })
-        .add({
-            combo: 'space',
-            description: 'pause/play',
-            callback: vm.Player.playPause
         });
 }
 

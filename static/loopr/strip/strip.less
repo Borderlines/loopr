@@ -6,8 +6,10 @@
     .progress-bar {
         height: 5px;
         background-color: #E0DDDB;
+        opacity: 0.5;
         &:hover {
-            height: 20px;
+            height: 15px;
+            opacity: 0.80;
         }
         transition-property: height;
         transition-duration: .25s;
@@ -16,7 +18,7 @@
             transition-duration: .25s;
             transition-property: width;
             background-color: #00A99D;
-            opacity: 0.75;
+            opacity: 0.8;
             height: 100%;
         }
     }
@@ -40,6 +42,7 @@
         }
         .navigation {
             position: absolute;
+            letter-spacing: -0.4em;
             > div {
                 font-size: 1em;
                 margin-right: 20px;
@@ -50,6 +53,7 @@
         }
         .actions {
             float: right;
+            padding-right: 5px;
         }
     }
     .upper-strip {
@@ -59,14 +63,21 @@
         min-height: 30px;
         padding:15px;
         padding-left: 25px;
-        opacity: 0.90;
+        opacity: 0.95;
+        &__author {
+            color: #000000;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+        }
+        }
         .avatar {
             position: absolute;
             right: 0;
             bottom: 0;
             .background {
-                width: 100px;
-                height: 100px;
+                width: 70px;
+                height: 70px;
                 background-repeat: no-repeat;
                 background-size: cover;
                 -webkit-filter: grayscale(100%);
@@ -87,20 +98,24 @@
                 right: 0;
                 bottom: 0;
                 color: white;
-                padding: 10px;
                 &:not(.active){opacity: 0;}
                 &:hover {
                     background-color: rgba(64, 191, 182, 0.43);
                 }
                 &.active {
                     color: #40BFB6;
+                    background-color: rgba(0, 0, 0, 0.05);
                 }
             }
         }
         .logo {
             position: absolute;
-            right: 20px;
-            top: -5px;
+            right: 10px;
+            top: 8px;
+            letter-spacing: -0.25em;
+            opacity: 0.65;
+            font-size: 0.9em;
+
             i {font-size: 3em;}
             a {
                 color: black;
@@ -113,6 +128,9 @@
             img, i {
                 vertical-align: middle;
             }
+            &:hover {
+                    opacity: 0.82;
+            }
         }
         overflow: hidden;
         .wrapper {
@@ -120,23 +138,28 @@
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
+            margin-bottom: 5px;
+            margin-top: 10px;
             .body {
                 position: relative;
             }
             .wrapper-inner.big {
                 position: relative;
-                padding: 20px 0;
                 color: #212121;
+                padding: 10px;
+                padding-bottom: 5px;
                 .title {
                     font-weight: bold;
-                    font-size: 1.6em;
-                    padding: 20px 0;
+                    font-size: 1.8em;
+                    padding-bottom: 20px;
+                    line-height: 1.4em;
                 }
                 .subtitle span {font-weight: bold;}
             }
         }
     }
     .lower-strip {
+        min-height: 30px;
         color: white;
         padding: 12px;
         position: relative;
@@ -146,12 +169,11 @@
             font-family: 'Lekton';
             opacity: .8;
             margin-right: 74px;
-            margin-left: 48px;
+            margin-left: 15px;
             font-size: 0.7em;
             line-height: 2em;
             transition-duration: 1s;
             transition-property: height;
-            overflow: hidden;
             .wrapper-inner {
                 position: relative;
                 p {padding: 0; margin: 0; display: inline-block;}
@@ -163,11 +185,17 @@
                         text-decoration: underline;
                     }
                 }
+                i {
+                    margin-right: 10px;
+                }
+                .tweet {
+                    i {
+                        font-size: 1.5em;
+                        position: relative;
+                        top: 5px;
+                    }
+                }
             }
-        }
-        .logo {
-            float: left;
-            margin-left: 10px;
         }
         .time {
             position: absolute;
@@ -176,6 +204,8 @@
             font-size: 0.8em;
             font-weight: 400;
             line-height: 1.7em;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
         }
     }
     transition-property: margin, opacity;

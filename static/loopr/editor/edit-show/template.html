@@ -1,11 +1,11 @@
 <loop></loop>
 <nav class="right">
     <div class="first-block block">
-        <h3>Actions</h3>
         <ul>
-            <li><a ng-click="vm.addToLoopMode()">Add to loop</a></li>
-            <li><a ng-click="vm.removeShow()">Delete this show</a></li>
+            <li><a ng-click="vm.addToLoopMode()">Loop this Show</a></li>
             <li><a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}">Watch loop from here</a></li>
+            <br />
+            <li><a ng-click="vm.removeShow()">Delete this show</a></li>
         </ul>
     </div>
     <div class="block">
@@ -17,6 +17,7 @@
                     <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
                 </label>
             </li>
+            <br />
             <li>
                 <label><input type="checkbox" ng-model="vm.show.settings.shuffle" ng-change="vm.saveShow()">
                     Shuffle Mode
@@ -32,10 +33,10 @@
 </nav>
 <div class="create-show content in-frame">
     <form>
+        <div class="type-show" ng-bind="vm.show.type"> Show</div>
         <h2 ng-model="vm.show.title" ng-change="vm.saveShow()" ng-model-options="{debounce: 500}" contenteditable="true"></h2>
-        <label>Link
-        </label>
-        <input type="text" ng-model="vm.url" placeholder="{{ vm.example || 'video link' }}"/>
+        <label></label>
+        <input type="text" ng-model="vm.url" placeholder="{{ vm.example || 'Paste a Youtube video link here' }}"/>
         <button ng-click="vm.addLink(vm.url)">+ Add</button>
     </form>
     <table>

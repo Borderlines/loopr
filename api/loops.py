@@ -12,13 +12,6 @@ class Loop(object):
         'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
         'public_methods': ['GET'],
         'schema': {
-            'user_id': {
-                'type': 'objectid',
-                'data_relation': {
-                    'resource': 'accounts',
-                    'field': '_id'
-                }
-            },
             'shows': {
                 'type': 'list',
                 'schema': {
@@ -31,10 +24,7 @@ class Loop(object):
                 }
             },
             'strip_messages': {
-                'type': 'list',
-                'schema': {
-                    'type': 'dict'
-                }
+                'type': 'list'
             }
         }
     }
@@ -77,9 +67,7 @@ class Loop(object):
         }
         for query in queries:
             if 'results' not in query or len(query['results']) < 1:
-                print(query)
                 query['results'] = sources[query['type']](query)
-                print(query['query'], query['results'])
         app.data.driver.db['loops'].update({'_id': loop['_id']},
                                            {'$set': {'strip_messages': queries}})
 

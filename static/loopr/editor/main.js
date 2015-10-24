@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'angular-embed',
+    angular.module('loopr', ['ngRoute', 'loopr.api', 'loopr.strip', 'loopr.catalog', 'angular-embed',
                             'ngSanitize', 'LocalStorageModule', 'ui.gravatar'])
         .config(['$routeProvider',
             function($routeProvider) {
@@ -45,6 +45,21 @@
                     controller: 'AccountCtrl',
                     controllerAs: 'vm',
                     activetab: 'account'
+                })
+                .when('/catalog', {
+                    templateUrl: 'static/loopr/catalog/all.html',
+                    controller: 'CatalogAllUsers',
+                    controllerAs: 'vm'
+                })
+                .when('/catalog/favorites', {
+                    templateUrl: 'static/loopr/catalog/favorites.html',
+                    controller: 'CatalogFavorites',
+                    controllerAs: 'vm'
+                })
+                .when('/catalog/:username', {
+                    templateUrl: 'static/loopr/catalog/user.html',
+                    controller: 'CatalogUser',
+                    controllerAs: 'vm'
                 })
                 .otherwise({
                     redirectTo: '/shows'
@@ -116,12 +131,11 @@
                     var hours = Math.floor(time / 3600);
                     time = time - hours * 3600;
                     var minutes = Math.floor(time / 60);
-                    var seconds = time - minutes * 60;
                     var time_str = '';
                     if (hours > 0) {
                         time_str += hours + 'h';
                     }
-                    return time_str + minutes + 'm' + seconds + 's';
+                    return time_str + minutes + 'm';
                 }
             };
         });

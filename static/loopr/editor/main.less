@@ -11,16 +11,24 @@ a, a[ng-click], a:visited, a:active {
     text-decoration: none;
     cursor: pointer;
     color: black;
-    font-weight: 700;
+    // font-weight: 400;
     &:hover {
         text-decoration: underline;
     }
 }
+h2 {
+    font-family: "Montserrat";
+    font-size: 2em;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
 h3 {
-    font-style: italic;
     font-weight: 400;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    color: #666;
 }
 ul {margin: 0; padding: 0}
 li {
@@ -31,7 +39,8 @@ nav {
     position: absolute;
     bottom: 0;
     .wrapper {
-        padding: 10px;
+        padding: 20px;
+        line-height: 1.3em;
     }
     position: fixed;
     li {padding:0 0 10px 0;}
@@ -46,7 +55,7 @@ nav.left {
     background-color: #1A1A1A;
     .logo {
         position: relative;
-        left: -30px;
+        left: -40px;
         top: -60px;
         height: 150px;
         width: 150px;
@@ -61,8 +70,8 @@ nav.left {
     }
     .active a {
         font-weight: 400;
-        // text-decoration:underline;
-        color: #FB2844;
+        text-decoration:underline;
+        color: #FFF;
         cursor: default;
     }
     a {color: white;}
@@ -74,16 +83,35 @@ nav.right {
     right: 0;
     width: @RIGHT_NAV_WIDTH;
     box-sizing: border-box;
-    background-color: #E6E6E6;
+    background-color: #E6E6E1;
     overflow: auto;
+    line-height: 1.3em;
     .block {
-        padding: 0px 20px 0 20px;
+        padding: 20px 10px 30px 30px;
     }
     .first-block {
-        padding-top: @HEADER_HEIGHT;
-        padding-bottom: 20px;
-        background-color: #F2F2F2;
+        margin-top: @HEADER_HEIGHT;
+        padding: 40px 10px 25px 35px;
+        background-color: #F2F2ED;
     }
+    .first-block-account {
+        //margin-top: @HEADER_HEIGHT;
+        padding: 225px 10px 25px 35px;
+        background-color: #F2F2ED;
+    }
+    .active a {
+        font-weight: 400;
+    //    text-decoration:underline;
+        color: #000;
+        cursor: default;
+        &:hover {
+        font-weight: 700;
+        color: #00BBB6;
+        }
+    }
+    // a {
+    //     color: #000;
+    // }
 }
 .content {
     margin: 40px 20px 20px @NAV_WIDTH + 30px;
@@ -91,35 +119,49 @@ nav.right {
         margin-top: @HEADER_HEIGHT + 40px;
         margin-right: @RIGHT_NAV_WIDTH + 20px;
     }
+    .type-show {
+        color: #00A99D;
+        opacity: 0.9;
+        font-size: 1.4em;
+        font-style: italic;
+        margin-bottom: -10px;
+    }
     input[type="text"], input[type="password"], input[type="email"] {
-        border: 1px solid rgba(240, 12, 12, 0.4);
-        padding: 10px;
-        margin-bottom: 20px;
-        min-width: 400px;
-        display: block;
-        opacity: .8;
+        // height: 45px;
+        min-width: 60%;
+        padding: 15px;
+        font-size: 0.7em;
+        border: 0px none;
+        background-color: #E6E6E1;
+        margin-bottom: 50px;
+        opacity: .9;
     }
     label + input[type="text"] {
         float: left;
     }
     label {
-    display: block;
+        display: block;
+        color: #00BBB6;
     }
     button {
         &:hover {
-            background-color: rgba(240, 12, 12, .7);
+            // opacity: 0.8;
+            cursor: pointer;
+            color: #FFFFFF;
+            background-color: #222222;
         }
-        height: 41px;
-        background-color: rgba(240, 12, 12, 0.9);
-        border: 0px;
-        color: white;
-        text-transform: uppercase;
-        padding: 5px 20px;
+        // height: 45px;
+        width: 90px;
+        padding: 14px;
+        font-size: 0.7em;
+        border: 0px none;
+        background-color: #00A99D;
+        color: #222;
         font-weight: 400;
-        font-size: 1.2em;
         font-style: italic;
+        opacity: 0.8;
         &:disabled {
-            opacity:.5;
+            opacity:.4;
 
         }
     }
@@ -131,6 +173,7 @@ nav.right {
         width: 100%;
         border-spacing:0;
         border-collapse: collapse;
+        line-height: 1.5em;
     }
     tr {
         width: 100%;
@@ -140,7 +183,7 @@ nav.right {
             .reorder {display:inline;}
             .index {display:none;}
             td, td:first-child:before, td:last-child:after {
-                background-color: #FE5667;
+                background-color: rgba(0, 170, 160, 0.5);
             }
         }
         th {text-align: left;}
@@ -148,6 +191,7 @@ nav.right {
             padding-right: 20px;
             padding-bottom: 5px;
             padding-top:6px;
+            position: relative;
             &:nth-child(4) {
                 white-space:nowrap;
             }
@@ -164,7 +208,7 @@ nav.right {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 100vw;
+            width: 100%;
             display: block;
             border: inherit;
         }

@@ -45,10 +45,6 @@ def get_app():
             scope['item'] = scope['show']['links'][int(request.args.get('item'))]
         return render_template('player.html', **scope)
 
-    @app.route('/catalog')
-    @app.route('/catalog/<path:path>')
-    def catalog(path=None):
-        return render_template('catalog.html')
     return app
 
 

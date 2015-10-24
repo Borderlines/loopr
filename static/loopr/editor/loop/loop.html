@@ -21,7 +21,7 @@
         <div class="adding-placeholder" ng-click="loopCtrl.addAtPosition(loopCtrl.loop.shows.length); $event.stopPropagation();"></div>
     </ul>
     <div class="main_loop__info">
-        <div>{{ loopCtrl.loop.shows.length }}/8 Shows online</div>
-        <div> 	&#8734; {{ loopCtrl.loop.duration() | seconds }}</div>
+        <div>{{ loopCtrl.loop.shows.length }} Shows online</div>
+        <div><i> Loop {{ loopCtrl.loop.duration() | seconds }}</i></div>
     </div>
 </div>

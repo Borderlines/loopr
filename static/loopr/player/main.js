@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('loopr.player', ['ngRoute', 'loopr.api', 'loopr.strip',
-                                    'cfp.hotkeys', 'loopr.player.youtube', 'ui.gravatar'])
+                                    'cfp.hotkeys', 'loopr.player.youtube', 'ui.gravatar', 'FBAngular'])
         .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
             $routeProvider
             .when('/:username', {

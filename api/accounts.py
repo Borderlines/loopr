@@ -41,10 +41,10 @@ class Account(object):
             'favorites': {
                 'type': 'list',
                 'schema': {
-                    'type': 'objectid',
+                    'type': 'string',
                     'data_relation': {
                         'resource': 'accounts',
-                        'field': '_id'
+                        'field': 'username'
                     }
                 }
             }

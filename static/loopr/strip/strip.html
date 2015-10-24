@@ -3,19 +3,22 @@
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner big" ng-if="showController">
                 <div class="title">{{ player.currentItem.title }}</div>
-                <div class="subtitle">Show <span ng-bind="player.currentShow.title"></span></div>
+                <div class="subtitle">
+                    Show <span ng-bind="player.currentShow.title"></span> looped by
+                    <a href="/#/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a>
+                </div>
             </div>
             <div class="wrapper-inner" ng-if="!showController">
-                <banner lines="lines" transition="scroll" duration="5"></banner>
+                <banner lines="strip.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
         <div class="avatar" ng-if="showController">
             <div class="background" ng-style="{'background-image': 'url('+avatar+')'}"></div>
-            <div class="add-to-favs" ng-class="{'active': inFavorites}" ng-click="strip.addToFavs(); $event.stopPropagation();"><i class="fa fa-star"></i></div>
+            <add-to-favorite user="player.loop.user.username"></add-to-favorite>
         </div>
         <div class="logo" ng-if="!showController" ng-switch="player.currentItem.provider_name">
             <a ng-switch-when="YouTube" ng-href="{{ player.currentItem.url }}" target="_blank">
-                <i class="fa fa-youtube-square"></i>
+                <i class="icon icon-sourceyoutube"></i>
             </a>
             <div  ng-switch-when="SoundCloud">
                 <a ng-href="{{ player.currentItem.url }}" target="_blank"><i class="icon icon-sourcesoundcloud"></i></a>
@@ -50,12 +53,9 @@
         <div class="progression" ng-style="{width: progression + '%'}"></div>
     </div>
     <div class="lower-strip" ng-click="showController = !showController">
-        <div class="logo">
-            <i class="fa fa-twitter"></i>
-        </div>
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner">
-                <banner lines="underlines" transition="fade" duration="15"></banner>
+                <banner lines="strip.lowerStrip.banner" transition="fade" duration="15"></banner>
             </div>
         </div>
         <time></time>
