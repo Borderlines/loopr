@@ -1,22 +1,22 @@
 <div>
-    <div class="upper-strip" ng-click="showController = !showController">
+    <div class="upper-strip" ng-click="strip.stripService.toggleController()">
         <div class="wrapper" dynamic-height>
-            <div class="wrapper-inner big" ng-if="showController">
+            <div class="wrapper-inner big" ng-if="strip.stripService.showController">
                 <div class="title">{{ player.currentItem.title }}</div>
                 <div class="subtitle">
                     Show <span ng-bind="player.currentShow.title"></span> looped by
                     <a href="/#/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a>
                 </div>
             </div>
-            <div class="wrapper-inner" ng-if="!showController">
+            <div class="wrapper-inner" ng-if="!strip.stripService.showController">
                 <banner lines="strip.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
-        <div class="avatar" ng-if="showController">
+        <div class="avatar" ng-if="strip.stripService.showController">
             <div class="background" ng-style="{'background-image': 'url('+avatar+')'}"></div>
             <add-to-favorite user="player.loop.user.username"></add-to-favorite>
         </div>
-        <div class="logo" ng-if="!showController" ng-switch="player.currentItem.provider_name">
+        <div class="logo" ng-if="!strip.stripService.showController" ng-switch="player.currentItem.provider_name">
             <a ng-switch-when="YouTube" ng-href="{{ player.currentItem.url }}" target="_blank">
                 <i class="icon icon-sourceyoutube"></i>
             </a>
@@ -28,14 +28,14 @@
             </div>
         </div>
     </div>
-    <div class="superextended" ng-if="showController && strip.panelOpened">
+    <div class="superextended" ng-if="strip.stripService.showController && strip.panelOpened">
         <div class="background"></div>
         <div class="body">
             <l8pr-share ng-if="strip.panelOpened === 'share'"></l8pr-share>
             <l8pr-explore-loop ng-if="strip.panelOpened === 'loop'"></l8pr-explore-loop>
         </div>
     </div>
-    <div class="controllers" ng-if="showController">
+    <div class="controllers" ng-if="strip.stripService.showController">
         <div class="navigation">
             <div ng-click="strip.previousShow()"><i class="icon icon-ctrl-prevshow"></i></div>
             <div ng-click="strip.previousItem()"><i class="icon icon-ctrl-previtem"></i></div>
@@ -49,6 +49,7 @@
             </div>
         </div>
         <div class="actions">
+            <div ng-click="strip.stripService.toggleStrip()"><div class="icon icon-opt-stripoff-1"></div></div>
             <div ng-click="strip.openPanel('loop')"><div class="icon icon-opt-loop"></div></div>
             <div ng-click="strip.toggleFullscreen()"><div class="icon icon-opt-fullscreen"></div></div>
             <div ng-click="strip.openPanel('share')"><div class="icon icon-opt-share"></div></div>
@@ -57,7 +58,7 @@
     <div class="progress-bar" ng-click="strip.setPosition($event)">
         <div class="progression" ng-style="{width: progression + '%'}"></div>
     </div>
-    <div class="lower-strip" ng-click="showController = !showController">
+    <div class="lower-strip" ng-click="strip.stripService.toggleController()">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner">
                 <banner lines="strip.lowerStrip.banner" transition="fade" duration="15"></banner>

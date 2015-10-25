@@ -7,9 +7,8 @@
      ng-click="vm.Player.playPause()"></div>
 <strip
        class="strip"
-       ng-class="{'hidden': vm.hideStrip}"
+       ng-class="{'hidden': vm.strip.stripIsHidden}"
        logo="vm.logo"
        player="vm.Player"
-       show-controller="vm.showController"
        progression="vm.Player.currentPosition">
 </strip>

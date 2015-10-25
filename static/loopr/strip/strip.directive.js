@@ -3,14 +3,15 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope',
+    StripCtrl.$inject = ['$interval', '$scope', 'strip',
                          'Fullscreen', 'Accounts', 'gravatarService', 'upperStrip', 'lowerStrip'];
-    function StripCtrl($interval, $scope,
+    function StripCtrl($interval, $scope, stripService,
                        Fullscreen, Accounts, gravatarService, upperStrip, lowerStrip) {
         var vm = this;
         angular.extend(vm, {
             upperStrip: upperStrip,
             lowerStrip: lowerStrip,
+            stripService: stripService,
             underlines: []
         });
         if ($scope.player) {
@@ -84,6 +85,22 @@
     }
 
     angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
+        .factory('strip', function() {
+            var service = {
+                showController: false,
+                toggleController: function() {
+                    service.showController = !service.showController;
+                },
+                stripIsHidden: false,
+                toggleStrip: function() {
+                    service.stripIsHidden = !service.stripIsHidden;
+                },
+                hideStrip: function(hidden) {
+                    service.stripIsHidden = hidden;
+                }
+            };
+            return service;
+        })
         .factory('lowerStrip', function() {
             return bannerService();
         })
@@ -95,8 +112,7 @@
                 scope: {
                     progression: '=',
                     logo: '=',
-                    player: '=',
-                    showController: '='
+                    player: '='
                 },
                 restrict: 'E',
                 controller: StripCtrl,

@@ -2,12 +2,13 @@
     'use strict';
 
     PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout',
-    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip'];
+    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip'];
     function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
-        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip) {
+        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip) {
         var vm = this;
         var hideTimeout;
         angular.extend(vm, {
+            strip: strip,
             Player: Player
         });
         $rootScope.Player = Player;
@@ -49,11 +50,11 @@
             });
         });
         $scope.showAndHideStrip = _.throttle(function() {
-            if (vm.hideStrip) {
+            if (strip.stripIsHidden) {
                 $timeout.cancel(hideTimeout);
-                vm.hideStrip = false;
+                strip.hideStrip(false);
                 hideTimeout = $timeout(function() {
-                    vm.hideStrip = true;
+                    strip.hideStrip(true);
                 }, 5000);
             }
         }, 500);
@@ -67,11 +68,11 @@
             upperStrip.setBanner(lines);
             // show strip
             $timeout.cancel(hideTimeout);
-            vm.hideStrip = false;
+            strip.hideStrip(false);
             // hide strip later if needed
             if (Player.currentShow.settings && Player.currentShow.settings.hide_strip) {
                     hideTimeout = $timeout(function(){
-                    vm.hideStrip = true;
+                    strip.hideStrip(true);
                 }, 5000);
             }
             // deep linking
@@ -82,9 +83,7 @@
         .add({
             combo: ['ctrl', 'c'],
             description: 'Show the controller',
-            callback: function() {
-                vm.showController = !vm.showController;
-            }
+            callback: strip.toggleController
         })
         .add({
             combo: 'm',
