@@ -28,9 +28,12 @@
             </div>
         </div>
     </div>
-    <div class="superextended" ng-if="strip.panelOpened">
+    <div class="superextended" ng-if="showController && strip.panelOpened">
         <div class="background"></div>
-        <l8pr-share ng-if="strip.panelOpened === 'share'"></l8pr-share>
+        <div class="body">
+            <l8pr-share ng-if="strip.panelOpened === 'share'"></l8pr-share>
+            <l8pr-explore-loop ng-if="strip.panelOpened === 'loop'"></l8pr-explore-loop>
+        </div>
     </div>
     <div class="controllers" ng-if="showController">
         <div class="navigation">
@@ -46,6 +49,7 @@
             </div>
         </div>
         <div class="actions">
+            <div ng-click="strip.openPanel('loop')"><div class="icon icon-opt-loop"></div></div>
             <div ng-click="strip.toggleFullscreen()"><div class="icon icon-opt-fullscreen"></div></div>
             <div ng-click="strip.openPanel('share')"><div class="icon icon-opt-share"></div></div>
         </div>

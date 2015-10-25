@@ -2,6 +2,8 @@
 @RIGHT_NAV_WIDTH: 250px;
 @HEADER_HEIGHT: 175px;
 
+@import "../variables.less";
+
 body {
     // font-family: 'Montserrat', sans-serif;
     font-family: 'Lekton', sans-serif;
@@ -95,13 +97,11 @@ nav.right {
         background-color: #F2F2ED;
     }
     .first-block-account {
-        //margin-top: @HEADER_HEIGHT;
         padding: 225px 10px 25px 35px;
         background-color: #F2F2ED;
     }
     .active a {
         font-weight: 400;
-    //    text-decoration:underline;
         color: #000;
         cursor: default;
         &:hover {
@@ -109,9 +109,6 @@ nav.right {
         color: #00BBB6;
         }
     }
-    // a {
-    //     color: #000;
-    // }
 }
 .content {
     margin: 40px 20px 20px @NAV_WIDTH + 30px;
@@ -127,7 +124,6 @@ nav.right {
         margin-bottom: -10px;
     }
     input[type="text"], input[type="password"], input[type="email"] {
-        // height: 45px;
         min-width: 60%;
         padding: 15px;
         font-size: 0.7em;
@@ -183,7 +179,7 @@ nav.right {
             .reorder {display:inline;}
             .index {display:none;}
             td, td:first-child:before, td:last-child:after {
-                background-color: rgba(0, 170, 160, 0.5);
+                background-color: @GREEN;
             }
         }
         th {text-align: left;}

@@ -1,0 +1,25 @@
+<div class="loop">
+    <div class="loop__header">
+        <div class="name">{{ vm.Player.loop.user.username }}'s Loop</div>
+        <div class="count">{{ vm.Player.loop.shows.length }} Shows</div>
+    </div>
+    <table>
+        <tr ng-repeat="show in vm.Player.loop.shows"
+            ng-click="vm.Player.playShow(show)"
+            ng-class="{'active': vm.Player.currentShow === show}"
+        >
+            <td class="title">
+                {{ show.title }}
+            </td>
+            <td class="show-type" ng-switch="show.type">
+                    <div ng-switch-when="VideoShow">
+                        <i class="icon icon-sourceyoutube"></i>
+                    </div>
+                    <div  ng-switch-when="MusicShow">
+                        <i class="icon icon-sourcegiphy"></i>
+                    </div>
+            </td>
+            <td><span class="duration" ng-bind="(show.duration() | seconds)"></span></td>
+        </tr>
+    </table>
+</div>

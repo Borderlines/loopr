@@ -124,20 +124,5 @@
                     return $scope.$apply();
                 });
             };
-        })
-        .filter('seconds', function() {
-            return function(time) {
-                if (angular.isDefined(time) && angular.isNumber(time) && !isNaN(time)) {
-                    var hours = Math.floor(time / 3600);
-                    time = time - hours * 3600;
-                    var minutes = Math.floor(time / 60);
-                    var time_str = '';
-                    if (hours > 0) {
-                        time_str += hours + 'h';
-                    }
-                    return time_str + minutes + 'm';
-                }
-            };
         });
-
 })();

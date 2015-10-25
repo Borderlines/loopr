@@ -30,9 +30,13 @@
                         Fullscreen.all();
                     }
                 },
-                panelOpened: 'share',
+                panelOpened: false,
                 openPanel: function(panel_name) {
-                    vm.panelOpened = panel_name;
+                    if (vm.panelOpened === panel_name) {
+                        vm.panelOpened = false;
+                    } else {
+                        vm.panelOpened = panel_name;
+                    }
                 }
             });
         }
@@ -79,7 +83,7 @@
         return service;
     }
 
-    angular.module('loopr.strip', ['loopr.strip.panels', 'ngSanitize', 'ngAnimate', 'FBAngular'])
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
         .factory('lowerStrip', function() {
             return bannerService();
         })

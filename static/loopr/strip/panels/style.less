@@ -1,6 +1,5 @@
 .superextended {
     position: relative;
-    padding: 20px;
     > .background {
         background: white;
         opacity: .7;
@@ -8,30 +7,82 @@
         top: 0; right: 0; left: 0; bottom: 0;
         z-index: 1;
     }
-    .share {
+    .body {
+        font-family: 'Lekton';
         position: relative;
         z-index: 2;
-        font-family: 'Lekton';
-        &__info, &__embed-code, &__url {
-            float: left;
+        .loop {
+            &__header {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                z-index: 0;
+                .name {
+                    font-weight: bold;
+                    font-size: 1.2em;
+                }
+            }
+            max-height: 180px;
+            overflow-y: scroll;
+            table {
+                position: relative;
+                z-index: 1;
+                border-spacing:0;
+                border-collapse: collapse;
+                width: 100%;
+                tr {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: @GREEN;
+                        .duration {
+                            visibility: visible;
+                        }
+                    }
+                    &.active {
+                        font-weight: bold;
+                    }
+                }
+                .show-type {
+                    & > div {
+                        font-size: 2em;
+                        height: 20px;
+                        top: -10px;
+                        position: relative;
+                    }
+                }
+                .title {
+                    padding-left: 20px;
+                }
+                .duration {
+                    visibility: hidden;
+                    padding-right: 100px;
+                    font-size: .8em;
+                }
+            }
         }
-        &__info {
-            font-size: .8em;
-            dt {
-                font-weight: 400;
+        .share {
+            padding: 20px;
+            &__info, &__embed-code, &__url {
+                float: left;
             }
-            dd {
-                font-weight: 700;
-                margin: 0;
+            &__info {
+                font-size: .8em;
+                dt {
+                    font-weight: 400;
+                }
+                dd {
+                    font-weight: 700;
+                    margin: 0;
+                }
             }
-        }
-        &__embed-code, &__url {
-            textarea {
-                height: 80px;
-                width: 240px;
-            }
-            button {
-                display: block;
+            &__embed-code, &__url {
+                textarea {
+                    height: 80px;
+                    width: 240px;
+                }
+                button {
+                    display: block;
+                }
             }
         }
     }
