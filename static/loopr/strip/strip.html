@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="actions">
-            <div ng-click="strip.stripService.toggleStrip()"><div class="icon icon-opt-stripoff-1"></div></div>
+            <div ng-click="strip.stripService.autoHideToggle()"><div class="icon" ng-class="strip.stripService.isAutoHideEnabled ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div></div>
             <div ng-click="strip.openPanel('loop')"><div class="icon icon-opt-loop"></div></div>
             <div ng-click="strip.toggleFullscreen()"><div class="icon icon-opt-fullscreen"></div></div>
             <div ng-click="strip.openPanel('share')"><div class="icon icon-opt-share"></div></div>

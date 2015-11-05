@@ -87,11 +87,30 @@
     }
 
     angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
-        .factory('strip', function() {
+        .factory('strip', ['$timeout', function($timeout) {
+            var hideTimeout;
             var service = {
                 showController: false,
                 toggleController: function() {
                     service.showController = !service.showController;
+                },
+                isAutoHideEnabled: false,
+                showAndHide: function() {
+                    if (service.isAutoHideEnabled) {
+                        $timeout.cancel(hideTimeout);
+                        service.hideStrip(false);
+                        hideTimeout = $timeout(function() {
+                            service.hideStrip(true);
+                        }, 5000);
+                    }
+                },
+                autoHideToggle: function(enable) {
+                    $timeout.cancel(hideTimeout);
+                    if (!angular.isDefined(enable)) {
+                        enable = !service.isAutoHideEnabled;
+                    }
+                    service.isAutoHideEnabled = enable;
+                    service.hideStrip(service.isAutoHideEnabled);
                 },
                 stripIsHidden: false,
                 toggleStrip: function() {
@@ -102,7 +121,7 @@
                 }
             };
             return service;
-        })
+        }])
         .factory('lowerStrip', function() {
             return bannerService();
         })

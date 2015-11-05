@@ -6,7 +6,6 @@
     function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
         $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip) {
         var vm = this;
-        var hideTimeout;
         angular.extend(vm, {
             strip: strip,
             Player: Player
@@ -49,15 +48,7 @@
                 });
             });
         });
-        $scope.showAndHideStrip = _.throttle(function() {
-            if (strip.stripIsHidden) {
-                $timeout.cancel(hideTimeout);
-                strip.hideStrip(false);
-                hideTimeout = $timeout(function() {
-                    strip.hideStrip(true);
-                }, 5000);
-            }
-        }, 500);
+        $scope.showAndHideStrip = _.throttle(strip.showAndHide, 500);
         $scope.$on('player.play', function ($event, item, show) {
             var lines = [item.title,
                         ['Show', '<b>'+show.title+'</b>', 'by', vm.loop.user.username].join(' ')];
@@ -67,13 +58,8 @@
             lines.push(item.title);
             upperStrip.setBanner(lines);
             // show strip
-            $timeout.cancel(hideTimeout);
-            strip.hideStrip(false);
-            // hide strip later if needed
-            if (Player.currentShow.settings && Player.currentShow.settings.hide_strip) {
-                    hideTimeout = $timeout(function(){
-                    strip.hideStrip(true);
-                }, 5000);
+            if (strip.isAutoHideEnabled) {
+                strip.showAndHide();
             }
             // deep linking
             $location.search({show: show._id, item:show.links.indexOf(item)});
