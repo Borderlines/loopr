@@ -1,23 +1,24 @@
 <loop></loop>
-<nav class="right">
+<nav class="right create-show__nav">
     <div class="first-block block">
-        <ul>
-            <li><a ng-click="vm.addToLoopMode()">Loop this Show</a></li>
-            <li><a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}">Watch loop from here</a></li>
-            <br />
-            <li><a ng-click="vm.removeShow()">Delete this show</a></li>
-        </ul>
+        <a ng-click="vm.addToLoopMode()">Add this show to the loop</a><i class="icon icon-logoin"></i>
     </div>
     <div class="block">
         <h3>Options</h3>
         <ul class="options">
             <li ng-repeat="option in vm.options" ng-if="vm.optionIsSatisifed(option)">
-                <label>
+                <div ng-switch="option.type">
+                <label ng-switch-when="text">
                     {{ option.label }}
-                    <span ng-switch="option.type">
-                        <input ng-switch-when="text" type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
-                        <input ng-switch-when="checkbox" type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'default blur' }">
+                    <span>
+                        <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
                     </span>
+                </label>
+                <label ng-switch-when="checkbox">
+                    <span>
+                        <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'default blur' }">
+                    </span>
+                    {{ option.label }}
                 </label>
             </li>
             <br />
@@ -33,6 +34,10 @@
             </li>
         </ul>
     </div>
+    <div class="block">
+        <a ng-click="vm.removeShow()">x Delete this show</a>
+    </div>
+
 </nav>
 <div class="create-show content in-frame">
     <form>

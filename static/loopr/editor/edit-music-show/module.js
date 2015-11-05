@@ -11,7 +11,7 @@
             options: [
                 {
                     type: 'checkbox',
-                    label: 'Use GIPHY',
+                    label: 'Use GIPHY to illustrate Soundcloud',
                     name: 'giphy'
                 },
                 {
