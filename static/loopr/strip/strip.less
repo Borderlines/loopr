@@ -227,8 +227,10 @@
         opacity: 0;
     }
     // actions state button
-    .list-show .active {color: blue;}
-    .fullscreen.active {opacity: .5;}
-    .share.active {color: blue;}
-    .auto-hide.active {opacity: .5;}
+    .list-show .active {color: @GREEN;}
+    .fullscreen.active {opacity: 1;}
+    .fullscreen:not(.active) {opacity: .6;}
+    .share.active {color: @GREEN;}
+    .auto-hide.active {opacity: 1;}
+    .auto-hide:not(.active) {opacity: .6;}
 }
