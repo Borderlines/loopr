@@ -7,7 +7,7 @@
         <meta property="og:title" content="{{ (item and item.title ) or (show and 'Show ' + show.title) or user.username + '\'s loop' }}"/>
         <meta property="og:description" content="{{ (item and show and 'Show ' + show.title + ' by ' + user.username) or (show and user.username + '\'s loop') or nb_show + ' shows' }}" />
         <meta property="og:image" content="{{ item and item.thumbnail or (show and show.links[0] and show.links[0].thumbnail) or url_for('static', filename='L8PRtv.png', _external=True) }}" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         {% assets filters="less", output="gen/loopr-player.css", depends="/static/loopr/**.less",
