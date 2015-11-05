@@ -3,7 +3,7 @@
     <div ng-repeat="user in vm.users">
         <div class="catalog__user">
             <add-to-favorite user="user"></add-to-favorite>
-            <b></b><a ng-href="/#/catalog/{{ user }}" ng-bind="user"></a></b>'s Shows
+            <b><a ng-href="/#/catalog/{{ user }}" ng-bind="user"></a></b>'s Shows
         </div>
         <catalog user="user" max-show="3"></catalog>
     </div>
