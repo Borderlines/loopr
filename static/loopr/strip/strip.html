@@ -12,8 +12,9 @@
                 <banner lines="strip.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
-        <div ng-click="strip.openPanel('loop')"><div class="icon icon-opt-loop"></div></div>
+        
         <div class="avatar" ng-if="strip.stripService.showController">
+            <div ng-click="strip.openPanel('loop')"><div class="icon icon-opt-loop"></div></div>
             <div class="background" ng-style="{'background-image': 'url('+avatar+')'}"></div>
             <add-to-favorite user="player.loop.user.username"></add-to-favorite>
         </div>
