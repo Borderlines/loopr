@@ -62,7 +62,7 @@
                 if (queries) {
                     var underlines = [];
                     queries.forEach(function(query) {
-                        if (query.results) {
+                        if (angular.isDefined(query.results) && angular.isDefined(query.results.items)) {
                             if (query.type === 'twitter') {
                                 query.results.items.forEach(function(tweet) {
                                     underlines.push('<div class="tweet"><i class="icon-social-twitter"></i><a href="https://twitter.com/' +
