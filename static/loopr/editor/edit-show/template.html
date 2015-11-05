@@ -14,7 +14,10 @@
             <li ng-repeat="option in vm.options" ng-if="vm.optionIsSatisifed(option)">
                 <label>
                     {{ option.label }}
-                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
+                    <span ng-switch="option.type">
+                        <input ng-switch-when="text" type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
+                        <input ng-switch-when="checkbox" type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'default blur' }">
+                    </span>
                 </label>
             </li>
             <br />
