@@ -76,7 +76,7 @@
                 $rootScope.$broadcast('openAddingShowMode', vm.show);
             },
             optionIsSatisifed: function(option) {
-                if (!angular.isDefined(vm.show) || !angular.isDefined(option.dependsOn)) {
+                if (!angular.isDefined(vm.show) || !angular.isDefined(vm.show.settings) || !angular.isDefined(option.dependsOn)) {
                     return true;
                 }
                 for (var key in option.dependsOn) {
