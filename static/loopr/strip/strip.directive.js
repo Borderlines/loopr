@@ -24,6 +24,7 @@
                 setPosition: function($event) {
                     return $scope.player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
                 },
+                isFullScreen: Fullscreen.isEnabled,
                 toggleFullscreen: function() {
                     if (Fullscreen.isEnabled()) {
                         Fullscreen.cancel();

@@ -12,7 +12,11 @@
                 <banner lines="strip.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
-        
+        <div class="list-show" ng-if="strip.stripService.showController">
+            <div class="icon icon-opt-loop"
+                 ng-class="{'active': strip.panelOpened ==='loop'}"
+                 ng-click="strip.openPanel('loop'); $event.stopPropagation();"></div>
+        </div>
         <div class="avatar" ng-if="strip.stripService.showController">
             <div class="background" ng-style="{'background-image': 'url('+avatar+')'}"></div>
             <add-to-favorite user="player.loop.user.username"></add-to-favorite>
@@ -50,10 +54,11 @@
             </div>
         </div>
         <div class="actions">
-            <div ng-click="strip.stripService.autoHideToggle()"><div class="icon" ng-class="strip.stripService.isAutoHideEnabled ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div></div>
-            <div ng-click="strip.openPanel('loop')"><div class="icon icon-opt-loop"></div></div>
-            <div ng-click="strip.toggleFullscreen()"><div class="icon icon-opt-fullscreen"></div></div>
-            <div ng-click="strip.openPanel('share')"><div class="icon icon-opt-share"></div></div>
+            <div ng-click="strip.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': strip.stripService.isAutoHideEnabled}">
+                <div class="icon" ng-class="strip.stripService.isAutoHideEnabled === true ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div>
+            </div>
+            <div ng-click="strip.toggleFullscreen()" class="fullscreen" ng-class="{'active': strip.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
+            <div ng-click="strip.openPanel('share')" class="share" ng-class="{'active': strip.panelOpened ==='share'}"><div class="icon icon-opt-share"></div></div>
         </div>
     </div>
     <div class="progress-bar" ng-click="strip.setPosition($event)">
