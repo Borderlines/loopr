@@ -16,7 +16,8 @@
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
         {% assets output="gen/vendors.css",
-            "bower_components/angular-hotkeys/build/hotkeys.min.css"
+            "bower_components/angular-hotkeys/build/hotkeys.min.css",
+            "bower_components/perfect-scrollbar/min/perfect-scrollbar.min.css"
         %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" charset="utf-8">
         {% endassets %}
@@ -45,7 +46,9 @@
             "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js",
             "bower_components/angular-hotkeys/build/hotkeys.min.js",
             "bower_components/angular-fullscreen/src/angular-fullscreen.js",
-            "bower_components/angular-gravatar/build/angular-gravatar.js"
+            "bower_components/angular-gravatar/build/angular-gravatar.js",
+            "bower_components/perfect-scrollbar/min/perfect-scrollbar.min.js",
+            "bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js"
         %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
         {% endassets %}

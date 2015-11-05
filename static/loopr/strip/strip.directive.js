@@ -87,7 +87,7 @@
         return service;
     }
 
-    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'perfect_scrollbar'])
         .factory('strip', ['$timeout', function($timeout) {
             var hideTimeout;
             var service = {

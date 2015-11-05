@@ -12,6 +12,20 @@
         position: relative;
         z-index: 2;
         .loop {
+            .ps-scrollbar-y-rail {
+                z-index: 10;
+                background-color: white;
+                border-radius:0px;
+                right: 0 !important;
+                .ps-scrollbar-y {
+                    background-color: black;
+                    border-radius:0px;
+                }
+            }
+            min-height: 150px;
+            max-height: 350px;
+            position: relative;
+            overflow-y: hidden;
             &__header {
                 position: absolute;
                 right: 50px;
@@ -24,10 +38,6 @@
                     font-size: 1.2em;
                 }
             }
-            min-height: 150px;
-            max-height: 350px;
-            // padding-left: 85px;
-            overflow-y: scroll;
             table {
                 font-family: 'Montserrat';
                 line-height: 1.4em;
@@ -101,19 +111,19 @@
                 }
             }
         }
-        
+
         .keyboard {
             &__key {
                 border-radius: 5px;
                 background: #ffffff;
-                padding: 10px; 
+                padding: 10px;
                 width: 40px;
                 height: 40px;
                 font-family: "Montserrat";
                 font-size: 1.1em;
                 text-align: center;
             }
-            
+
         }
     }
 }
