@@ -40,9 +40,13 @@
                 vm.users = user.favorites;
             });
         }])
-        .controller('CatalogUser', ['$routeParams', function($routeParams) {
+        .controller('CatalogUser', ['$routeParams', 'Accounts', 'gravatarService',
+                                   function($routeParams, Accounts, gravatarService) {
             var vm = this;
             vm.user = $routeParams.username;
+            Accounts.one(vm.user).get().then(function(user) {
+                vm.avatar = gravatarService.url(user.email, {size: 250});
+            });
         }])
         .directive('catalog', [function() {
             return {
