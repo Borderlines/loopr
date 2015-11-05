@@ -32,17 +32,29 @@ class Loop(object):
     def get_tweets(query):
         from TwitterSearch import TwitterSearch, TwitterSearchOrder
         import itertools
+        import time
         tso = TwitterSearchOrder()
         tso.set_keywords(query.get('query', '').split(' '))
         # tso.set_language('en')
         tso.set_include_entities(False)
+
+        def my_callback_closure(current_ts_instance):  # accepts ONE argument: an instance of TwitterSearch
+            queries, tweets_seen = current_ts_instance.get_statistics()
+            print(queries, tweets_seen)
+            if queries > 0 and (queries % 5) == 0:  # trigger delay every 5th query
+                time.sleep(3)  # sleep for 60 seconds
+
         ts = TwitterSearch(
             consumer_key=app.config.get('TWITTER_CONSUMER_KEY'),
             consumer_secret=app.config.get('TWITTER_CONSUMER_SECRET'),
             access_token=app.config.get('TWITTER_ACCESS_TOKEN'),
             access_token_secret=app.config.get('TWITTER_ACCESS_TOKEN_SECRET')
         )
-        return list(itertools.islice(ts.search_tweets_iterable(tso), 0, int(query.get('count', 5))))
+        return {
+            "items": list(itertools.islice(ts.search_tweets_iterable(tso),
+                                           0,
+                                           int(query.get('count', 5))))
+        }
 
     def get_rss(query):
         if 'rss' in query.get('query') or 'atom' in query.get('query'):
@@ -59,15 +71,15 @@ class Loop(object):
             'items': feed['items'][:int(query.get('count', 5))]
         }
 
+    SOURCES = {
+        'rss': get_rss,
+        'twitter': get_tweets
+    }
+
     def retrieve_content(loop):
         queries = loop.get('strip_messages', [])
-        sources = {
-            'rss': Loop.get_rss,
-            'twitter': Loop.get_tweets
-        }
         for query in queries:
-            if 'results' not in query or len(query['results']) < 1:
-                query['results'] = sources[query['type']](query)
+            query['results'] = Loop.SOURCES[query['type']](query)
         app.data.driver.db['loops'].update({'_id': loop['_id']},
                                            {'$set': {'strip_messages': queries}})
 
