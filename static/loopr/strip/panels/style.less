@@ -2,7 +2,7 @@
     position: relative;
     > .background {
         background: white;
-        opacity: .7;
+        opacity: .5;
         position: absolute;
         top: 0; right: 0; left: 0; bottom: 0;
         z-index: 1;
@@ -14,18 +14,24 @@
         .loop {
             &__header {
                 position: absolute;
-                right: 20px;
-                top: 20px;
-                z-index: 0;
+                right: 50px;
+                top: 50px;
+                z-index: 10;
+                line-height: 1.5em;
+                text-align: right;
                 .name {
                     font-weight: bold;
                     font-size: 1.2em;
                 }
             }
-            min-height: 100px;
-            max-height: 180px;
+            min-height: 150px;
+            max-height: 350px;
+            // padding-left: 85px;
             overflow-y: scroll;
             table {
+                font-family: 'Montserrat';
+                line-height: 1.4em;
+                margin-bottom: 20px;
                 position: relative;
                 z-index: 1;
                 border-spacing:0;
@@ -45,42 +51,50 @@
                 }
                 .show-type {
                     & > div {
-                        font-size: 2em;
+                        font-size: 1.8em;
+                        opacity: 0.7;
                         height: 20px;
                         top: -10px;
                         position: relative;
                     }
                 }
                 .title {
-                    padding-left: 20px;
+                    padding-left: 104px;
                 }
                 .duration {
+                    Font-family: 'Lekton';
                     visibility: hidden;
                     padding-right: 100px;
-                    font-size: .8em;
                     padding-right: 250px;
+                    font-size: .6em;
                 }
             }
         }
         .share {
-            padding: 20px;
+            padding: 35px;
             &__info, &__embed-code, &__url {
                 float: left;
             }
             &__info {
                 font-size: .8em;
+                line-height: 1.2em;
+                padding-right: 5%;
                 dt {
                     font-weight: 400;
                 }
                 dd {
                     font-weight: 700;
                     margin: 0;
+                    padding-bottom: 10px;
                 }
             }
             &__embed-code, &__url {
                 textarea {
-                    height: 80px;
-                    width: 240px;
+                    height: 60px;
+                    width: 350px;
+                    padding: 20px;
+                    margin-right: 20px;
+                    margin-bottom: 20px;
                 }
                 button {
                     display: block;
