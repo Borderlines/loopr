@@ -107,13 +107,13 @@
 
                 scope.$watch('soundcloudItem', function(n , o) {
                     clear();
+                    angular.extend(scope, {
+                        background: '/static/images/recordPlayer.gif'
+                    });
                     var soundDeferred = $q.defer();
                     soundcloudPlayer = soundDeferred.promise;
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
                     SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
-                        angular.extend(scope, {
-                            background: '/static/logos/L8pr-' + (Math.ceil(Math.random()*6) + 1) + '-500.gif'
-                        });
                         SC.stream(data.uri, function(sound) {
                             play();
                             soundDeferred.resolve(sound);
