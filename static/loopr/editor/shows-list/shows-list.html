@@ -1,15 +1,8 @@
 <loop></loop>
-<nav class="right">
-    <div class="first-block block">
-        <h3>Create a new show</h3>
-        <ul>
-            <li><a href="/#/video-show">Video Show</a></li>
-            <li><a href="/#/music-show">Music Show</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="Shows content in-frame">
-    <h2>Your Shows</h2>
+<div class="Shows content">
+    <h2>Your Shows
+    <a href="/#/music-show" class="create-a-new-show">+ Create a new Show</a></h2>
+
     <ul>
         <li ng-repeat="show in vm.shows track by show._id" ng-click="openShow(show)">
             <div class="Show">

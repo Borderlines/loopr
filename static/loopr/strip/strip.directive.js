@@ -62,19 +62,21 @@
                 if (queries) {
                     var underlines = [];
                     queries.forEach(function(query) {
-                        if (query.type === 'twitter') {
-                            query.results.forEach(function(tweet) {
-                                underlines.push('<div class="tweet"><i class="icon-social-twitter"></i><a href="https://twitter.com/' +
-                                tweet.user.screen_name+'/status/'+tweet.id_str +
-                                '" target="_blank"><b>@'+tweet.user.name+'</b> ' +
-                                tweet.text + '</a></div>');
-                            });
-                        }
-                        if (query.type === 'rss') {
-                            query.results.items.forEach(function(rss) {
-                                underlines.push('<div class="rss"><i class="fa fa-rss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
-                                rss.title + '</a></rss>');
-                            });
+                        if (query.results) {
+                            if (query.type === 'twitter') {
+                                query.results.items.forEach(function(tweet) {
+                                    underlines.push('<div class="tweet"><i class="icon-social-twitter"></i><a href="https://twitter.com/' +
+                                    tweet.user.screen_name+'/status/'+tweet.id_str +
+                                    '" target="_blank"><b>@'+tweet.user.name+'</b> ' +
+                                    tweet.text + '</a></div>');
+                                });
+                            }
+                            if (query.type === 'rss') {
+                                query.results.items.forEach(function(rss) {
+                                    underlines.push('<div class="rss"><i class="fa fa-rss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
+                                    rss.title + '</a></rss>');
+                                });
+                            }
                         }
                     });
                     service.setBanner(underlines);

@@ -92,7 +92,9 @@
         // redirect to the specific route/controller
         if (angular.isDefined($routeParams.showId)) {
             Shows.one($routeParams.showId).get().then(function(show) {
-                $location.url('/' + MAPPING[show.type] + '/' + show._id);
+                $location.url('/' + MAPPING.MusicShow + '/' + show._id);
+                // NOTE: disabled since we have only one show
+                // $location.url('/' + MAPPING[show.type] + '/' + show._id);
             });
         }
     }
