@@ -114,6 +114,31 @@
         });
 }
 
-    angular.module('loopr.player').controller('PlayerCtrl', PlayerCtrl);
+    angular.module('loopr.player')
+    .controller('PlayerCtrl', PlayerCtrl)
+    .directive('autoHideCursor', ['$timeout', function($timeout) {
+        return {
+            scope: true,
+            link: function(scope, element) {
+                var hideCursorTimeout;
+                function hideCursor() {
+                    angular.element('body').css('cursor', 'none');
+                }
+                function showCursor() {
+                    angular.element('body').css('cursor', '');
+                }
+                $timeout(hideCursor, 3000);
+                element.on('mouseout', function() {
+                    $timeout.cancel(hideCursorTimeout);
+                    showCursor();
+                });
+                element.on('mousemove', function() {
+                    $timeout.cancel(hideCursorTimeout);
+                    showCursor();
+                    hideCursorTimeout = $timeout(hideCursor, 3000);
+                });
+            }
+        };
+    }]);
 
 })();
