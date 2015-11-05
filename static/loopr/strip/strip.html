@@ -58,7 +58,7 @@
     <div class="progress-bar" ng-click="strip.setPosition($event)">
         <div class="progression" ng-style="{width: progression + '%'}"></div>
     </div>
-    <div class="lower-strip" ng-click="strip.stripService.toggleController()">
+    <div class="lower-strip" ng-click="strip.stripService.toggleController()" ng-if="strip.lowerStrip.banner.length > 0">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner">
                 <banner lines="strip.lowerStrip.banner" transition="fade" duration="15"></banner>
