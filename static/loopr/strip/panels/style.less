@@ -103,17 +103,24 @@
         }
         
         .keyboard {
+            float: left;
             &__key {
-                border-radius: 5px;
-                background: #ffffff;
-                padding: 10px; 
-                width: 40px;
-                height: 40px;
-                font-family: "Montserrat";
-                font-size: 1.1em;
-                text-align: center;
-            }
-            
+                dt {
+                    border-radius: 5px;
+                    background: #ffffff;
+                    opacity: 1;
+                    padding: 10px; 
+                    width: 40px;
+                    height: 40px;
+                    font-family: "Montserrat";
+                    font-size: 1.1em;
+                    text-align: center;
+                }
+                dd {
+                    font-family: "Lekton";
+                    font-weight: 700;
+                    text-align: left;
+                }
         }
     }
 }
