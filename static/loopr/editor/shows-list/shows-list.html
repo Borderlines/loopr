@@ -9,7 +9,7 @@
                 <div class="Show__illustration" style="background-image:url({{show.links[0].thumbnail}})">
                 </div>
                 <div class="bottom">
-                    <div class="action" ng-click="vm.addToLoopMode(show); $event.stopPropagation()">+</div>
+                    <div class="action" ng-click="vm.addToLoopMode(show); $event.stopPropagation()"><i class="icon icon-opt-addtoloop"></i></div>
                     <div class="Show__title"><a>{{ show.title }}</a></div>
                     <div class="Show__info">{{ show.duration() | seconds }}
                         <span class="right">
