@@ -2,7 +2,7 @@
     <ul>
         <li ng-repeat="show in loopCtrl.loop.shows" ng-click="openShow(show)">
             <div class="adding-placeholder" ng-click="loopCtrl.addAtPosition($index); $event.stopPropagation();"></div>
-            <div class="Show" resizable ng-style="{width: (windowWidth - 450) / {{loopCtrl.loop.shows.length}}+'px'}">
+            <div class="Show" resizable ng-style="{width: (windowWidth - 400) / {{loopCtrl.loop.shows.length}}+'px'}">
                 <div class="Show__illustration">
                     <div class="Show__illustration" style="background-image:url({{show.links[0].thumbnail}})">
                 </div>

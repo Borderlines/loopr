@@ -13,9 +13,7 @@ loop {
     height: @HEADER_HEIGHT;
     padding-left: 30px;
     li {
-        float: left;
-        list-style: none;
-        padding: 0 8px;
+        display: inline-block;
     }
 
     &__info {
@@ -48,15 +46,15 @@ loop {
         cursor: pointer;
     }
     &.adding-mode {
-        li {padding: 0px 20px 0px 0px;}
         .adding-placeholder {
-            display: block;
-            width: 38px;
-            margin-left: -30px;
+            display: inline-block;
+            width: 23px;
+            margin-left: -8px;
+            position: absolute;
         }
     }
     .Show {
-        float: left;
+        margin:0 8px;
         max-width: 125px;
         height: @HEADER_HEIGHT;
         overflow: hidden;
