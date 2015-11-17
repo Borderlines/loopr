@@ -50,14 +50,22 @@
                 tr {
                     cursor: pointer;
                     &:hover {
-                        // background-color: @GREEN;
                         background-color: fade(@GREEN, 60%);
                         .duration {
                             visibility: visible;
                         }
                     }
                     &.active {
+                        position: relative;
                         font-weight: bold;
+                        .title:before {
+                            content: 'd';
+                            font-family: 'l8pr04';
+                            position: absolute;
+                            left: 70px;
+                            font-size: 1.4em;
+                            top: 7px;
+                        }
                     }
                 }
                 .show-type {
@@ -73,6 +81,7 @@
                 }
                 .title {
                     padding-left: 104px;
+                    position: relative;
                 }
                 .duration {
                     Font-family: 'Lekton';
