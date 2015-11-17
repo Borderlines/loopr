@@ -9,6 +9,15 @@
                     return model.links.reduce(function(a, b) {return  a + b.duration;}, 0);
                 }
             };
+            model.listTypes = function() {
+                var types = model.links.map(function(link) {
+                    return link.provider_name;
+                });
+                if (_.contains(types, 'SoundCloud') && model.settings.giphy) {
+                    types.push('Giphy');
+                }
+                return _.unique(types);
+            };
             return model;
         });
         return Restangular.service('shows');

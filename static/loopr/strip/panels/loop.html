@@ -12,11 +12,16 @@
                 {{ show.title }}
             </td>
             <td class="show-type" ng-switch="show.type">
-                    <div ng-switch-when="VideoShow">
-                        <i class="icon icon-sourceyoutube"></i>
-                    </div>
-                    <div  ng-switch-when="MusicShow">
-                        <i class="icon icon-sourcegiphy"></i>
+                    <div ng-repeat="type in show.listTypes()" ng-switch="type">
+                        <div ng-switch-when="YouTube">
+                            <i class="icon icon-sourceyoutube"></i>
+                        </div>
+                        <div ng-switch-when="SoundCloud">
+                            <i class="icon icon-sourcesoundcloud"></i>
+                        </div>
+                        <div ng-switch-when="Giphy">
+                            <i class="icon icon-sourcegiphy"></i>
+                        </div>
                     </div>
             </td>
             <td><span class="duration" ng-bind="(show.duration() | seconds)"></span></td>
