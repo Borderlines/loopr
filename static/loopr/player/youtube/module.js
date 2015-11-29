@@ -35,11 +35,7 @@
                     }
                 });
                 scope.$on('player.toggleMute', function() {
-                    if(scope.youtubePlayer.getVolume() === 100) {
-                        scope.youtubePlayer.setVolume(0);
-                    } else {
-                        scope.youtubePlayer.setVolume(100);
-                    }
+                    scope.youtubePlayer.setVolume((Player.isMuted) ? 0 : 100);
                 });
                 scope.$on('player.seekTo', function(e, percent) {
                     scope.youtubePlayer.seekTo((percent/100) * scope.youtubePlayer.getDuration());
@@ -49,9 +45,7 @@
                 });
                 $rootScope.$on('youtube.player.playing', function(e, player) {
                     Player.setStatus('playing');
-                    if (Player.isMuted) {
-                        scope.youtubePlayer.setVolume(0);
-                    }
+                    scope.youtubePlayer.setVolume((Player.isMuted) ? 0 : 100);
                     trackProgression(player.getCurrentTime.bind(player), player.getDuration.bind(player));
                 });
                 function trackProgression(current, total) {

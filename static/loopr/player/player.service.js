@@ -30,8 +30,8 @@
                 self.loop = loop;
             },
             toggleMute: function() {
-                $rootScope.$broadcast('player.toggleMute');
                 self.isMuted = !self.isMuted;
+                $rootScope.$broadcast('player.toggleMute');
                 localStorageService.set('muted', self.isMuted);
             },
             playShow: function(show, index) {
