@@ -26,3 +26,4 @@ TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S+00:00'
 
 CACHE_CONTROL = 'max-age=0, no-cache'
+GA = os.environ.get('GA', None)

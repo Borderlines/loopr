@@ -28,7 +28,10 @@ def get_app():
 
     @app.route('/')
     def index(path=None):
-        return render_template('editor.html')
+        scope = {
+            'GA': app.config.get('GA')
+        }
+        return render_template('editor.html', **scope)
 
     @app.route('/<username>')
     def player(username):
@@ -37,7 +40,8 @@ def get_app():
         nb_show = str(len(loop['shows']))
         scope = {
             'user': user,
-            'nb_show': nb_show
+            'nb_show': nb_show,
+            'GA': app.config.get('GA')
         }
         if request.args.get('show'):
             scope['show'] = app.data.driver.db['shows'].find({'_id': ObjectId(request.args.get('show'))})[0]
