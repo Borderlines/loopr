@@ -28,10 +28,12 @@
 
 
     angular.module('loopr.catalog', ['loopr.api'])
-        .controller('CatalogAllUsers', ['Accounts', function(Accounts) {
+        .controller('CatalogAllUsers', ['Loops', function(Loops) {
             var vm = this;
-            vm.users = Accounts.getList().then(function(users) {
-                vm.users = users;
+            Loops.getList({sort: '-_updated', embedded:{user_id: 1}}).then(function(loops) {
+                vm.users = loops.map(function(loop) {
+                    return loop.user_id;
+                });
             });
         }])
         .controller('CatalogFavorites', ['Accounts', 'login', function(Accounts, login) {

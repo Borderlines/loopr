@@ -12,6 +12,14 @@ class Loop(object):
         'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
         'public_methods': ['GET'],
         'schema': {
+            'user_id': {
+                'type': 'objectid',
+                'data_relation': {
+                    'resource': 'accounts',
+                    'field': '_id',
+                    'embeddable': True
+                }
+            },
             'shows': {
                 'type': 'list',
                 'schema': {

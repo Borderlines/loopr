@@ -10,7 +10,7 @@ from requests import HTTPError
 class Show(object):
     resource = {
         'datasource': {
-            'default_sort': [('_created', -1)]
+            'default_sort': [('_updated', -1)]
         },
         'auth_field': 'user_id',
         'resource_methods': ['GET', 'POST', 'DELETE'],
@@ -40,6 +40,21 @@ class Show(object):
                     link['duration'] = get_youtube_duration(link.get('url'))
                 if link.get('provider_name', None) == 'SoundCloud':
                     link['duration'] = get_soundcloud_duration(link.get('url'))
+
+    def on_created(shows):
+        for show in shows:
+            Show.update_loop_date(show)
+
+    def on_updated(updated, original):
+        Show.update_loop_date(updated)
+
+    def update_loop_date(show):
+        loops = app.data.driver.db['loops']
+        # find the related loop
+        loop = loops.find_one({'shows': show.get('_id')})
+        if loop:
+            # update the _updated field
+            loops.update({'_id': loop['_id']}, {'$set': {'_updated': show.get('_updated')}})
 
 
 def get_soundcloud_duration(url):
