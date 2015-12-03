@@ -41,6 +41,7 @@
         <label></label>
         <input type="text" ng-model="vm.url" placeholder="{{ vm.example || 'Paste a Youtube video link here' }}"/>
         <button ng-click="vm.addLink(vm.url)">+ Add</button>
+        <div class="alert" ng-bind="vm.linkError"></div>
     </form>
     <table>
         <tr ng-repeat="link in vm.show.links" ng-mouseover="vm.illustration = link.thumbnail">

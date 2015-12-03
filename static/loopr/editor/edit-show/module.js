@@ -20,7 +20,16 @@
                     });
                     return promise;
                 }
+                vm.linkError = undefined;
                 return embedService.get(link).then(function(data) {
+                    if (data.error_message) {
+                        vm.linkError = 'Provider unknown';
+                        return false;
+                    }
+                        if (['YouTube', 'SoundCloud'].indexOf(data.provider_name) === -1) {
+                        vm.linkError = 'Provider ' + data.provider_name + ' unknown';
+                        return false;
+                    }
                     var link = {
                         url: data.url,
                         thumbnail: data.thumbnail_url,
@@ -99,6 +108,7 @@
         }
     }
 
-    angular.module('loopr').controller('EditShowCtrl', EditShowCtrl);
+    angular.module('loopr')
+    .controller('EditShowCtrl', EditShowCtrl);
 
 })();

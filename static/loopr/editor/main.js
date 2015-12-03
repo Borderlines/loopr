@@ -77,7 +77,7 @@
         .service('APIInterceptor', ['$rootScope', function($rootScope) {
             var service = this;
             service.responseError = function(response) {
-                if (response.status === 401) {
+                if (!_.startsWith(response.config.url, 'http') && response.status === 401) {
                     $rootScope.$broadcast('unauthorized');
                 }
                 return response;
