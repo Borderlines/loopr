@@ -4,7 +4,7 @@ from flask import current_app as app
 class Account(object):
     resource = {
         'datasource': {
-            'projection': {'username': 1, 'email': 1, 'active': 1, 'favorites': 1}
+            'projection': {'username': 1, 'email': 1, 'favorites': 1}
         },
         # the standard account entry point is defined as
         # '/accounts/<ObjectId>'. We define  an additional read-only entry
@@ -30,10 +30,6 @@ class Account(object):
                 'type': 'string',
                 'required': True,
             },
-            'active': {
-                'type': 'boolean',
-                'default': True
-            },
             'email': {
                 'type': 'string',
                 'regex': '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -50,10 +46,6 @@ class Account(object):
             }
         }
     }
-
-    def on_get(request, lookup):
-        if 'username' not in lookup and '_id' not in lookup:
-            lookup['active'] = True
 
     def on_created(docs):
         loops = app.data.driver.db['loops']

@@ -30,7 +30,7 @@
     angular.module('loopr.catalog', ['loopr.api'])
         .controller('CatalogAllUsers', ['Loops', function(Loops) {
             var vm = this;
-            Loops.getList({sort: '-_updated', embedded:{user_id: 1}}).then(function(loops) {
+            Loops.getList({where: {active: true}, sort: '-_updated', embedded:{user_id: 1}}).then(function(loops) {
                 vm.users = loops.map(function(loop) {
                     return loop.user_id;
                 });

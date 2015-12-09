@@ -20,6 +20,10 @@ class Loop(object):
                     'embeddable': True
                 }
             },
+            'active': {
+                'type': 'boolean',
+                'default': True
+            },
             'shows': {
                 'type': 'list',
                 'schema': {
