@@ -45,10 +45,13 @@
                     Player.setLoop(loop);
                     lowerStrip.addQueries(loop.strip_messages);
                     vm.loop = loop;
-                    var item_index = _.findIndex(show.links, function(link) {
-                        return $routeParams.item === link.uuid;
-                    });
-                    Player.playShow(show, item_index > -1 ? item_index : undefined);
+                    var item_index;
+                    if (show && $routeParams.item) {
+                        item_index = _.findIndex(show.links, function(link) {
+                            return $routeParams.item === link.uuid;
+                        });
+                    }
+                    Player.playShow(show, item_index);
                     return loop;
                 });
             });
