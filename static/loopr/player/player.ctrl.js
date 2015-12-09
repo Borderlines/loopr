@@ -24,11 +24,13 @@
                     if (show.settings && show.settings.shuffle) {
                         var item_to_save;
                         if (angular.isDefined($routeParams.item)) {
-                            item_to_save = show.links[$routeParams.item];
+                            item_to_save = _.find(show.links, function(link) {
+                                return link.uuid === $routeParams.item;
+                            });
                         }
                         shuffle(show.links);
                         if (angular.isDefined(item_to_save)) {
-                            show.links.splice($routeParams.item, 0, show.links.splice(show.links.indexOf(item_to_save), 1)[0]);
+                            show.links.splice(0, 0, show.links.splice(show.links.indexOf(item_to_save), 1)[0]);
                         }
                     }
                 });
@@ -43,7 +45,10 @@
                     Player.setLoop(loop);
                     lowerStrip.addQueries(loop.strip_messages);
                     vm.loop = loop;
-                    Player.playShow(show, $routeParams.item);
+                    var item_index = _.findIndex(show.links, function(link) {
+                        return $routeParams.item === link.uuid;
+                    });
+                    Player.playShow(show, item_index > -1 ? item_index : undefined);
                     return loop;
                 });
             });
@@ -62,7 +67,7 @@
                 strip.showAndHide();
             }
             // deep linking
-            $location.search({show: show._id, item:show.links.indexOf(item)});
+            $location.search({show: show._id, item: item.uuid});
         });
         // HOTKEYS
         hotkeys.bindTo($scope)

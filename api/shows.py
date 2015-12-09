@@ -5,6 +5,7 @@ import urllib.parse
 from flask import current_app as app
 import soundcloud
 from requests import HTTPError
+from uuid import uuid4
 
 
 class Show(object):
@@ -35,6 +36,8 @@ class Show(object):
 
     def on_update(updated, original):
         for link in updated.get('links', []):
+            if not link.get('uuid', False):
+                link['uuid'] = str(uuid4())
             if not link.get('duration', False):
                 if link.get('provider_name', None) == 'YouTube':
                     link['duration'] = get_youtube_duration(link.get('url'))

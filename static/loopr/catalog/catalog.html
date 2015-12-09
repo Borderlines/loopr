@@ -13,7 +13,7 @@
         <div class="thumbs">
             <a  ng-repeat="link in show.links track by $index"
                 target="_self"
-                ng-href="/{{ vm.loop.user.username}}/?show={{show._id }}&item={{ $index }}">
+                ng-href="/{{ vm.loop.user.username}}/?show={{show._id }}&item={{ link.uuid }}">
                 <img ng-src="{{ link.thumbnail }}" title="{{link.title}}"/>
             </a>
         </div>

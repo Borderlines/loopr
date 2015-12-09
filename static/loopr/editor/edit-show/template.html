@@ -53,7 +53,7 @@
                 <span class="index">
                     {{ $index + 1 }}.
                 </span>
-                <a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}&item={{$index}}">{{ link.title }}</a>
+                <a target="_blank" ng-href="/{{user.username}}/?show={{vm.show._id}}&item={{ link.uuid }}">{{ link.title }}</a>
             </td>
             <td class="subtitle"><input type="text" ng-model="link.subtitle" ng-change="vm.saveShow()" ng-model-options="{debounce: 2000}" placeholder="subtitle"/></td>
             <td>

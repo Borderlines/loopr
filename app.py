@@ -45,8 +45,12 @@ def get_app():
         }
         if request.args.get('show'):
             scope['show'] = app.data.driver.db['shows'].find({'_id': ObjectId(request.args.get('show'))})[0]
-        if request.args.get('item'):
-            scope['item'] = scope['show']['links'][int(request.args.get('item'))]
+            if request.args.get('item'):
+                def findItem():
+                    for link in scope['show']['links']:
+                        if link.get('uuid') == request.args.get('item'):
+                            return link
+                scope['item'] = findItem()
         return render_template('player.html', **scope)
 
     return app
