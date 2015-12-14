@@ -7,7 +7,7 @@
                                $routeParams, $rootScope, $q) {
         var vm = $controller('EditShowCtrl as vm', {'$scope': $scope});
         angular.extend(vm, {
-            example: 'Paste a Soundcloud link here',
+            example: 'Paste a Youtube or Soundcloud link here, to add content to this show',
             options: [
                 {
                     type: 'checkbox',
