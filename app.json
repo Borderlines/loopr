@@ -1,5 +1,5 @@
 {
-  "name":"L8pR",
+  "name":"l8pr",
   "scripts":{},
   "env":{
     "GOOGLE_API_KEY":{
@@ -19,7 +19,7 @@
     }
   },
   "addons":[
-    "mongolab"
+    "heroku-postgresql"
   ],
   "buildpacks": [
     {

@@ -7,3 +7,8 @@ static/gen
 static/bower_components
 __pycache__/
 dump/
+*.sqlite3
+*.pyc
+data/
+app/l8pr/static/CACHE
+app/l8pr/static/bower_components
