@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from app.l8pr.models import Loop, Show, Item, ShowsRelationship
+from app.l8pr.models import Loop, Show, Item, ShowsRelationship, ShowSettings
 from django.contrib.auth.models import User
 import json
 import django.contrib.auth.hashers
@@ -29,6 +29,7 @@ class Command(BaseCommand):
         Show.objects.all().delete()
         Item.objects.all().delete()
         ShowsRelationship.objects.all().delete()
+        ShowSettings.objects.all().delete()
         accounts, loops, shows = self.get_collections()
         for account in accounts:
             user_obj = User.objects.create(
@@ -47,11 +48,22 @@ class Command(BaseCommand):
             for show_id in loop.get('shows', []):
                 show = next((show for show in shows if show['_id']['$oid'] == show_id['$oid']), None)
                 if show:
+                    settings = show.get('settings', {})
+                    settings['dj_layout'] = settings.get('djLayout', False)
+                    settings['giphy_tags'] = settings.get('giphyTags', None)
+                    for key in ('djLayout', 'giphyTags'):
+                        try:
+                            del settings[key]
+                        except KeyError:
+                            pass
+                    settings_obj = ShowSettings.objects.create(**settings)
+
                     show_obj = Show.objects.create(
                         user=user_obj,
                         loop=loop_obj,
                         title=show.get('title'),
                         show_type=show.get('type'),
+                        settings=settings_obj
                     )
                     ShowsRelationship.objects.create(
                         loop=loop_obj,

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Loop, Show, Item
+from .models import Loop, Show, Item, ShowSettings
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -29,12 +29,18 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
 
 
+class ShowSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShowSettings
+
+
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemSerializer(many=True, read_only=True)
+    settings = ShowSettingsSerializer(many=False, allow_null=True)
 
     class Meta:
         model = Show
-        fields = ('added', 'updated', 'title', 'description', 'show_type', 'loop', 'items', 'user')
+        fields = ('added', 'updated', 'title', 'description', 'show_type', 'loop', 'items', 'user', 'settings')
 
 
 class LoopSerializer(serializers.ModelSerializer):

@@ -31,6 +31,18 @@ class ShowsRelationship(models.Model):
         return '%s ===> %s' % (self.show, self.loop)
 
 
+class ShowSettings(models.Model):
+    # show = models.ForeignKey(Show, related_name='settings', on_delete=models.CASCADE)
+    shuffle = models.BooleanField(default=False)
+    dj_layout = models.BooleanField(default=False)
+    giphy = models.BooleanField(default=True)
+    giphy_tags = models.TextField(blank=True, null=True)
+    hide_strip = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '%s settings' % (getattr(self, 'show', ''))
+
+
 class Show(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     loop = models.ForeignKey(Loop, on_delete=models.SET_NULL, null=True)
@@ -39,15 +51,17 @@ class Show(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     show_type = models.CharField(max_length=10, choices=SHOW_TYPES)
-    # TODO: settings
+    settings = models.OneToOneField(ShowSettings,
+                                    on_delete=models.CASCADE,
+                                    related_name='show',
+                                    primary_key=True)
 
     def __str__(self):
         return self.title
 
 
-
 class Item(models.Model):
-    show = models.ForeignKey(Show, related_name='items', on_delete=models.SET_NULL, null=True)
+    show = models.ForeignKey(Show, related_name='items', on_delete=models.CASCADE)
     # meta
     title = models.CharField(max_length=255, null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
@@ -122,6 +136,8 @@ def completeItem(sender, instance, created, **kwargs):
             instance.duration = get_youtube_duration(instance.url)
         if instance.provider_name == 'SoundCloud':
             instance.duration = get_soundcloud_duration(instance.url)
-        instance.save()
+        # save if needed
+        if instance.duration:
+            instance.save()
 
 signals.post_save.connect(completeItem, sender=Item)

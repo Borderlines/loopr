@@ -13,7 +13,7 @@
                 var gifTimeout;
                 var layoutTimeout;
                 var layouts = ['default', 'symmetry', 'repeat'];
-                var giphy_keywords = Player.currentShow.settings && Player.currentShow.settings.giphyTags.split(',') || [];
+                var giphy_keywords = Player.currentShow.settings && Player.currentShow.settings.giphy_tags.split(',') || [];
                 var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
 
                 scope.playPause = function() {
@@ -89,7 +89,7 @@
                                 .attr('src', image_url)
                                 .on('load', function() {
                                     scope.soundcloudArtwork = image_url;
-                                    if (Player.currentShow.settings && Player.currentShow.settings.djLayout) {
+                                    if (Player.currentShow.settings && Player.currentShow.settings.dj_layout) {
                                         updateLayout();
                                     }
                                     gifTimeout = $timeout(updateGif, 10000);
