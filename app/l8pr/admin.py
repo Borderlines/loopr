@@ -25,6 +25,7 @@ admin.site.register(ShowSettings, ShowSettingsAdmin)
 
 class ShowAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'loop', 'show_type', 'added', 'updated')
+    inlines = (ItemInline,)
 
 admin.site.register(Show, ShowAdmin)
 
