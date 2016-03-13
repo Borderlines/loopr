@@ -60,8 +60,11 @@
             <div ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
             <div ng-click="vm.openPanel('share')" class="share" ng-class="{'active': vm.panelOpened ==='share'}"><div class="icon icon-opt-share"></div></div>
             <div ng-if="vm.login.currentUser" ng-click="vm.login.logout()">logout</div>
-            <div ng-click="vm.login.loginWithFb()" class="sign-in-fb">
+            <div ng-if="!vm.login.currentUser" ng-click="vm.login.loginWithFb()" class="sign-in-fb">
                 <i class="fa fa-facebook-official"></i>
+            </div>
+            <div ng-if=vm.login.currentUser>
+                <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
             </div>
         </div>
     </div>

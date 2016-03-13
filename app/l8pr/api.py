@@ -1,16 +1,11 @@
 from django.contrib.auth.models import User
-from .models import Loop, Show, Item, ShowSettings
-from avatar.models import Avatar
+from .models import Loop, Show, Item, ShowSettings, Profile
 from rest_framework import serializers, viewsets
-from rest_framework.decorators import list_route, detail_route
+from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
-
-class AvatarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Avatar
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,6 +15,11 @@ class ItemSerializer(serializers.ModelSerializer):
 class ShowSettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShowSettings
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
 
 
 class ShowSerializer(serializers.ModelSerializer):
@@ -41,10 +41,11 @@ class LoopSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     loops = LoopSerializer(many=True)
+    profile = ProfileSerializer(many=False)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'loops')
+        fields = ('id', 'username', 'loops', 'profile')
 
 
 class UserViewSet(viewsets.ModelViewSet):

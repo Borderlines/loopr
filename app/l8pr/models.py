@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import signals
+from awesome_avatar.fields import AvatarField
+from django.conf import settings
 import urllib
 import datetime
 import re
-from django.conf import settings
 # TODO: favorites in accounts
 
 SHOW_TYPES = (('MusicShow', 'MusicShow'), ('VideoShow', 'VideoShow'))
@@ -13,6 +14,7 @@ PROVIDER_CHOICES = (('YouTube', 'YouTube'), ('SoundCloud', 'SoundCloud'))
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
+    avatar = models.URLField(max_length=500, null=True, blank=True)
 
 
 class Loop(models.Model):
@@ -122,6 +124,13 @@ def get_youtube_duration(url):
     elif len(duration) == 3:
         duration = datetime.timedelta(hours=duration[0], minutes=duration[1], seconds=duration[2])
     return duration.seconds
+
+
+def save_profile(backend, user, response, *args, **kwargs):
+    if backend.name == 'facebook':
+        profile, created = Profile.objects.get_or_create(user=user)
+        profile.avatar = response['picture']['data']['url']
+        profile.save()
 
 
 def get_soundcloud_duration(url):
