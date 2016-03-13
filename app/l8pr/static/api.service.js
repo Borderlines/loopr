@@ -29,6 +29,11 @@
         return Restangular.service('users');
     }
 
+    Auth.$inject = ['Restangular'];
+    function Auth(Restangular) {
+        return Restangular.service('auth');
+    }
+
     Loops.$inject = ['Restangular'];
     function Loops(Restangular) {
         Restangular.extendModel('loops', function(model) {
@@ -57,73 +62,30 @@
         .factory('Shows', Shows)
         .factory('Loops', Loops)
         .factory('Accounts', Accounts)
-        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location',
-        function(Restangular, localStorageService, Accounts, $rootScope, $location) {
+        .factory('Auth', Auth)
+        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location', '$window', 'Auth',
+        function(Restangular, localStorageService, Accounts, $rootScope, $location, $window, Auth) {
             $rootScope.user = {};
             var service = {
-                login: function(username, password) {
-                    if (angular.isDefined(username)) {
-                        localStorageService.set('auth', btoa(username + ':' + password));
-                    } else if (localStorageService.get('user')) {
-                        username =  localStorageService.get('user').username;
-                    }
-                    if (angular.isDefined(username)) {
-                        Restangular.setDefaultHeaders({'Authorization':'Basic ' + localStorageService.get('auth')});
-                        return Accounts.one(username).get({timestamp: new Date()}).then(function(data) {
-                            localStorageService.set('user', data);
-                            service.user = data;
-                            $rootScope.user = data;
-                            return data;
-                        });
-                    }
+                loginWithFb: function() {
+                    $window.location.href = '/auth/login/facebook';
                 },
                 logout: function() {
-                    localStorageService.remove('user');
-                    localStorageService.remove('auth');
-                    Restangular.setDefaultHeaders({'Authorization':''});
-                    service.user = null;
-                    $rootScope.user = null;
-                    $location.url('/');
+                    service.currentUser = undefined;
+                    return Auth.one('logout').get();
                 },
-                auth: localStorageService.get('auth'),
-                user: $rootScope.user,
-                getCurrentUser: function() {
-                    return Accounts.one(localStorageService.get('user')._id).get();
+                login: function() {
+                    return Accounts.one('me').get().then(function(currentUser) {
+                        $rootScope.currentUser = currentUser;
+                        service.currentUser = currentUser;
+                        return currentUser;
+                    });
                 }
             };
-            $rootScope.$on('unauthorized', service.logout);
-            $rootScope.logout = service.logout;
             return service;
         }])
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
-            // RestangularProvider.setRestangularFields({
-            //     id: '_id',
-            //     etag: '_etag'
-            // });
-            // RestangularProvider.addRequestInterceptor(function(element, operation, route, url, a, b) {
-            //     if (operation === 'put') {
-            //         delete element._id;
-            //         delete element._updated;
-            //         delete element._links;
-            //         delete element._created;
-            //         delete element.user_id;
-            //         delete element._etag;
-            //         delete element._status;
-            //     }
-            //     return element;
-            // });
-            // RestangularProvider.setDefaultHttpFields({cache: false});
-            // // add a response interceptor
-            // RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-            //     if (operation === 'getList') {
-            //         var extractedData;
-            //         extractedData = data._items;
-            //         extractedData.meta = data._meta;
-            //         return extractedData;
-            //     }
-            //     return data;
-            // });
         }])
         .directive('addToFavorite', [function() {
             return {
@@ -157,9 +119,9 @@
                         }
                     });
                     // init fav state
-                    // login.login().then(function(user) {
-                    //     vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
-                    // });
+                    login.login().then(function(user) {
+                        vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
+                    });
                 }]
             };
         }])

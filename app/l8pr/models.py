@@ -11,6 +11,10 @@ SHOW_TYPES = (('MusicShow', 'MusicShow'), ('VideoShow', 'VideoShow'))
 PROVIDER_CHOICES = (('YouTube', 'YouTube'), ('SoundCloud', 'SoundCloud'))
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, related_name='profile')
+
+
 class Loop(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='loops')
     active = models.BooleanField(default=True)

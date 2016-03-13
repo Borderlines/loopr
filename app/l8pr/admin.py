@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Loop, Show, Item, ShowsRelationship, ShowSettings
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
 
 class ShowsRelationshipInline(admin.TabularInline):
@@ -38,3 +40,15 @@ admin.site.register(Item, ItemAdmin)
 class ShowsRelationshipAdmin(admin.ModelAdmin):
     pass
 admin.site.register(ShowsRelationship, ShowsRelationshipAdmin)
+
+
+# class ProfileInline(admin.StackedInline):
+#     model = Profile
+
+
+# class ProfileAdmin(UserAdmin):
+#     inlines = [ProfileInline, ]
+#
+#
+# admin.site.unregister(User)
+# admin.site.register(User, ProfileAdmin)

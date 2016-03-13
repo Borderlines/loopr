@@ -22,6 +22,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -36,7 +37,12 @@ router.register(r'items', ItemViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'api/auth/', include('knox.urls')),
+    url(r'^api/auth/logout/$', auth_views.logout),
+    url(r'^auth/', include('rest_framework_social_oauth2.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^$', TemplateView.as_view(template_name='player.html')),
     url(r'^(?P<username>\w+)/$', TemplateView.as_view(template_name='player.html')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # from FB auth
+    url(r'^_=_/$', TemplateView.as_view(template_name='player.html')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

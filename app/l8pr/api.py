@@ -1,11 +1,16 @@
 from django.contrib.auth.models import User
 from .models import Loop, Show, Item, ShowSettings
+from avatar.models import Avatar
 from rest_framework import serializers, viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
+
+class AvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Avatar
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,6 +55,13 @@ class UserViewSet(viewsets.ModelViewSet):
     def getByUsername(self, request, username):
         user = get_object_or_404(User, username=username)
         return Response(UserSerializer(user, context={'request': request}).data, status=status.HTTP_200_OK)
+
+    @list_route(methods=['get'], url_path='me')
+    def me(self, request):
+        if (request.user.is_anonymous()):
+            return Response('nope', status=status.HTTP_401_UNAUTHORIZED)
+        return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
+        # return self.retrieve(request, user_id)
 
 
 class LoopViewSet(viewsets.ModelViewSet):

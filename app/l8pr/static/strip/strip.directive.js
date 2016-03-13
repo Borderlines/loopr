@@ -3,9 +3,9 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', 'strip',
+    StripCtrl.$inject = ['$interval', '$scope', 'strip', 'login',
                          'Fullscreen', 'Accounts', 'gravatarService', 'upperStrip', 'lowerStrip'];
-    function StripCtrl($interval, $scope, stripService,
+    function StripCtrl($interval, $scope, stripService, login,
                        Fullscreen, Accounts, gravatarService, upperStrip, lowerStrip) {
         var vm = this;
         angular.extend(vm, {
@@ -39,7 +39,8 @@
                     } else {
                         vm.panelOpened = panel_name;
                     }
-                }
+                },
+                login: login
             });
         }
         $scope.$on('player.play', function ($event, item, show) {
@@ -138,7 +139,7 @@
                 },
                 restrict: 'E',
                 controller: StripCtrl,
-                controllerAs: 'strip',
+                controllerAs: 'vm',
                 templateUrl: '/static/strip/strip.html'
             };
         })

@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout',
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$routeParams', '$timeout', 'login',
     '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip'];
-    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout,
+    function PlayerCtrl(Player, Loops, Shows, Accounts, $routeParams, $timeout, login,
         $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip) {
         var vm = this;
         angular.extend(vm, {
@@ -11,9 +11,16 @@
             Player: Player
         });
         $rootScope.Player = Player;
-        Accounts.one('username/' + $routeParams.username).get().then(function(user) {
+        function getLoopFromUrlOrAuthenticatedUser() {
+            if ($routeParams.username === '_=_') {
+                return login.login();
+            } else {
+                return Accounts.one('username/' + $routeParams.username).get();
+            }
+        }
+        // from fb authentification
+        getLoopFromUrlOrAuthenticatedUser().then(function(user) {
             return Loops.getList({user: user.id}).then(function(loop) {
-            // return Loops.getList({where: {user_id: user._id}, embedded:{shows:1}}).then(function(loop) {
                 loop = loop[0];
                 loop.user = user;
                 // shuffle ?
