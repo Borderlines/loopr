@@ -4,7 +4,7 @@
         <div class="count">{{ vm.Player.loop.shows.length }} Shows</div>
     </div>
     <table>
-        <tr ng-repeat="show in vm.Player.loop.shows"
+        <tr ng-repeat="show in vm.Player.loop.shows_list"
             ng-click="vm.Player.playShow(show)"
             ng-class="{'active': vm.Player.currentShow === show}"
         >

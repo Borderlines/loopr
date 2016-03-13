@@ -36,6 +36,7 @@ router.register(r'items', ItemViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'api/auth/', include('knox.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^(?P<username>\w+)/$', TemplateView.as_view(template_name='player.html')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

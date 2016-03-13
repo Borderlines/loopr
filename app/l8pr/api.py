@@ -7,23 +7,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 
 
-# Serializers define the API representation.
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff', 'id')
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-    @list_route(methods=['get'], url_path='username/(?P<username>\w+)')
-    def getByUsername(self, request, username):
-        user = get_object_or_404(User, username=username)
-        return Response(UserSerializer(user, context={'request': request}).data, status=status.HTTP_200_OK)
-
-
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
@@ -49,6 +32,24 @@ class LoopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loop
         fields = ('shows_list', 'user', 'active')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    loops = LoopSerializer(many=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'loops')
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    @list_route(methods=['get'], url_path='username/(?P<username>\w+)')
+    def getByUsername(self, request, username):
+        user = get_object_or_404(User, username=username)
+        return Response(UserSerializer(user, context={'request': request}).data, status=status.HTTP_200_OK)
 
 
 class LoopViewSet(viewsets.ModelViewSet):

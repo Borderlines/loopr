@@ -12,7 +12,7 @@ PROVIDER_CHOICES = (('YouTube', 'YouTube'), ('SoundCloud', 'SoundCloud'))
 
 
 class Loop(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='loops')
     active = models.BooleanField(default=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

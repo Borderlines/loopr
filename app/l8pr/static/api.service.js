@@ -157,9 +157,9 @@
                         }
                     });
                     // init fav state
-                    login.login().then(function(user) {
-                        vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
-                    });
+                    // login.login().then(function(user) {
+                    //     vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
+                    // });
                 }]
             };
         }])

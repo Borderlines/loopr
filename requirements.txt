@@ -10,6 +10,7 @@ six==1.10.0
 wheel==0.24.0
 google-api-python-client==1.5.0
 soundcloud==0.5.0
+django-rest-knox==2.2.0
 # PROD
 gunicorn==19.4.5
 dj-database-url==0.4.0

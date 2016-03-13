@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'rest_framework',
-    'rest_framework.authtoken',
+    'knox',
     'app.l8pr',
 ]
 
@@ -147,6 +147,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
+
+REST_KNOX = {
+    'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
+    'AUTH_TOKEN_CHARACTER_LENGTH': 64,
+    # FIXME: must be a timedelta
+    # 'TOKEN_TTL': 48,
+    'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
 
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
