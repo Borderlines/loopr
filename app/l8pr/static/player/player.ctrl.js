@@ -136,10 +136,10 @@
             link: function(scope, element) {
                 var hideCursorTimeout;
                 function hideCursor() {
-                    angular.element('body').css('cursor', 'none');
+                    element.css('cursor', 'none');
                 }
                 function showCursor() {
-                    angular.element('body').css('cursor', '');
+                    element.css('cursor', '');
                 }
                 $timeout(hideCursor, 3000);
                 element.on('mouseout', function() {
