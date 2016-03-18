@@ -28,11 +28,11 @@ class ShowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Show
-        fields = ('added', 'updated', 'title', 'description', 'show_type', 'loop', 'items', 'user', 'settings')
+        fields = ('id', 'added', 'updated', 'title', 'description', 'show_type', 'loop', 'items', 'user', 'settings')
 
 
 class LoopSerializer(serializers.ModelSerializer):
-    shows_list = ShowSerializer(many=True, read_only=True)
+    shows_list = ShowSerializer(many=True, read_only=False)
 
     class Meta:
         model = Loop

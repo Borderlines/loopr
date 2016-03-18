@@ -75,8 +75,10 @@
                             }
                             if (query.type === 'rss') {
                                 query.results.items.forEach(function(rss) {
-                                    underlines.push('<div class="rss"><i class="icon-sourcerss"></i><a href="'+rss.link+'" target="_blank"><b>'+query.results.title+'</b> ' +
-                                    rss.title + '</a></rss>');
+                                    underlines.push('<div class="rss"><i class="icon-sourcerss"></i><a href="'+rss.link+
+                                    '" target="_blank"><b>'+query.results.title+'</b> ' +
+                                    rss.title+
+                                    '</a></rss>');
                                 });
                             }
                         }
@@ -148,7 +150,9 @@
                 restrict: 'A',
                 link: function($scope, element) {
                     $scope.$watch(function() {
-                        return element.children()[0].offsetHeight;
+                        if (element.children().lenth > 0) {
+                            return element.children()[0].offsetHeight;
+                        }
                     },
                     function(value, old) {
                         if (value === 0 || Math.abs(old - value) < 5 ) {

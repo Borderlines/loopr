@@ -59,8 +59,7 @@ class Show(models.Model):
     show_type = models.CharField(max_length=10, choices=SHOW_TYPES)
     settings = models.OneToOneField(ShowSettings,
                                     on_delete=models.CASCADE,
-                                    related_name='show',
-                                    primary_key=True)
+                                    related_name='show')
 
     def __str__(self):
         return self.title

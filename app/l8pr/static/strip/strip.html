@@ -1,15 +1,15 @@
 <div>
     <div class="upper-strip" ng-click="vm.stripService.toggleController()">
         <div class="wrapper" dynamic-height>
-            <div class="wrapper-inner big" ng-if="vm.stripService.showController">
+            <!-- <div class="wrapper-inner big" ng-if="vm.stripService.showController">
                 <div class="title">{{ player.currentItem.title }}</div>
                 <div class="subtitle">
                     Show <span ng-bind="player.currentShow.title"></span> by
                     <b><a href="/#/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a></b>
                 </div>
-            </div>
+            </div> -->
             <div class="wrapper-inner" ng-if="!vm.stripService.showController">
-                <banner lines="vm.uppervm.banner" transition="scroll" duration="5"></banner>
+                <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
         <div class="list-show" ng-if="vm.stripService.showController">
@@ -59,10 +59,6 @@
             </div>
             <div ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
             <div ng-click="vm.openPanel('share')" class="share" ng-class="{'active': vm.panelOpened ==='share'}"><div class="icon icon-opt-share"></div></div>
-            <div ng-if="vm.login.currentUser" ng-click="vm.login.logout()">logout</div>
-            <div ng-if="!vm.login.currentUser" ng-click="vm.login.loginWithFb()" class="sign-in-fb">
-                <i class="fa fa-facebook-official"></i>
-            </div>
             <div ng-if=vm.login.currentUser>
                 <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
             </div>
@@ -71,10 +67,10 @@
     <div class="progress-bar" ng-click="vm.setPosition($event)">
         <div class="progression" ng-style="{width: progression + '%'}"></div>
     </div>
-    <div class="lower-strip" ng-click="vm.stripService.toggleController()" ng-if="vm.lowervm.banner.length > 0">
+    <div class="lower-strip" ng-click="vm.stripService.toggleController()" ng-if="vm.lowerStrip.banner.length > 0">
         <div class="wrapper" dynamic-height>
             <div class="wrapper-inner">
-                <banner lines="vm.lowervm.banner" transition="fade" duration="15"></banner>
+                <banner lines="vm.lowerStrip.banner" transition="fade" duration="15"></banner>
             </div>
         </div>
         <time></time>

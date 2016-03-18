@@ -12,7 +12,7 @@
         });
         $rootScope.Player = Player;
         function getLoopFromUrlOrAuthenticatedUser() {
-            if ($routeParams.username === '_=_') {
+            if (!angular.isDefined($routeParams.username) || $routeParams.username === '_=_') {
                 return login.login();
             } else {
                 return Accounts.one('username/' + $routeParams.username).get();
@@ -20,48 +20,46 @@
         }
         // from fb authentification
         getLoopFromUrlOrAuthenticatedUser().then(function(user) {
-            return Loops.getList({user: user.id}).then(function(loop) {
-                loop = loop[0];
-                loop.user = user;
-                // shuffle ?
-                function shuffle(o) {
-                    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-                    return o;
-                }
-                loop.shows_list.forEach(function(show) {
-                    if (show.settings && show.settings.shuffle) {
-                        var item_to_save;
-                        if (angular.isDefined($routeParams.item)) {
-                            item_to_save = _.find(show.items, function(link) {
-                                return link.uuid === $routeParams.item;
-                            });
-                        }
-                        shuffle(show.items);
-                        if (angular.isDefined(item_to_save)) {
-                            show.items.splice(0, 0, show.items.splice(show.items.indexOf(item_to_save), 1)[0]);
-                        }
-                    }
-                });
-                var show = _.find(loop.shows_list, function(show) { return show._id === $routeParams.show;});
-                if (!angular.isDefined(show) && $routeParams.show) {
-                    show = Shows.one($routeParams.show).get().then(function(show) {
-                        loop.shows_list.push(show);
-                        return show;
-                    });
-                }
-                return $q.when(show).then(function(show) {
-                    Player.setLoop(loop);
-                    lowerStrip.addQueries(loop.strip_messages);
-                    vm.loop = loop;
-                    var item_index;
-                    if (show && $routeParams.item) {
-                        item_index = _.findIndex(show.items, function(link) {
-                            return $routeParams.item === link.uuid;
+            var loop = user.loops[0];
+            loop.user = user;
+            // shuffle ?
+            function shuffle(o) {
+                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+                return o;
+            }
+            loop.shows_list.forEach(function(show) {
+                if (show.settings && show.settings.shuffle) {
+                    var item_to_save;
+                    if (angular.isDefined($routeParams.item)) {
+                        item_to_save = _.find(show.items, function(link) {
+                            return link.id === $routeParams.item;
                         });
                     }
-                    Player.playShow(show, item_index);
-                    return loop;
+                    shuffle(show.items);
+                    if (angular.isDefined(item_to_save)) {
+                        show.items.splice(0, 0, show.items.splice(show.items.indexOf(item_to_save), 1)[0]);
+                    }
+                }
+            });
+            var show = _.find(loop.shows_list, function(show) { return show.id === $routeParams.show;});
+            if (!angular.isDefined(show) && $routeParams.show) {
+                show = Shows.one($routeParams.show).get().then(function(show) {
+                    loop.shows_list.push(show);
+                    return show;
                 });
+            }
+            return $q.when(show).then(function(show) {
+                Player.setLoop(loop);
+                lowerStrip.addQueries(loop.strip_messages);
+                vm.loop = loop;
+                var item_index;
+                if (show && $routeParams.item) {
+                    item_index = _.findIndex(show.items, function(link) {
+                        return parseInt($routeParams.item, 10) === parseInt(link.id, 10);
+                    });
+                }
+                Player.playShow(show, item_index);
+                return loop;
             });
         });
         $scope.showAndHideStrip = _.throttle(strip.showAndHide, 500);
@@ -78,7 +76,7 @@
                 strip.showAndHide();
             }
             // deep linking
-            $location.search({show: show._id, item: item.uuid});
+            $location.search({show: show.id, item: item.id});
         });
         // HOTKEYS
         hotkeys.bindTo($scope)

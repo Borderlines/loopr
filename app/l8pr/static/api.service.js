@@ -63,27 +63,6 @@
         .factory('Loops', Loops)
         .factory('Accounts', Accounts)
         .factory('Auth', Auth)
-        .service('login', ['Restangular', 'localStorageService', 'Accounts', '$rootScope', '$location', '$window', 'Auth',
-        function(Restangular, localStorageService, Accounts, $rootScope, $location, $window, Auth) {
-            $rootScope.user = {};
-            var service = {
-                loginWithFb: function() {
-                    $window.location.href = '/auth/login/facebook';
-                },
-                logout: function() {
-                    service.currentUser = undefined;
-                    return Auth.one('logout').get();
-                },
-                login: function() {
-                    return Accounts.one('me').get().then(function(currentUser) {
-                        $rootScope.currentUser = currentUser;
-                        service.currentUser = currentUser;
-                        return currentUser;
-                    });
-                }
-            };
-            return service;
-        }])
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
         }])
@@ -118,10 +97,10 @@
                             });
                         }
                     });
-                    // init fav state
-                    login.login().then(function(user) {
-                        vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
-                    });
+                    // // init fav state
+                    // login.login().then(function(user) {
+                    //     vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
+                    // });
                 }]
             };
         }])
