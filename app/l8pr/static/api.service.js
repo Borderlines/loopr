@@ -26,6 +26,14 @@
 
     Accounts.$inject = ['Restangular'];
     function Accounts(Restangular) {
+        Restangular.extendModel('users', function(model) {
+            if (angular.isDefined(model.loops)) {
+                model.loops = model.loops.map(function(loop) {
+                    return Restangular.restangularizeElement(null, loop, 'loops');
+                });
+            }
+            return model;
+        });
         return Restangular.service('users');
     }
 
