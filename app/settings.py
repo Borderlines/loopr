@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v(xkp3^_bhxn#$ctz-pt_wf6!c@yb+qv^awq4w^q@#a-4o*10%'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'v(xkp3^_bhxn#$ctz-pt_wf6!c@yb+qv^awq4w^q@#a-4o*10%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -166,10 +166,11 @@ AUTHENTICATION_BACKENDS = (
     # Django
     'django.contrib.auth.backends.ModelBackend',
 )
-SOCIAL_AUTH_FACEBOOK_KEY = '1570315319953586'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'fd3c08abc38faef7d38a2e8f6a789f5e'
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email, age_range, picture'
+    'fields': 'email,id,name,age_range,picture'
 }
 SOCIAL_AUTH_PIPELINE = (
     # Get the information we can about the user and return it in a simple
