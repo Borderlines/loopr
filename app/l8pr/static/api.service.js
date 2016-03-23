@@ -32,6 +32,11 @@
                     return Restangular.restangularizeElement(null, loop, 'loops');
                 });
             }
+            if (angular.isDefined(model.loops) && angular.isDefined(model.loops[0].shows_list)) {
+                model.loops[0].shows_list = model.loops[0].shows_list.map(function(show) {
+                    return Restangular.restangularizeElement(null, show, 'shows');
+                });
+            }
             return model;
         });
         return Restangular.service('users');

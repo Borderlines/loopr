@@ -1,13 +1,21 @@
 (function() {
     'use strict';
 
-    LoopExplorerCtrl.$inject = ['Player'];
-    function LoopExplorerCtrl(Player) {
+    LoopExplorerCtrl.$inject = ['Player', '$scope'];
+    function LoopExplorerCtrl(Player, scope) {
         var vm = this;
+
+        function reorderShows() {
+            var indexOfCurrentShow = _.findIndex(Player.loop.shows_list, function(s) {return s === Player.currentShow;});
+            var reordered = Player.loop.shows_list.slice(indexOfCurrentShow, Player.loop.shows_list.length);
+            vm.shows = reordered.concat(Player.loop.shows_list.slice(0, indexOfCurrentShow));
+        }
         angular.extend(vm, {
-            player: Player,
-            shows: Player.loop.shows_list
+            player: Player
         });
+        scope.$watch(function() {
+            return Player.currentShow;
+        }, reorderShows);
     }
 
     angular.module('loopr.strip')
@@ -19,20 +27,37 @@
             controllerAs: 'vm',
             controller: LoopExplorerCtrl,
             link: function(scope, element, attr, vm) {
-                function resize() {
+                function resizeCurrentShow() {
                     var heights = element.find('.show').map(function() {
                         return $(this).innerHeight();
                     });
                     var maxHeight = Math.max.apply(null, heights);
-                    element.find('.show--current-show').css({
-                        height: maxHeight
-                    });
+                    // set the heigh for the current show
+                    element.find('.show--current-show').css({height: maxHeight});
                 }
-                $timeout(resize, 500);
-                angular.element($window).on('resize', resize);
+                function resizeWidth() {
+                    var scale = [150, 350];
+                    var widths = vm.shows.map(function(show) {
+                        return show.duration();
+                    });
+                    var maxWidth = Math.max.apply(null, widths);
+                    var minWidth = Math.min.apply(null, widths);
+                    // set the width depending of the duration
+                    scope.getWidth = function(show) {
+                        return (scale[1] - scale[0]) * (show.duration() / (maxWidth - minWidth)) + scale[0];
+                    };
+                }
+                function resizeAll() {
+                    $timeout(function() {
+                        resizeWidth();
+                        resizeCurrentShow();
+                    }, 50, false);
+                }
+                resizeAll();
                 scope.$watch(function() {
                     return vm.shows;
-                }, resize);
+                }, resizeAll);
+                angular.element($window).on('resize', resizeCurrentShow);
             }
         };
     }])

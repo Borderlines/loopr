@@ -1,6 +1,9 @@
 <div class="loop">
     <div class="loop__shows" dynamic-height>
-        <div class="show" ng-class="{'show--current-show': $index === 0}" ng-repeat="show in vm.shows">
+        <div class="show"
+             ng-repeat="show in vm.shows"
+             ng-class="{'show--current-show': $index === 0}"
+             ng-style="{width: getWidth(show)}">
             <div class="show__body">
                 <div ng-if="$index === 0">Show playing now</div>
                 <div ng-if="$index === 1">Show coming next</div>
