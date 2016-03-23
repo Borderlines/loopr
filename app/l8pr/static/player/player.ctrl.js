@@ -108,23 +108,29 @@
         })
         .add({
             combo: 'right',
+            description: 'next show',
+            callback: function(e) {
+                vm.Player.nextShow();
+                e.preventDefault();
+            }
+        })
+        .add({
+            combo: 'left',
+            description: 'previous show',
+            callback: function(e) {
+            vm.Player.previousShow();
+                e.preventDefault();
+            }
+        })
+        .add({
+            combo: 'up',
             description: 'next item',
             callback: vm.Player.nextItem
         })
         .add({
-            combo: 'left',
+            combo: 'down',
             description: 'previous item',
             callback: vm.Player.previousItem
-        })
-        .add({
-            combo: 'up',
-            description: 'next show',
-            callback: vm.Player.nextShow
-        })
-        .add({
-            combo: 'down',
-            description: 'previous show',
-            callback: vm.Player.previousShow
         });
 }
 

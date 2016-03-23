@@ -3,6 +3,7 @@
         <div class="show"
              ng-repeat="show in vm.shows"
              ng-class="{'show--current-show': $index === 0}"
+             ng-click="vm.player.playShow(show)"
              ng-style="{width: getWidth(show)}">
             <div class="show__body">
                 <div ng-if="$index === 0">Show playing now</div>

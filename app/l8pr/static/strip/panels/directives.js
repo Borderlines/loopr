@@ -33,6 +33,7 @@
                     });
                     var maxHeight = Math.max.apply(null, heights);
                     // set the heigh for the current show
+                    element.find('.show').css({height: ''});
                     element.find('.show--current-show').css({height: maxHeight});
                 }
                 function resizeWidth() {
