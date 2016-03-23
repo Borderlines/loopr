@@ -1,30 +1,13 @@
-<div class="loop" perfect-scrollbar>
-    <div class="loop__header">
-        <div class="name">{{ vm.Player.loop.user.username }}'s Loop</div>
-        <div class="count">{{ vm.Player.loop.shows.length }} Shows</div>
-    </div>
-    <table>
-        <tr ng-repeat="show in vm.Player.loop.shows_list"
-            ng-click="vm.Player.playShow(show)"
-            ng-class="{'active': vm.Player.currentShow === show}"
-        >
-            <td class="title">
+<div class="loop">
+    <div class="loop__shows" dynamic-height>
+        <div class="show" ng-class="{'show--current-show': $index === 0}" ng-repeat="show in vm.shows">
+            <div class="show__body">
+                <div ng-if="$index === 0">Show playing now</div>
+                <div ng-if="$index === 1">Show coming next</div>
+                <div ng-if="$index > 1">Show</div>
                 {{ show.title }}
-            </td>
-            <td class="show-type" ng-switch="show.type">
-                    <div ng-repeat="type in show.listTypes()" ng-switch="type">
-                        <div ng-switch-when="YouTube">
-                            <i class="icon icon-sourceyoutube"></i>
-                        </div>
-                        <div ng-switch-when="SoundCloud">
-                            <i class="icon icon-sourcesoundcloud"></i>
-                        </div>
-                        <div ng-switch-when="Giphy">
-                            <i class="icon icon-sourcegiphy"></i>
-                        </div>
-                    </div>
-            </td>
-            <td><span class="duration" ng-bind="(show.duration() | seconds)"></span></td>
-        </tr>
-    </table>
+            </div>
+            <div class="show__background" ng-style="{'background-image': 'url(' + show.items[0].thumbnail + ')'}"></div>
+        </div>
+    </div>
 </div>

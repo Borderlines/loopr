@@ -1,147 +1,42 @@
-.superextended {
-    position: relative;
-    > .background {
-        background: white;
-        opacity: .5;
-        position: absolute;
-        top: 0; right: 0; left: 0; bottom: 0;
-        z-index: 1;
-    }
-    .body {
-        font-family: 'Lekton';
-        position: relative;
-        z-index: 2;
-        .loop {
-            .ps-scrollbar-y-rail {
-                z-index: 10;
-                background-color: white;
-                border-radius:0px;
-                right: 0 !important;
-                .ps-scrollbar-y {
-                    background-color: black;
-                    border-radius:0px;
-                }
-            }
-            min-height: 150px;
-            max-height: 350px;
+.loop {
+    background-color: rgba(255, 255, 255, 0.43);
+    &__shows {
+        white-space: nowrap;
+        overflow-y: auto;
+        .show {
             position: relative;
-            overflow-y: hidden;
-            &__header {
-                position: absolute;
-                right: 50px;
-                top: 50px;
-                z-index: 10;
-                line-height: 1.5em;
-                text-align: right;
-                .name {
-                    font-weight: bold;
-                    font-size: 1.2em;
-                }
-            }
-            table {
-                font-family: 'Montserrat';
-                line-height: 1.4em;
-                margin-bottom: 20px;
-                position: relative;
+            width: 200px;
+            margin-right: 10px;
+            display: inline-block;
+            overflow: hidden;
+            &__body {
+                background-color: white;
                 z-index: 1;
-                border-spacing:0;
-                border-collapse: collapse;
-                width: 100%;
-                tr {
-                    cursor: pointer;
-                    &:hover {
-                        background-color: fade(@GREEN, 60%);
-                        .duration {
-                            visibility: visible;
-                        }
-                    }
-                    &.active {
-                        position: relative;
-                        font-weight: bold;
-                        .title:before {
-                            content: 'd';
-                            font-family: 'l8pr04';
-                            position: absolute;
-                            left: 70px;
-                            font-size: 1.4em;
-                            top: 7px;
-                        }
-                    }
-                }
-                .show-type {
-                    & > div {
-                        display: inline-block;
-                        overflow: hidden;
-                        height: 27px;
-                        > div {
-                            font-size: 1.8em;
-                            opacity: 0.7;
-                        }
-                    }
-                }
-                .title {
-                    padding-left: 104px;
-                    position: relative;
-                }
-                .duration {
-                    Font-family: 'Lekton';
-                    visibility: hidden;
-                    padding-right: 100px;
-                    padding-right: 250px;
-                    font-size: .6em;
-                }
+                position: relative;
+                white-space: normal;
+                font-size: .7em;
+                padding: 10px;
             }
-        }
-        .share {
-            padding: 35px;
-            &__info, &__embed-code, &__url {
-                float: left;
+            &__background {
+                z-index: 0;
+                background-size: cover;
+                height: 200px;
             }
-            &__info {
-                font-size: .8em;
-                line-height: 1.2em;
-                padding-right: 5%;
-                dt {
-                    font-weight: 400;
+            &--current-show {
+                width: 300px;
+                position: relative;
+                .show__body {
+                    background-color: transparent;
+                    font-size: 1em;
+                    color: white;
                 }
-                dd {
-                    font-weight: 700;
-                    margin: 0;
-                    padding-bottom: 10px;
-                }
-            }
-            &__embed-code, &__url {
-                textarea {
-                    height: 60px;
-                    width: 350px;
-                    padding: 20px;
-                    margin-right: 20px;
-                    margin-bottom: 20px;
-                }
-                button {
-                    display: block;
-                }
-            }
-        }
-
-        .keyboard {
-            float: left;
-            &__key {
-                dt {
-                    border-radius: 5px;
-                    background: #ffffff;
-                    opacity: 1;
-                    padding: 10px;
-                    width: 40px;
-                    height: 40px;
-                    font-family: "Montserrat";
-                    font-size: 1.1em;
-                    text-align: center;
-                }
-                dd {
-                    font-family: "Lekton";
-                    font-weight: 700;
-                    text-align: left;
+                .show__background {
+                    height: auto;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
                 }
             }
         }

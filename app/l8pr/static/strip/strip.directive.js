@@ -145,25 +145,6 @@
                 templateUrl: '/static/strip/strip.html'
             };
         })
-        .directive('dynamicHeight', function() {
-            return {
-                restrict: 'A',
-                link: function($scope, element) {
-                    $scope.$watch(function() {
-                        if (element.children().length > 0) {
-                            return element.children()[0].offsetHeight;
-                        }
-                    },
-                    function(value, old) {
-                        if (value === 0 || Math.abs(old - value) < 5 ) {
-                            return;
-                        }
-                        var new_height = Math.max(element.children()[0].offsetHeight, 28);
-                        $(element).css('height', new_height + 'px');
-                    });
-                }
-            };
-        })
         .directive('time', ['$interval', function($interval) {
             return {
                 restrict: 'E',

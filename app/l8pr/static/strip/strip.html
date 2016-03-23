@@ -1,14 +1,10 @@
 <div>
-    <div class="upper-strip" ng-if="!vm.stripService.showController" ng-click="vm.stripService.toggleController()">
-        <div class="wrapper">
-            <div class="wrapper-inner">
-                <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
-            </div>
-        </div>
-        <div class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></div>
+    <div class="strip-body">
+        <l8pr-explore-loop></l8pr-explore-loop>
     </div>
-    <div class="upper-strip upper-strip--extended" ng-if="vm.stripService.showController" ng-click="vm.stripService.toggleController()">
-        <div class="controllers">
+    <div class="upper-strip"
+         ng-class="{'upper-strip--extended': vm.stripService.showController}">
+        <div class="controllers" ng-if="vm.stripService.showController">
             <div class="navigation">
                 <div ng-click="vm.previousShow()"><i class="icon icon-ctrl-prevshow"></i></div>
                 <div ng-click="vm.previousItem()"><i class="icon icon-ctrl-previtem"></i></div>
@@ -33,12 +29,16 @@
                 <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
+        <div ng-if="!vm.stripService.showController"
+             class="toggle-controller icon icon-opt-loop"
+             ng-click="vm.stripService.toggleController()">
+        </div>
     </div>
     <div class="progress-bar" ng-click="vm.setPosition($event)">
         <div class="progression" ng-style="{width: progression + '%'}"></div>
     </div>
     <div class="lower-strip" ng-click="vm.stripService.toggleController()" ng-if="vm.lowerStrip.banner.length > 0">
-        <div class="wrapper" dynamic-height>
+        <div class="wrapper">
             <div class="wrapper-inner">
                 <banner lines="vm.lowerStrip.banner" transition="fade" duration="15"></banner>
             </div>
