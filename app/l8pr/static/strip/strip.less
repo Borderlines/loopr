@@ -1,7 +1,16 @@
+@UPPER_STRIP_HEIGHT: 74px;
+[ng-click] {
+    cursor: pointer;
+}
 .strip {
     font-size: 1.4em;
     font-family: 'Montserrat', sans-serif;
     display: block;
+    .icon {
+        &:hover {
+            color: #00A99D;
+        }
+    }
     .progress-bar {
         height: 5px;
         background-color: #E0DDDB;
@@ -21,147 +30,60 @@
             height: 100%;
         }
     }
-    .controllers {
+    .upper-strip {
         position: relative;
-        background: white;
-        min-height: 30px;
-        padding:15px;
-        padding-left: 25px;
-        font-family: 'Lekton';
-        opacity: 0.70;
-        font-size: 1.5em;
-        .navigation, .actions {
-            > div {
-                display: inline-block;
-                cursor: pointer;
-                &:hover {
-                    color: #00A99D;
-                }
+        height: @UPPER_STRIP_HEIGHT;
+        overflow: hidden;
+        &--extended {
+            .wrapper .body {
+                max-height: 55px;
+                overflow: hidden;
+                font-size: 0.8em;
             }
         }
-        .navigation {
-            position: absolute;
-            letter-spacing: -0.4em;
-            > div {
-                font-size: 1em;
-                margin-right: 20px;
-                &:nth-child(6) {
+        .wrapper {
+            line-height: @UPPER_STRIP_HEIGHT;
+            height: @UPPER_STRIP_HEIGHT;
+            background-color: white;
+            transition-duration: 1s;
+            transition-property: height;
+            overflow: hidden;
+            .wrapper-inner {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: normal;
+                .body {
+                    position: relative;
+                    margin-bottom: 10px;
                     margin-left: 25px;
                 }
             }
         }
-        .actions {
+        .toggle-controller { // btn
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            right: 20px;
+            font-size: 1.4em;
+        }
+        .controllers {
             float: right;
-            // padding-right: 5px;
-            letter-spacing: 10px;
-        }
-    }
-    .upper-strip {
-        position: relative;
-        cursor: pointer;
-        background: white;
-        min-height: 30px;
-        padding:15px;
-        padding-left: 25px;
-        opacity: 0.95;
-        &__author {
-            color: #000000;
-            text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-        }
-        }
-        .list-show {
-            position: absolute;
-            bottom: 10px;
-            right: 95px;
             font-size: 1.5em;
-        }
-        .avatar {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            .background {
-                width: 70px;
-                height: 70px;
-                background-repeat: no-repeat;
-                background-size: cover;
-                -webkit-filter: grayscale(100%);
-                -moz-filter: grayscale(100%);
-                -ms-filter: grayscale(100%);
-                -o-filter: grayscale(100%);
-                filter: grayscale(100%);
-                filter: gray;
-            }
-            &:hover {
-                .add-to-favs:not(.active){opacity: 1;}
-            }
-            .add-to-favs {
-                background-color: rgba(0, 0, 0, 0.37);
-                text-align: center;
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                color: white;
-                &:not(.active){opacity: 0;}
-                &:hover {
-                    background-color: rgba(64, 191, 182, 0.43);
-                }
-                &.active {
-                    color: #40BFB6;
-                    background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(218, 212, 212, 0.69);
+            .navigation, .actions {
+                display: inline-block;
+                & > div {
+                    display: inline-block;
                 }
             }
-        }
-        .logo {
-            position: absolute;
-            right: 10px;
-            top: 8px;
-            letter-spacing: -0.25em;
-            opacity: 0.65;
-            font-size: 0.9em;
-
-            i {font-size: 3em;}
-            a {
-                color: black;
-                text-decoration: none;
-            }
-            span {
-                font-size: .5em;
-                padding: 5px;
-            }
-            img, i {
-                vertical-align: middle;
-            }
-            &:hover {
-                    opacity: 0.82;
-            }
-        }
-        overflow: hidden;
-        .wrapper {
-            margin-right: 200px;
-            transition-duration: 1s;
-            transition-property: height;
-            overflow: hidden;
-            margin-bottom: 5px;
-            margin-top: 10px;
-            .body {
+            .icon {
                 position: relative;
+                top: 8px;
             }
-            .wrapper-inner.big {
-                position: relative;
-                color: #212121;
-                padding: 10px;
-                padding-bottom: 5px;
-                .title {
-                    font-weight: bold;
-                    font-size: 1.8em;
-                    padding-bottom: 20px;
-                    line-height: 1.4em;
-                }
-                .subtitle span {font-weight: bold;}
-            }
+        }
+        .current-user img {
+            vertical-align: middle;
+            height: @UPPER_STRIP_HEIGHT;
         }
     }
     .lower-strip {

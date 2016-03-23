@@ -1,66 +1,36 @@
 <div>
-    <div class="upper-strip" ng-click="vm.stripService.toggleController()">
-        <div class="wrapper" dynamic-height>
-            <!-- <div class="wrapper-inner big" ng-if="vm.stripService.showController">
-                <div class="title">{{ player.currentItem.title }}</div>
-                <div class="subtitle">
-                    Show <span ng-bind="player.currentShow.title"></span> by
-                    <b><a href="/#/catalog/{{ author.username }}" target="_blank" class="upper-strip__author"> {{ author.username }}</a></b>
-                </div>
-            </div> -->
-            <div class="wrapper-inner" ng-if="!vm.stripService.showController">
+    <div class="upper-strip" ng-if="!vm.stripService.showController" ng-click="vm.stripService.toggleController()">
+        <div class="wrapper">
+            <div class="wrapper-inner">
                 <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
-        <div class="list-show" ng-if="vm.stripService.showController">
-            <div class="icon icon-opt-loop"
-                 ng-class="{'active': vm.panelOpened ==='loop'}"
-                 ng-click="vm.openPanel('loop'); $event.stopPropagation();"></div>
-        </div>
-        <div class="avatar" ng-if="vm.stripService.showController">
-            <div class="background" ng-style="{'background-image': 'url('+avatar+')'}"></div>
-            <add-to-favorite user="player.loop.user.username"></add-to-favorite>
-        </div>
-        <div class="logo" ng-if="!vm.stripService.showController" ng-switch="player.currentItem.provider_name">
-            <a ng-switch-when="YouTube" ng-href="{{ player.currentItem.url }}" target="_blank">
-                <i class="icon icon-sourceyoutube"></i>
-            </a>
-            <div  ng-switch-when="SoundCloud">
-                <a ng-href="{{ player.currentItem.url }}" target="_blank"><i class="icon icon-sourcesoundcloud"></i></a>
-                <a ng-href="http://giphy.com/search/{{player.currentShow.settings.giphy_tags.split(',').join('-')}}" target="_blank">
-                    <i class="icon icon-sourcegiphy"></i>
-                </a>
-            </div>
-        </div>
+        <div class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></div>
     </div>
-    <div class="superextended" ng-if="vm.stripService.showController && vm.panelOpened">
-        <div class="background"></div>
-        <div class="body">
-            <l8pr-share ng-if="vm.panelOpened === 'share'"></l8pr-share>
-            <l8pr-explore-loop ng-if="vm.panelOpened === 'loop'"></l8pr-explore-loop>
+    <div class="upper-strip upper-strip--extended" ng-if="vm.stripService.showController" ng-click="vm.stripService.toggleController()">
+        <div class="controllers">
+            <div class="navigation">
+                <div ng-click="vm.previousShow()"><i class="icon icon-ctrl-prevshow"></i></div>
+                <div ng-click="vm.previousItem()"><i class="icon icon-ctrl-previtem"></i></div>
+                <div ng-click="vm.nextItem()"><i class="icon icon-ctrl-nextitem"></i></div>
+                <div ng-click="vm.nextShow()"><i class="icon icon-ctrl-nextshow"></i></div>
+                <div ng-click="player.toggleMute()">
+                    <i class="icon" ng-class="player.isMuted ? 'icon-ctrl-soundoff' : 'icon-ctrl-soundon'"></i>
+                </div>
+            </div>
+            <div class="actions">
+                <div ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
+                    <div class="icon" ng-class="vm.stripService.isAutoHideEnabled === true ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div>
+                </div>
+                <div ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
+                <div class="current-user" ng-if=vm.login.currentUser>
+                    <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="controllers" ng-if="vm.stripService.showController">
-        <div class="navigation">
-            <div ng-click="vm.previousShow()"><i class="icon icon-ctrl-prevshow"></i></div>
-            <div ng-click="vm.previousItem()"><i class="icon icon-ctrl-previtem"></i></div>
-            <div ng-click="vm.playPause()" class="play">
-                <i class="icon" ng-class="player.getStatus() === 'playing' ? 'icon-ctrl-pause' : 'icon-ctrl-play'"></i>
-            </div>
-            <div ng-click="vm.nextItem()"><i class="icon icon-ctrl-nextitem"></i></div>
-            <div ng-click="vm.nextShow()"><i class="icon icon-ctrl-nextshow"></i></div>
-            <div ng-click="player.toggleMute()">
-                <i class="icon" ng-class="player.isMuted ? 'icon-ctrl-soundoff' : 'icon-ctrl-soundon'"></i>
-            </div>
-        </div>
-        <div class="actions">
-            <div ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
-                <div class="icon" ng-class="vm.stripService.isAutoHideEnabled === true ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div>
-            </div>
-            <div ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
-            <div ng-click="vm.openPanel('share')" class="share" ng-class="{'active': vm.panelOpened ==='share'}"><div class="icon icon-opt-share"></div></div>
-            <div ng-if=vm.login.currentUser>
-                <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
+        <div class="wrapper">
+            <div class="wrapper-inner">
+                <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
             </div>
         </div>
     </div>

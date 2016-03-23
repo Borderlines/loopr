@@ -150,7 +150,7 @@
                 restrict: 'A',
                 link: function($scope, element) {
                     $scope.$watch(function() {
-                        if (element.children().lenth > 0) {
+                        if (element.children().length > 0) {
                             return element.children()[0].offsetHeight;
                         }
                     },
