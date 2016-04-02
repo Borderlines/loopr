@@ -19,6 +19,28 @@
     }
 
     angular.module('loopr.strip')
+    .directive('infinitScroll', ['$timeout', function($timeout) {
+        return {
+            transclude: true,
+            template: ['<div class="infinit-scroll__wrapper">',
+            '<div class="infinit-scroll__item" ng-transclude></div>',
+            '<div class="infinit-scroll__item" ng-transclude></div>',
+            '</div>'].join(''),
+            link: function(scope, element) {
+                $timeout(function() {
+                    element.scrollLeft(element.find('.infinit-scroll__item')[1].offsetLeft);
+                });
+                element.scroll(function(a,b) {
+                    if (element.scrollLeft() >= element.find('.infinit-scroll__item').width() * 2 - element.width()) {
+                        element.scrollLeft(element.find('.infinit-scroll__item')[1].offsetLeft - element.width());
+                    }
+                    if (element.scrollLeft() === 0) {
+                        element.scrollLeft(element.find('.infinit-scroll__item').width());
+                    }
+                });
+            }
+        };
+    }])
     .directive('l8prExploreLoop', ['$window', '$timeout', function($window, $timeout) {
         return {
             restrict: 'E',
@@ -52,6 +74,7 @@
                     $timeout(function() {
                         resizeWidth();
                         resizeCurrentShow();
+                        element.find('.loop__shows').scrollLeft(0);
                     }, 50, false);
                 }
                 resizeAll();
