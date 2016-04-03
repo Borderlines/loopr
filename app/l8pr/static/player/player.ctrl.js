@@ -41,7 +41,7 @@
                     }
                 }
             });
-            var show = _.find(loop.shows_list, function(show) { return show.id === $routeParams.show;});
+            var show = _.find(loop.shows_list, function(show) { return show.id.toString() === $routeParams.show;});
             if (!angular.isDefined(show) && $routeParams.show) {
                 show = Shows.one($routeParams.show).get().then(function(show) {
                     loop.shows_list.push(show);

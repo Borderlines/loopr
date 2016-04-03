@@ -1,4 +1,10 @@
 <div class="loop">
+    <div class="loop__header">
+        <span><strong>{{ vm.player.loop.user.username }}</strong>'s loop {{ vm.shows.length }} Shows</span>
+        <span class="loop__header--right">
+            <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
+        </span>
+    </div>
     <div class="loop__shows" dynamic-height infinit-scroll>
         <div class="show"
              ng-repeat="show in vm.shows"

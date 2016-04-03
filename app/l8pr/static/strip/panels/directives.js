@@ -1,17 +1,17 @@
 (function() {
     'use strict';
 
-    LoopExplorerCtrl.$inject = ['Player', '$scope'];
-    function LoopExplorerCtrl(Player, scope) {
+    LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip'];
+    function LoopExplorerCtrl(Player, scope, stripService) {
         var vm = this;
-
         function reorderShows() {
             var indexOfCurrentShow = _.findIndex(Player.loop.shows_list, function(s) {return s === Player.currentShow;});
             var reordered = Player.loop.shows_list.slice(indexOfCurrentShow, Player.loop.shows_list.length);
             vm.shows = reordered.concat(Player.loop.shows_list.slice(0, indexOfCurrentShow));
         }
         angular.extend(vm, {
-            player: Player
+            player: Player,
+            stripService: stripService
         });
         scope.$watch(function() {
             return Player.currentShow;
@@ -21,22 +21,36 @@
     angular.module('loopr.strip')
     .directive('infinitScroll', ['$timeout', function($timeout) {
         return {
+            scope: {},
             transclude: true,
             template: ['<div class="infinit-scroll__wrapper">',
             '<div class="infinit-scroll__item" ng-transclude></div>',
-            '<div class="infinit-scroll__item" ng-transclude></div>',
+            '<div class="infinit-scroll__item" ng-transclude ng-if="enabled"></div>',
             '</div>'].join(''),
             link: function(scope, element) {
                 $timeout(function() {
-                    element.scrollLeft(element.find('.infinit-scroll__item')[1].offsetLeft);
+                    scope.enabled = element.find('.infinit-scroll__item').width() > element.width();
                 });
-                element.scroll(function(a,b) {
-                    if (element.scrollLeft() >= element.find('.infinit-scroll__item').width() * 2 - element.width()) {
-                        element.scrollLeft(element.find('.infinit-scroll__item')[1].offsetLeft - element.width());
-                    }
-                    if (element.scrollLeft() === 0) {
-                        element.scrollLeft(element.find('.infinit-scroll__item').width());
-                    }
+                scope.$on('$destroy', function() {
+                    element.unbind('scroll');
+                });
+                scope.$watch('enable', function(enable) {
+                    $timeout(function() {
+                        if (scope.enabled) {
+                            var items = element.find('.infinit-scroll__item');
+                            element.scrollLeft(items[1].offsetLeft);
+                            element.scroll(function(a,b) {
+                                if (element.scrollLeft() >= items.width() * 2 - element.width()) {
+                                    element.scrollLeft(items[1].offsetLeft - element.width());
+                                }
+                                if (element.scrollLeft() === 0) {
+                                    element.scrollLeft(items.width());
+                                }
+                            });
+                        } else {
+                            element.unbind('scroll');
+                        }
+                    });
                 });
             }
         };
@@ -75,7 +89,7 @@
                         resizeWidth();
                         resizeCurrentShow();
                         element.find('.loop__shows').scrollLeft(0);
-                    }, 50, false);
+                    });
                 }
                 resizeAll();
                 scope.$watch(function() {

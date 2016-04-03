@@ -3,6 +3,19 @@
     .infinit-scroll__item {
         display: inline-block;
     }
+    &__header {
+        height: 2.5em;
+        line-height: 2.5em;
+        position: relative;
+        margin: 0 20px;
+        font-family: @FONT2;
+        &--right {
+            font-size: 1.5em;
+            line-height: 2.2em;
+            position: absolute;
+            right: 0;
+        }
+    }
     &__shows {
         white-space: nowrap;
         overflow-y: auto;
@@ -27,6 +40,7 @@
             }
             &--current-show {
                 width: 300px !important;
+                min-height: 250px;
                 position: relative;
                 .show__body {
                     background-color: transparent;
