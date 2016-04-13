@@ -1,0 +1,25 @@
+<div class="Show" ng-class="{'Show--playing-now': vm.playingNow}">
+    <div class="Show__cover">
+        <div class="Show__cover__close" ng-click="vm.stripService.previousState()">x</div>
+        <div class="Show__cover__title" ng-bind="vm.show.title"></div>
+        <div class="Show__cover__playing-now" ng-if="vm.playingNow">Show playing now</div>
+    </div>
+    <div class="Show__body">
+        <table>
+            <tr ng-repeat="item in vm.show.items">
+                <td class="title">
+                    <span class="index">
+                        <span ng-if="$index < 10">0</span>{{ $index + 1 }}
+                    </span>
+                    <a target="_blank" ng-click="vm.player.playShow(vm.show, $index)">{{ item.title }}</a>
+                </td>
+                <td>
+                    <a ng-href="{{ item.url }}" target="_blank">
+                        <i class="fa fa-{{item.provider_name | lowercase}}"></i>
+                    </a>
+                </td>
+                <td>{{ item.duration | seconds }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

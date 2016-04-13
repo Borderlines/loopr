@@ -32,14 +32,14 @@
                         Fullscreen.all();
                     }
                 },
-                panelOpened: false,
-                openPanel: function(panel_name) {
-                    if (vm.panelOpened === panel_name) {
-                        vm.panelOpened = false;
-                    } else {
-                        vm.panelOpened = panel_name;
-                    }
-                },
+                // panelOpened: false,
+                // openPanel: function(panel_name) {
+                //     if (vm.panelOpened === panel_name) {
+                //         vm.panelOpened = false;
+                //     } else {
+                //         vm.panelOpened = panel_name;
+                //     }
+                // },
                 login: login
             });
         }
@@ -90,13 +90,22 @@
         return service;
     }
 
-    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'perfect_scrollbar'])
-        .factory('strip', ['$timeout', function($timeout) {
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
+        .factory('strip', ['$timeout', 'Player', function($timeout, Player) {
             var hideTimeout;
             var service = {
                 showController: false,
+                currentView: {
+                    name: undefined,
+                    object: undefined,
+                    author: undefined,
+                    numberOfShow: undefined
+                },
                 toggleController: function() {
                     service.showController = !service.showController;
+                    if (!angular.isDefined(service.currentView.name)) {
+                        service.open('loop', Player.loop);
+                    }
                 },
                 isAutoHideEnabled: false,
                 showAndHide: function() {
@@ -122,6 +131,32 @@
                 },
                 hideStrip: function(hidden) {
                     service.stripIsHidden = hidden;
+                },
+                previousState: function() {
+                    service._previousStates.pop();
+                    if (service._previousStates.length > 0) {
+                        var previous = service._previousStates[service._previousStates.length - 1];
+                        service.open(previous[0], previous[1]);
+                    }
+                },
+                _previousStates: [],
+                open: function(view, obj) {
+                    service._previousStates.push([view, obj]);
+                    // loop, show
+                    angular.extend(service.currentView, {
+                        name: view,
+                        object: obj
+                    });
+                    if (obj.user) {
+                        if (obj.user.username) {
+                            service.currentView.author = obj.user.username;
+                        } else {
+                            service.currentView.author = obj.user;
+                        }
+                    }
+                    if (obj.shows_list) {
+                        service.currentView.numberOfShow = obj.shows_list.length;
+                    }
                 }
             };
             return service;

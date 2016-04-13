@@ -1,20 +1,57 @@
-.loop {
+@SHOW_COVER_WIDTH: 350px;
+@SHOW_COVER_COLOR: gray;
+@SHOW_COVER_PLAYING_NOW_COLOR: blue;
+
+.Show {
+    padding-left: @SHOW_COVER_WIDTH;
+    min-height: 200px;
+    max-height: 50vh;
+    overflow-y: auto;
+    position: relative;
+    &--playing-now .Show__cover {
+        background-color: fade(@SHOW_COVER_PLAYING_NOW_COLOR, 80%);
+    }
+    &__cover {
+        color: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: fade(@SHOW_COVER_COLOR, 80%);
+        width: @SHOW_COVER_WIDTH;
+        box-sizing: padding-box;
+        padding: 40px;
+        &__title {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        &__close {
+            position: absolute;
+            right: 20px;
+            font-size: 2em;
+            top: 20px;
+        }
+    }
+    &__body {
+        background-color: rgba(255, 255, 255, 1);
+        table {
+            width: 100%;
+            line-height: 2.25em;
+            border-spacing:0;
+            border-collapse: collapse;
+            td {
+                border-bottom: 1px solid gray;
+            }
+        }
+    }
+}
+
+.Loop {
     background-color: rgba(255, 255, 255, 0.43);
+    font-size: 1.4em;
     .infinit-scroll__item {
         display: inline-block;
-    }
-    &__header {
-        height: 2.5em;
-        line-height: 2.5em;
-        position: relative;
-        margin: 0 20px;
-        font-family: @FONT2;
-        &--right {
-            font-size: 1.5em;
-            line-height: 2.2em;
-            position: absolute;
-            right: 0;
-        }
     }
     &__shows {
         white-space: nowrap;

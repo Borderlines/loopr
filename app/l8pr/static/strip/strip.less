@@ -3,12 +3,26 @@
     cursor: pointer;
 }
 .strip {
-    font-size: 1.4em;
     font-family: 'Montserrat', sans-serif;
     display: block;
     .icon {
         &:hover {
             color: #00A99D;
+        }
+    }
+    .strip-header {
+        background-color: rgba(255, 255, 255, 0.43);
+        font-size: 1.4em;
+        height: 2.5em;
+        line-height: 2.5em;
+        position: relative;
+        font-family: @FONT2;
+        padding: 0 20px;
+        &--right {
+            font-size: 1.5em;
+            line-height: 2.2em;
+            position: absolute;
+            right: 20px;
         }
     }
     .progress-bar {
@@ -31,6 +45,7 @@
         }
     }
     .upper-strip {
+        font-size: 1.4em;
         position: relative;
         height: @UPPER_STRIP_HEIGHT;
         overflow: hidden;
@@ -141,12 +156,12 @@
         margin: 0px 40px 0 40px;
         opacity: .7;
     }
-    .ng-hide:not(.ng-hide-animate) {
-        transition-property: opacity;
-        transition-duration: .25s;
-        display: block !important;
-        opacity: 0;
-    }
+    // .ng-hide:not(.ng-hide-animate) {
+    //     transition-property: opacity;
+    //     transition-duration: .25s;
+    //     display: block !important;
+    //     opacity: 0;
+    // }
     // actions state button
     .list-show .active {color: @GREEN;}
     .fullscreen.active {opacity: 1;}

@@ -1,23 +1,19 @@
-<div class="loop">
-    <div class="loop__header">
-        <span><strong>{{ vm.player.loop.user.username }}</strong>'s loop {{ vm.shows.length }} Shows</span>
-        <span class="loop__header--right">
-            <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
-        </span>
-    </div>
-    <div class="loop__shows" dynamic-height perfect-scrollbar>
+<div class="Loop">
+    <div class="Loop__shows" dynamic-height infinit-scroll>
         <div class="show"
              ng-repeat="show in vm.shows"
              ng-class="{'show--current-show': $index === 0}"
-             ng-click="vm.player.playShow(show)"
              ng-style="{width: getWidth(show)}">
-            <div class="show__body">
+            <div class="show__body" ng-click="vm.stripService.open('show', show)">
                 <div ng-if="$index === 0">Show playing now</div>
                 <div ng-if="$index === 1">Show coming next</div>
                 <div ng-if="$index > 1">Show</div>
-                {{ show.title }}
+                {{ show.title }} {{ $index }}
             </div>
-            <div class="show__background" ng-style="{'background-image': 'url(' + show.items[0].thumbnail + ')'}"></div>
+            <div class="show__background"
+                 ng-click="vm.player.playShow(show)"
+                 ng-style="{'background-image': 'url(' + show.items[0].thumbnail + ')'}">
+            </div>
         </div>
     </div>
 </div>

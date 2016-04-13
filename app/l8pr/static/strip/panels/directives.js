@@ -18,6 +18,22 @@
         }, reorderShows);
     }
 
+    ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip'];
+    function ShowExplorerCtrl(Player, scope, stripService) {
+        var vm = this;
+        angular.extend(vm, {
+            stripService: stripService,
+            show: stripService.currentView.object,
+            playingNow: Player.currentShow === stripService.currentView.object,
+            player: Player
+        });
+        scope.$watch(function() {
+            return Player.currentShow;
+        }, function(currentShow) {
+            vm.playingNow = currentShow === stripService.currentView.object;
+        });
+    }
+
     angular.module('loopr.strip')
     .directive('infinitScroll', ['$timeout', function($timeout) {
         return {
@@ -87,7 +103,7 @@
                     $timeout(function() {
                         resizeWidth();
                         resizeCurrentShow();
-                        element.find('.loop__shows').scrollLeft(0);
+                        element.find('.Loop__shows').scrollLeft(0);
                     });
                 }
                 resizeAll();
@@ -98,21 +114,32 @@
             }
         };
     }])
-    .directive('l8prShare', function() {
+    .directive('l8prExploreShow', ['$window', '$timeout', function($window, $timeout) {
         return {
             restrict: 'E',
-            templateUrl: '/static/strip/panels/share.html',
+            scope: {},
+            templateUrl: '/static/strip/panels/show.html',
             controllerAs: 'vm',
-            controller: ['Player', '$location', function(Player, $location) {
-                var vm = this;
-                angular.extend(vm, {
-                    Player: Player,
-                    link: $location.absUrl(),
-                    copyToClipboard: function(text) {
-                        window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
-                    }
-                });
-            }]
+            controller: ShowExplorerCtrl,
+            link: function(scope, element, attr, vm) {
+            }
         };
-    });
+    }]);
+    // .directive('l8prShare', function() {
+    //     return {
+    //         restrict: 'E',
+    //         templateUrl: '/static/strip/panels/share.html',
+    //         controllerAs: 'vm',
+    //         controller: ['Player', '$location', function(Player, $location) {
+    //             var vm = this;
+    //             angular.extend(vm, {
+    //                 Player: Player,
+    //                 link: $location.absUrl(),
+    //                 copyToClipboard: function(text) {
+    //                     window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
+    //                 }
+    //             });
+    //         }]
+    //     };
+    // });
 })();

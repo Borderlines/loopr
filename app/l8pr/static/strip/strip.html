@@ -1,6 +1,18 @@
 <div>
     <div class="strip-body" ng-if="vm.stripService.showController">
-        <l8pr-explore-loop></l8pr-explore-loop>
+        <div class="strip-header">
+            <span>
+                <strong>{{ vm.stripService.currentView.author }}</strong>'s loop
+            </span>
+            <span if="vm.stripService.currentView.numberOfShow">
+                {{ vm.stripService.currentView.numberOfShow }} Shows
+            </span>
+            <span class="strip-header--right">
+                <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
+            </span>
+        </div>
+        <l8pr-explore-show ng-if="vm.stripService.currentView.name === 'show'"></l8pr-explore-show>
+        <l8pr-explore-loop ng-show="vm.stripService.currentView.name === 'loop'"></l8pr-explore-loop>
     </div>
     <div class="upper-strip"
          ng-class="{'upper-strip--extended': vm.stripService.showController}">
