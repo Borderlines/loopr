@@ -90,7 +90,7 @@
         return service;
     }
 
-    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular'])
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'loopr.addToShow'])
         .factory('strip', ['$timeout', 'Player', function($timeout, Player) {
             var hideTimeout;
             var service = {

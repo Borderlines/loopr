@@ -1,0 +1,10 @@
+<div class="add-to-show">
+    <i class="fa fa-plus" aria-hidden="true" ng-click="vm.open()"></i>
+    <div class="menu" ng-if="vm.showing">
+        Add to
+        <ul>
+            <li ng-repeat="show in vm.shows" ng-bind="show.title" ng-click="vm.addToShow(show)"></li>
+        </ul>
+        Or create a new show
+    </div>
+</div>

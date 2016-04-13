@@ -7,6 +7,11 @@
     <div class="Show__body">
         <table>
             <tr ng-repeat="item in vm.show.items">
+                <td class="actions">
+                    <span class="action action--plus" ng-click="vm.addToAShow()">
+                        <add-to-show-menu></add-to-show-menu>
+                    <span>
+                </td>
                 <td class="title">
                     <span class="index">
                         <span ng-if="$index < 10">0</span>{{ $index + 1 }}

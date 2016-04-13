@@ -8,7 +8,8 @@
     max-height: 50vh;
     overflow-y: auto;
     position: relative;
-    &--playing-now .Show__cover {
+    background-color: fade(@SHOW_COVER_COLOR, 80%);
+    &--playing-now {
         background-color: fade(@SHOW_COVER_PLAYING_NOW_COLOR, 80%);
     }
     &__cover {
@@ -18,7 +19,6 @@
         left: 0;
         bottom: 0;
         right: 0;
-        background-color: fade(@SHOW_COVER_COLOR, 80%);
         width: @SHOW_COVER_WIDTH;
         box-sizing: padding-box;
         padding: 40px;
