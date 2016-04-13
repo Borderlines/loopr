@@ -5,7 +5,7 @@
             <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
         </span>
     </div>
-    <div class="loop__shows" dynamic-height infinit-scroll>
+    <div class="loop__shows" dynamic-height perfect-scrollbar>
         <div class="show"
              ng-repeat="show in vm.shows"
              ng-class="{'show--current-show': $index === 0}"

@@ -21,22 +21,21 @@
     angular.module('loopr.strip')
     .directive('infinitScroll', ['$timeout', function($timeout) {
         return {
-            scope: {},
             transclude: true,
             template: ['<div class="infinit-scroll__wrapper">',
             '<div class="infinit-scroll__item" ng-transclude></div>',
-            '<div class="infinit-scroll__item" ng-transclude ng-if="enabled"></div>',
+            '<div class="infinit-scroll__item" ng-transclude ng-if="infinitScrollEnable"></div>',
             '</div>'].join(''),
             link: function(scope, element) {
                 $timeout(function() {
-                    scope.enabled = element.find('.infinit-scroll__item').width() > element.width();
+                    scope.infinitScrollEnable = element.find('.infinit-scroll__item').width() > element.width();
                 });
                 scope.$on('$destroy', function() {
                     element.unbind('scroll');
                 });
-                scope.$watch('enable', function(enable) {
+                scope.$watch('infinitScrollEnable', function(infinitScrollEnable) {
                     $timeout(function() {
-                        if (scope.enabled) {
+                        if (scope.infinitScrollEnable) {
                             var items = element.find('.infinit-scroll__item');
                             element.scrollLeft(items[1].offsetLeft);
                             element.scroll(function(a,b) {
