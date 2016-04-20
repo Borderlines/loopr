@@ -1,6 +1,7 @@
 @SHOW_COVER_WIDTH: 350px;
-@SHOW_COVER_COLOR: gray;
-@SHOW_COVER_PLAYING_NOW_COLOR: blue;
+@SHOW_COVER_COLOR: rgb(63, 61, 61);
+@PLAYING_NOW_COLOR: blue;
+@CELL_HEIGHT: 50px;
 
 .Show {
     padding-left: @SHOW_COVER_WIDTH;
@@ -8,9 +9,9 @@
     max-height: 50vh;
     overflow-y: auto;
     position: relative;
-    background-color: fade(@SHOW_COVER_COLOR, 80%);
+    background-color: fade(@SHOW_COVER_COLOR, 90%);
     &--playing-now {
-        background-color: fade(@SHOW_COVER_PLAYING_NOW_COLOR, 80%);
+        background-color: fade(@PLAYING_NOW_COLOR, 90%);
     }
     &__cover {
         color: white;
@@ -34,14 +35,41 @@
         }
     }
     &__body {
+        font-family: @FONT2;
         background-color: rgba(255, 255, 255, 1);
         table {
             width: 100%;
-            line-height: 2.25em;
             border-spacing:0;
             border-collapse: collapse;
-            td {
-                border-bottom: 1px solid gray;
+            .cell {
+                height: @CELL_HEIGHT;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .cover {
+                text-align: right;
+                img {
+                    height: @CELL_HEIGHT;
+                }
+            }
+            .actions {
+                position: relative;
+                top: 14px;
+            }
+            .title {
+                padding-left: 40px;
+                position: relative;
+                .index {
+                    position: absolute;
+                    left: 10px;
+                }
+                i {
+                    font-size: 2em;
+                    color: @PLAYING_NOW_COLOR;
+                    top: 18px;
+                    left: 5px;
+                    position: absolute;
+                }
             }
         }
     }
