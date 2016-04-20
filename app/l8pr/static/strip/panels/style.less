@@ -4,25 +4,34 @@
 @CELL_HEIGHT: 50px;
 
 .Show {
-    padding-left: @SHOW_COVER_WIDTH;
-    min-height: 200px;
     max-height: 50vh;
+    width: 100%;
     overflow-y: auto;
-    position: relative;
-    background-color: fade(@SHOW_COVER_COLOR, 90%);
-    &--playing-now {
+    &__wrapper {
+        padding-left: @SHOW_COVER_WIDTH;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+    }
+    &--playing-now &__cover {
         background-color: fade(@PLAYING_NOW_COLOR, 90%);
     }
+    &__cover, &__body { // same height
+        min-height: 200px;
+        padding-bottom: 99999px;
+        margin-bottom: -99999px;
+    }
     &__cover {
+        position: relative;
+        float: left;
+        margin-left: -@SHOW_COVER_WIDTH;
+        padding-left: 40px;
+        padding-top: 40px;
+        padding-right: 40px;
         color: white;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
+        background-color: fade(@SHOW_COVER_COLOR, 90%);
         width: @SHOW_COVER_WIDTH;
         box-sizing: padding-box;
-        padding: 40px;
         &__title {
             font-size: 2em;
             font-weight: bold;
@@ -35,7 +44,9 @@
         }
     }
     &__body {
+        float: right;
         font-family: @FONT2;
+        width: 100%;
         background-color: rgba(255, 255, 255, 1);
         table {
             width: 100%;
@@ -57,6 +68,10 @@
                 top: 14px;
             }
             .title {
+                .cell {
+                    width: 30vw;
+                    text-overflow: ellipsis;
+                }
                 padding-left: 40px;
                 position: relative;
                 .index {

@@ -1,38 +1,40 @@
 <div class="Show" ng-class="{'Show--playing-now': vm.playingNow}">
-    <div class="Show__cover">
-        <div class="Show__cover__close" ng-click="vm.stripService.previousState()">x</div>
-        <div class="Show__cover__title" ng-bind="vm.show.title"></div>
-        <div class="Show__cover__playing-now" ng-if="vm.playingNow">Show playing now</div>
-    </div>
-    <div class="Show__body">
-        <table>
-            <tr ng-repeat="item in vm.show.items">
-                <td class="title">
-                    <div class="cell" ng-click="vm.player.playShow(vm.show, $index)">
-                        <i ng-if="vm.player.currentItem === item" class="icon icon-ctrl-play"></i>
-                        <span class="index">
-                            <span ng-if="$index < 9">0</span>{{ $index + 1 }}
-                        </span>
-                        {{ item.title }}<br/>
-                        by {{ vm.show.user }} from {{ item.provider_name }}
-                    </div>
-                </td>
-                <td class="actions">
-                    <div class="cell">
-                        <a ng-href="{{ item.url }}" target="_blank">
-                            <i class="fa fa-{{item.provider_name | lowercase}}"></i>
-                        </a>
-                        <span class="action action--plus" ng-click="vm.addToAShow()">
-                            <add-to-show-menu></add-to-show-menu>
-                        <span>
-                    </div>
-                </td>
-                <td class="cover">
-                    <div class="cell">
-                        <img ng-src="{{ item.thumbnail }}"/>
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <div class="Show__wrapper">
+        <div class="Show__cover">
+            <div class="Show__cover__close" ng-click="vm.stripService.previousState()">x</div>
+            <div class="Show__cover__title" ng-bind="vm.show.title"></div>
+            <div class="Show__cover__playing-now" ng-if="vm.playingNow">Show playing now</div>
+        </div>
+        <div class="Show__body">
+            <table>
+                <tr ng-repeat="item in vm.show.items">
+                    <td class="title">
+                        <div class="cell" ng-click="vm.player.playShow(vm.show, $index)">
+                            <i ng-if="vm.player.currentItem === item" class="icon icon-ctrl-play"></i>
+                            <span class="index">
+                                <span ng-if="$index < 9">0</span>{{ $index + 1 }}
+                            </span>
+                            {{ item.title }}<br/>
+                            by {{ vm.show.user }} from {{ item.provider_name }}
+                        </div>
+                    </td>
+                    <td class="actions">
+                        <div class="cell">
+                            <a ng-href="{{ item.url }}" target="_blank">
+                                <i class="fa fa-{{item.provider_name | lowercase}}"></i>
+                            </a>
+                            <span class="action action--plus" ng-click="vm.addToAShow()">
+                                <add-to-show-menu></add-to-show-menu>
+                            <span>
+                        </div>
+                    </td>
+                    <td class="cover">
+                        <div class="cell">
+                            <img ng-src="{{ item.thumbnail }}"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
