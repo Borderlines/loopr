@@ -1,0 +1,13 @@
+<div class="strip-header">
+    <span>
+        <strong>{{ vm.stripService.currentView.author }}</strong>'s loop
+    </span>
+    <span if="vm.stripService.currentView.numberOfShow">
+        {{ vm.stripService.currentView.numberOfShow }} Shows
+    </span>
+    <span class="strip-header--right">
+        <div class="current-user" ng-if=vm.login.currentUser>
+            <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
+        </div>
+    </span>
+</div>

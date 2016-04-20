@@ -1,16 +1,6 @@
 <div>
     <div class="strip-body" ng-if="vm.stripService.showController">
-        <div class="strip-header">
-            <span>
-                <strong>{{ vm.stripService.currentView.author }}</strong>'s loop
-            </span>
-            <span if="vm.stripService.currentView.numberOfShow">
-                {{ vm.stripService.currentView.numberOfShow }} Shows
-            </span>
-            <span class="strip-header--right">
-                <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
-            </span>
-        </div>
+        <l8pr-strip-header></l8pr-strip-header>
         <l8pr-explore-show ng-if="vm.stripService.currentView.name === 'show'"></l8pr-explore-show>
         <l8pr-explore-loop ng-show="vm.stripService.currentView.name === 'loop'"></l8pr-explore-loop>
     </div>
@@ -31,9 +21,7 @@
                     <div class="icon" ng-class="vm.stripService.isAutoHideEnabled === true ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div>
                 </div>
                 <div ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
-                <div class="current-user" ng-if=vm.login.currentUser>
-                    <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
-                </div>
+                <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
             </div>
         </div>
         <div class="wrapper">

@@ -1,3 +1,7 @@
+@import "panels/style.less";
+@import "add-to-shows/style.less";
+@import "header/style.less";
+
 @UPPER_STRIP_HEIGHT: 74px;
 [ng-click] {
     cursor: pointer;
@@ -8,21 +12,6 @@
     .icon {
         &:hover {
             color: #00A99D;
-        }
-    }
-    .strip-header {
-        background-color: rgba(255, 255, 255, 0.43);
-        font-size: 1.4em;
-        height: 2.5em;
-        line-height: 2.5em;
-        position: relative;
-        font-family: @FONT2;
-        padding: 0 20px;
-        &--right {
-            font-size: 1.5em;
-            line-height: 2.2em;
-            position: absolute;
-            right: 20px;
         }
     }
     .progress-bar {
@@ -76,16 +65,18 @@
             }
         }
         .toggle-controller { // btn
-            position: absolute;
-            top: 50%;
+            position: absolute !important;
+            top: 50% !important;
             margin-top: -15px;
             right: 20px;
-            font-size: 1.4em;
+            font-size: 33.6px;
         }
         .controllers {
+            height: 100%;
             float: right;
             font-size: 1.5em;
             background-color: @LOW_OPACITY_BACKGROUND;
+            padding-right: 70px;
             .navigation, .actions {
                 display: inline-block;
                 & > div {
@@ -94,12 +85,8 @@
             }
             .icon {
                 position: relative;
-                top: 8px;
+                top: 22px;
             }
-        }
-        .current-user img {
-            vertical-align: middle;
-            height: @UPPER_STRIP_HEIGHT;
         }
     }
     .lower-strip {
