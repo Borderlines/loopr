@@ -6,8 +6,8 @@
         {{ vm.stripService.currentView.numberOfShow }} Shows
     </span>
     <span class="strip-header--right">
-        <div class="current-user" ng-if=vm.login.currentUser>
-            <img ng-src="{{vm.login.currentUser.profile.avatar}}"/>
+        <div class="current-user" ng-if="vm.login.currentUser"
+        ng-style="{'background-image': 'url(' + vm.login.currentUser.profile.avatar + ')'}">
         </div>
     </span>
 </div>
