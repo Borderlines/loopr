@@ -6,37 +6,14 @@
 
 .strip {
     display: block;
-    .icon {
-        &:hover {
-            color: #00A99D;
-        }
-    }
-    .progress-bar {
-        height: 5px;
-        background-color: #E0DDDB;
-        opacity: 0.5;
-        &:hover {
-            height: 15px;
-            opacity: 0.80;
-        }
-        transition-property: height;
-        transition-duration: .25s;
-        cursor: pointer;
-        .progression {
-            transition-duration: .25s;
-            transition-property: width;
-            background-color: blue;
-            opacity: 0.8;
-            height: 100%;
-        }
-    }
-    .upper-strip {
+    .icon:hover {color: #00A99D;}
+    &__controls {
         font-size: 1.4em;
         position: relative;
         height: @UPPER_STRIP_HEIGHT;
         // title + btn for toggle controller
-        .row:first-child {
-            div {background-color: @body-bg; height: @UPPER_STRIP_HEIGHT}
+        > .row:first-child {
+            > div {background-color: @body-bg; height: @UPPER_STRIP_HEIGHT;}
             div:nth-child(2) {
                 background-color: fade(@body-bg, 60);
             }
