@@ -1,8 +1,12 @@
+@import "../../bower_components/bootstrap/less/bootstrap.less";
 @import "../../variables.less";
 
 a {
     color: black;
     text-decoration: none;
+}
+[ng-click] {
+    cursor: pointer;
 }
 html, body, div[ng-view] {
     height: 100%;
@@ -90,6 +94,7 @@ iframe {
         opacity: 0;
     }
 }
+
 
 @import "../../bower_components/components-font-awesome/less/font-awesome.less";
 @fa-font-path: "/static/bower_components/components-font-awesome/fonts";

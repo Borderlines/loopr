@@ -1,49 +1,68 @@
-<div>
-    <div class="strip-body" ng-if="vm.stripService.showController">
+<div class="container-fuild">
+    <div class="strip__header row" ng-if="vm.stripService.showController">
         <l8pr-strip-header></l8pr-strip-header>
+    </div>
+    <div class="strip__body row" ng-if="vm.stripService.showController">
         <l8pr-explore-show ng-if="vm.stripService.currentView.name === 'show'"></l8pr-explore-show>
         <l8pr-explore-loop ng-show="vm.stripService.currentView.name === 'loop'"></l8pr-explore-loop>
     </div>
-    <div class="upper-strip"
-         ng-class="{'upper-strip--extended': vm.stripService.showController}">
-        <div class="controllers" ng-if="vm.stripService.showController">
-            <div class="navigation">
-                <div ng-click="vm.previousShow()"><i class="icon icon-ctrl-prevshow"></i></div>
-                <div ng-click="vm.previousItem()"><i class="icon icon-ctrl-previtem"></i></div>
-                <div ng-click="vm.nextItem()"><i class="icon icon-ctrl-nextitem"></i></div>
-                <div ng-click="vm.nextShow()"><i class="icon icon-ctrl-nextshow"></i></div>
-                <div ng-click="player.toggleMute()">
-                    <i class="icon" ng-class="player.isMuted ? 'icon-ctrl-soundoff' : 'icon-ctrl-soundon'"></i>
+    <div class="strip__controls">
+        <div class="row" ng-if="!vm.stripService.showController">
+            <div class="banner col-xs-6">
+                <div class="banner-inner">
+                    <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
                 </div>
             </div>
-            <div class="actions">
-                <div ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
-                    <div class="icon" ng-class="vm.stripService.isAutoHideEnabled === true ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></div>
-                </div>
-                <div ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><div class="icon icon-opt-fullscreen"></div></div>
+            <div class="col-xs-6 text-right">
+                <span ng-click="vm.previousShow()"><i class="icon icon-ctrl-prevshow"></i></span>
+                <span ng-click="vm.previousItem()"><i class="icon icon-ctrl-previtem"></i></span>
+                <span ng-click="vm.nextItem()"><i class="icon icon-ctrl-nextitem"></i></span>
+                <span ng-click="vm.nextShow()"><i class="icon icon-ctrl-nextshow"></i></span>
+                <span ng-click="player.toggleMute()">
+                    <i class="icon" ng-class="player.isMuted ? 'icon-ctrl-soundoff' : 'icon-ctrl-soundon'"></i>
+                </span>
+                <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
+                    <i class="icon" ng-class="vm.stripService.isAutoHideEnabled === true ? 'icon-opt-stripoff' : 'icon-opt-stripon'"></i>
+                </span>
+                <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><i class="icon icon-opt-fullscreen"></i></span>
                 <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
             </div>
         </div>
-        <div class="wrapper">
-            <div class="wrapper-inner">
-                <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
+        <div class="row" ng-if="vm.stripService.showController">
+            <div class="banner col-xs-10">
+                <div class="banner-inner">
+                    <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
+                </div>
+            </div>
+            <div class="col-xs-2 text-right">
+                <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
             </div>
         </div>
-        <div ng-if="!vm.stripService.showController"
-             class="toggle-controller icon icon-opt-loop"
-             ng-click="vm.stripService.toggleController()">
-        </div>
-    </div>
-    <div class="progress-bar" ng-click="vm.setPosition($event)">
-        <div class="progression" ng-style="{width: progression + '%'}"></div>
-    </div>
-    <div class="lower-strip" ng-click="vm.stripService.toggleController()" ng-if="vm.lowerStrip.banner.length > 0">
-        <div class="wrapper">
-            <div class="wrapper-inner">
-                <banner lines="vm.lowerStrip.banner" transition="fade" duration="15"></banner>
+        <!-- progress bar -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="progress" ng-click="vm.setPosition($event)">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         aria-valuenow="{{ progression }}"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         ng-style="{width: progression + '%'}">
+                    </div>
+                </div>
             </div>
         </div>
-        <time></time>
-        <div style="clear:both"> </div>
+        <!-- end: progress bar -->
+    </div>
+    <div class="strip__feed row">
+        <div class="lower-strip" ng-click="vm.stripService.toggleController()" ng-if="vm.lowerStrip.banner.length > 0">
+            <div class="banner">
+                <div class="banner-inner">
+                    <banner lines="vm.lowerStrip.banner" transition="fade" duration="15"></banner>
+                </div>
+            </div>
+            <time></time>
+            <div style="clear:both"> </div>
+        </div>
     </div>
 </div>

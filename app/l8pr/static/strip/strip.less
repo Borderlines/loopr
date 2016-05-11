@@ -1,13 +1,10 @@
 @import "panels/style.less";
-@import "add-to-shows/style.less";
-@import "header/style.less";
-
+// @import "add-to-shows/style.less";
+// @import "header/style.less";
+//
 @UPPER_STRIP_HEIGHT: 74px;
-[ng-click] {
-    cursor: pointer;
-}
+
 .strip {
-    font-family: 'Montserrat', sans-serif;
     display: block;
     .icon {
         &:hover {
@@ -37,22 +34,20 @@
         font-size: 1.4em;
         position: relative;
         height: @UPPER_STRIP_HEIGHT;
-        overflow: hidden;
-        &--extended {
-            .wrapper .body {
-                max-height: 55px;
-                overflow: hidden;
-                font-size: 0.8em;
+        // title + btn for toggle controller
+        .row:first-child {
+            div {background-color: @body-bg; height: @UPPER_STRIP_HEIGHT}
+            div:nth-child(2) {
+                background-color: fade(@body-bg, 60);
             }
         }
-        .wrapper {
-            line-height: @UPPER_STRIP_HEIGHT;
+        .banner {
             height: @UPPER_STRIP_HEIGHT;
-            background-color: white;
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
-            .wrapper-inner {
+            .banner-inner {
+                padding-top: 20px;
                 display: inline-block;
                 vertical-align: middle;
                 line-height: normal;
@@ -64,96 +59,22 @@
                 }
             }
         }
-        .toggle-controller { // btn
-            position: absolute !important;
-            top: 50% !important;
-            margin-top: -15px;
-            right: 20px;
-            font-size: 33.6px;
+        i { // btn
+            font-size: 28px;
+            top: 15px;
+            position: relative;
         }
-        .controllers {
-            height: 100%;
-            float: right;
-            font-size: 1.5em;
-            background-color: @LOW_OPACITY_BACKGROUND;
-            padding-right: 70px;
-            .navigation, .actions {
-                display: inline-block;
-                & > div {
-                    display: inline-block;
-                }
-            }
-            .icon {
-                position: relative;
-                top: 22px;
-            }
+        .progress {
+            margin-left: -15px;
+            margin-right: -15px;
+            margin-bottom: 0px;
         }
     }
-    .lower-strip {
-        min-height: 30px;
-        color: white;
-        padding: 12px;
-        position: relative;
-        background-color: #222;
-        opacity: 0.95;
-        .wrapper {
-            font-family: @FONT2;
-            opacity: .8;
-            margin-right: 74px;
-            margin-left: 15px;
-            font-size: 0.7em;
-            line-height: 2em;
-            transition-duration: 1s;
-            transition-property: height;
-            .wrapper-inner {
-                position: relative;
-                p {padding: 0; margin: 0; display: inline-block;}
-                a {
-                    color: white;
-                    font-weight: 400;
-                    text-decoration: none;
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-                .rss, .tweet {
-                    padding-left: 25px;
-                    i {
-                        position: absolute;
-                        left: -10px;
-                        font-size: 2em;
-                    }
-                }
-            }
-        }
-        .time {
-            position: absolute;
-            top: 12px;
-            right: 20px;
-            font-size: 0.8em;
-            font-weight: 400;
-            line-height: 1.7em;
-            letter-spacing: 0.05em;
-            opacity: 0.9;
-        }
-    }
-    transition-property: margin, opacity;
-    transition-duration: 1s;
-    &.reduced {
-        margin: 0px 40px 0 40px;
-        opacity: .7;
-    }
-    // .ng-hide:not(.ng-hide-animate) {
-    //     transition-property: opacity;
-    //     transition-duration: .25s;
-    //     display: block !important;
-    //     opacity: 0;
-    // }
-    // actions state button
-    .list-show .active {color: @GREEN;}
-    .fullscreen.active {opacity: 1;}
-    .fullscreen:not(.active) {opacity: .6;}
-    .share.active {color: @GREEN;}
-    .auto-hide.active {opacity: 1;}
-    .auto-hide:not(.active) {opacity: .6;}
+//     // actions state button
+//     .list-show .active {color: @GREEN;}
+//     .fullscreen.active {opacity: 1;}
+//     .fullscreen:not(.active) {opacity: .6;}
+//     .share.active {color: @GREEN;}
+//     .auto-hide.active {opacity: 1;}
+//     .auto-hide:not(.active) {opacity: .6;}
 }
