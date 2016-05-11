@@ -14,8 +14,12 @@
         // title + btn for toggle controller
         > .row:first-child {
             > div {background-color: @body-bg; height: @UPPER_STRIP_HEIGHT;}
-            div:nth-child(2) {
-                background-color: fade(@body-bg, 60);
+        }
+        &--extended {
+            > .row:first-child {
+                div:nth-child(2) {
+                    background-color: fade(@body-bg, 60);
+                }
             }
         }
         .banner {

@@ -6,14 +6,14 @@
         <l8pr-explore-show ng-if="vm.stripService.currentView.name === 'show'"></l8pr-explore-show>
         <l8pr-explore-loop ng-show="vm.stripService.currentView.name === 'loop'"></l8pr-explore-loop>
     </div>
-    <div class="strip__controls">
-        <div class="row" ng-if="!vm.stripService.showController">
-            <div class="banner col-xs-6">
+    <div class="strip__controls" ng-class="{'strip__controls--extended': vm.stripService.showController}">
+        <div class="row" ng-if="vm.stripService.showController">
+            <div class="banner col-xs-8">
                 <div class="banner-inner">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
                 </div>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-4 text-right">
                 <span ng-click="vm.previousShow()"><i class="icon icon-ctrl-prevshow"></i></span>
                 <span ng-click="vm.previousItem()"><i class="icon icon-ctrl-previtem"></i></span>
                 <span ng-click="vm.nextItem()"><i class="icon icon-ctrl-nextitem"></i></span>
@@ -28,7 +28,7 @@
                 <i class="toggle-controller icon icon-opt-loop" ng-click="vm.stripService.toggleController()"></i>
             </div>
         </div>
-        <div class="row" ng-if="vm.stripService.showController">
+        <div class="row" ng-if="!vm.stripService.showController">
             <div class="banner col-xs-10">
                 <div class="banner-inner">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
