@@ -89,7 +89,7 @@
         }
     }
 }
-
+@LOOP_SHOW_HEIGHT: 300px;
 .Loop {
     background-color: @LOW_OPACITY_BACKGROUND;
     font-size: 1.4em;
@@ -103,7 +103,9 @@
     &__show {
         position: relative;
         width: 200px;
+        height: @LOOP_SHOW_HEIGHT;
         margin-right: 10px;
+
         display: inline-block;
         overflow: hidden;
         &__body {
@@ -113,28 +115,38 @@
             white-space: normal;
             font-size: .7em;
             padding: 10px;
+            height: @LOOP_SHOW_HEIGHT / 3;
+            .title {
+                height: 42px; // must be 2 lines of text height
+                overflow: hidden;
+            }
         }
         &__background {
             z-index: 0;
             background-size: cover;
-            height: 200px;
+            height: (@LOOP_SHOW_HEIGHT / 3) * 2;
         }
         &--current-show {
             width: 300px !important;
             min-height: 250px;
             position: relative;
-            .show__body {
+            background-color: black;
+            .Loop__show__body {
                 background-color: transparent;
                 font-size: 1em;
                 color: white;
+                .title {
+                    height: auto;
+                }
             }
-            .show__background {
+            .Loop__show__background {
                 height: auto;
                 position: absolute;
                 top: 0;
                 bottom: 0;
                 left: 0;
                 right: 0;
+                opacity: .3;
             }
         }
     }

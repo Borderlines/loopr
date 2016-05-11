@@ -78,15 +78,6 @@
             controllerAs: 'vm',
             controller: LoopExplorerCtrl,
             link: function(scope, element, attr, vm) {
-                function resizeCurrentShow() {
-                    var heights = element.find('.show').map(function() {
-                        return $(this).innerHeight();
-                    });
-                    var maxHeight = Math.max.apply(null, heights);
-                    // set the heigh for the current show
-                    element.find('.show').css({height: ''});
-                    element.find('.show--current-show').css({height: maxHeight});
-                }
                 function resizeWidth() {
                     var scale = [150, 350];
                     var widths = vm.shows.map(function(show) {
@@ -102,7 +93,6 @@
                 function resizeAll() {
                     $timeout(function() {
                         resizeWidth();
-                        resizeCurrentShow();
                         element.find('.Loop__shows').scrollLeft(0);
                     });
                 }
@@ -110,7 +100,6 @@
                 scope.$watch(function() {
                     return vm.shows;
                 }, resizeAll);
-                angular.element($window).on('resize', resizeCurrentShow);
             }
         };
     }])
