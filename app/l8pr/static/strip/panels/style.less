@@ -99,42 +99,42 @@
     &__shows {
         white-space: nowrap;
         overflow-y: auto;
-        .show {
+    }
+    &__show {
+        position: relative;
+        width: 200px;
+        margin-right: 10px;
+        display: inline-block;
+        overflow: hidden;
+        &__body {
+            background-color: white;
+            z-index: 1;
             position: relative;
-            width: 200px;
-            margin-right: 10px;
-            display: inline-block;
-            overflow: hidden;
-            &__body {
-                background-color: white;
-                z-index: 1;
-                position: relative;
-                white-space: normal;
-                font-size: .7em;
-                padding: 10px;
+            white-space: normal;
+            font-size: .7em;
+            padding: 10px;
+        }
+        &__background {
+            z-index: 0;
+            background-size: cover;
+            height: 200px;
+        }
+        &--current-show {
+            width: 300px !important;
+            min-height: 250px;
+            position: relative;
+            .show__body {
+                background-color: transparent;
+                font-size: 1em;
+                color: white;
             }
-            &__background {
-                z-index: 0;
-                background-size: cover;
-                height: 200px;
-            }
-            &--current-show {
-                width: 300px !important;
-                min-height: 250px;
-                position: relative;
-                .show__body {
-                    background-color: transparent;
-                    font-size: 1em;
-                    color: white;
-                }
-                .show__background {
-                    height: auto;
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                }
+            .show__background {
+                height: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
             }
         }
     }
