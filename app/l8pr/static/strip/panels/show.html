@@ -1,12 +1,21 @@
 <div class="Show" ng-class="{'Show--playing-now': vm.playingNow}">
     <div class="Show__wrapper row">
-        <div class="col-xs-8">
+      <div class="col-xs-12">
+          <div class="Show__cover">
+              <div class="Show__cover__close" ng-click="vm.stripService.previousState()">
+                  <i class="fa fa-compress" aria-hidden="true"></i>
+              </div>
+              <div class="Show__cover__title" ng-bind="vm.show.title"></div>
+              <div class="Show__cover__playing-now" ng-if="vm.playingNow">Show playing now</div>
+          </div>
+      </div>
+      <div class="col-xs-12 col-sm-7">
             <div class="Show__body">
                 <table>
                     <tr ng-repeat="item in vm.show.items">
                         <td class="title">
                             <div class="cell" ng-click="vm.player.playShow(vm.show, $index)">
-                                <i ng-if="vm.player.currentItem === item" class="icon icon-ctrl-play"></i>
+                                <i ng-if="vm.player.currentItem === item" class="fa fa-play-circle" aria-hidden="true"></i>
                                 <span class="index">
                                     <span ng-if="$index < 9">0</span>{{ $index + 1 }}
                                 </span>
@@ -28,12 +37,10 @@
                 </table>
             </div>
         </div>
-        <div class="col-xs-4" style="padding-left: 0; margin-right: 0; margin-left: -15px; padding-right: 0px;">
-            <div class="Show__cover">
-                <div class="Show__cover__close" ng-click="vm.stripService.previousState()">x</div>
-                <div class="Show__cover__title" ng-bind="vm.show.title"></div>
-                <div class="Show__cover__playing-now" ng-if="vm.playingNow">Show playing now</div>
-            </div>
-        </div>
+        <div class="col-xs-12 col-sm-5">
+          <div class="Show__illu"
+               ng-click="vm.player.playShow(show)"
+               ng-style="{'background-image': 'url(' + vm.show.items[0].thumbnail + ')'}">
+
     </div>
 </div>

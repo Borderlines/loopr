@@ -1,9 +1,7 @@
-@SHOW_COVER_COLOR: rgb(63, 61, 61);
-@PLAYING_NOW_COLOR: blue;
-@CELL_HEIGHT: 50px;
+
 
 .Show {
-    max-height: 50vh;
+    max-height: 60vh;
     width: 100%;
     overflow-y: auto;
     &__wrapper {
@@ -12,46 +10,71 @@
         position: relative;
     }
     &--playing-now &__cover {
-        background-color: fade(@PLAYING_NOW_COLOR, 90%);
+        // background-color: fade(@PLAYING_NOW_COLOR, 90%);
+        background-color: @body-bg;
+        color: @PLAYING_NOW_COLOR;
     }
-    &__cover, &__body { // same height
-        min-height: 200px;
+    &__illu { // same height
+      background: fade(@gray-dark, 40);
+      color: white;
+      position: relative;
+      padding: @GENERAL_MARGE;
+      background-repeat: no-repeat;
+      background-position: top right;
+      background-attachment: fixed;
+      background-size: contain;
+    }
+    &__illu, &__body { // same height
+        min-height: 500px;
         padding-bottom: 99999px;
         margin-bottom: -99999px;
     }
     &__cover {
-        position: relative;
-        padding-left: 40px;
-        padding-top: 40px;
-        padding-right: 40px;
-        color: white;
-        background-color: fade(@SHOW_COVER_COLOR, 90%);
+        font-family: @FONT2;
+        color: @text-color;
+        background-color: fade(@body-bg, 95);
         width: 100%;
         box-sizing: padding-box;
+        font-size: 0.8em;
+        padding: 20px 20px;
+        z-index: 1000;
         &__title {
-            font-size: 2em;
+            // font-size: 2em;
+            font-family: @FONT1;
+            font-size: 1.8em;
             font-weight: bold;
+            position: relative;
         }
         &__close {
             position: absolute;
-            right: 20px;
+            right: (@GENERAL_MARGE / 2);
             font-size: 2em;
             top: 20px;
+            z-index: 5;
+            color: @text-color;
         }
+        &__close:hover {color:blue;}
     }
     &__body {
         font-family: @FONT2;
         width: 100%;
-        background-color: rgba(255, 255, 255, 1);
+        background-color: fade(@body-bg, 80);
+        padding-top: (@GENERAL_MARGE / 4) * 3;
         table {
             width: 100%;
             border-spacing:0;
             border-collapse: collapse;
             .cell {
-                height: @CELL_HEIGHT;
+                height: (@CELL_HEIGHT + 15px);
                 overflow: hidden;
                 white-space: nowrap;
+                width: 100%;
+                padding-top: @line-height-computed;
+                padding-bottom: @line-height-computed;
+                padding-right: (@GENERAL_MARGE / 4) * 3;
+
             }
+            .cell:hover { background-color: @body-bg;font-weight: bold;}
             .cover {
                 text-align: right;
                 img {
@@ -60,18 +83,18 @@
             }
             .actions {
                 position: relative;
-                top: 14px;
+                top: 50px;
             }
             .title {
                 .cell {
                     width: 30vw;
                     text-overflow: ellipsis;
                 }
-                padding-left: 40px;
+                padding-left: @GENERAL_MARGE + @line-height-computed * 2;
                 position: relative;
                 .index {
                     position: absolute;
-                    left: 10px;
+                    left: (@GENERAL_MARGE / 4) * 3;
                 }
                 i {
                     font-size: 2em;
@@ -84,7 +107,7 @@
         }
     }
 }
-@LOOP_SHOW_HEIGHT: 300px;
+
 .Loop {
     background-color: @LOW_OPACITY_BACKGROUND;
     font-size: 1.4em;
@@ -104,34 +127,45 @@
         display: inline-block;
         overflow: hidden;
         &__body {
-            background-color: white;
+          font-family: @FONT2;
+            background-color: @body-bg;
             z-index: 1;
             position: relative;
             white-space: normal;
-            font-size: .7em;
-            padding: 10px;
-            height: @LOOP_SHOW_HEIGHT / 3;
+            font-size: .65em;
+            padding: 20px;
+            height: 120px ;
+            // height: @LOOP_SHOW_HEIGHT / 3;
             .title {
+                font-family: @FONT1;
                 height: 42px; // must be 2 lines of text height
                 overflow: hidden;
+                /* font-weight: bold; */
+                font-size: 1.3em;
             }
         }
         &__background {
             z-index: 0;
             background-size: cover;
-            height: (@LOOP_SHOW_HEIGHT / 3) * 2;
+            background-position: top center;
+            height: (@LOOP_SHOW_HEIGHT + 30px); // (@LOOP_SHOW_HEIGHT / 3) * 2;
+            // height: 330px;
+            position: relative;
+            top: (@CELL_HEIGHT * -1);  //-50px
         }
         &--current-show {
-            width: 300px !important;
+            width: 420px !important; //@CURRENT_SHOW_WIDTH
             min-height: 250px;
             position: relative;
-            background-color: black;
+            background-color: fade(@brand-primary, 80);
+            background-blend-mode: multiply;
             .Loop__show__body {
                 background-color: transparent;
                 font-size: 1em;
-                color: white;
+                color: white ; // @body-bg;
                 .title {
                     height: auto;
+                    margin-bottom: 50px;
                 }
             }
             .Loop__show__background {

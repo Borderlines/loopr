@@ -1,7 +1,27 @@
-@GREEN: rgb(0, 170, 160);
-@LOW_OPACITY_BACKGROUND: rgba(218, 212, 212, .7);
+//
+// Variables L8pr
+
+// General
+@PLAYING_NOW_COLOR: @brand-primary;
+@GREEN: @brand-primary; // remove later, replace by @brand-primary
+@LOW_OPACITY_BACKGROUND: fade(@body-bg, 60);
+@GENERAL_MARGE: 50px;
+
+
+// Banner
+@UPPER_STRIP_HEIGHT: 65px;
+
+// Loop
+@LOOP_SHOW_HEIGHT: 300px;
+@CELL_HEIGHT: 50px;
+
+// Shows
+@SHOW_COVER_COLOR: fade(@gray-darker, 70);
+
+// Fonts
 @FONT1: 'Montserrat', sans-serif;
 @FONT2: 'Lekton';
+
 
 
 //
@@ -20,7 +40,7 @@
 @gray-light:             lighten(@gray-base, 46.7%); // #777
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
-@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+@brand-primary:         blue; // darken(#428bca, 6.5%); // #337ab7
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
@@ -34,7 +54,7 @@
 //** Background color for `<body>`.
 @body-bg:               #fff;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            @gray-darker;
 
 //** Global textual link color.
 @link-color:            @brand-primary;
@@ -68,7 +88,7 @@
 //** Unit-less `line-height` for use in components like buttons.
 @line-height-base:        1.428571429; // 20/14
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+@line-height-computed:    10px; // floor((@font-size-base * @line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
@@ -652,14 +672,14 @@
 //##
 
 //** Background color of the whole progress component
-@progress-bg:                 #f5f5f5;
+@progress-bg:                 fade(@body-bg, 20); //#f5f5f5;
 //** Progress bar text color
-@progress-bar-color:          #fff;
+@progress-bar-color:          @body-bg // #fff;
 //** Variable for setting rounded corners on progress bar.
 @progress-border-radius:      @border-radius-base;
 
 //** Default progress bar color
-@progress-bar-bg:             @brand-primary;
+@progress-bar-bg:             @PLAYING_NOW_COLOR;
 //** Success progress bar color
 @progress-bar-success-bg:     @brand-success;
 //** Warning progress bar color

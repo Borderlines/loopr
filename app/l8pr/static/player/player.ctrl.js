@@ -124,12 +124,12 @@
         })
         .add({
             combo: 'up',
-            description: 'next item',
+            description: 'previous item',
             callback: vm.Player.nextItem
         })
         .add({
             combo: 'down',
-            description: 'previous item',
+            description: 'next item',
             callback: vm.Player.previousItem
         });
 }

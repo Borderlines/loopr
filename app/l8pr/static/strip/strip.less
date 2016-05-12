@@ -2,11 +2,11 @@
 // @import "add-to-shows/style.less";
 // @import "header/style.less";
 //
-@UPPER_STRIP_HEIGHT: 74px;
+
 
 .strip {
     display: block;
-    .icon:hover {color: #00A99D;}
+    .icon:hover {color: @brand-primary;}
     &__controls {
         font-size: 1.4em;
         position: relative;
@@ -18,7 +18,9 @@
         &--extended {
             > .row:first-child {
                 div:nth-child(2) {
-                    background-color: fade(@body-bg, 60);
+                    background-color: fade(@body-bg, 55);
+                    font-size: 0.2em !important;
+                    // color: red;
                 }
             }
         }
@@ -46,8 +48,8 @@
             position: relative;
         }
         .progress {
-            margin-left: -15px;
-            margin-right: -15px;
+            /*margin-left: -15px;
+            margin-right: -15px;*/
             margin-bottom: 0px;
         }
     }
@@ -58,4 +60,10 @@
 //     .share.active {color: @GREEN;}
 //     .auto-hide.active {opacity: 1;}
 //     .auto-hide:not(.active) {opacity: .6;}
+}
+
+.strip-header {
+  background-color: @LOW_OPACITY_BACKGROUND;
+  // height: 100px;
+  padding: 20px;
 }
