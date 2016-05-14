@@ -1,12 +1,13 @@
 (function() {
 'use strict';
 
-StripHeaderCtrl.$inject = ['strip', 'login'];
-function StripHeaderCtrl(strip, login) {
+StripHeaderCtrl.$inject = ['strip', 'login', 'Player'];
+function StripHeaderCtrl(strip, login, Player) {
     var vm = this;
     angular.extend(vm, {
-        stripService: strip,
-        login: login
+        loopAuthor: Player.loop.user.username,
+        showsCount: Player.loop.user.loops[0].shows_list.length,
+        currentUser: login.currentUser
     });
 }
 

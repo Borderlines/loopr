@@ -32,14 +32,6 @@
                         Fullscreen.all();
                     }
                 },
-                // panelOpened: false,
-                // openPanel: function(panel_name) {
-                //     if (vm.panelOpened === panel_name) {
-                //         vm.panelOpened = false;
-                //     } else {
-                //         vm.panelOpened = panel_name;
-                //     }
-                // },
                 login: login
             });
         }

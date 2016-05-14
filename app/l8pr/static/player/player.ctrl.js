@@ -1,24 +1,27 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$stateParams', '$timeout', 'login',
+    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$stateParams', '$timeout', 'login', 'loopAuthor',
     '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state'];
-    function PlayerCtrl(Player, Loops, Shows, Accounts, $stateParams, $timeout, login,
+    function PlayerCtrl(Player, Loops, Shows, Accounts, $stateParams, $timeout, login, loopAuthor,
         $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state) {
         var vm = this;
         angular.extend(vm, {
             strip: strip,
-            Player: Player
+            Player: Player,
+            loopAuthor: loopAuthor,
+            showsCount: 0,
+            currentUser: login.currentUser
         });
         $rootScope.Player = Player;
         function getLoopFromUrlOrAuthenticatedUser() {
-            if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
+            if (!angular.isDefined(loopAuthor) || loopAuthor === '' || loopAuthor === '_=_') {
                 return login.login().then(function(user) {
                     $state.go('index', {username:user.username});
                     return user;
                 });
             } else {
-                return Accounts.one('username/' + $stateParams.username).get();
+                return Accounts.one('username/' + loopAuthor).get();
             }
         }
         // from fb authentification

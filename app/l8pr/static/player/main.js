@@ -10,7 +10,12 @@
                 url: '/:username?show&item',
                 controller: 'PlayerCtrl',
                 templateUrl: '/static/player/player.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                resolve: {
+                    loopAuthor: function($stateParams, Accounts) {
+                        return $stateParams.username;
+                    }
+                }
             })
             .state('index.loop', {
                 url: '/loop',
