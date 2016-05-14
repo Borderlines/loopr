@@ -3,8 +3,9 @@
         <l8pr-strip-header></l8pr-strip-header>
     </div>
     <div class="strip__body row" ng-if="vm.stripService.showController">
-        <l8pr-explore-show ng-if="vm.stripService.currentView.name === 'show'"></l8pr-explore-show>
-        <l8pr-explore-loop ng-show="vm.stripService.currentView.name === 'loop'"></l8pr-explore-loop>
+        <div ui-view></div>
+        <!-- <l8pr-explore-show ng-if="vm.stripService.currentView.name === 'show'"></l8pr-explore-show>
+        <l8pr-explore-loop ng-show="vm.stripService.currentView.name === 'loop'"></l8pr-explore-loop> -->
     </div>
     <div class="strip__controls" ng-class="{'strip__controls--extended': vm.stripService.showController}">
         <div class="row" ng-if="vm.stripService.showController">

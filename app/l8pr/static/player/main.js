@@ -6,11 +6,28 @@
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/');
             $stateProvider
-            .state('home', {
+            .state('index', {
                 url: '/:username?show&item',
                 controller: 'PlayerCtrl',
                 templateUrl: '/static/player/player.html',
                 controllerAs: 'vm'
+            })
+            .state('index.loop', {
+                url: '/loop',
+                controller: 'LoopExplorerCtrl',
+                templateUrl: '/static/strip/panels/loop.html',
+                controllerAs: 'vm'
+            })
+            .state('index.show', {
+                url: '/show/:showToExploreId',
+                controller: 'ShowExplorerCtrl',
+                templateUrl: '/static/strip/panels/show.html',
+                controllerAs: 'vm',
+                resolve: {
+                    show: function($stateParams, Shows) {
+                        return Shows.one($stateParams.showToExploreId).get();
+                    }
+                }
             });
         }]);
 })();

@@ -2,9 +2,9 @@
     'use strict';
 
     PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$stateParams', '$timeout', 'login',
-    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip'];
+    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state'];
     function PlayerCtrl(Player, Loops, Shows, Accounts, $stateParams, $timeout, login,
-        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip) {
+        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state) {
         var vm = this;
         angular.extend(vm, {
             strip: strip,
@@ -13,7 +13,10 @@
         $rootScope.Player = Player;
         function getLoopFromUrlOrAuthenticatedUser() {
             if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
-                return login.login();
+                return login.login().then(function(user) {
+                    $state.go('index', {username:user.username});
+                    return user;
+                });
             } else {
                 return Accounts.one('username/' + $stateParams.username).get();
             }

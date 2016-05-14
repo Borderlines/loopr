@@ -18,23 +18,25 @@
         }, reorderShows);
     }
 
-    ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip'];
-    function ShowExplorerCtrl(Player, scope, stripService) {
+    ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show'];
+    function ShowExplorerCtrl(Player, scope, stripService, show) {
         var vm = this;
         angular.extend(vm, {
             stripService: stripService,
-            show: stripService.currentView.object,
-            playingNow: Player.currentShow === stripService.currentView.object,
+            show: show,
+            playingNow: Player.currentShow === show,
             player: Player
         });
         scope.$watch(function() {
             return Player.currentShow;
         }, function(currentShow) {
-            vm.playingNow = currentShow === stripService.currentView.object;
+            vm.playingNow = currentShow === show;
         });
     }
 
     angular.module('loopr.strip')
+    .controller('LoopExplorerCtrl', LoopExplorerCtrl)
+    .controller('ShowExplorerCtrl', ShowExplorerCtrl)
     .directive('infinitScroll', ['$timeout', function($timeout) {
         return {
             transclude: true,
@@ -77,6 +79,7 @@
             templateUrl: '/static/strip/panels/loop.html',
             controllerAs: 'vm',
             controller: LoopExplorerCtrl,
+            // TODO: move this code to a smaller directive
             link: function(scope, element, attr, vm) {
                 function resizeWidth() {
                     var scale = [150, 350];
@@ -102,33 +105,14 @@
                 }, resizeAll);
             }
         };
-    }])
-    .directive('l8prExploreShow', ['$window', '$timeout', function($window, $timeout) {
-        return {
-            restrict: 'E',
-            scope: {},
-            templateUrl: '/static/strip/panels/show.html',
-            controllerAs: 'vm',
-            controller: ShowExplorerCtrl,
-            link: function(scope, element, attr, vm) {
-            }
-        };
     }]);
-    // .directive('l8prShare', function() {
+    // .directive('l8prExploreShow', ['$window', '$timeout', function($window, $timeout) {
     //     return {
     //         restrict: 'E',
-    //         templateUrl: '/static/strip/panels/share.html',
+    //         scope: {},
+    //         templateUrl: '/static/strip/panels/show.html',
     //         controllerAs: 'vm',
-    //         controller: ['Player', '$location', function(Player, $location) {
-    //             var vm = this;
-    //             angular.extend(vm, {
-    //                 Player: Player,
-    //                 link: $location.absUrl(),
-    //                 copyToClipboard: function(text) {
-    //                     window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
-    //                 }
-    //             });
-    //         }]
+    //         controller: ShowExplorerCtrl
     //     };
-    // });
+    // }]);
 })();
