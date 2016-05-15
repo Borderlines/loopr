@@ -3,87 +3,8 @@
 (function() {
     'use strict';
 
-    StripCtrl.$inject = ['$interval', '$scope', 'strip', 'login',
-                         'Fullscreen', 'Accounts', 'gravatarService', 'upperStrip', 'lowerStrip'];
-    function StripCtrl($interval, $scope, stripService, login,
-                       Fullscreen, Accounts, gravatarService, upperStrip, lowerStrip) {
-        var vm = this;
-        angular.extend(vm, {
-            upperStrip: upperStrip,
-            lowerStrip: lowerStrip,
-            stripService: stripService,
-            underlines: []
-        });
-        if ($scope.player) {
-            angular.extend(vm, {
-                previousShow: $scope.player.previousShow,
-                previousItem: $scope.player.previousItem,
-                nextItem: $scope.player.nextItem,
-                nextShow: $scope.player.nextShow,
-                playPause: $scope.player.playPause,
-                setPosition: function($event) {
-                    return $scope.player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
-                },
-                isFullScreen: Fullscreen.isEnabled,
-                toggleFullscreen: function() {
-                    if (Fullscreen.isEnabled()) {
-                        Fullscreen.cancel();
-                    } else {
-                        Fullscreen.all();
-                    }
-                },
-                login: login
-            });
-        }
-        $scope.$on('player.play', function ($event, item, show) {
-            // update avatar
-            Accounts.one(show.user).get()
-            .then(function(user) {
-                $scope.author = user;
-                $scope.avatar = gravatarService.url(user.email, {size: 150, d: 'mm'});
-                return user;
-            });
-        });
-    }
-
-    function bannerService() {
-        var service = {
-            banner: [],
-            setBanner: function(banner) {
-                service.banner = banner;
-            },
-            addQueries: function(queries) {
-                if (queries) {
-                    var underlines = [];
-                    queries.forEach(function(query) {
-                        if (angular.isDefined(query.results) && angular.isDefined(query.results.items)) {
-                            if (query.type === 'twitter') {
-                                query.results.items.forEach(function(tweet) {
-                                    underlines.push('<div class="tweet"><i class="icon-sourcetwitter"></i><a href="https://twitter.com/' +
-                                    tweet.user.screen_name+'/status/'+tweet.id_str +
-                                    '" target="_blank"><b>@'+tweet.user.name+'</b> ' +
-                                    tweet.text + '</a></div>');
-                                });
-                            }
-                            if (query.type === 'rss') {
-                                query.results.items.forEach(function(rss) {
-                                    underlines.push('<div class="rss"><i class="icon-sourcerss"></i><a href="'+rss.link+
-                                    '" target="_blank"><b>'+query.results.title+'</b> ' +
-                                    rss.title+
-                                    '</a></rss>');
-                                });
-                            }
-                        }
-                    });
-                    service.setBanner(underlines);
-                }
-            }
-        };
-        return service;
-    }
-
     angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'loopr.addToShow', 'loopr.stripHeader'])
-        .factory('strip', ['$timeout', 'Player', '$state', function($timeout, Player, $state) {
+        .factory('strip', ['$timeout', '$state', function($timeout, $state) {
             var hideTimeout;
             var service = {
                 showController: true,
@@ -124,25 +45,6 @@
             };
             return service;
         }])
-        .factory('lowerStrip', function() {
-            return bannerService();
-        })
-        .factory('upperStrip', function() {
-            return bannerService();
-        })
-        .directive('strip', function() {
-            return {
-                scope: {
-                    progression: '=',
-                    logo: '=',
-                    player: '='
-                },
-                restrict: 'E',
-                controller: StripCtrl,
-                controllerAs: 'vm',
-                templateUrl: '/static/strip/strip.html'
-            };
-        })
         .directive('time', ['$interval', function($interval) {
             return {
                 restrict: 'E',

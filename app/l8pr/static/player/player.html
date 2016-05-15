@@ -5,14 +5,72 @@
          item="vm.Player.currentItem">
 </youtube>
 <div class="overlay"
-     ng-mousemove="showAndHideStrip()"
+     ng-mousemove="vm.showAndHideStrip()"
      auto-hide-cursor
-     ng-click="vm.Player.playPause()"></div>
-<strip
-       class="strip"
-       ng-class="{'hidden': vm.strip.stripIsHidden}"
-       logo="vm.logo"
-       ng-if="vm.Player.loop"
-       player="vm.Player"
-       progression="vm.Player.currentPosition">
-</strip>
+     ng-click="vm.Player.playPause()">
+</div>
+<div class="container-fuild strip">
+    <div ui-view="header" class="strip__header row" ng-if="vm.$state.current.views.header"></div>
+    <div class="strip__body row" ng-if="vm.stripService.showController">
+        <div ui-view="body"></div>
+    </div>
+    <div class="strip__controls" ng-class="{'strip__controls--extended': vm.stripService.showController}">
+        <div class="row" ng-if="vm.stripService.showController">
+            <div class="banner col-xs-12 col-sm-9">
+                <div class="banner-inner">
+                    <banner lines="vm.upperStrip.banner" transition="scroll" duration="10"></banner>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-right controls-bar">
+                <span ng-click="vm.previousShow()"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+                <span ng-click="vm.previousItem()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                <span ng-click="vm.nextItem()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                <span ng-click="vm.nextShow()"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                <span ng-click="player.toggleMute()">
+                    <i class="fa" ng-class="player.isMuted ? 'fa-volume-off' : 'fa-volume-up'"></i>
+                </span>
+                <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
+                    <i class="fa" ng-class="vm.stripService.isAutoHideEnabled === true ? 'fa-moon-o' : 'fa-sun-o'"></i>
+                </span>
+                <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>
+                <i class="toggle-controller fa fa-bars" ng-click="vm.stripService.toggleController()"></i>
+            </div>
+        </div>
+        <div class="row" ng-if="!vm.stripService.showController">
+            <div class="banner col-xs-10">
+                <div class="banner-inner">
+                    <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
+                </div>
+            </div>
+            <div class="col-xs-2 text-right">
+                <i class="toggle-controller  fa fa-bars" ng-click="vm.stripService.toggleController()" aria-hidden="true"></i>
+            </div>
+        </div>
+        <!-- progress bar -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="progress" ng-click="vm.setPosition($event)">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         aria-valuenow="{{ vm.Player.currentPosition }}"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         ng-style="{width: vm.Player.currentPosition + '%'}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: progress bar -->
+    </div>
+    <div class="strip__feed row">
+        <div class="lower-strip" ng-click="vm.stripService.toggleController()" ng-if="vm.lowerStrip.banner.length > 0">
+            <div class="banner">
+                <div class="banner-inner">
+                    <banner lines="vm.lowerStrip.banner" transition="fade" duration="15"></banner>
+                </div>
+            </div>
+            <time></time>
+            <div style="clear:both"> </div>
+        </div>
+    </div>
+</div>

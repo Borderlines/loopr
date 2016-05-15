@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    Player.$inject = ['$rootScope', 'localStorageService'];
-    function Player($rootScope, localStorageService) {
+    Player.$inject = ['$rootScope', 'localStorageService', '$location'];
+    function Player($rootScope, localStorageService, $location) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -70,6 +70,8 @@
                 index = index || 0;
                 self.currentShow = show;
                 self.currentItem = show.items[index];
+                // deep linking
+                $location.search({show: self.currentShow.id, item: self.currentItem.id});
                 $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
             },
             getNextItem: function() {
@@ -127,6 +129,49 @@
         return self;
     }
 
-    angular.module('loopr.player').factory('Player', Player);
+    function bannerService() {
+        var service = {
+            banner: [],
+            setBanner: function(banner) {
+                service.banner = banner;
+            },
+            addQueries: function(queries) {
+                if (queries) {
+                    var underlines = [];
+                    queries.forEach(function(query) {
+                        if (angular.isDefined(query.results) && angular.isDefined(query.results.items)) {
+                            if (query.type === 'twitter') {
+                                query.results.items.forEach(function(tweet) {
+                                    underlines.push('<div class="tweet"><i class="icon-sourcetwitter"></i><a href="https://twitter.com/' +
+                                    tweet.user.screen_name+'/status/'+tweet.id_str +
+                                    '" target="_blank"><b>@'+tweet.user.name+'</b> ' +
+                                    tweet.text + '</a></div>');
+                                });
+                            }
+                            if (query.type === 'rss') {
+                                query.results.items.forEach(function(rss) {
+                                    underlines.push('<div class="rss"><i class="icon-sourcerss"></i><a href="'+rss.link+
+                                    '" target="_blank"><b>'+query.results.title+'</b> ' +
+                                    rss.title+
+                                    '</a></rss>');
+                                });
+                            }
+                        }
+                    });
+                    service.setBanner(underlines);
+                }
+            }
+        };
+        return service;
+    }
+
+    angular.module('loopr.player')
+    .factory('Player', Player)
+    .factory('lowerStrip', function() {
+        return bannerService();
+    })
+    .factory('upperStrip', function() {
+        return bannerService();
+    });
 
 })();

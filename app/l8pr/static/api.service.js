@@ -24,8 +24,8 @@
     }
 
 
-    Accounts.$inject = ['Restangular'];
-    function Accounts(Restangular) {
+    Accounts.$inject = ['Restangular', 'Loops', 'Shows'];
+    function Accounts(Restangular, Loops, Shows) {
         Restangular.extendModel('users', function(model) {
             if (angular.isDefined(model.loops)) {
                 model.loops = model.loops.map(function(loop) {
@@ -47,17 +47,17 @@
         return Restangular.service('auth');
     }
 
-    Loops.$inject = ['Restangular'];
-    function Loops(Restangular) {
+    Loops.$inject = ['Restangular', 'Shows'];
+    function Loops(Restangular, Shows) {
         Restangular.extendModel('loops', function(model) {
-            if (angular.isDefined(model.shows)) {
-                model.shows = model.shows.map(function(show) {
+            if (angular.isDefined(model.shows_list)) {
+                model.shows_list = model.shows_list.map(function(show) {
                     return Restangular.restangularizeElement(null, show, 'shows');
                 });
             }
             model.duration = function() {
-                if (angular.isDefined(model.shows)) {
-                    return model.shows.reduce(function(a, b) {return  a + b.duration();}, 0);
+                if (angular.isDefined(model.shows_list)) {
+                    return model.shows_list.reduce(function(a, b) {return  a + b.duration();}, 0);
                 }
             };
             return model;
@@ -78,57 +78,5 @@
         .factory('Auth', Auth)
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
-        }])
-        .directive('addToFavorite', [function() {
-            return {
-                template: ['<span class="add-to-favs" ng-class="{\'active\': vm.inFavorites}"',
-                           ' ng-click="vm.addToFavs(); $event.stopPropagation();">',
-                           '<i class="fa fa-star"></i></span>'].join(''),
-                scope: {
-                    user: '='
-                },
-                controllerAs: 'vm',
-                controller: ['login', '$scope', function(login, $scope) {
-                    var vm = this;
-                    angular.extend(vm, {
-                        inFavorites: undefined,
-                        addToFavs: function() {
-                            login.login().then(function(user) {
-                                user.favorites = user.favorites || [];
-                                var to_fav = $scope.user;
-                                // add
-                                if (user.favorites.indexOf(to_fav) === -1) {
-                                    user.favorites.push(to_fav);
-                                    user.patch(_.pick(user, 'favorites'));
-                                    vm.inFavorites = true;
-                                // remove
-                                } else {
-                                    user.favorites.splice(user.favorites.indexOf(to_fav), 1);
-                                    user.patch(_.pick(user, 'favorites'));
-                                    vm.inFavorites = false;
-                                }
-                            });
-                        }
-                    });
-                    // // init fav state
-                    // login.login().then(function(user) {
-                    //     vm.inFavorites = user.favorites.indexOf($scope.user) > -1;
-                    // });
-                }]
-            };
-        }])
-        .filter('seconds', function() {
-            return function(time) {
-                if (angular.isDefined(time) && angular.isNumber(time) && !isNaN(time)) {
-                    var hours = Math.floor(time / 3600);
-                    time = time - hours * 3600;
-                    var minutes = Math.floor(time / 60);
-                    var time_str = '';
-                    if (hours > 0) {
-                        time_str += hours + 'h';
-                    }
-                    return time_str + minutes + 'm';
-                }
-            };
-        });
+        }]);
 })();

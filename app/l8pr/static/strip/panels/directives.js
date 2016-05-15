@@ -106,13 +106,4 @@
             }
         };
     }]);
-    // .directive('l8prExploreShow', ['$window', '$timeout', function($window, $timeout) {
-    //     return {
-    //         restrict: 'E',
-    //         scope: {},
-    //         templateUrl: '/static/strip/panels/show.html',
-    //         controllerAs: 'vm',
-    //         controller: ShowExplorerCtrl
-    //     };
-    // }]);
 })();

@@ -12,6 +12,7 @@ function StripHeaderCtrl(strip, login, Player) {
 }
 
 angular.module('loopr.stripHeader', [])
+.controller('StripHeaderCtrl', StripHeaderCtrl)
 .directive('l8prStripHeader', [function() {
     return {
             scope: {},

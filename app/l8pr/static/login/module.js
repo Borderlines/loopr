@@ -19,13 +19,10 @@ angular.module('loopr.login', ['loopr.api'])
         controllerAs: 'vm'
     };
 })
-.service('login', ['Accounts', '$rootScope', '$location', '$window', 'Auth',
-function(Accounts, $rootScope, $location, $window, Auth) {
+.service('login', ['Accounts', '$rootScope', 'Auth',
+function(Accounts, $rootScope, Auth) {
     $rootScope.user = {};
     var service = {
-        loginWithFb: function() {
-            $window.location.href = '/auth/login/facebook';
-        },
         logout: function() {
             service.currentUser = undefined;
             return Auth.one('logout').get();

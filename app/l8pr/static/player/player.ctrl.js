@@ -1,77 +1,43 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Loops', 'Shows', 'Accounts', '$stateParams', '$timeout', 'login', 'loopAuthor',
-    '$rootScope', '$location', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state'];
-    function PlayerCtrl(Player, Loops, Shows, Accounts, $stateParams, $timeout, login, loopAuthor,
-        $rootScope, $location, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state) {
+    PlayerCtrl.$inject = ['Player', 'Shows', 'Accounts', '$stateParams', '$timeout', 'login', 'loopAuthor',
+    '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip'];
+    function PlayerCtrl(Player, Shows, Accounts, $stateParams, $timeout, login, loopAuthor,
+        $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService) {
         var vm = this;
         angular.extend(vm, {
+            $state: $state,
             strip: strip,
             Player: Player,
             loopAuthor: loopAuthor,
             showsCount: 0,
-            currentUser: login.currentUser
-        });
-        $rootScope.Player = Player;
-        function getLoopFromUrlOrAuthenticatedUser() {
-            if (!angular.isDefined(loopAuthor) || loopAuthor === '' || loopAuthor === '_=_') {
-                return login.login().then(function(user) {
-                    $state.go('index', {username:user.username});
-                    return user;
-                });
-            } else {
-                return Accounts.one('username/' + loopAuthor).get();
-            }
-        }
-        // from fb authentification
-        getLoopFromUrlOrAuthenticatedUser().then(function(user) {
-            var loop = user.loops[0];
-            loop.user = user;
-            // shuffle ?
-            function shuffle(o) {
-                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-                return o;
-            }
-            loop.shows_list.forEach(function(show) {
-                if (show.settings && show.settings.shuffle) {
-                    var item_to_save;
-                    if (angular.isDefined($stateParams.item)) {
-                        item_to_save = _.find(show.items, function(link) {
-                            return link.id === $stateParams.item;
-                        });
-                    }
-                    shuffle(show.items);
-                    if (angular.isDefined(item_to_save)) {
-                        show.items.splice(0, 0, show.items.splice(show.items.indexOf(item_to_save), 1)[0]);
-                    }
+            currentUser: login.currentUser,
+            upperStrip: upperStrip,
+            lowerStrip: lowerStrip,
+            stripService: stripService,
+            previousShow: Player.previousShow,
+            previousItem: Player.previousItem,
+            nextItem: Player.nextItem,
+            nextShow: Player.nextShow,
+            playPause: Player.playPause,
+            setPosition: function($event) {
+                return Player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
+            },
+            isFullScreen: Fullscreen.isEnabled,
+            toggleFullscreen: function() {
+                if (Fullscreen.isEnabled()) {
+                    Fullscreen.cancel();
+                } else {
+                    Fullscreen.all();
                 }
-            });
-            var show = _.find(loop.shows_list, function(show) { return show.id.toString() === $stateParams.show;});
-            if (!angular.isDefined(show) && $stateParams.show) {
-                show = Shows.one($stateParams.show).get().then(function(show) {
-                    loop.shows_list.push(show);
-                    return show;
-                });
-            }
-            return $q.when(show).then(function(show) {
-                Player.setLoop(loop);
-                lowerStrip.addQueries(loop.strip_messages);
-                vm.loop = loop;
-                var item_index;
-                if (show && $stateParams.item) {
-                    item_index = _.findIndex(show.items, function(link) {
-                        return parseInt($stateParams.item, 10) === parseInt(link.id, 10);
-                    });
-                }
-                Player.playShow(show, item_index);
-                return loop;
-            });
+            },
+            login: login,
+            showAndHideStrip: _.throttle(strip.showAndHide, 500)
         });
-        $scope.showAndHideStrip = _.throttle(strip.showAndHide, 500);
         $scope.$on('player.play', function ($event, item, show) {
             var lines = [item.title,
-                        ['Show', '<b>'+show.title+'</b>', 'by', vm.loop.user.username].join(' ')];
+                        ['Show', '<b>'+show.title+'</b>', 'by', vm.loopAuthor.username].join(' ')];
             if (item.subtitle) {
                 lines.push(item.subtitle);
             }
@@ -81,8 +47,6 @@
             if (strip.isAutoHideEnabled) {
                 strip.showAndHide();
             }
-            // deep linking
-            $location.search({show: show.id, item: item.id});
         });
         // HOTKEYS
         hotkeys.bindTo($scope)
@@ -166,5 +130,39 @@
             }
         };
     }]);
+    // .directive('addToFavorite', [function() {
+    //     return {
+    //         template: ['<span class="add-to-favs" ng-class="{\'active\': vm.inFavorites}"',
+    //                    ' ng-click="vm.addToFavs(); $event.stopPropagation();">',
+    //                    '<i class="fa fa-star"></i></span>'].join(''),
+    //         scope: {
+    //             user: '='
+    //         },
+    //         controllerAs: 'vm',
+    //         controller: ['login', '$scope', function(login, $scope) {
+    //             var vm = this;
+    //             angular.extend(vm, {
+    //                 inFavorites: undefined,
+    //                 addToFavs: function() {
+    //                     login.login().then(function(user) {
+    //                         user.favorites = user.favorites || [];
+    //                         var to_fav = $scope.user;
+    //                         // add
+    //                         if (user.favorites.indexOf(to_fav) === -1) {
+    //                             user.favorites.push(to_fav);
+    //                             user.patch(_.pick(user, 'favorites'));
+    //                             vm.inFavorites = true;
+    //                         // remove
+    //                         } else {
+    //                             user.favorites.splice(user.favorites.indexOf(to_fav), 1);
+    //                             user.patch(_.pick(user, 'favorites'));
+    //                             vm.inFavorites = false;
+    //                         }
+    //                     });
+    //                 }
+    //             });
+    //         }]
+    //     };
+    // }]);
 
 })();
