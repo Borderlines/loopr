@@ -95,12 +95,12 @@
         .add({
             combo: 'up',
             description: 'previous item',
-            callback: vm.Player.nextItem
+            callback: vm.Player.previousItem
         })
         .add({
             combo: 'down',
             description: 'next item',
-            callback: vm.Player.previousItem
+            callback: vm.Player.nextItem
         });
 }
 
