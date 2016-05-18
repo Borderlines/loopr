@@ -56,8 +56,6 @@
                                 });
                             }
                             return $q.when(show).then(function(show) {
-                                // lowerStrip.addQueries(loop.strip_messages);
-                                // vm.loop = loop;
                                 var item_index;
                                 if (show && $stateParams.item) {
                                     item_index = _.findIndex(show.items, function(link) {
