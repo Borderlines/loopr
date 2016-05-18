@@ -18,7 +18,7 @@
       background: fade(@gray-dark, 40);
       color: white;
       position: relative;
-      padding: @GENERAL_MARGE;
+      padding: @line-height-computed * 2;
       background-repeat: no-repeat;
       background-position: top right;
       background-attachment: fixed;
@@ -47,7 +47,7 @@
         }
         &__close {
             position: absolute;
-            right: (@GENERAL_MARGE / 2);
+            right: (@line-height-computed * 2);
             font-size: 2em;
             top: 20px;
             z-index: 5;
@@ -59,7 +59,7 @@
         font-family: @FONT2;
         width: 100%;
         background-color: fade(@body-bg, 80);
-        padding-top: (@GENERAL_MARGE / 4) * 3;
+        padding-top: (@line-height-computed * 2);
         table {
             width: 100%;
             border-spacing:0;
@@ -71,7 +71,7 @@
                 width: 100%;
                 padding-top: @line-height-computed;
                 padding-bottom: @line-height-computed;
-                padding-right: (@GENERAL_MARGE / 4) * 3;
+                padding-right: (@line-height-computed * 2);
 
             }
             .cell:hover { background-color: @body-bg;font-weight: bold;}
@@ -90,11 +90,11 @@
                     width: 30vw;
                     text-overflow: ellipsis;
                 }
-                padding-left: @GENERAL_MARGE + @line-height-computed * 2;
+                padding-left: (@line-height-computed * 2);
                 position: relative;
                 .index {
                     position: absolute;
-                    left: (@GENERAL_MARGE / 4) * 3;
+                    left: (@line-height-computed * 2);
                 }
                 i {
                     font-size: 2em;
