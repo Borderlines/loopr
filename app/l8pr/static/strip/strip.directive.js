@@ -13,7 +13,7 @@
                         $state.go(indexStateName);
                     } else {
                         // TODO: restore saved previous state
-                        $state.go(indexStateName + '.loop');
+                        $state.go(indexStateName + '.open.loop');
                     }
                 },
                 isAutoHideEnabled: false,

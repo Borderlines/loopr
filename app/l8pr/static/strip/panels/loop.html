@@ -4,7 +4,7 @@
              ng-repeat="show in vm.shows"
              ng-class="{'Loop__show--current-show': $index === 0}"
              ng-style="{width: getWidth(show)}">
-             <div class="Loop__show__body" ui-sref="index.show({showToExploreId: show.id})">
+             <div class="Loop__show__body" ui-sref="index.open.show({showToExploreId: show.id})">
                 <div class="title">
                     {{ show.title }}
                 </div>

@@ -10,9 +10,10 @@
      ng-click="vm.Player.playPause()">
 </div>
 <div class="container-fluid strip">
-    <div ui-view="header" ng-if="vm.$state.current.views.header"></div>
+
+    <div ui-view="header"></div>
     <div class="strip__body row">
-        <div ui-view="body"></div>
+        <div ui-view='body'></div>
     </div>
     <div class="strip__controls" ng-class="{'strip__controls--extended': vm.$state.current.name != 'index'}">
         <div class="row" ng-if="vm.$state.current.name != 'index'">

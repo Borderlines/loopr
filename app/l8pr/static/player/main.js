@@ -71,18 +71,27 @@
                     }]
                 }
             })
-            .state('index.loop', {
+            .state('index.open', {
+                abstract: true,
+                views: {
+                    header: headerState,
+                    body: {
+                        template: '<div ui-view="body"></div>'
+                    }
+                }
+            })
+            .state('index.open.loop', {
                 url: '/loop',
                 views: {
                     body: {
                         controller: 'LoopExplorerCtrl',
                         templateUrl: '/static/strip/panels/loop.html',
                         controllerAs: 'vm'
-                    },
-                    header: headerState
+                    }
+
                 }
             })
-            .state('index.show', {
+            .state('index.open.show', {
                 url: '/show/:showToExploreId',
                 views: {
                     body: {
@@ -94,11 +103,10 @@
                                 return Shows.one($stateParams.showToExploreId).get();
                             }
                         }
-                    },
-                    header: headerState
+                    }
                 }
             })
-            .state('index.search', {
+            .state('index.open.search', {
                 url: '/search?q',
                 views: {
                     body: {
@@ -115,8 +123,7 @@
                                 });
                             }
                         }
-                    },
-                    header: headerState
+                    }
                 }
             });
         }])

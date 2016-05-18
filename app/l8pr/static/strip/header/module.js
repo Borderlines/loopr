@@ -9,7 +9,7 @@ function StripHeaderCtrl(strip, login, Player,$state) {
         showsCount: Player.loop.user.loops[0].shows_list.length,
         currentUser: login.currentUser,
         search: function(query) {
-            $state.go('index.search', {q: query});
+            $state.go('index.open.search', {q: query});
         }
     });
 }
