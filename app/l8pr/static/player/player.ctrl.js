@@ -54,6 +54,14 @@
         $scope.$on('player.play', function ($event, item, show) {
             setBanner(item, show);
         });
+        $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams){
+            if (toState.name === fromState.name) {
+                console.log('!!prevent!!!');
+                event.preventDefault();
+            }
+
+        });
         // HOTKEYS
         hotkeys.bindTo($scope)
         .add({

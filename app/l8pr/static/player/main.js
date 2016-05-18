@@ -116,6 +116,9 @@
                                 return $stateParams.q;
                             },
                             results: function(query, Items) {
+                                if (!query) {
+                                    return [];
+                                }
                                 return Items.post({url: query}).then(function(item) {
                                     return [item];
                                 });
