@@ -4,6 +4,11 @@
     angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login',
                                     'cfp.hotkeys', 'loopr.player.youtube', 'FBAngular', 'ui.router'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+            var headerState = {
+                controller: 'StripHeaderCtrl',
+                templateUrl: '/static/strip/header/template.html',
+                controllerAs: 'vm'
+            };
             $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('index', {
@@ -60,7 +65,6 @@
                                     });
                                 }
                                 Player.playShow(show, item_index);
-                                // return loop;
                                 return user;
                             });
                         });
@@ -75,11 +79,7 @@
                         templateUrl: '/static/strip/panels/loop.html',
                         controllerAs: 'vm'
                     },
-                    header: {
-                        controller: 'StripHeaderCtrl',
-                        templateUrl: '/static/strip/header/template.html',
-                        controllerAs: 'vm'
-                    }
+                    header: headerState
                 }
             })
             .state('index.show', {
@@ -95,11 +95,28 @@
                             }
                         }
                     },
-                    header: {
-                        controller: 'StripHeaderCtrl',
-                        templateUrl: '/static/strip/header/template.html',
-                        controllerAs: 'vm'
-                    }
+                    header: headerState
+                }
+            })
+            .state('index.search', {
+                url: '/search?q',
+                views: {
+                    body: {
+                        controller: 'SearchCtrl',
+                        templateUrl: '/static/strip/panels/search.html',
+                        controllerAs: 'vm',
+                        resolve: {
+                            query: function($stateParams) {
+                                return $stateParams.q;
+                            },
+                            results: function(query, Items) {
+                                return Items.post({url: query}).then(function(item) {
+                                    return [item];
+                                });
+                            }
+                        }
+                    },
+                    header: headerState
                 }
             });
         }])

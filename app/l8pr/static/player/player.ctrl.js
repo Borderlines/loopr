@@ -36,8 +36,11 @@
             showAndHideStrip: _.throttle(strip.showAndHide, 500)
         });
         $scope.$on('player.play', function ($event, item, show) {
-            var lines = [item.title,
-                        ['Show', '<b>'+show.title+'</b>', 'by', vm.loopAuthor.username].join(' ')];
+            // FIXME
+            var lines = [item.title];
+            if (show) {
+                lines.push(['Show', '<b>'+show.title+'</b>', 'by', vm.loopAuthor.username].join(' '));
+            }
             if (item.subtitle) {
                 lines.push(item.subtitle);
             }

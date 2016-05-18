@@ -65,6 +65,11 @@
         return Restangular.service('loops');
     }
 
+    Items.$inject = ['Restangular'];
+    function Items(Restangular) {
+        return Restangular.service('items');
+    }
+
     angular.module('loopr.api', ['restangular', 'LocalStorageModule'])
         .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
             localStorageServiceProvider
@@ -74,9 +79,28 @@
         }])
         .factory('Shows', Shows)
         .factory('Loops', Loops)
+        .factory('Items', Items)
         .factory('Accounts', Accounts)
         .factory('Auth', Auth)
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
+            RestangularProvider.setRequestSuffix('/');
+            // X-CSRFToken
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = $.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            RestangularProvider.setDefaultHeaders({'X-CSRFToken': getCookie('csrftoken')});
         }]);
 })();

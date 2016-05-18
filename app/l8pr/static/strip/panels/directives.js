@@ -1,6 +1,18 @@
 (function() {
     'use strict';
 
+    SearchCtrl.$inject = ['query', 'results', 'Player'];
+    function SearchCtrl(query, results, Player) {
+        var vm = this;
+        angular.extend(vm, {
+            query: query,
+            results: results,
+            play: function(item) {
+                Player.playItem(item);
+            }
+        });
+    }
+
     LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip'];
     function LoopExplorerCtrl(Player, scope, stripService) {
         var vm = this;
@@ -35,6 +47,7 @@
     }
 
     angular.module('loopr.strip')
+    .controller('SearchCtrl', SearchCtrl)
     .controller('LoopExplorerCtrl', LoopExplorerCtrl)
     .controller('ShowExplorerCtrl', ShowExplorerCtrl)
     .directive('infinitScroll', ['$timeout', function($timeout) {

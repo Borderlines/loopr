@@ -2,7 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import signals
 from django.conf import settings
+from apiclient.discovery import build as Apiclient
+import requests
 import urllib
+import soundcloud
+from requests import HTTPError
 import datetime
 import re
 # TODO: favorites in accounts
@@ -65,12 +69,12 @@ class Show(models.Model):
 
 
 class Item(models.Model):
-    show = models.ForeignKey(Show, related_name='items', on_delete=models.CASCADE)
+    show = models.ForeignKey(Show, related_name='items', on_delete=models.CASCADE, null=True, blank=True)
     # meta
     title = models.CharField(max_length=255, null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
     thumbnail = models.URLField(max_length=200, null=True, blank=True)
-    provider_name = models.CharField(max_length=255, choices=PROVIDER_CHOICES)
+    provider_name = models.CharField(max_length=255, null=True, blank=True, choices=PROVIDER_CHOICES)
     html = models.TextField(null=True, blank=True)
     duration = models.PositiveIntegerField(null=True, blank=True)
     url = models.URLField(max_length=200)
@@ -83,7 +87,6 @@ class Item(models.Model):
 
 
 def get_youtube_duration(url):
-    from apiclient.discovery import build
 
     def video_id(value):
         """
@@ -106,7 +109,7 @@ def get_youtube_duration(url):
                 return query.path.split('/')[2]
         return None
 
-    youtube = build('youtube', 'v3', developerKey=getattr(settings, 'GOOGLE_API_KEY'))
+    youtube = Apiclient('youtube', 'v3', developerKey=getattr(settings, 'GOOGLE_API_KEY'))
     search_response = youtube.videos().list(
         part='contentDetails',
         id=video_id(url),
@@ -132,8 +135,6 @@ def save_profile(backend, user, response, *args, **kwargs):
 
 
 def get_soundcloud_duration(url):
-    import soundcloud
-    from requests import HTTPError
     client = soundcloud.Client(client_id='847e61a8117730d6b30098cfb715608c')
     try:
         return round(client.get('/resolve', url=url).duration / 1000)
@@ -142,6 +143,22 @@ def get_soundcloud_duration(url):
 
 
 def completeItem(sender, instance, created, **kwargs):
+    if not instance.provider_name:
+        data = requests.get('http://iframe.ly/api/iframely?url=%s&api_key=%s' % (
+                            instance.url, getattr(settings, 'IFRAMELY_API_KEY'))).json()
+        data = {
+            'title': data['meta']['title'],
+            'author_name': data['meta'].get('author'),
+            'thumbnail': data['links']['thumbnail'][0]['href'],
+            'provider_name': data['meta'].get('site'),
+            'html': data['html'],
+            'duration': data['meta'].get('duration'),
+            'url': data['meta'].get('canonical'),
+            'description': data['meta'].get('description')
+        }
+        for key, value in data.items():
+            setattr(instance, key, value)
+        instance.save()
     if not instance.duration:
         if instance.provider_name == 'YouTube':
             instance.duration = get_youtube_duration(instance.url)

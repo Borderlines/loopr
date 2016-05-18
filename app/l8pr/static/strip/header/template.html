@@ -1,11 +1,18 @@
 <div class="row">
     <div class="strip__header">
-        <div class="strip__header__title col-xs-10">
+        <div ng-if="!vm.searchBarVisible" class="strip__header__title col-xs-10">
             <strong>{{ vm.loopAuthor }}</strong>'s loop
             {{ vm.showsCount }} Shows
         </div>
+        <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-10">
+            <form ng-submit="vm.search(vm.searchQuery)">
+                <input ng-model="vm.searchQuery"/>
+            </form>
+        </div>
         <div class="col-xs-2 text-right">
-            <i class="material-icons">search</i>
+            <a ng-if="!vm.searchBarVisible" ng-click="vm.searchBarVisible = !vm.searchBarVisible">
+                <i class="material-icons">search</i>
+            </a>
             <div class="current-user" ng-if="vm.currentUser"
                 ng-style="{'background-image': 'url(' + vm.currentUser.profile.avatar + ')'}">
             </div>

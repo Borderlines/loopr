@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    Player.$inject = ['$rootScope', 'localStorageService', '$location'];
-    function Player($rootScope, localStorageService, $location) {
+    Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state'];
+    function Player($rootScope, localStorageService, $location, $state) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -34,7 +34,14 @@
                 $rootScope.$broadcast('player.toggleMute');
                 localStorageService.set('muted', self.isMuted);
             },
+            playItem: function(item) {
+                var currentIndex = self.currentShow.items.indexOf(self.currentItem);
+                var show = angular.copy(self.currentShow);
+                show.items.splice(currentIndex + 1, 0, item);
+                self.playShow(show, currentIndex + 1);
+            },
             playShow: function(show, index) {
+                console.log('playShow', show, index);
                 if (!angular.isDefined(show)) {
                     var now = new Date(),
                     then = new Date(
