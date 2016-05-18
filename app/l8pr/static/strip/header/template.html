@@ -6,7 +6,9 @@
         </div>
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-10">
             <form ng-submit="vm.search(vm.searchQuery)">
-                <input ng-model="vm.searchQuery"/>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="vm.searchQuery" placeholder="Search">
+                </div>
             </form>
         </div>
         <div class="col-xs-2 text-right">

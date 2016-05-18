@@ -56,8 +56,9 @@
         });
         $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
-            if (toState.name === fromState.name) {
-                console.log('!!prevent!!!');
+            // FIXME
+            if (toState.name !== 'index.open.search' && toState.name === fromState.name) {
+                console.log('!!prevent!!!', toState);
                 event.preventDefault();
             }
 
