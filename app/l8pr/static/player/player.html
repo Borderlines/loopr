@@ -11,11 +11,11 @@
 </div>
 <div class="container-fluid strip">
     <div ui-view="header" ng-if="vm.$state.current.views.header"></div>
-    <div class="strip__body row" ng-if="vm.stripService.showController">
+    <div class="strip__body row">
         <div ui-view="body"></div>
     </div>
-    <div class="strip__controls" ng-class="{'strip__controls--extended': vm.stripService.showController}">
-        <div class="row" ng-if="vm.stripService.showController">
+    <div class="strip__controls" ng-class="{'strip__controls--extended': vm.$state.current.name != 'index'}">
+        <div class="row" ng-if="vm.$state.current.name != 'index'">
             <div class="banner col-xs-12 col-sm-9">
                 <div class="banner-inner">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="10"></banner>
@@ -37,7 +37,7 @@
                 <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_up</i>
             </div>
         </div>
-        <div class="row" ng-if="!vm.stripService.showController">
+        <div class="row" ng-if="vm.$state.current.name === 'index'">
             <div class="banner col-xs-10">
                 <div class="banner-inner">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>

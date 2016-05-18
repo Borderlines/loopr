@@ -7,7 +7,6 @@
         .factory('strip', ['$timeout', '$state', function($timeout, $state) {
             var hideTimeout;
             var service = {
-                showController: true,
                 toggleController: function() {
                     var indexStateName = 'index';
                     if ($state.current.name !== indexStateName) {
