@@ -41,7 +41,6 @@
                 self.playShow(show, currentIndex + 1);
             },
             playShow: function(show, index) {
-                console.log('playShow', show, index);
                 if (!angular.isDefined(show)) {
                     var now = new Date(),
                     then = new Date(

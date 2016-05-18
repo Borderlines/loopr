@@ -35,8 +35,7 @@
             login: login,
             showAndHideStrip: _.throttle(strip.showAndHide, 500)
         });
-        $scope.$on('player.play', function ($event, item, show) {
-            // FIXME
+        function setBanner(item, show) {
             var lines = [item.title];
             if (show) {
                 lines.push(['Show', '<b>'+show.title+'</b>', 'by', vm.loopAuthor.username].join(' '));
@@ -50,6 +49,10 @@
             if (strip.isAutoHideEnabled) {
                 strip.showAndHide();
             }
+        }
+        setBanner(vm.Player.currentItem, vm.Player.currentShow);
+        $scope.$on('player.play', function ($event, item, show) {
+            setBanner(item, show);
         });
         // HOTKEYS
         hotkeys.bindTo($scope)
