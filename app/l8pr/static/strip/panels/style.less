@@ -1,5 +1,3 @@
-
-
 .Search {
     background-color:  @body-bg;
 
@@ -8,109 +6,62 @@
     max-height: 60vh;
     width: 100%;
     overflow-y: auto;
-    &__wrapper {
-        box-sizing: border-box;
-        overflow: hidden;
-        position: relative;
-    }
-    &--playing-now &__cover {
-        // background-color: fade(@PLAYING_NOW_COLOR, 90%);
-        background-color: @body-bg;
-        color: @PLAYING_NOW_COLOR;
-    }
-    &__illu { // same height
-      background: fade(@gray-dark, 40);
-      color: white;
-      position: relative;
-      padding: @line-height-computed * 2;
-      background-repeat: no-repeat;
-      background-position: top right;
-      background-attachment: fixed;
-      background-size: contain;
-    }
-    &__illu, &__body { // same height
-        min-height: 500px;
-        padding-bottom: 99999px;
-        margin-bottom: -99999px;
-    }
+    box-sizing: border-box;     // ex .wrapper
+    //overflow: hidden;           // ex .wrapper
+    position: relative;         // ex .wrapper
+
     &__cover {
-        font-family: @FONT2;
+        font-family: @FONT1;
+        width: 100% ;
+        min-height: @UPPER_STRIP_HEIGHT;
         color: @text-color;
-        background-color: fade(@body-bg, 95);
-        width: 100%;
+        background-color: @body-bg;
+        top: @line-height-computed * 2;
+        bottom: @line-height-computed * 2;
         box-sizing: padding-box;
-        font-size: 0.8em;
-        padding: 20px 20px;
-        z-index: 1000;
-        &__title {
-            // font-size: 2em;
-            font-family: @FONT1;
+        // z-index: 1000;
+        .title {
             font-size: 1.8em;
             font-weight: bold;
             position: relative;
+            vertical-align: middle;
+            z-index:1000;
         }
-        &__close {
-            position: absolute;
-            right: (@line-height-computed * 2);
-            font-size: 2em;
-            top: 20px;
-            z-index: 5;
-            color: @text-color;
-        }
-        &__close:hover {color:blue;}
-    }
-    &__body {
-        font-family: @FONT2;
-        width: 100%;
-        background-color: fade(@body-bg, 80);
-        padding-top: (@line-height-computed * 2);
-        table {
-            width: 100%;
-            border-spacing:0;
-            border-collapse: collapse;
-            .cell {
-                height: (@CELL_HEIGHT + 15px);
-                overflow: hidden;
-                white-space: nowrap;
-                width: 100%;
-                padding-top: @line-height-computed;
-                padding-bottom: @line-height-computed;
-                padding-right: (@line-height-computed * 2);
+        .details {
+            font-size: 1em;
+            position: relative;
 
-            }
-            .cell:hover { background-color: @body-bg;font-weight: bold;}
-            .cover {
-                text-align: right;
-                img {
-                    height: @CELL_HEIGHT;
-                }
-            }
-            .actions {
-                position: relative;
-                top: 50px;
-            }
-            .title {
-                .cell {
-                    width: 30vw;
-                    text-overflow: ellipsis;
-                }
-                padding-left: (@line-height-computed * 2);
-                position: relative;
-                .index {
-                    position: absolute;
-                    left: (@line-height-computed * 2);
-                }
-                i {
-                    font-size: 2em;
-                    color: @PLAYING_NOW_COLOR;
-                    top: 18px;
-                    left: 5px;
-                    position: absolute;
-                }
-            }
+        }
+        .actions {
+            position: absolute;
+            text-align: right;
+            &:hover{color:blue;}
         }
     }
+    &__listItems, &__illu { // same height
+        min-height: 500px;
+    }
+
+    &__illu {
+        background-color: purple;
+        position: relative;
+    }
+
+    &__listItems {
+        font-family: @FONT2;
+        //width: 100%;
+        background-color: fade(@body-bg, 80);
+        // padding-top: (@line-height-computed * 2);
+        &__item {
+            .title {}
+            .details {}
+            .actions {}
+        }
+    }
+    &--playingNow {}
+    &--edit {}
 }
+
 
 .Loop {
     background-color: @LOW_OPACITY_BACKGROUND;
