@@ -13,8 +13,8 @@ html, body, div[ng-view] {
     overflow: hidden;
     margin: 0;
     background-color: #1A1A1A;
+    transform: translateZ(0);  /* activation de l'AM */
 }
-
 iframe {
     position: absolute;
     z-index: 5;
@@ -46,7 +46,6 @@ iframe {
             left: 0;
             background-repeat: repeat;
         }
-
     }
     &.symmetry {
         img {width: 50%;}
@@ -72,7 +71,6 @@ iframe {
         height: 100%;
     }
 }
-
 .overlay {
     position: absolute;
     z-index: 9;

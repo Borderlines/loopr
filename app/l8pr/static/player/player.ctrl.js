@@ -51,7 +51,7 @@
         // HOTKEYS
         hotkeys.bindTo($scope)
         .add({
-            combo: ['ctrl', 'c'],
+            combo: ['c'],
             description: 'Show the controller',
             callback: strip.toggleController
         })

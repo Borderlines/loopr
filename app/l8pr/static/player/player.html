@@ -10,7 +10,7 @@
      ng-click="vm.Player.playPause()">
 </div>
 <div class="container-fluid strip">
-    <div ui-view="header" class="strip__header row" ng-if="vm.$state.current.views.header"></div>
+    <div ui-view="header" ng-if="vm.$state.current.views.header"></div>
     <div class="strip__body row" ng-if="vm.stripService.showController">
         <div ui-view="body"></div>
     </div>

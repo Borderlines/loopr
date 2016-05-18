@@ -1,9 +1,14 @@
-<div>
-    <strong>{{ vm.loopAuthor }}</strong>'s loop
-    {{ vm.showsCount }} Shows
-    <span class="strip__header--right">
-        <div class="current-user" ng-if="vm.currentUser"
-        ng-style="{'background-image': 'url(' + vm.currentUser.profile.avatar + ')'}">
+<div class="row">
+    <div class="strip__header">
+        <div class="strip__header__title col-xs-10">
+            <strong>{{ vm.loopAuthor }}</strong>'s loop
+            {{ vm.showsCount }} Shows
         </div>
-    </span>
+        <div class="col-xs-2 text-right">
+            <i class="material-icons">search</i>
+            <div class="current-user" ng-if="vm.currentUser"
+                ng-style="{'background-image': 'url(' + vm.currentUser.profile.avatar + ')'}">
+            </div>
+        </div>
+    </div>
 </div>
