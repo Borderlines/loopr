@@ -24,11 +24,11 @@
             <div class="col-xs-12 col-sm-3 text-right">
                 <span ng-click="vm.previousShow()"><i class="material-icons">first_page</i></span>
                 <span ng-click="vm.previousItem()"><i class="material-icons">chevron_left</i></span>
-                <span ng-click="vm.Player.playPause"><i class="material-icons">play_arrow</i></span>
+                <span ng-click="vm.Player.playPause()"><i class="material-icons">play_arrow</i></span>
                 <span ng-click="vm.nextItem()"><i class="material-icons">chevron_right</i></span>
                 <span ng-click="vm.nextShow()"><i class="material-icons">last_page</i></span>
-                <span ng-click="player.toggleMute()">
-                    <i class="fa" ng-class="player.isMuted ? 'fa-volume-off' : 'fa-volume-up'"></i>
+                <span ng-click="vm.Player.toggleMute()">
+                    <i class="material-icons">{{ vm.Player.isMuted ? 'volume_off' : 'volume_up' }}</i>
                 </span>
                 <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
                     <i class="fa" ng-class="vm.stripService.isAutoHideEnabled === true ? 'fa-moon-o' : 'fa-sun-o'"></i>
