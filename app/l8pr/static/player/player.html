@@ -32,10 +32,10 @@
                     <i class="material-icons">{{ vm.Player.isMuted ? 'volume_off' : 'volume_up' }}</i>
                 </span>
                 <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide" ng-class="{'active': vm.stripService.isAutoHideEnabled}">
-                    <i class="fa" ng-class="vm.stripService.isAutoHideEnabled === true ? 'fa-moon-o' : 'fa-sun-o'"></i>
+                    <i class="material-icons">{{ vm.stripService.isAutoHideEnabled === true ? 'call_to_action' : 'call_to_action' }}</i>
                 </span>
                 <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><i class="material-icons">fullscreen</i><</span>
-                <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_up</i>
+                <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_down</i>
             </div>
         </div>
         <div class="row" ng-if="vm.$state.current.name === 'index'">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="col-xs-2 text-right">
-                <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_down</i>
+                <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_up</i>
             </div>
         </div>
         <!-- progress bar -->
