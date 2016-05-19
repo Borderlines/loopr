@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    SearchCtrl.$inject = ['query', 'results', 'Player', '$uibModal'];
-    function SearchCtrl(query, results, Player, $uibModal) {
+    SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal'];
+    function SearchCtrl(query, results, Player, addToShowModal) {
         var vm = this;
         angular.extend(vm, {
             query: query,
@@ -11,35 +11,9 @@
                 Player.playItem(item);
             },
             addItemToAShow: function openModal() {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'addItemToShowModal.html',
-                    controller: ModalInstanceCtrl,
-                    controllerAs: 'vm',
-                    resolve: {
-                        shows: function () {
-                            return ['shows'];
-                        }
-                    }
+                addToShowModal().then(function onClose(result) {
+                }, function onCancel(err) {
                 });
-                modalInstance.result.then(function (result) {
-                    console.log('result', result);
-                }, function (err) {
-                    console.log('err', err);
-                });
-            }
-        });
-    }
-
-    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows'];
-    function ModalInstanceCtrl($scope, $uibModalInstance, shows) {
-        var vm = this;
-        angular.extend(vm, {
-            ok: function() {
-                $uibModalInstance.close('pouet!');
-            },
-            cancel: function() {
-                $uibModalInstance.dismiss('cancel');
             }
         });
     }

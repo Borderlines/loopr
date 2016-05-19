@@ -58,7 +58,6 @@
         function(event, toState, toParams, fromState, fromParams){
             // FIXME
             if (toState.name !== 'index.open.search' && toState.name === fromState.name) {
-                console.log('!!prevent!!!', toState);
                 event.preventDefault();
             }
 
