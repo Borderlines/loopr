@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Loop, Show, Item, ShowSettings, Profile
+from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -8,6 +8,8 @@ from rest_framework import status
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
     class Meta:
         model = Item
 
@@ -23,12 +25,24 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ShowSerializer(serializers.ModelSerializer):
-    items = ItemSerializer(many=True, read_only=True)
+    items = ItemSerializer(many=True, read_only=False)
     settings = ShowSettingsSerializer(many=False, allow_null=True)
 
     class Meta:
         model = Show
-        fields = ('id', 'added', 'updated', 'title', 'description', 'show_type', 'loop', 'items', 'user', 'settings')
+        fields = ('id', 'added', 'updated', 'title', 'description', 'show_type', 'items', 'user', 'settings')
+
+    def update(self, instance, validated_data):
+        order = 0
+        instance.items.clear()
+        for item in validated_data.get('items', []):
+            ItemsRelationship.objects.create(
+                item=Item.objects.get(pk=item['id']),
+                show=instance,
+                order=order
+            )
+            order += 1
+        return instance
 
 
 class LoopSerializer(serializers.ModelSerializer):
@@ -62,7 +76,6 @@ class UserViewSet(viewsets.ModelViewSet):
         if (request.user.is_anonymous()):
             return Response('nope', status=status.HTTP_401_UNAUTHORIZED)
         return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
-        # return self.retrieve(request, user_id)
 
 
 class LoopViewSet(viewsets.ModelViewSet):
@@ -74,6 +87,7 @@ class LoopViewSet(viewsets.ModelViewSet):
 class ShowViewSet(viewsets.ModelViewSet):
     queryset = Show.objects.all()
     serializer_class = ShowSerializer
+    filter_fields = ('user',)
 
 
 class ItemViewSet(viewsets.ModelViewSet):

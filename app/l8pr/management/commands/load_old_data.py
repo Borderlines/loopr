@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from app.l8pr.models import Loop, Show, Item, ShowsRelationship, ShowSettings
+from app.l8pr.models import Loop, Show, Item, ShowsRelationship, ItemsRelationship, ShowSettings
 from django.contrib.auth.models import User
 import json
 import django.contrib.auth.hashers
@@ -29,6 +29,7 @@ class Command(BaseCommand):
         Show.objects.all().delete()
         Item.objects.all().delete()
         ShowsRelationship.objects.all().delete()
+        ItemsRelationship.objects.all().delete()
         ShowSettings.objects.all().delete()
         accounts, loops, shows = self.get_collections()
         for account in accounts:
@@ -60,7 +61,6 @@ class Command(BaseCommand):
 
                     show_obj = Show.objects.create(
                         user=user_obj,
-                        loop=loop_obj,
                         title=show.get('title'),
                         show_type=show.get('type'),
                         settings=settings_obj
@@ -71,9 +71,9 @@ class Command(BaseCommand):
                         order=order
                     )
                     order += 1
+                    item_order = 0
                     for item in show.get('links'):
-                        Item.objects.create(
-                            show=show_obj,
+                        item_obj = Item.objects.create(
                             title=item.get('title'),
                             author_name=item.get('author_name'),
                             thumbnail=item.get('thumbnail'),
@@ -82,6 +82,12 @@ class Command(BaseCommand):
                             duration=item.get('duration', 0) or 0,
                             url=item.get('url'),
                         )
+                        ItemsRelationship.objects.create(
+                            item=item_obj,
+                            show=show_obj,
+                            order=item_order
+                        )
+                        item_order += 1
 
             self.stdout.write('%s, %s shows' % (account['username'], len(loop.get('shows', []))))
         self.stdout.write(self.style.SUCCESS('done'))

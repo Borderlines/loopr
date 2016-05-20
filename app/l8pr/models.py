@@ -54,23 +54,30 @@ class ShowSettings(models.Model):
 
 class Show(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    loop = models.ForeignKey(Loop, on_delete=models.SET_NULL, null=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True, null=True)
     show_type = models.CharField(max_length=10, choices=SHOW_TYPES)
     settings = models.OneToOneField(ShowSettings,
                                     on_delete=models.CASCADE,
                                     related_name='show')
+    items = models.ManyToManyField('Item', through='ItemsRelationship', related_name='ItemsRelationship')
 
     def __str__(self):
         return self.title
 
 
+class ItemsRelationship(models.Model):
+    item = models.ForeignKey('Item')
+    show = models.ForeignKey('Show')
+    order = models.PositiveIntegerField()
+
+    def __str__(self):
+        return '%s ===> %s' % (self.item, self.show)
+
+
 class Item(models.Model):
-    show = models.ForeignKey(Show, related_name='items', on_delete=models.CASCADE, null=True, blank=True)
-    # meta
     title = models.CharField(max_length=255, null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
     thumbnail = models.URLField(max_length=200, null=True, blank=True)
@@ -78,9 +85,6 @@ class Item(models.Model):
     html = models.TextField(null=True, blank=True)
     duration = models.PositiveIntegerField(null=True, blank=True)
     url = models.URLField(max_length=200)
-
-    class Meta:
-        order_with_respect_to = 'show'
 
     def __str__(self):
         return self.url

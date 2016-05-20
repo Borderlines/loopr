@@ -10,10 +10,8 @@
             play: function(item) {
                 Player.playItem(item);
             },
-            addItemToAShow: function openModal() {
-                addToShowModal().then(function onClose(result) {
-                }, function onCancel(err) {
-                });
+            addItemToAShow: function openModal(item) {
+                addToShowModal(item);
             }
         });
     }

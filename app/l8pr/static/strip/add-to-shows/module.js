@@ -1,12 +1,17 @@
 (function() {
     'use strict';
 
-    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows'];
-    function ModalInstanceCtrl($scope, $uibModalInstance, shows) {
+    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item'];
+    function ModalInstanceCtrl($scope, $uibModalInstance, shows, item) {
         var vm = this;
         angular.extend(vm, {
-            ok: function() {
-                $uibModalInstance.close();
+            shows: shows,
+            item: item,
+            addToShow: function(show) {
+                show.items.unshift(vm.item);
+                show.save().then(function() {
+                    $uibModalInstance.close(show);
+                });
             },
             cancel: function() {
                 $uibModalInstance.dismiss('cancel');
@@ -16,16 +21,20 @@
 
     AddToShowService.$inject = ['$uibModal'];
     function AddToShowService($uibModal) {
-        return function() {
+        return function(item) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: '/static/strip/add-to-shows/template.html',
                 controller: ModalInstanceCtrl,
                 controllerAs: 'vm',
                 resolve: {
-                    shows: function () {
-                        return ['shows'];
-                    }
+                    item: function() {
+                        return item;
+                    },
+                    shows: ['Shows', 'login', function (Shows, login) {
+                        // FIXME: if not loged ?
+                        return Shows.getList({user: login.currentUser.id});
+                    }]
                 }
             });
             return modalInstance.result;

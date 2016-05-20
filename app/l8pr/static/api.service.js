@@ -32,7 +32,7 @@
                     return Restangular.restangularizeElement(null, loop, 'loops');
                 });
             }
-            if (angular.isDefined(model.loops) && angular.isDefined(model.loops[0].shows_list)) {
+            if (angular.isDefined(model.loops) && model.loops.length > 0 && angular.isDefined(model.loops[0].shows_list)) {
                 model.loops[0].shows_list = model.loops[0].shows_list.map(function(show) {
                     return Restangular.restangularizeElement(null, show, 'shows');
                 });

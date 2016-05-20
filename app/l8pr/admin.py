@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Loop, Show, Item, ShowsRelationship, ShowSettings, Profile
+from .models import Loop, Show, Item, ShowsRelationship, ItemsRelationship, ShowSettings, Profile
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
@@ -26,8 +26,7 @@ admin.site.register(ShowSettings, ShowSettingsAdmin)
 
 
 class ShowAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'loop', 'show_type', 'added', 'updated')
-    inlines = (ItemInline,)
+    list_display = ('__str__', 'user', 'show_type', 'added', 'updated')
 
 admin.site.register(Show, ShowAdmin)
 
@@ -40,6 +39,11 @@ admin.site.register(Item, ItemAdmin)
 class ShowsRelationshipAdmin(admin.ModelAdmin):
     pass
 admin.site.register(ShowsRelationship, ShowsRelationshipAdmin)
+
+
+class ItemsRelationshipAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(ItemsRelationship, ItemsRelationshipAdmin)
 
 
 class ProfileInline(admin.StackedInline):

@@ -1,15 +1,20 @@
 <div class="modal-header">
-    <h3 class="modal-title">I'm a modal!</h3>
+    <h3 class="row modal-title">Add to a Show</h3>
+    {{ vm.item.title }}
 </div>
 <div class="modal-body">
-    <ul>
-        <li ng-repeat="item in items">
-            <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
-    Selected: <b>{{ selected.item }}</b>
+    <div class="list-group" ng-repeat="show in vm.shows">
+        <a class="list-group-item" ng-click="vm.addToShow(show)">
+            <div class="row">
+                <img class="col-xs-2 col-md-2" ng-src="{{ show.items[0].thumbnail }}"/>
+                <div class="col-xs-10 col-md-10">
+                    <h4 class="list-group-item-heading" ng-bind="show.title"></h4>
+                    <p class="list-group-item-text">{{ show.items.length }} shows, {{ show.duration() | seconds }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
 </div>
