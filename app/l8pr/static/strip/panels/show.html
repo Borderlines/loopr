@@ -1,10 +1,11 @@
 <div class="Show row" ng-class="{'Show--playing-now': vm.playingNow}">
     <div class="Show__cover row">
-        <div class="col-xs-11">
-            <span class="Show__cover title" ng-bind="vm.show.title"></span></br>
-            <span class="Show__cover details" ng-if="vm.playingNow">Show Playing Now</span>
+        <div class="col-xs-10">
+            <span class="Show__cover title col-xs-12 col-md-8" ng-bind="vm.show.title"></span>
+            <!--<span class="Show__cover details" ng-if="vm.playingNow">Show Playing Now</span>-->
+            <span class="Show__cover details col-xs-12 col-md-4">Show Playing Now</span>
         </div>
-        <div class="Show__cover actions col-xs-1">
+            <div class="Show__cover actions col-xs-2">
                 <i class="material-icons" ui-sref="index.open.loop">close</i>
         </div>
     </div>
@@ -24,5 +25,6 @@
     </div>
     <!-- <div class="Show--edit  col-xs-12"></div> -->
     <div class="Show__illu col-xs-12 col-md-4" ng-click="vm.player.playShow(show)">
+        <img src="//benetco.com/back1.gif" alt="test" class="img-responsive center-block">
     </div>
 </div>
