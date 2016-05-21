@@ -1,6 +1,6 @@
 <div class="Search">
     <div class="list-group">
-        <a class="list-group-item" ng-repeat="result in vm.results">
+        <a class="list-group-item" ng-repeat="result in vm.results" ng-click="vm.play(result)">
             <div class="row">
                 <img class="col-xs-2 col-md-2" ng-src="{{ result.thumbnail }}"/>
                 <div class="col-xs-9 col-md-9">

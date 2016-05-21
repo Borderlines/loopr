@@ -57,7 +57,7 @@
         $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
             // FIXME
-            if (toState.name !== 'index.open.search' && toState.name === fromState.name) {
+            if (toState.name === fromState.name && toParams.q === fromParams.q) {
                 event.preventDefault();
             }
 
