@@ -84,7 +84,7 @@ class Item(models.Model):
     provider_name = models.CharField(max_length=255, null=True, blank=True, choices=PROVIDER_CHOICES)
     html = models.TextField(null=True, blank=True)
     duration = models.PositiveIntegerField(null=True, blank=True)
-    url = models.URLField(max_length=200)
+    url = models.URLField(db_index=True, max_length=200)
 
     def __str__(self):
         return self.url

@@ -36,6 +36,9 @@
             },
             playItem: function(item) {
                 var currentIndex = self.currentShow.items.indexOf(self.currentItem);
+                if (currentIndex === -1) {
+                    debugger;
+                }
                 var show = angular.copy(self.currentShow);
                 show.items.splice(currentIndex + 1, 0, item);
                 self.playShow(show, currentIndex + 1);
@@ -77,7 +80,7 @@
                 self.currentShow = show;
                 self.currentItem = show.items[index];
                 // deep linking
-                $location.search({show: self.currentShow.id, item: self.currentItem.id});
+                $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
                 $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
             },
             getNextItem: function() {

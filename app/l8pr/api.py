@@ -89,7 +89,12 @@ class ShowViewSet(viewsets.ModelViewSet):
     serializer_class = ShowSerializer
     filter_fields = ('user',)
 
+    def get_queryset(self):
+        user = self.request.user
+        return Show.objects.filter(user=user)
+
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    filter_fields = ('url',)

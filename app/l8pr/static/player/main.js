@@ -19,6 +19,7 @@
                 resolve: {
                     loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows',
                         function($stateParams, Accounts, Player, login, $state, $q, Shows) {
+                        login.login();
                         if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
                             return login.login().then(function(user) {
                                 $state.go('index', {username:user.username});
@@ -61,6 +62,9 @@
                                     item_index = _.findIndex(show.items, function(link) {
                                         return parseInt($stateParams.item, 10) === parseInt(link.id, 10);
                                     });
+                                }
+                                if (item_index === -1) {
+                                    item_index = 0;
                                 }
                                 Player.playShow(show, item_index);
                                 return user;
@@ -119,9 +123,17 @@
                                 if (!query) {
                                     return [];
                                 }
-                                return Items.post({url: query}).then(function(item) {
-                                    return [item];
-                                });
+                                var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
+                                if (urlRegex.test(query)) {
+                                    return Items.getList({url: query}).then(function(items) {
+                                        if (items.length === 0) {
+                                            return Items.post({url: query}).then(function(item) {
+                                                return [item];
+                                            });
+                                        }
+                                        return items;
+                                    });
+                                }
                             }
                         }
                     }

@@ -1,10 +1,18 @@
 <div class="Search">
     <div class="list-group">
-        <a class="list-group-item" ng-repeat="result in vm.results" ng-click="vm.play(result)">
-            <img ng-src="{{ result.thumbnail }}" height="70" />
-            <h4 class="list-group-item-heading" ng-bind="result.title"></h4>
-            <p class="list-group-item-text" ng-bind="result.description"></p>
-            <span ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">+</span>
+        <a class="list-group-item" ng-repeat="result in vm.results">
+            <div class="row">
+                <img class="col-xs-2 col-md-2" ng-src="{{ result.thumbnail }}"/>
+                <div class="col-xs-9 col-md-9">
+                    <h4 class="list-group-item-heading" ng-bind="result.title"></h4>
+                    <p class="list-group-item-text" ng-bind="result.description"></p>
+                </div>
+                <div class="col-xs-1 col-md-1">
+                    <span ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">
+                        <i class="material-icons">playlist_add</i>
+                    </span>
+                </div>
+            </div>
         </a>
     </div>
 </div>
