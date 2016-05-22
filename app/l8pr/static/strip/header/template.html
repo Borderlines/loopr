@@ -7,7 +7,8 @@
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-10">
             <form ng-submit="vm.search(vm.searchQuery)">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.searchQuery" placeholder="Search">
+                    <input type="text" class="form-control" ng-model="vm.searchQuery" placeholder="Search" focus-me="vm.searchBarVisible">
+                    <i class="material-icons">close</i>
                 </div>
             </form>
         </div>
