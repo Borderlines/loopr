@@ -57,9 +57,9 @@
         $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
             // FIXME
-            if (toState.name === fromState.name && toParams.q === fromParams.q) {
-                event.preventDefault();
-            }
+            // if (toState.name === fromState.name && toParams.q === fromParams.q) {
+            //     event.preventDefault();
+            // }
 
         });
         // HOTKEYS
