@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'v(xkp3^_bhxn#$ctz-pt_wf6!c@yb+qv^awq4w^q@#a-4o*10%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG', 'True')).lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -138,7 +138,7 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app', 'l8pr', 'static'),
 ]
-COMPRESS_ENABLED = False
+COMPRESS_ENABLED = str(os.environ.get('COMPRESS_ENABLED', not DEBUG)).lower() == 'true'
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'node_modules/less/bin/lessc {infile} {outfile}'),
 )
