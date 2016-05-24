@@ -8,12 +8,12 @@
             <form class="form-inline" ng-submit="vm.search(vm.searchQuery)">
                 <div class="form-group">
                     <input type="text" class="col-md-6 form-control" ng-model="vm.searchQuery" placeholder="Search" focus-me="vm.searchBarVisible">
-                    <i class="material-icons" ng-click="vm.searchQuery=''; vm.searchBarVisible = false;">close</i>
+                    <i class="material-icons" ng-click="vm.clear()">close</i>
                 </div>
             </form>
         </div>
         <div class="col-xs-2 text-right">
-            <a ng-if="!vm.searchBarVisible" ng-click="vm.searchBarVisible = !vm.searchBarVisible">
+            <a ng-click="vm.searchBarVisible = !vm.searchBarVisible">
                 <i class="material-icons">search</i>
             </a>
             <div class="current-user" ng-if="vm.currentUser"

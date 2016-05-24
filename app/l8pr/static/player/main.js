@@ -120,20 +120,20 @@
                                 return $stateParams.q;
                             },
                             results: function(query, Items) {
-                                if (!query) {
-                                    return [];
+                                if (query) {
+                                    var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
+                                    if (urlRegex.test(query)) {
+                                        return Items.getList({url: query}).then(function(items) {
+                                            if (items.length === 0) {
+                                                return Items.post({url: query}).then(function(item) {
+                                                    return [item];
+                                                });
+                                            }
+                                            return items;
+                                        });
+                                    }
                                 }
-                                var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
-                                if (urlRegex.test(query)) {
-                                    return Items.getList({url: query}).then(function(items) {
-                                        if (items.length === 0) {
-                                            return Items.post({url: query}).then(function(item) {
-                                                return [item];
-                                            });
-                                        }
-                                        return items;
-                                    });
-                                }
+                                return [];
                             }
                         }
                     }
