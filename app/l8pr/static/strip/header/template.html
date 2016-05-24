@@ -5,10 +5,10 @@
             {{ vm.showsCount }} Shows
         </div>
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-10">
-            <form ng-submit="vm.search(vm.searchQuery)">
+            <form class="form-inline" ng-submit="vm.search(vm.searchQuery)">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.searchQuery" placeholder="Search" focus-me="vm.searchBarVisible">
-                    <i class="material-icons">close</i>
+                    <input type="text" class="col-md-6 form-control" ng-model="vm.searchQuery" placeholder="Search" focus-me="vm.searchBarVisible">
+                    <i class="material-icons" ng-click="vm.searchQuery=''; vm.searchBarVisible = false;">close</i>
                 </div>
             </form>
         </div>
