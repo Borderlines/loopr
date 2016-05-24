@@ -1,12 +1,13 @@
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import "../../variables.less";
 
-a, [ng-click] {
-    color: black;
+a, [ng-click], [ui-sref] {
+    color: @link-color;
     text-decoration: none;
     cursor: pointer;
     &:hover {
-        text-decoration: none;
+        text-decoration: @link-hover-decoration;
+        color: @link-hover-color;
     }
 }
 html, body, div[ng-view] {
