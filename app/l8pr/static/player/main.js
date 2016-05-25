@@ -12,6 +12,7 @@
             $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('index', {
+                reloadOnSearch: false,
                 url: '/:username?show&item',
                 controller: 'PlayerCtrl',
                 templateUrl: '/static/player/player.html',
@@ -74,6 +75,7 @@
                 }
             })
             .state('index.open', {
+                reloadOnSearch: false,
                 abstract: true,
                 views: {
                     header: headerState,
@@ -83,6 +85,7 @@
                 }
             })
             .state('index.open.loop', {
+                reloadOnSearch: false,
                 url: '/loop',
                 views: {
                     body: {
@@ -94,6 +97,7 @@
                 }
             })
             .state('index.open.show', {
+                reloadOnSearch: false,
                 url: '/show/:showToExploreId',
                 views: {
                     body: {
@@ -109,7 +113,8 @@
                 }
             })
             .state('index.open.search', {
-                url: '/search?q',
+                url: '/search/:q',
+                reloadOnSearch: false,
                 views: {
                     body: {
                         controller: 'SearchCtrl',

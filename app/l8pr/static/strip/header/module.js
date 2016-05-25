@@ -1,11 +1,11 @@
 (function() {
 'use strict';
 
-StripHeaderCtrl.$inject = ['strip', 'login', 'Player', '$state', '$stateParams'];
-function StripHeaderCtrl(strip, login, Player, $state, $stateParams) {
+StripHeaderCtrl.$inject = ['login', 'Player', '$state'];
+function StripHeaderCtrl(login, Player, $state) {
     var vm = this;
     angular.extend(vm, {
-        searchQuery: $stateParams.q,
+        searchQuery: $state.params.q,
         searchBarVisible: vm.searchQuery !== '',
         loopAuthor: Player.loop.user.username,
         showsCount: Player.loop.user.loops[0].shows_list.length,
