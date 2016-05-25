@@ -144,6 +144,30 @@
                 }
             });
         }])
+        .service('$history', function($state, $rootScope, $window) {
+            var history = [];
+            var self = this;
+            angular.extend(self, {
+                push: function(state, params) {
+                    history.push({ state: state, params: params });
+                },
+                back: function(fallback) {
+                    var prev = history.pop();
+                    if (angular.isDefined(prev)) {
+                        return $state.go(prev.state, prev.params);
+                    } else {
+                        $state.go(fallback || 'index');
+                    }
+                }
+            });
+        })
+        .run(function($history, $state, $rootScope) {
+            $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+                if (!from['abstract'] && from.name !== 'index') {
+                    $history.push(from, fromParams);
+                }
+            });
+        })
         .filter('seconds', function() {
             return function(time) {
                 if (angular.isDefined(time) && angular.isNumber(time) && !isNaN(time)) {

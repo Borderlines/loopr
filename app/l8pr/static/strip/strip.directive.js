@@ -4,7 +4,7 @@
     'use strict';
 
     angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'loopr.addToShow', 'loopr.stripHeader'])
-        .factory('strip', ['$timeout', '$state', function($timeout, $state) {
+        .factory('strip', ['$timeout', '$state', '$history', function($timeout, $state, $history) {
             var hideTimeout;
             var service = {
                 toggleController: function() {
@@ -12,8 +12,7 @@
                     if ($state.current.name !== indexStateName) {
                         $state.go(indexStateName);
                     } else {
-                        // TODO: restore saved previous state
-                        $state.go(indexStateName + '.open.loop');
+                        $history.back('index.open.loop');
                     }
                 },
                 isAutoHideEnabled: false,

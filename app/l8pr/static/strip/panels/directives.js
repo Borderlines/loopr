@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal'];
-    function SearchCtrl(query, results, Player, addToShowModal) {
+    SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', '$history'];
+    function SearchCtrl(query, results, Player, addToShowModal, $history) {
         var vm = this;
         angular.extend(vm, {
             query: query,
@@ -10,6 +10,7 @@
             play: function(item) {
                 Player.playItem(item);
             },
+            previousState: $history.back,
             addItemToAShow: function openModal(item) {
                 addToShowModal(item);
             }
