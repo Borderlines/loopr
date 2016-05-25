@@ -1,7 +1,15 @@
 {
   "name":"l8pr",
-  "scripts":{},
+  "scripts":{
+    "postdeploy": "python3 manage.py migrate"
+  },
   "env":{
+    "DJANGO_SETTINGS_MODULE:":{
+      "required":true
+    },
+    "IFRAMELY_API_KEY:":{
+      "required":true
+    },
     "GOOGLE_API_KEY":{
       "required":true
     },
@@ -19,7 +27,8 @@
     }
   },
   "addons":[
-    "heroku-postgresql"
+    "heroku-postgresql",
+    "bonsai"
   ],
   "buildpacks": [
     {

@@ -5,6 +5,9 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from drf_haystack.serializers import HaystackSerializer
+from drf_haystack.viewsets import HaystackViewSet
+from .search_indexes import ItemIndex, ShowIndex
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -98,3 +101,29 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     filter_fields = ('url',)
+
+
+class ItemSerializer(HaystackSerializer):
+    id = serializers.CharField()
+
+    class Meta:
+        # The `index_classes` attribute is a list of which search indexes
+        # we want to include in the search.
+        index_classes = [ItemIndex, ShowIndex]
+        # The `fields` contains all the fields we want to include.
+        # NOTE: Make sure you don't confuse these with model attributes. These
+        # fields belong to the search index!
+        fields = [
+            'title', 'author_name', 'autocomplete', 'thumbnail', 'id', 'url', 'provider_name'
+        ]
+
+
+class ItemSearchView(HaystackViewSet):
+
+    # `index_models` is an optional list of which models you would like to include
+    # in the search result. You might have several models indexed, and this provides
+    # a way to filter out those of no interest for this particular view.
+    # (Translates to `SearchQuerySet().models(*index_models)` behind the scenes.
+    index_models = [Item, Show]
+
+    serializer_class = ItemSerializer

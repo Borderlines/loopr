@@ -123,7 +123,7 @@
                             query: function($stateParams) {
                                 return $stateParams.q;
                             },
-                            results: function(query, Items) {
+                            results: function(query, Items, Search) {
                                 if (query) {
                                     var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
                                     if (urlRegex.test(query)) {
@@ -135,6 +135,8 @@
                                             }
                                             return items;
                                         });
+                                    } else {
+                                        return Search.getList({'title': query});
                                     }
                                 }
                                 return [];
