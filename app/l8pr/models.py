@@ -85,6 +85,8 @@ class Item(models.Model):
     html = models.TextField(null=True, blank=True)
     duration = models.PositiveIntegerField(null=True, blank=True)
     url = models.URLField(db_index=True, max_length=200)
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.url

@@ -70,6 +70,11 @@
         return Restangular.service('items');
     }
 
+    Search.$inject = ['Restangular'];
+    function Search(Restangular) {
+        return Restangular.service('search');
+    }
+
     angular.module('loopr.api', ['restangular', 'LocalStorageModule'])
         .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
             localStorageServiceProvider
@@ -80,6 +85,7 @@
         .factory('Shows', Shows)
         .factory('Loops', Loops)
         .factory('Items', Items)
+        .factory('Search', Search)
         .factory('Accounts', Accounts)
         .factory('Auth', Auth)
         .config(['RestangularProvider', function(RestangularProvider) {

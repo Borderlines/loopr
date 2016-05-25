@@ -32,7 +32,7 @@ admin.site.register(Show, ShowAdmin)
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'author_name', 'provider_name', 'duration')
+    list_display = ('__str__', 'title', 'author_name', 'provider_name', 'duration')
 admin.site.register(Item, ItemAdmin)
 
 
