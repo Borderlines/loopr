@@ -8,70 +8,82 @@
             },
             restrict: 'E',
             link: function(scope, element) {
-                var progressionTracker;
-                angular.extend(scope, {
-                    youtubeConfig: {
-                        controls: 0,
-                        autoplay: 1,
-                        showinfo: 0,
-                        wmode: 'opaque'
-                    }
-                });
-                $rootScope.$on('youtube.player.error', function() {
-                    $interval.cancel(progressionTracker);
-                    Player.setCurrentPosition(0);
-                    Player.nextItem();
-                });
-                $rootScope.$on('youtube.player.ended', function() {
-                    $interval.cancel(progressionTracker);
-                    Player.setCurrentPosition(0);
-                    Player.nextItem();
-                });
+                var plyrPlayer = window.plyr.setup(element.get(0), {
+                    autoplay: true, controls: []
+                })[0];
                 scope.$on('player.playPause', function() {
-                    if (scope.youtubePlayer.getPlayerState() === 2) {
-                        scope.youtubePlayer.playVideo();
-                    } else {
-                        scope.youtubePlayer.pauseVideo();
-                    }
+                    plyrPlayer.togglePlay();
                 });
                 scope.$on('player.toggleMute', function() {
-                    scope.youtubePlayer.setVolume((Player.isMuted) ? 0 : 100);
+                    plyrPlayer.setVolume((Player.isMuted) ? 0 : 100);
                 });
                 scope.$on('player.seekTo', function(e, percent) {
-                    scope.youtubePlayer.seekTo((percent/100) * scope.youtubePlayer.getDuration());
+                    plyrPlayer.seek((percent/100) * plyrPlayer.embed.getDuration());
                 });
-                $rootScope.$on('youtube.player.paused', function(e, player) {
-                    Player.setStatus('pause');
+                scope.$watch('item', function() {
+                    try {
+                        plyrPlayer.source({
+                            type: 'video',
+                            sources: [{
+                                src: getYoutubeId(scope.item.url),
+                                type: 'youtube'
+                            }]
+                        });
+                    // returns an error from a missing button.
+                    } catch (e) {}
                 });
-                $rootScope.$on('youtube.player.playing', function(e, player) {
-                    Player.setStatus('playing');
-                    scope.youtubePlayer.setVolume((Player.isMuted) ? 0 : 100);
-                    trackProgression(player.getCurrentTime.bind(player), player.getDuration.bind(player));
-                });
-                function trackProgression(current, total) {
+                var progressionTracker;
+                function getYoutubeId(url) {
+                    var videoId = url.split('v=')[1];
+                    var ampersandPosition = videoId.indexOf('&');
+                    if(ampersandPosition !== -1) {
+                        videoId = videoId.substring(0, ampersandPosition);
+                    }
+                    return videoId;
+                }
+                function trackProgression(media) {
                     $interval.cancel(progressionTracker);
                     progressionTracker = $interval(function() {
-                        Player.setCurrentPosition((current() / total()) * 100);
+                        Player.setCurrentPosition((media.getCurrentTime() / media.getDuration()) * 100);
                     }, 250);
                 }
-                scope.$watch('item', function() {
-                    scope.youtubeUrl = scope.item.url;
+                var playerEvents = {
+                    error: function(event) {
+                        $interval.cancel(progressionTracker);
+                        Player.setCurrentPosition(0);
+                        Player.nextItem();
+                    },
+                    playing: function(event) {
+                        Player.setStatus('playing');
+                        plyrPlayer.setVolume((Player.isMuted) ? 0 : 100);
+                        trackProgression(plyrPlayer.embed);
+                    },
+                    pause: function(event) {
+                        Player.setStatus('pause');
+                    },
+                    ended: function(event) {
+                        $interval.cancel(progressionTracker);
+                        Player.setCurrentPosition(0);
+                        Player.nextItem();
+                    }
+                };
+                angular.forEach(playerEvents, function(eventHandler, eventName) {
+                    element.get(0).addEventListener(eventName, eventHandler);
                 });
                 scope.$on('$destroy', function() {
                     $interval.cancel(progressionTracker);
-                    // TODO: destroy all youtube events
+                    angular.forEach(playerEvents, function(eventHandler, eventName) {
+                        element.get(0).removeEventListener(eventName, eventHandler);
+                    });
+                    plyrPlayer.destroy();
                 });
             },
             template: [
-                '<youtube-video video-url="youtubeUrl"',
-                '               player-vars="youtubeConfig"',
-                '               player="youtubePlayer"',
-                '               player-width="\'100%\'"',
-                '               player-height="\'100%\'">',
-                '</youtube-video>'
+                '<div class="plyr">',
+                '</div>'
             ].join('')
         };
     }
-    angular.module('loopr.player.youtube', ['youtube-embed']).directive('youtube', YoutubeDirective);
+    angular.module('loopr.player.youtube', []).directive('youtube', YoutubeDirective);
 
 })();

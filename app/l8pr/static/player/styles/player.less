@@ -21,6 +21,15 @@ iframe {
     position: absolute;
     z-index: 5;
 }
+// youtue player
+body .plyr {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    .plyr__video-embed {height: 100%;}
+}
 .soundCloudViz {
     position: absolute;
     top: 0;
@@ -128,6 +137,7 @@ iframe {
     padding-left: 0px;
     padding-right: 0px;
 }
+@import "../../bower_components/plyr/src/less/plyr.less";
 @import "../../bower_components/components-font-awesome/less/font-awesome.less";
 @fa-font-path: "/static/bower_components/components-font-awesome/fonts";
 @import "../../strip/strip.less";
