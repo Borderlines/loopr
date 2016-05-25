@@ -8,9 +8,7 @@
                     <p class="list-group-item-text" ng-bind="result.description"></p>
                 </div>
                 <div class="col-xs-1 col-md-1">
-                    <span ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">
-                        <i class="material-icons">playlist_add</i>
-                    </span>
+                    <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">playlist_add</i>
                 </div>
             </div>
         </a>
