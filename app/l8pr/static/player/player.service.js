@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state'];
-    function Player($rootScope, localStorageService, $location, $state) {
+    Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state', '$timeout'];
+    function Player($rootScope, localStorageService, $location, $state, $timeout) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -80,7 +80,9 @@
                 self.currentShow = show;
                 self.currentItem = show.items[index];
                 // deep linking
-                $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
+                $timeout(function() {
+                    $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
+                }, 250, false);
                 $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
             },
             getNextItem: function() {

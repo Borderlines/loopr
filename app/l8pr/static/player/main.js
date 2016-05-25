@@ -24,7 +24,6 @@
                         if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
                             return login.login().then(function(user) {
                                 $state.go('index', {username:user.username});
-                                return user;
                             });
                         }
                         return Accounts.one('username/' + $stateParams.username).get().then(function(user) {
