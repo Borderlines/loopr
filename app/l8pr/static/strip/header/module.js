@@ -6,7 +6,7 @@ function StripHeaderCtrl(login, Player, $state) {
     var vm = this;
     angular.extend(vm, {
         searchQuery: $state.params.q,
-        searchBarVisible: vm.searchQuery !== '',
+        searchBarVisible: vm.searchQuery && vm.searchQuery !== '',
         loopAuthor: Player.loop.user.username,
         showsCount: Player.loop.user.loops[0].shows_list.length,
         currentUser: login.currentUser,
