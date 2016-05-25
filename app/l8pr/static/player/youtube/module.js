@@ -34,12 +34,9 @@
                 });
                 var progressionTracker;
                 function getYoutubeId(url) {
-                    var videoId = url.split('v=')[1];
-                    var ampersandPosition = videoId.indexOf('&');
-                    if(ampersandPosition !== -1) {
-                        videoId = videoId.substring(0, ampersandPosition);
-                    }
-                    return videoId;
+                    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+                    var match = url.match(regExp);
+                    return (match && match[7].length === 11)? match[7] : false;
                 }
                 function trackProgression(media) {
                     $interval.cancel(progressionTracker);
