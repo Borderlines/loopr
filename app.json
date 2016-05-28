@@ -4,6 +4,15 @@
     "postdeploy": "python3 manage.py migrate"
   },
   "env":{
+    "DJANGO_SETTINGS_MODULE":{
+        "value": "app.settings_heroku"
+    },
+    "COMPRESS_ENABLED":{
+        "value": "True"
+    },
+    "COMPRESS_OFFLINE":{
+        "value": "True"
+    },
     "GOOGLE_API_KEY":{
       "required":true
     },
