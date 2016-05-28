@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, views
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -8,6 +8,7 @@ from rest_framework import status
 from drf_haystack.serializers import HaystackSerializer
 from drf_haystack.viewsets import HaystackViewSet
 from .search_indexes import ItemIndex, ShowIndex
+from .youtube import youtube_search
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -103,7 +104,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     filter_fields = ('url',)
 
 
-class ItemSerializer(HaystackSerializer):
+class ItemSearchSerializer(HaystackSerializer):
     id = serializers.CharField()
 
     class Meta:
@@ -125,5 +126,12 @@ class ItemSearchView(HaystackViewSet):
     # a way to filter out those of no interest for this particular view.
     # (Translates to `SearchQuerySet().models(*index_models)` behind the scenes.
     index_models = [Item, Show]
+    serializer_class = ItemSearchSerializer
 
-    serializer_class = ItemSerializer
+
+class SearchYoutubeView(views.APIView):
+    permission_classes = []
+
+    def get(self, request, *args, **kw):
+        result = youtube_search({'q': request.GET.get('q')})
+        return Response(ItemSerializer(result, many=True).data, status=status.HTTP_200_OK)

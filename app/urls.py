@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from .l8pr.api import UserViewSet, LoopViewSet, ShowViewSet, ItemViewSet, ItemSearchView
+from .l8pr.api import UserViewSet, LoopViewSet, ShowViewSet, ItemViewSet, ItemSearchView, SearchYoutubeView
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
@@ -30,12 +30,13 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'loops', LoopViewSet)
 router.register(r'shows', ShowViewSet)
-router.register("search", ItemSearchView, base_name="item-search")
+router.register(r'search', ItemSearchView, base_name='item-search')
 router.register(r'items', ItemViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^api/', include(router.urls)),
+    url(r'^api/youtube/', SearchYoutubeView.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/logout/$', auth_views.logout),
     url(r'^auth/', include('rest_framework_social_oauth2.urls')),

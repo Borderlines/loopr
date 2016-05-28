@@ -79,6 +79,7 @@ class ItemsRelationship(models.Model):
 
 class Item(models.Model):
     title = models.CharField(max_length=255, null=True, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
     thumbnail = models.URLField(max_length=200, null=True, blank=True)
     provider_name = models.CharField(max_length=255, null=True, blank=True, choices=PROVIDER_CHOICES)
