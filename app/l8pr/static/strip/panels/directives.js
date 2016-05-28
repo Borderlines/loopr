@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', '$history'];
-    function SearchCtrl(query, results, Player, addToShowModal, $history) {
+    SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', '$history', 'SearchYoutube'];
+    function SearchCtrl(query, results, Player, addToShowModal, $history, SearchYoutube) {
         var vm = this;
         angular.extend(vm, {
             query: query,
@@ -14,6 +14,10 @@
             addItemToAShow: function openModal(item) {
                 addToShowModal(item);
             }
+        });
+        // adds youtube results
+        SearchYoutube.getList({q: query}).then(function(results) {
+            vm.results = vm.results.concat(results);
         });
     }
 

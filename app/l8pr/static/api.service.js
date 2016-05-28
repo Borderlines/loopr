@@ -75,6 +75,11 @@
         return Restangular.service('search');
     }
 
+    SearchYoutube.$inject = ['Restangular'];
+    function SearchYoutube(Restangular) {
+        return Restangular.service('youtube');
+    }
+
     angular.module('loopr.api', ['restangular', 'LocalStorageModule'])
         .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
             localStorageServiceProvider
@@ -86,6 +91,7 @@
         .factory('Loops', Loops)
         .factory('Items', Items)
         .factory('Search', Search)
+        .factory('SearchYoutube', SearchYoutube)
         .factory('Accounts', Accounts)
         .factory('Auth', Auth)
         .config(['RestangularProvider', function(RestangularProvider) {
