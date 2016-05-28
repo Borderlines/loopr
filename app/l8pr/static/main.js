@@ -15,7 +15,7 @@
                 reloadOnSearch: false,
                 url: '/:username?show&item',
                 controller: 'PlayerCtrl',
-                templateUrl: '/static/player/player.html',
+                templateUrl: '/static/main.html',
                 controllerAs: 'vm',
                 resolve: {
                     loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows',
@@ -89,7 +89,7 @@
                 views: {
                     body: {
                         controller: 'LoopExplorerCtrl',
-                        templateUrl: '/static/strip/panels/loop.html',
+                        templateUrl: '/static/strip/loop/template.html',
                         controllerAs: 'vm'
                     }
 
@@ -101,7 +101,7 @@
                 views: {
                     body: {
                         controller: 'ShowExplorerCtrl',
-                        templateUrl: '/static/strip/panels/show.html',
+                        templateUrl: '/static/strip/show/template.html',
                         controllerAs: 'vm',
                         resolve: {
                             show: function($stateParams, Shows) {
@@ -117,7 +117,7 @@
                 views: {
                     body: {
                         controller: 'SearchCtrl',
-                        templateUrl: '/static/strip/panels/search.html',
+                        templateUrl: '/static/strip/search-results/template.html',
                         controllerAs: 'vm',
                         resolve: {
                             query: function($stateParams) {

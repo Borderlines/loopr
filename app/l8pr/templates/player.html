@@ -15,10 +15,10 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         {% endcomment %}
         {% compress css %}
-        <link type="text/less" rel="stylesheet" href="/static/player/styles/player.less" charset="utf-8">
+        <link type="text/less" rel="stylesheet" href="/static/main.less" charset="utf-8">
         <link type="text/css" rel="stylesheet" href="/static/bower_components/angular-hotkeys/build/hotkeys.min.css" charset="utf-8">
         <link type="text/css" rel="stylesheet" href="/static/bower_components/perfect-scrollbar/min/perfect-scrollbar.min.css" charset="utf-8">
-        <link href='{% static "loopr-font.css" %}' rel='stylesheet' type='text/css'>
+        <link href='{% static "fonts/loopr-font.css" %}' rel='stylesheet' type='text/css'>
         {% endcompress %}
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='//fonts.googleapis.com/css?family=Lekton:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -47,16 +47,18 @@
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-fullscreen/src/angular-fullscreen.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/perfect-scrollbar/min/perfect-scrollbar.min.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/player/main.js" />
+        <script type="text/javascript" charset="utf-8" src="/static/main.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/player.ctrl.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/player.service.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/soundcloud-viz/module.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/youtube/module.js" />
         <script type="text/javascript" charset="utf-8" src="/static/api.service.js" />
         <script type="text/javascript" charset="utf-8" src="/static/login/module.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/strip/strip.directive.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/strip/panels/directives.js" />
+        <script type="text/javascript" charset="utf-8" src="/static/strip/module.js" />
         <script type="text/javascript" charset="utf-8" src="/static/strip/add-to-shows/module.js" />
+        <script type="text/javascript" charset="utf-8" src="/static/strip/loop/module.js" />
+        <script type="text/javascript" charset="utf-8" src="/static/strip/show/module.js" />
+        <script type="text/javascript" charset="utf-8" src="/static/strip/search-results/module.js" />
         <script type="text/javascript" charset="utf-8" src="/static/strip/header/module.js" />
         {% endcompress %}
         {% comment %}

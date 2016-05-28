@@ -1,0 +1,72 @@
+.Loop {
+    background-color: @LOW_OPACITY_BACKGROUND;
+    font-size: 1.4em;
+    .infinit-scroll__item {
+        display: inline-block;
+    }
+    &__shows {
+        white-space: nowrap;
+        overflow-y: auto;
+    }
+    &__show {
+        position: relative;
+        width: 200px;
+        height: @LOOP_SHOW_HEIGHT;
+        margin-right: 10px;
+
+        display: inline-block;
+        overflow: hidden;
+        &__body {
+            font-family: @FONT2;
+            background-color: @body-bg;
+            z-index: 1;
+            position: relative;
+            white-space: normal;
+            font-size: .65em;
+            padding: 20px;
+            height: 120px ;
+            // height: @LOOP_SHOW_HEIGHT / 3;
+            .title {
+                font-family: @FONT1;
+                height: 42px; // must be 2 lines of text height
+                overflow: hidden;
+                /* font-weight: bold; */
+                font-size: 1.3em;
+            }
+        }
+        &__background {
+            z-index: 0;
+            background-size: cover;
+            background-position: top center;
+            height: (@LOOP_SHOW_HEIGHT + 30px); // (@LOOP_SHOW_HEIGHT / 3) * 2;
+            // height: 330px;
+            position: relative;
+            top: (@CELL_HEIGHT * -1);  //-50px
+        }
+        &--current-show {
+            width: 420px !important; //@CURRENT_SHOW_WIDTH
+            min-height: 250px;
+            position: relative;
+            background-color: fade(@brand-primary, 80);
+            background-blend-mode: multiply;
+            .Loop__show__body {
+                background-color: transparent;
+                font-size: 1em;
+                color: white ; // @body-bg;
+                .title {
+                    height: auto;
+                    margin-bottom: 50px;
+                }
+            }
+            .Loop__show__background {
+                height: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                opacity: .3;
+            }
+        }
+    }
+}

@@ -1,5 +1,14 @@
-@import "../../bower_components/bootstrap/less/bootstrap.less";
-@import "../../variables.less";
+@fa-font-path: "/static/bower_components/components-font-awesome/fonts";
+@import "bower_components/bootstrap/less/bootstrap.less";
+@import "bower_components/plyr/src/less/plyr.less";
+@import "bower_components/components-font-awesome/less/font-awesome.less";
+@import "variables.less";
+@import "strip/style.less";
+@import "strip/show/style.less";
+@import "strip/loop/style.less";
+@import "strip/search-results/style.less";
+@import "strip/header/style.less";
+@import "login/style.less";
 
 a, [ng-click], [ui-sref] {
     color: @link-color;
@@ -137,8 +146,3 @@ body .plyr {
     padding-left: 0px;
     padding-right: 0px;
 }
-@import "../../bower_components/plyr/src/less/plyr.less";
-@import "../../bower_components/components-font-awesome/less/font-awesome.less";
-@fa-font-path: "/static/bower_components/components-font-awesome/fonts";
-@import "../../strip/strip.less";
-@import "../../login/style.less";
