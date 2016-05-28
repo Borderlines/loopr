@@ -6,7 +6,7 @@
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
             var headerState = {
                 controller: 'StripHeaderCtrl',
-                templateUrl: '/static/strip/header/template.html',
+                templateUrl: '/strip/header/template.html',
                 controllerAs: 'vm'
             };
             $urlRouterProvider.otherwise('/');
@@ -15,7 +15,7 @@
                 reloadOnSearch: false,
                 url: '/:username?show&item',
                 controller: 'PlayerCtrl',
-                templateUrl: '/static/main.html',
+                templateUrl: '/main.html',
                 controllerAs: 'vm',
                 resolve: {
                     loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows',
@@ -89,7 +89,7 @@
                 views: {
                     body: {
                         controller: 'LoopExplorerCtrl',
-                        templateUrl: '/static/strip/loop/template.html',
+                        templateUrl: '/strip/loop/template.html',
                         controllerAs: 'vm'
                     }
 
@@ -101,7 +101,7 @@
                 views: {
                     body: {
                         controller: 'ShowExplorerCtrl',
-                        templateUrl: '/static/strip/show/template.html',
+                        templateUrl: '/strip/show/template.html',
                         controllerAs: 'vm',
                         resolve: {
                             show: function($stateParams, Shows) {
@@ -117,7 +117,7 @@
                 views: {
                     body: {
                         controller: 'SearchCtrl',
-                        templateUrl: '/static/strip/search-results/template.html',
+                        templateUrl: '/strip/search-results/template.html',
                         controllerAs: 'vm',
                         resolve: {
                             query: function($stateParams) {

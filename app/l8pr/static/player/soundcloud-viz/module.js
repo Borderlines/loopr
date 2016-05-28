@@ -108,7 +108,7 @@
                 scope.$watch('soundcloudItem', function(n , o) {
                     clear();
                     angular.extend(scope, {
-                        background: '/static/images/recordPlayer.gif'
+                        background: '/images/recordPlayer.gif'
                     });
                     var soundDeferred = $q.defer();
                     soundcloudPlayer = soundDeferred.promise;

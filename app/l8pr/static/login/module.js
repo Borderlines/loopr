@@ -14,7 +14,7 @@ angular.module('loopr.login', ['loopr.api'])
 .directive('l8prLogin', function() {
     return {
         scope: {},
-        templateUrl: '/static/login/template.html',
+        templateUrl: '/login/template.html',
         controller: LoginController,
         controllerAs: 'vm'
     };

@@ -25,7 +25,7 @@ angular.module('loopr.stripHeader', [])
 .directive('l8prStripHeader', [function() {
     return {
             scope: {},
-            templateUrl: '/static/strip/header/template.html',
+            templateUrl: '/strip/header/template.html',
             bindToController: true,
             controllerAs: 'vm',
             controller: StripHeaderCtrl

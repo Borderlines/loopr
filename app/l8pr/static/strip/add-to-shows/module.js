@@ -24,7 +24,7 @@
         return function(item) {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: '/static/strip/add-to-shows/template.html',
+                templateUrl: '/strip/add-to-shows/template.html',
                 controller: ModalInstanceCtrl,
                 controllerAs: 'vm',
                 resolve: {
