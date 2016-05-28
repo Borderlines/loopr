@@ -4,11 +4,14 @@
     "postdeploy": "python3 manage.py migrate"
   },
   "env":{
-    "DJANGO_SETTINGS_MODULE:":{
-      "required":true
+    "DJANGO_SETTINGS_MODULE":{
+        "value": "app.settings_heroku"
     },
-    "IFRAMELY_API_KEY:":{
-      "required":true
+    "COMPRESS_ENABLED":{
+        "value": "True"
+    },
+    "COMPRESS_OFFLINE":{
+        "value": "True"
     },
     "GOOGLE_API_KEY":{
       "required":true
@@ -32,7 +35,7 @@
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/ddollar/heroku-buildpack-multi.git"
+      "url": "https://github.com/heroku/heroku-buildpack-python"
     }
   ]
 }

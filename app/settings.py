@@ -150,6 +150,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app', 'l8pr', 'static'),
 ]
 COMPRESS_ENABLED = str(os.environ.get('COMPRESS_ENABLED', not DEBUG)).lower() == 'true'
+COMPRESS_OFFLINE = str(os.environ.get('COMPRESS_OFFLINE', not DEBUG)).lower() == 'true'
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'node_modules/less/bin/lessc {infile} {outfile}'),
 )
