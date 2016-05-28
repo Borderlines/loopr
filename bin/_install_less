@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+npm install
+# npm install -g less
+# npm install -g bower
+ln -s -f ../../vendor/bower/bin/bower .heroku/python/bin/bower
+bower install

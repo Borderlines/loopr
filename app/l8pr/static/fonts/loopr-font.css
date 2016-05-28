@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "l8pr04";
-  src:url("fonts/l8pr04.eot");
-  src:url("fonts/l8pr04.eot?#iefix") format("embedded-opentype"),
-    url("fonts/l8pr04.woff") format("woff"),
-    url("fonts/l8pr04.ttf") format("truetype"),
-    url("fonts/l8pr04.svg#l8pr04") format("svg");
+  src:url("l8pr04.eot");
+  src:url("l8pr04.eot?#iefix") format("embedded-opentype"),
+    url("l8pr04.woff") format("woff"),
+    url("l8pr04.ttf") format("truetype"),
+    url("l8pr04.svg#l8pr04") format("svg");
   font-weight: normal;
   font-style: normal;
 
