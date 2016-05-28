@@ -58,8 +58,8 @@ class LoopSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    loops = LoopSerializer(many=True)
     profile = ProfileSerializer(many=False)
+    loops = LoopSerializer(many=True)
 
     class Meta:
         model = User
@@ -94,8 +94,10 @@ class ShowViewSet(viewsets.ModelViewSet):
     filter_fields = ('user',)
 
     def get_queryset(self):
-        user = self.request.user
-        return Show.objects.filter(user=user)
+        if 'pk' not in self.kwargs:
+            return Show.objects.filter(user=self.request.user)
+        else:
+            return Show.objects.all()
 
 
 class ItemViewSet(viewsets.ModelViewSet):
