@@ -13,7 +13,7 @@ def angular_templates():
                 file_path = os.path.join(root, file_name)
                 with open(file_path, 'rb') as fh:
                     file_name = file_path[len(partials_dir) + 1:]
-                    yield (file_name, normalize_newlines(fh.read().decode('utf-8')).replace('\n', ' ').replace('   ', ''))
+                    yield (file_name, normalize_newlines(fh.read().decode('utf-8')).replace('\n', ' '))
 
 
 class HomePageView(TemplateView):
