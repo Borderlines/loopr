@@ -1,8 +1,8 @@
 (function() {
 'use strict';
 
-SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', '$history', 'SearchYoutube'];
-function SearchCtrl(query, results, Player, addToShowModal, $history, SearchYoutube) {
+SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', 'SearchYoutube'];
+function SearchCtrl(query, results, Player, addToShowModal, SearchYoutube) {
     var vm = this;
     angular.extend(vm, {
         query: query,
@@ -10,15 +10,16 @@ function SearchCtrl(query, results, Player, addToShowModal, $history, SearchYout
         play: function(item) {
             Player.playItem(item);
         },
-        previousState: $history.back,
         addItemToAShow: function openModal(item) {
             addToShowModal(item);
         }
     });
     // adds youtube results
-    SearchYoutube.getList({q: query}).then(function(results) {
-        vm.results = vm.results.concat(results);
-    });
+    if (query) {
+        SearchYoutube.getList({q: query}).then(function(results) {
+            vm.results = vm.results.concat(results);
+        });
+    }
 }
 
 angular.module('loopr.strip')

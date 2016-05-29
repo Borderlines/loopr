@@ -108,7 +108,7 @@
             description: 'next item',
             callback: vm.Player.nextItem
         });
-}
+    }
 
     angular.module('loopr.player')
     .controller('PlayerCtrl', PlayerCtrl)
@@ -136,39 +136,4 @@
             }
         };
     }]);
-    // .directive('addToFavorite', [function() {
-    //     return {
-    //         template: ['<span class="add-to-favs" ng-class="{\'active\': vm.inFavorites}"',
-    //                    ' ng-click="vm.addToFavs(); $event.stopPropagation();">',
-    //                    '<i class="fa fa-star"></i></span>'].join(''),
-    //         scope: {
-    //             user: '='
-    //         },
-    //         controllerAs: 'vm',
-    //         controller: ['login', '$scope', function(login, $scope) {
-    //             var vm = this;
-    //             angular.extend(vm, {
-    //                 inFavorites: undefined,
-    //                 addToFavs: function() {
-    //                     login.login().then(function(user) {
-    //                         user.favorites = user.favorites || [];
-    //                         var to_fav = $scope.user;
-    //                         // add
-    //                         if (user.favorites.indexOf(to_fav) === -1) {
-    //                             user.favorites.push(to_fav);
-    //                             user.patch(_.pick(user, 'favorites'));
-    //                             vm.inFavorites = true;
-    //                         // remove
-    //                         } else {
-    //                             user.favorites.splice(user.favorites.indexOf(to_fav), 1);
-    //                             user.patch(_.pick(user, 'favorites'));
-    //                             vm.inFavorites = false;
-    //                         }
-    //                     });
-    //                 }
-    //             });
-    //         }]
-    //     };
-    // }]);
-
 })();

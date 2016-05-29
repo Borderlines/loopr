@@ -1,15 +1,19 @@
 (function() {
 'use strict';
 
-StripHeaderCtrl.$inject = ['login', 'Player', '$state'];
-function StripHeaderCtrl(login, Player, $state) {
+StripHeaderCtrl.$inject = ['login', 'Player', '$state', '$history'];
+function StripHeaderCtrl(login, Player, $state, $history) {
     var vm = this;
     angular.extend(vm, {
         searchQuery: $state.params.q,
-        searchBarVisible: $state.params.q && $state.params.q !== '',
+        searchBarVisible: $state.current.name === 'index.open.search' || ($state.params.q && $state.params.q !== ''),
         loopAuthor: Player.loop.user.username,
         showsCount: Player.loop.user.loops[0].shows_list.length,
         currentUser: login.currentUser,
+        previousState: function() {
+            vm.searchQuery = undefined;
+            $history.back();
+        },
         clear: function() {
             vm.searchQuery = '';
             $state.go('index.open.search', {q: ''});

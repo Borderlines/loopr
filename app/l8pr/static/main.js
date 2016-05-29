@@ -151,20 +151,37 @@
             var self = this;
             angular.extend(self, {
                 push: function(state, params) {
-                    history.push({ state: state, params: params });
+                    if (history.length > 0 && state.name === history[history.length - 1].state.name) {
+                        // if last state has the same name, update it
+                        history[history.length - 1].params = params;
+                    } else {
+                        // if not, push a new state
+                        history.push({ state: state, params: params });
+                    }
                 },
+                // used in $stateChangeSuccess handler to know if change comes from back function
+                goingBack: false,
                 back: function(fallback) {
                     var prev = history.pop();
+                    self.goingBack = true;
                     if (angular.isDefined(prev)) {
                         return $state.go(prev.state, prev.params);
                     } else {
-                        $state.go(fallback || 'index');
+                        if (fallback) {
+                            $state.go(fallback);
+                        } else {
+                            $state.go('index');
+                        }
                     }
                 }
             });
         })
         .run(function($history, $state, $rootScope) {
             $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+                if ($history.goingBack) {
+                    $history.goingBack = false;
+                    return;
+                }
                 if (!from['abstract'] && from.name !== 'index') {
                     $history.push(from, fromParams);
                 }
