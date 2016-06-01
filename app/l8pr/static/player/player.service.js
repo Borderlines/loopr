@@ -37,7 +37,7 @@
             playItem: function(item) {
                 var currentIndex = self.currentShow.items.indexOf(self.currentItem);
                 if (currentIndex === -1) {
-                    debugger;
+                    console.error('item not found in', self.currentShow);
                 }
                 var show = angular.copy(self.currentShow);
                 show.items.splice(currentIndex + 1, 0, item);

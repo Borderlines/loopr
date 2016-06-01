@@ -32,7 +32,7 @@
                             loop.user = user;
                             // shuffle ?
                             function shuffle(o) {
-                                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+                                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x); // jshint ignore:line
                                 return o;
                             }
                             loop.shows_list.forEach(function(show) {
@@ -49,7 +49,9 @@
                                     }
                                 }
                             });
+                            // a show is asked
                             var show = _.find(loop.shows_list, function(show) { return show.id.toString() === $stateParams.show;});
+                            // a show is asked but not part of the loop, then we add it to the loop
                             if (!angular.isDefined(show) && $stateParams.show) {
                                 show = Shows.one($stateParams.show).get().then(function(show) {
                                     loop.shows_list.push(show);
@@ -58,11 +60,13 @@
                             }
                             return $q.when(show).then(function(show) {
                                 var item_index;
+                                // an item is asked
                                 if (show && $stateParams.item) {
                                     item_index = _.findIndex(show.items, function(link) {
                                         return parseInt($stateParams.item, 10) === parseInt(link.id, 10);
                                     });
                                 }
+                                // item not found, play first one
                                 if (item_index === -1) {
                                     item_index = 0;
                                 }
