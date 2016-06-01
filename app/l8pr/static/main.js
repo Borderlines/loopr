@@ -123,24 +123,20 @@
                             query: function($stateParams) {
                                 return $stateParams.q;
                             },
-                            results: function(query, Items, Search) {
+                            results: ['findOrCreateItem', 'query', 'Items', 'Search',
+                            function(findOrCreateItem, query, Items, Search) {
                                 if (query) {
                                     var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
                                     if (urlRegex.test(query)) {
-                                        return Items.getList({url: query}).then(function(items) {
-                                            if (items.length === 0) {
-                                                return Items.post({url: query}).then(function(item) {
-                                                    return [item];
-                                                });
-                                            }
-                                            return items;
+                                        return findOrCreateItem({url: query}).then(function(item) {
+                                            return [item];
                                         });
                                     } else {
                                         return Search.getList({'title': query});
                                     }
                                 }
                                 return [];
-                            }
+                            }]
                         }
                     }
                 }

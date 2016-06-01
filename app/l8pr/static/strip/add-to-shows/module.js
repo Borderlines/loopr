@@ -1,16 +1,30 @@
 (function() {
     'use strict';
 
-    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item'];
-    function ModalInstanceCtrl($scope, $uibModalInstance, shows, item) {
+    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item', 'findOrCreateItem', '$q'];
+    function ModalInstanceCtrl($scope, $uibModalInstance, shows, item, findOrCreateItem, $q) {
         var vm = this;
         angular.extend(vm, {
             shows: shows,
             item: item,
             addToShow: function(show) {
-                show.items.unshift(vm.item);
-                show.save().then(function() {
-                    $uibModalInstance.close(show);
+                $q.when((function() {
+                    if (vm.item.id === null) {
+                        return findOrCreateItem({url: vm.item.url});
+                    } else {
+                        if (vm.item.id.indexOf('.') > -1) {
+                            var id = vm.item.id.split('.');
+                            if (id[1] === 'item') {
+                                vm.item.id = id[2];
+                            }
+                        }
+                        return vm.item;
+                    }
+                })()).then(function(item) {
+                    show.items.unshift(item);
+                    show.save().then(function() {
+                        $uibModalInstance.close(show);
+                    });
                 });
             },
             cancel: function() {

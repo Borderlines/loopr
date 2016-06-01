@@ -80,6 +80,20 @@
         return Restangular.service('youtube');
     }
 
+    FindOrCreateItem.$inject = ['Items'];
+    function FindOrCreateItem(Items) {
+        return function(item) {
+            return Items.getList({url: item.url}).then(function(items) {
+                if (items.length === 0) {
+                    return Items.post({url: item.url}).then(function(item) {
+                        return item;
+                    });
+                }
+                return items[0];
+            });
+        };
+    }
+
     angular.module('loopr.api', ['restangular', 'LocalStorageModule'])
         .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
             localStorageServiceProvider
@@ -94,6 +108,7 @@
         .factory('SearchYoutube', SearchYoutube)
         .factory('Accounts', Accounts)
         .factory('Auth', Auth)
+        .factory('findOrCreateItem', FindOrCreateItem)
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
             RestangularProvider.setRequestSuffix('/');
