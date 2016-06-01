@@ -1,67 +1,42 @@
 .Show {
     max-height: 60vh;
-    //width: 100%;
     overflow-y: auto;
-    box-sizing: border-box;     // ex .wrapper
-    //overflow: hidden;           // ex .wrapper
-    //position: relative;         // ex .wrapper
-    //padding: 0px @line-height-computed;
-    padding-left: @line-height-computed;
-    padding-right: @line-height-computed;
-    background-color: @LOW_OPACITY_BACKGROUND;
+    box-sizing: border-box;
     &__cover {
         font-family: @FONT1;
         color: @text-color;
         background-color: @body-bg;
-        //box-sizing: padding-box;
-        //top: 20px;
-        padding-left: @line-height-computed;
+        box-sizing: padding-box;
         .title {
-            font-size: 1.8em;
             font-weight: bold;
-            //background-color: red;
-            margin-top: @line-height-computed * 2;
-            //margin-bottom: 15px;
-            //top: 20px;
         }
         @media (min-width: @screen-md){
             .title { margin-bottom:@line-height-computed * 2;}
         }
         .details {
             font-family: @FONT2;
-            font-size: 0.85em;
-            //background-color: purple;
-            //top: 20px;
-            margin-top: @line-height-computed * 2;
-            margin-bottom: @line-height-computed * 2;
-            vertical-align: middle;
         }
 
         @media (max-width: @screen-md){
             .details { margin-top:@line-height-computed / 2;}
         }
         .actions {
-            //background-color: yellow;
             text-align: right;
             top: 20px;
             &:hover{color:blue;}
         }
     }
-    &__listItems, &__illu { // same height
+    &__listItems, &__illu {
         min-height: 500px;
     }
 
     &__illu {
         background-color: purple;
-        //position: relative;
     }
 
     &__listItems {
         font-family: @FONT2;
-        //width: 100%;
         background-color: fade(@body-bg, 75);
-        //padding-top: 20px;
-        // padding-top: (@line-height-computed * 2);
         &__item {
             padding-left: 30px !important;
             padding-top: 20px !important;
