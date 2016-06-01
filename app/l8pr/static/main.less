@@ -19,6 +19,7 @@ a, [ng-click], [ui-sref] {
         color: @link-hover-color;
     }
 }
+
 html, body, div[ng-view] {
     height: 100%;
     overflow: hidden;
@@ -30,7 +31,7 @@ iframe {
     position: absolute;
     z-index: 5;
 }
-// youtue player
+// youtube player
 body .plyr {
     position: absolute;
     top: 0;
@@ -120,14 +121,16 @@ body .plyr {
 // BOOTSTRAP OVERRIDE
 //
 
-.col-sm-8, .col-sm-4, .col-sm-12, .col-xs-12 {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+.col-xs-1, .col-xs-2, .col-xs-10, .col-xs-11, .col-xs-12,
+.col-sm-8, .col-sm-4, .col-sm-12,
+.col-md-3, .col-md-4, .col-md-8, .col-md-9 {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 .row {
-  margin-left: 0px !important;
-  margin-right: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
 
 .list-group {
@@ -135,7 +138,6 @@ body .plyr {
 }
 
 .list-group-item {
-    //border: none;
     border: 1px #fff;
     background-color: transparent;
     padding-left: 0px;
