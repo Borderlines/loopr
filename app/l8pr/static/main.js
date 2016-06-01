@@ -75,7 +75,7 @@
             })
             .state('index.open', {
                 reloadOnSearch: false,
-                abstract: true,
+                'abstract': true,
                 views: {
                     header: headerState,
                     body: {
@@ -183,6 +183,8 @@
                     return;
                 }
                 if (!from['abstract'] && from.name !== 'index') {
+                    delete fromParams.show;
+                    delete fromParams.item;
                     $history.push(from, fromParams);
                 }
             });
