@@ -17,6 +17,11 @@
             <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.exit()">close</i>
             <div class="current-user" ng-if="vm.currentUser"
                 ng-style="{'background-image': 'url(' + vm.currentUser.profile.avatar + ')'}">
+                <i ng-if="!vm.currentUser.profile.avatar" class="material-icons">account_circle</i>
+
+            </div>
+            <div class="current-user" ng-if="!vm.currentUser">
+                <i class="material-icons">account_circle</i>
             </div>
         </div>
     </div>
