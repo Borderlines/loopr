@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Shows', 'Accounts', '$stateParams', '$timeout', 'login', 'loopAuthor', 'addToShowModal',
+    PlayerCtrl.$inject = ['Player', 'Shows', 'Accounts', '$stateParams', '$timeout','login', 'loopAuthor', 'addToShowModal',
     '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip'];
     function PlayerCtrl(Player, Shows, Accounts, $stateParams, $timeout, login, loopAuthor, addToShowModal,
         $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService) {

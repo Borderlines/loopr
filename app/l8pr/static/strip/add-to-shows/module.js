@@ -12,7 +12,7 @@
                     if (vm.item.id === null) {
                         return findOrCreateItem({url: vm.item.url});
                     } else {
-                        if (vm.item.id.indexOf('.') > -1) {
+                        if (vm.item.id.toString().indexOf('.') > -1) {
                             var id = vm.item.id.split('.');
                             if (id[1] === 'item') {
                                 vm.item.id = id[2];

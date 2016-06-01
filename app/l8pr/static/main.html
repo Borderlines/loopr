@@ -4,6 +4,9 @@
 <youtube ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
          data-item="vm.Player.currentItem">
 </youtube>
+<vimeo ng-if="vm.Player.currentItem.provider_name == 'Vimeo'"
+         data-item="vm.Player.currentItem">
+</vimeo>
 <div class="overlay"
      ng-mousemove="vm.showAndHideStrip()"
      auto-hide-cursor

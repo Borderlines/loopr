@@ -62,7 +62,6 @@ class Command(BaseCommand):
                     show_obj = Show.objects.create(
                         user=user_obj,
                         title=show.get('title'),
-                        show_type=show.get('type'),
                         settings=settings_obj
                     )
                     ShowsRelationship.objects.create(

@@ -26,7 +26,7 @@ admin.site.register(ShowSettings, ShowSettingsAdmin)
 
 
 class ShowAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'user', 'show_type', 'added', 'updated')
+    list_display = ('__str__', 'user', 'added', 'updated')
 
 admin.site.register(Show, ShowAdmin)
 

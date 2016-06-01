@@ -11,8 +11,7 @@ import datetime
 import re
 # TODO: favorites in accounts
 
-SHOW_TYPES = (('MusicShow', 'MusicShow'), ('VideoShow', 'VideoShow'))
-PROVIDER_CHOICES = (('YouTube', 'YouTube'), ('SoundCloud', 'SoundCloud'))
+PROVIDER_CHOICES = (('YouTube', 'YouTube'), ('SoundCloud', 'SoundCloud'), ('Vimeo', 'Vimeo'))
 
 
 class Profile(models.Model):
@@ -58,7 +57,6 @@ class Show(models.Model):
     updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
-    show_type = models.CharField(max_length=10, choices=SHOW_TYPES)
     settings = models.OneToOneField(ShowSettings,
                                     on_delete=models.CASCADE,
                                     related_name='show')

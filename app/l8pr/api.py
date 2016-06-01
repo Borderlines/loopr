@@ -34,7 +34,7 @@ class ShowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Show
-        fields = ('id', 'added', 'updated', 'title', 'description', 'show_type', 'items', 'user', 'settings')
+        fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
 
     def update(self, instance, validated_data):
         order = 0

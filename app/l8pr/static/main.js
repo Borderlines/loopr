@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login', 'ui.bootstrap',
+    angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login', 'ui.bootstrap', 'loopr.player.vimeo',
                                     'cfp.hotkeys', 'loopr.player.youtube', 'FBAngular', 'ui.router'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
             var headerState = {
