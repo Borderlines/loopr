@@ -1,10 +1,10 @@
 <div class="row">
     <div class="strip__header">
-        <div ng-if="!vm.searchBarVisible" class="strip__header__title col-xs-10">
+        <div ng-if="!vm.searchBarVisible" class="strip__header__title col-xs-9 col-md-10">
             <strong>{{ vm.loopAuthor }}</strong>'s loop
             {{ vm.showsCount }} Shows
         </div>
-        <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-10">
+        <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-9 col-md-10">
             <form class="form-inline" ng-submit="vm.search(vm.searchQuery)">
                 <div class="form-group">
                     <input type="text" class="col-md-6 form-control" ng-model="vm.searchQuery" placeholder="Search" focus-me="vm.searchBarVisible">
@@ -12,7 +12,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-xs-2 text-right">
+        <div class="col-xs-3 col-md-2 text-right">
             <i ng-if="!vm.searchBarVisible" class="material-icons" ng-click="vm.searchBarVisible = !vm.searchBarVisible">search</i>
             <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.exit()">close</i>
             <div class="current-user" ng-if="vm.currentUser"

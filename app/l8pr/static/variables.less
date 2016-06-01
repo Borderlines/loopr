@@ -5,9 +5,13 @@
 @PLAYING_NOW_COLOR: @brand-primary;
 @GREEN: @brand-primary; // remove later, replace by @brand-primary
 @LOW_OPACITY_BACKGROUND: fade(@body-bg, 60);
-@GENERAL_MARGE: 50px;
-@GENERAL_MARGE--mobile: 0px;
 
+@MARGE_OUTER:50px;
+@MARGE_OUTER--mobile: 0px;
+
+@MARGE: @line-height-computed;
+
+@SHADOW: fade(@text-color, 10);
 
 
 // Banner
@@ -90,8 +94,7 @@
 //** Unit-less `line-height` for use in components like buttons.
 @line-height-base:        1.428571429; // 20/14
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
-@line-height-computed-2x:   (@line-height-computed * 2); // floor((@font-size-base * @line-height-base)); // ~20px
+@line-height-computed:    10px; // floor((@font-size-base * @line-height-base)); > original Bootstrap
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;

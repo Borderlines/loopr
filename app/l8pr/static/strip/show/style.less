@@ -2,27 +2,26 @@
     max-height: 60vh;
     overflow-y: auto;
     box-sizing: border-box;
+    padding: 0 10px;
+    background-color: @LOW_OPACITY_BACKGROUND;
     &__cover {
         font-family: @FONT1;
         color: @text-color;
         background-color: @body-bg;
         box-sizing: padding-box;
-        .title {
+        padding: (@MARGE * 2);
+        box-shadow: 0px 10px 0px @SHADOW;
+        position: relative;
+        z-index: 2;
+        &__title {
             font-weight: bold;
+            font-size: 150%;
         }
-        @media (min-width: @screen-md){
-            .title { margin-bottom:@line-height-computed * 2;}
-        }
-        .details {
+        &__details {
             font-family: @FONT2;
         }
-
-        @media (max-width: @screen-md){
-            .details { margin-top:@line-height-computed / 2;}
-        }
-        .actions {
+        &__actions {
             text-align: right;
-            top: 20px;
             &:hover{color:blue;}
         }
     }
@@ -36,10 +35,11 @@
 
     &__listItems {
         font-family: @FONT2;
-        background-color: fade(@body-bg, 75);
+        //background-color: fade(@body-bg, 95);
+        background-color: @gray-lighter;
         &__item {
-            padding-left: 30px !important;
-            padding-top: 20px !important;
+            padding-top: (@MARGE * 2) !important;
+            padding-left: (@MARGE * 2) !important;
             .title {}
             .details {}
             .actions {}

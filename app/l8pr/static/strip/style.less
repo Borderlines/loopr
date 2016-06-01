@@ -7,7 +7,7 @@
     }
     &__controls {
         position: relative;
-        height: @UPPER_STRIP_HEIGHT;
+        //height: @UPPER_STRIP_HEIGHT;
         // title + btn for toggle controller
         > .row:first-child {
             > div {background-color: @body-bg; height: @UPPER_STRIP_HEIGHT;}
@@ -20,22 +20,26 @@
             }
         }
         .banner {
-            height: @UPPER_STRIP_HEIGHT;
+            //min-height: @UPPER_STRIP_HEIGHT;
+            padding: (@MARGE * 2) (@MARGE * 3) !important;
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
             .banner-inner {
-                padding-top: 20px;
                 display: inline-block;
                 vertical-align: middle;
                 line-height: normal;
+                font-size: 120%;
                 .body {
                     position: relative;
                 }
             }
         }
+        .controls {
+            padding-right: (@MARGE * 3) !important;
+        }
         i {
-            top: 15px;
+            top: (@UPPER_STRIP_HEIGHT / 3);
             position: relative;
         }
         i.sm.material-icons {
