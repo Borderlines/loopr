@@ -116,7 +116,7 @@
                 }
             })
             .state('index.open.search', {
-                url: '/search/:q',
+                url: '/search/{q:.*}',
                 reloadOnSearch: false,
                 views: {
                     body: {
