@@ -10,13 +10,15 @@ function StripHeaderCtrl(login, Player, $state, $history) {
         loopAuthor: Player.loop.user.username,
         showsCount: Player.loop.user.loops[0].shows_list.length,
         currentUser: login.currentUser,
-        previousState: function() {
-            vm.searchQuery = undefined;
-            $history.back();
+        exit: function() {
+            vm.clear();
+            vm.searchBarVisible = false;
+            if ($state.current.name === 'index.open.search') {
+                $history.back();
+            }
         },
         clear: function() {
             vm.searchQuery = '';
-            $state.go('index.open.search', {q: ''});
         },
         search: function(query) {
             $state.go('index.open.search', {q: query});

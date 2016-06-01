@@ -14,7 +14,7 @@
         </div>
         <div class="col-xs-2 text-right">
             <i ng-if="!vm.searchBarVisible" class="material-icons" ng-click="vm.searchBarVisible = !vm.searchBarVisible">search</i>
-            <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.previousState()">close</i>
+            <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.exit()">close</i>
             <div class="current-user" ng-if="vm.currentUser"
                 ng-style="{'background-image': 'url(' + vm.currentUser.profile.avatar + ')'}">
             </div>
