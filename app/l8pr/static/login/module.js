@@ -1,30 +1,42 @@
 (function() {
 'use strict';
 
-LoginController.$inject = ['login'];
-function LoginController(login) {
+ModalInstanceCtrl.$inject = ['login', '$http', '$uibModalInstance'];
+function ModalInstanceCtrl(login, $http, $uibModalInstance) {
     var vm = this;
     angular.extend(vm, {
-        login: login
+        cancel: function() {
+            $uibModalInstance.dismiss('cancel');
+        },
+        login: function() {
+            $http.post('api-auth/login/', {
+                // submit:'Log+in'
+                username: vm.username,
+                password: vm.password
+            }, {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest: function(data){
+                    return $.param(data);
+                }
+            }).success(function(responseData) {
+                login.login().then($uibModalInstance.close);
+            });
+        }
     });
-    vm.login.login();
 }
 
 angular.module('loopr.login', ['loopr.api'])
-.directive('l8prLogin', function() {
-    return {
-        scope: {},
-        templateUrl: '/login/template.html',
-        controller: LoginController,
-        controllerAs: 'vm'
-    };
-})
-.service('login', ['Accounts', '$rootScope', 'Auth',
-function(Accounts, $rootScope, Auth) {
+.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}])
+.service('login', ['Accounts', '$rootScope', 'Auth', '$uibModal',
+function(Accounts, $rootScope, Auth, $uibModal) {
     $rootScope.user = {};
     var service = {
+        currentUser: {},
         logout: function() {
-            service.currentUser = undefined;
+            service.currentUser = {};
             return Auth.one('logout').get();
         },
         login: function() {
@@ -33,6 +45,16 @@ function(Accounts, $rootScope, Auth) {
                 service.currentUser = currentUser;
                 return currentUser;
             });
+        },
+        openLoginView: function() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                size: 'sm',
+                templateUrl: '/login/template.html',
+                controller: ModalInstanceCtrl,
+                controllerAs: 'vm'
+            });
+            return modalInstance.result;
         }
     };
     return service;

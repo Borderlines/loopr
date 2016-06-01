@@ -9,7 +9,8 @@ function StripHeaderCtrl(login, Player, $state, $history) {
         searchBarVisible: $state.current.name === 'index.open.search' || ($state.params.q && $state.params.q !== ''),
         loopAuthor: Player.loop.user.username,
         showsCount: Player.loop.user.loops[0].shows_list.length,
-        currentUser: login.currentUser,
+        loginService: login,
+        openLoginView: login.openLoginView,
         exit: function() {
             vm.clear();
             vm.searchBarVisible = false;

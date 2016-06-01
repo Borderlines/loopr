@@ -25,6 +25,7 @@
         <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
+        {% csrf_token %}
         <div ui-view></div>
         <script src="https://www.youtube.com/iframe_api" async></script>
         <script src="//connect.soundcloud.com/sdk-2.0.0.js" async></script>
