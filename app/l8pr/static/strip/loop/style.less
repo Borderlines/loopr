@@ -12,7 +12,6 @@
         width: 200px;
         height: @LOOP_SHOW_HEIGHT;
         margin-right: 10px;
-
         display: inline-block;
         overflow: hidden;
         &__body {
@@ -22,11 +21,19 @@
             position: relative;
             white-space: normal;
             padding: 20px;
-            height: 120px ;
+            //height: 120px ;
             .title {
                 font-family: @FONT1;
-                height: 42px;
                 overflow: hidden;
+                margin-bottom: 10px;
+            }
+            .title:hover{
+                font-weight: bold;
+            }
+            .details {
+                font-style: italic;
+                //bottom: 0;
+                //position: absolute;
             }
         }
         &__background {
@@ -39,16 +46,15 @@
         }
         &--current-show {
             width: 420px !important; //@CURRENT_SHOW_WIDTH
-            min-height: 250px;
-            position: relative;
             background-color: fade(@brand-primary, 80);
             background-blend-mode: multiply;
             .Loop__show__body {
                 background-color: transparent;
                 color: white ;
                 .title {
-                    height: auto;
-                    margin-bottom: 50px;
+                    font-size: 180%;
+                    font-weight: bold;
+                    height: auto;                    color: @body-bg;
                 }
             }
             .Loop__show__background {

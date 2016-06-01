@@ -4,21 +4,21 @@
              ng-repeat="show in vm.shows"
              ng-class="{'Loop__show--current-show': $index === 0}"
              ng-style="{width: getWidth(show)}">
-             <a ui-sref="index.open.show({showToExploreId: show.id})">
-                 <div class="Loop__show__body">
+             <div class="Loop__show__body">
+                <a ui-sref="index.open.show({showToExploreId: show.id})">
                     <div class="title">
                         {{ show.title }}
                     </div>
-                    <div class="subtitle">
-                        <span ng-if="$index === 0">Show playing now</span>
-                        <span ng-if="$index === 1">Show coming next</span>
-                        <span ng-if="$index > 1">Show</span>
-                    </div>
+                </a>
+                <div class="details">
+                    <span ng-if="$index === 0">Playing Now</span>
+                    <span ng-if="$index === 1">Coming Next</span>
+                    <span ng-if="$index > 1"></span>
                     <div class="metadata" style="text-decoration: italic;">
-                        {{ show.duration() | seconds }}
+                        Show {{ show.duration() | seconds }}
                     </div>
                 </div>
-            </a>
+            </div>
             <div class="Loop__show__background"
                  ng-click="vm.player.playShow(show)"
                  ng-style="{'background-image': 'url(' + show.items[0].thumbnail + ')'}">

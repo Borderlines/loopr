@@ -31,8 +31,9 @@
                 <span ng-click="vm.Player.toggleMute()">
                     <i class="material-icons">{{ vm.Player.isMuted ? 'volume_off' : 'volume_up' }}</i>
                 </span>
+                <i class="material-icons text-muted">flash_off</i>
                 <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide">
-                    <i class="material-icons">{{ vm.stripService.isAutoHideEnabled === true ? 'call_to_action' : 'call_to_action' }}</i>
+                    <i class="material-icons sm">{{ vm.stripService.isAutoHideEnabled === true ? 'call_to_action' : 'call_to_action' }}</i>
                 </span>
                 <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><i class="material-icons">fullscreen</i><</span>
                 <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_down</i>
