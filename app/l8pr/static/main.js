@@ -115,6 +115,35 @@
                     }
                 }
             })
+            .state('open', {
+                reloadOnSearch: false,
+                url: '/open/{q:.*}',
+                views: {
+                    '': {
+                        controller: 'PlayerCtrl',
+                        templateUrl: '/main.html',
+                        controllerAs: 'vm',
+                        resolve: {
+                            loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'findOrCreateItem',
+                            function($stateParams, Accounts, Player, login, $state, $q, Shows, findOrCreateItem) {
+                                function searchAndPlayForUser(user) {
+                                    var loop = user.loops[0];
+                                    Player.setLoop(loop);
+                                    return findOrCreateItem({url: $stateParams.q}).then(function(item) {
+                                        loop.shows_list[0].items.unshift(item);
+                                        Player.playShow(loop.shows_list[0], 0);
+                                        return user;
+                                    });
+                                }
+                                return login.login()
+                                .then(searchAndPlayForUser, function() {
+                                    return Accounts.one('username/ben').get().then(searchAndPlayForUser);
+                                });
+                            }]
+                        }
+                    }
+                }
+            })
             .state('index.open.search', {
                 url: '/search/{q:.*}',
                 reloadOnSearch: false,
