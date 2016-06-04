@@ -20,12 +20,12 @@
     </div>
     <div class="strip__controls" ng-class="{'strip__controls--extended': vm.$state.current.name != 'index'}">
         <div class="row" ng-if="vm.$state.current.name != 'index'">
-            <div class="banner col-xs-12 col-md-9">
+            <div class="banner col-xs-12 col-md-8">
                 <div class="banner-inner">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="10"></banner>
                 </div>
             </div>
-            <div class="controls col-xs-12 col-md-3 text-right">
+            <div class="controls col-xs-12 col-md-4 text-right">
                 <span ng-click="vm.previousShow()"><i class="material-icons">first_page</i></span>
                 <span ng-click="vm.previousItem()"><i class="material-icons">chevron_left</i></span>
                 <span ng-click="vm.Player.playPause()"><i class="material-icons">play_arrow</i></span>

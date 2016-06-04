@@ -8,7 +8,7 @@
                 </div>
                 <div class="icons col-xs-2 col-md-1">
                     <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">playlist_add</i>
-                    <a ng-href="{{ restult.url }}" target="_blank">
+                    <a ng-href="{{ result.url }}" target="_blank">
                         <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true"></i>
                         <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true"></i>
                     </a>
