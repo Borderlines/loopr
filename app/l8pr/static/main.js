@@ -124,12 +124,12 @@
                         templateUrl: '/main.html',
                         controllerAs: 'vm',
                         resolve: {
-                            loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'findOrCreateItem',
-                            function($stateParams, Accounts, Player, login, $state, $q, Shows, findOrCreateItem) {
+                            loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
+                            function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
                                 function searchAndPlayForUser(user) {
                                     var loop = user.loops[0];
                                     Player.setLoop(loop);
-                                    return findOrCreateItem({url: $stateParams.q}).then(function(item) {
+                                    return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
                                         loop.shows_list[0].items.unshift(item);
                                         Player.playShow(loop.shows_list[0], 0);
                                         return user;

@@ -80,6 +80,11 @@
         return Restangular.service('youtube');
     }
 
+    GetItemMetadata.$inject = ['Restangular'];
+    function GetItemMetadata(Restangular) {
+        return Restangular.service('metadata');
+    }
+
     FindOrCreateItem.$inject = ['Items'];
     function FindOrCreateItem(Items) {
         return function(item) {
@@ -106,6 +111,7 @@
         .factory('Items', Items)
         .factory('Search', Search)
         .factory('SearchYoutube', SearchYoutube)
+        .factory('getItemMetadata', GetItemMetadata)
         .factory('Accounts', Accounts)
         .factory('Auth', Auth)
         .factory('findOrCreateItem', FindOrCreateItem)
