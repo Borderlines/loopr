@@ -18,18 +18,19 @@
                 templateUrl: '/main.html',
                 controllerAs: 'vm',
                 resolve: {
-                    loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows',
-                        function($stateParams, Accounts, Player, login, $state, $q, Shows) {
-                        login.login();
+                    loop: ['$stateParams', 'Loops', 'Player', 'login', '$state', '$q', 'Shows',
+                        function($stateParams, Loops, Player, login, $state, $q, Shows) {
                         if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
                             return login.login().then(function(user) {
-                                $state.go('index', {username:user.username});
+                                $state.go('index', {username: user.username});
+                            }, function() {
+                                $state.go('index', {username: 'discover'});
                             });
                         }
-                        return Accounts.one('username/' + $stateParams.username).get().then(function(user) {
-                            var loop = user.loops[0];
+                        return Loops.getList({'username': $stateParams.username}).then(function(loops) {
+                            var loop = loops[0];
+                            loop.username = $stateParams.username;
                             Player.setLoop(loop);
-                            loop.user = user;
                             // shuffle ?
                             function shuffle(o) {
                                 for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x); // jshint ignore:line
@@ -71,7 +72,7 @@
                                     item_index = 0;
                                 }
                                 Player.playShow(show, item_index);
-                                return user;
+                                return loop;
                             });
                         });
                     }]
@@ -96,7 +97,6 @@
                         templateUrl: '/strip/loop/template.html',
                         controllerAs: 'vm'
                     }
-
                 }
             })
             .state('index.open.show', {
@@ -124,20 +124,13 @@
                         templateUrl: '/main.html',
                         controllerAs: 'vm',
                         resolve: {
-                            loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
+                            loop: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
                             function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
-                                function searchAndPlayForUser(user) {
-                                    var loop = user.loops[0];
+                                return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
+                                    var loop = {shows_list: [{items: [item]}]};
                                     Player.setLoop(loop);
-                                    return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
-                                        loop.shows_list[0].items.unshift(item);
-                                        Player.playShow(loop.shows_list[0], 0);
-                                        return user;
-                                    });
-                                }
-                                return login.login()
-                                .then(searchAndPlayForUser, function() {
-                                    return Accounts.one('username/ben').get().then(searchAndPlayForUser);
+                                    Player.playShow(loop.shows_list[0], 0);
+                                    return loop;
                                 });
                             }]
                         }

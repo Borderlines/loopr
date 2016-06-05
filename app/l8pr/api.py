@@ -59,7 +59,6 @@ class LoopSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
-    loops = LoopSerializer(many=True)
 
     class Meta:
         model = User
@@ -86,6 +85,10 @@ class LoopViewSet(viewsets.ModelViewSet):
     queryset = Loop.objects.all()
     serializer_class = LoopSerializer
     filter_fields = ('user',)
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username', None)
+        return Loop.objects.filter(user__username=username)
 
 
 class ShowViewSet(viewsets.ModelViewSet):

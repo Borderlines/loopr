@@ -1,16 +1,15 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', 'Shows', 'Accounts', '$stateParams', '$timeout','login', 'loopAuthor', 'addToShowModal',
+    PlayerCtrl.$inject = ['Player', 'Shows', 'Accounts', '$stateParams', '$timeout','login', 'loop', 'addToShowModal',
     '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip'];
-    function PlayerCtrl(Player, Shows, Accounts, $stateParams, $timeout, login, loopAuthor, addToShowModal,
+    function PlayerCtrl(Player, Shows, Accounts, $stateParams, $timeout, login, loop, addToShowModal,
         $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService) {
         var vm = this;
         angular.extend(vm, {
             $state: $state,
             strip: strip,
             Player: Player,
-            loopAuthor: loopAuthor,
             showsCount: 0,
             currentUser: login.currentUser,
             upperStrip: upperStrip,
@@ -38,7 +37,7 @@
         function setBanner(item, show) {
             var lines = [item.title];
             if (show) {
-                lines.push(['Show', '<b>'+show.title+'</b>', 'by', vm.loopAuthor.username].join(' '));
+                lines.push(['Show', '<b>'+show.title+'</b>', 'by', loop.username].join(' '));
             }
             if (item.subtitle) {
                 lines.push(item.subtitle);
