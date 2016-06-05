@@ -8,11 +8,10 @@
             var hideTimeout;
             var service = {
                 toggleController: function() {
-                    var indexStateName = 'index';
-                    if ($state.current.name !== indexStateName) {
-                        $state.go(indexStateName);
+                    if (!_.contains(['index'], $state.current.name)) {
+                        $state.go($state.current.name.split('.')[0]);
                     } else {
-                        $history.back('index.open.loop');
+                        $history.back($state.current.name.split('.')[0] + '.open.loop');
                     }
                 },
                 isAutoHideEnabled: false,

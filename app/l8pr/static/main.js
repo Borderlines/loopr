@@ -4,11 +4,6 @@
     angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login', 'ui.bootstrap', 'loopr.player.vimeo',
                                     'cfp.hotkeys', 'loopr.player.youtube', 'FBAngular', 'ui.router'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-            var headerState = {
-                controller: 'StripHeaderCtrl',
-                templateUrl: '/strip/header/template.html',
-                controllerAs: 'vm'
-            };
             $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('index', {
@@ -26,6 +21,10 @@
                             }, function() {
                                 $state.go('index', {username: 'discover'});
                             });
+                        }
+                        if (angular.isDefined(Player.loop)) {
+                            Player.playShow(Player.loop.shows_list[0], 0);
+                            return Player.loop;
                         }
                         return Loops.getList({'username': $stateParams.username}).then(function(loops) {
                             var loop = loops[0];
@@ -82,7 +81,11 @@
                 reloadOnSearch: false,
                 'abstract': true,
                 views: {
-                    header: headerState,
+                    header: {
+                        controller: 'StripHeaderCtrl',
+                        templateUrl: '/strip/header/template.html',
+                        controllerAs: 'vm'
+                    },
                     body: {
                         template: '<div ui-view="body"></div>'
                     }
@@ -111,28 +114,6 @@
                             show: function($stateParams, Shows) {
                                 return Shows.one($stateParams.showToExploreId).get();
                             }
-                        }
-                    }
-                }
-            })
-            .state('open', {
-                reloadOnSearch: false,
-                url: '/open/{q:.*}',
-                views: {
-                    '': {
-                        controller: 'PlayerCtrl',
-                        templateUrl: '/main.html',
-                        controllerAs: 'vm',
-                        resolve: {
-                            loop: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
-                            function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
-                                return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
-                                    var loop = {shows_list: [{items: [item]}]};
-                                    Player.setLoop(loop);
-                                    Player.playShow(loop.shows_list[0], 0);
-                                    return loop;
-                                });
-                            }]
                         }
                     }
                 }
@@ -166,6 +147,18 @@
                         }
                     }
                 }
+            })
+            .state('open', {
+                reloadOnSearch: false,
+                url: '/open/{q:.*}',
+                controller: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
+                function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
+                    return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
+                        var loop = {shows_list: [{items: [item]}]};
+                        Player.setLoop(loop);
+                        $state.go('index');
+                    });
+                }]
             });
         }])
         .service('$history', function($state, $rootScope, $window) {
@@ -204,7 +197,7 @@
                     $history.goingBack = false;
                     return;
                 }
-                if (!from['abstract'] && from.name !== 'index') {
+                if (!from['abstract'] && !_.contains(['index', 'open'], from.name)) {
                     delete fromParams.show;
                     delete fromParams.item;
                     $history.push(from, fromParams);

@@ -85,14 +85,6 @@
                 }, 250, false);
                 $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
             },
-            getNextItem: function() {
-                var current_item_index = self.currentShow.items.indexOf(self.currentItem);
-                if (self.currentShow.items.length - 1 > current_item_index) {
-                    return self.currentShow.items[current_item_index + 1];
-                } else {
-                    return self.getNextShow().items[0];
-                }
-            },
             nextItem: function() {
                 var current_item_index = self.currentShow.items.indexOf(self.currentItem);
                 if (self.currentShow.items.length - 1 > current_item_index) {
