@@ -12,7 +12,7 @@
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-9 col-md-10">
             <form class="form-inline" ng-submit="vm.search(vm.searchQuery)">
                 <div class="form-group">
-                    <input type="text" class="col-md-6 form-control" ng-model="vm.searchQuery" placeholder="Search" focus-me="vm.searchBarVisible">
+                    <input type="text" class="col-md-6 form-control" ng-model="vm.searchQuery" placeholder="Enter words or paste a link" focus-me="vm.searchBarVisible">
                     <i class="material-icons" ng-click="vm.clear()">close</i>
                 </div>
             </form>

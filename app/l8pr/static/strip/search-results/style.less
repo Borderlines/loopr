@@ -1,13 +1,52 @@
 .Search {
+    max-height: 80vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 0 10px;
+    background-color: @LOW_OPACITY_BACKGROUND;
+
+    // Pasted from SHOW,  will factorize later.
+    &__cover {
+        font-family: @FONT1;
+        color: @text-color;
+        background-color: @body-bg;
+        box-sizing: padding-box;
+        padding: (@MARGE * 2);
+        box-shadow: 0px 10px 0px @SHADOW;
+        position: relative;
+        z-index: 2;
+        &__title {
+            font-weight: bold;
+            font-size: 150%;
+        }
+        &__details {
+            font-family: @FONT2;
+        }
+        &__actions {
+            text-align: right;
+            &:hover{color:blue;}
+        }
+    }
+    // From SHOW
+    &__filter {
+        background-color: @gray-dark;
+        min-height: 550px;
+        color: @body-bg;
+        &__parameters {
+            padding: 20px;
+        }
+    }
+    .list-group {
+    }
     .list-group-item {
         padding: 0;
+        padding-left: 20px;
         font-family: @FONT2;
         overflow: hidden;
-        background-color: @LOW_OPACITY_BACKGROUND;
+        background-color: fade(@gray-lighter, 90); // @LOW_OPACITY_BACKGROUND;
         margin-bottom: 0;
         &:hover {
             a, [ng-click] {color: @text-color;}
-            border: 0px solid black;
             background-color: white;
             .fa-youtube-play {
                 color: @color_youtube;
@@ -20,8 +59,12 @@
             }
         }
         .list-group-item-heading {
-            font-weight: bold;
-            padding-top: 10px;
+            padding-top: 25px;
+            line-height: 1.4em;
+        }
+        .list-group-item-text {
+            //margin-top: 10px;
+            opacity: 0.7;
         }
         .icons {
             padding-top: 32px;
@@ -32,11 +75,12 @@
         .illu {
             position: relative;
             height: 100px;
+            z-index: 100;
             img {
                 position: absolute;
                 right: 0;
                 top: 0;
-                height: 100px;
+                height: 100%;
             }
         }
     }
