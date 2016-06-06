@@ -147,22 +147,29 @@ def get_soundcloud_duration(url):
         return None
 
 
+def get_metadata(url, item_instance=None):
+    data = requests.get('http://iframe.ly/api/iframely?url=%s&api_key=%s' % (
+                        url, getattr(settings, 'IFRAMELY_API_KEY'))).json()
+    data = {
+        'title': data['meta']['title'],
+        'author_name': data['meta'].get('author'),
+        'thumbnail': data['links']['thumbnail'][0]['href'],
+        'provider_name': data['meta'].get('site'),
+        'html': data['html'],
+        'duration': data['meta'].get('duration'),
+        'url': data['meta'].get('canonical'),
+        'description': data['meta'].get('description')
+    }
+    if item_instance is None:
+        item_instance = Item()
+    for key, value in data.items():
+        setattr(item_instance, key, value)
+    return item_instance
+
+
 def completeItem(sender, instance, created, **kwargs):
     if not instance.provider_name:
-        data = requests.get('http://iframe.ly/api/iframely?url=%s&api_key=%s' % (
-                            instance.url, getattr(settings, 'IFRAMELY_API_KEY'))).json()
-        data = {
-            'title': data['meta']['title'],
-            'author_name': data['meta'].get('author'),
-            'thumbnail': data['links']['thumbnail'][0]['href'],
-            'provider_name': data['meta'].get('site'),
-            'html': data['html'],
-            'duration': data['meta'].get('duration'),
-            'url': data['meta'].get('canonical'),
-            'description': data['meta'].get('description')
-        }
-        for key, value in data.items():
-            setattr(instance, key, value)
+        get_metadata(instance.url, instance)
         instance.save()
     if not instance.duration:
         if instance.provider_name == 'YouTube':

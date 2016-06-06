@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship
+from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship, get_metadata
 from rest_framework import serializers, viewsets, views
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -59,7 +59,6 @@ class LoopSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
-    loops = LoopSerializer(many=True)
 
     class Meta:
         model = User
@@ -86,6 +85,10 @@ class LoopViewSet(viewsets.ModelViewSet):
     queryset = Loop.objects.all()
     serializer_class = LoopSerializer
     filter_fields = ('user',)
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username', None)
+        return Loop.objects.filter(user__username=username)
 
 
 class ShowViewSet(viewsets.ModelViewSet):
@@ -137,3 +140,14 @@ class SearchYoutubeView(views.APIView):
     def get(self, request, *args, **kw):
         result = youtube_search({'q': request.GET.get('q')})
         return Response(ItemSerializer(result, many=True).data, status=status.HTTP_200_OK)
+
+
+class MetadataView(views.APIView):
+    permission_classes = []
+
+    def get(self, request, *args, **kw):
+        url = request.GET.get('url')
+        result = Item.objects.filter(url=url).first()
+        if not result:
+            result = get_metadata(url)
+        return Response(ItemSerializer(result, many=False).data, status=status.HTTP_200_OK)

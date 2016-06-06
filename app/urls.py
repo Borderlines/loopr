@@ -17,7 +17,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from .l8pr.api import UserViewSet, LoopViewSet, ShowViewSet, ItemViewSet, ItemSearchView, SearchYoutubeView
+from .l8pr.api import (UserViewSet, LoopViewSet, ShowViewSet, ItemViewSet, ItemSearchView,
+SearchYoutubeView, MetadataView)
 from .l8pr.views import HomePageView
 from django.contrib import admin
 from django.conf.urls.static import static
@@ -36,6 +37,7 @@ router.register(r'items', ItemViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^api/', include(router.urls)),
+    url(r'^api/metadata/', MetadataView.as_view()),
     url(r'^api/youtube/', SearchYoutubeView.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/logout/$', auth_views.logout),

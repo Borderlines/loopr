@@ -4,11 +4,6 @@
     angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login', 'ui.bootstrap', 'loopr.player.vimeo',
                                     'cfp.hotkeys', 'loopr.player.youtube', 'FBAngular', 'ui.router'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-            var headerState = {
-                controller: 'StripHeaderCtrl',
-                templateUrl: '/strip/header/template.html',
-                controllerAs: 'vm'
-            };
             $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('index', {
@@ -18,18 +13,23 @@
                 templateUrl: '/main.html',
                 controllerAs: 'vm',
                 resolve: {
-                    loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows',
-                        function($stateParams, Accounts, Player, login, $state, $q, Shows) {
-                        login.login();
+                    loop: ['$stateParams', 'Loops', 'Player', 'login', '$state', '$q', 'Shows',
+                        function($stateParams, Loops, Player, login, $state, $q, Shows) {
                         if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
                             return login.login().then(function(user) {
-                                $state.go('index', {username:user.username});
+                                $state.go('index', {username: user.username});
+                            }, function() {
+                                $state.go('index', {username: 'discover'});
                             });
                         }
-                        return Accounts.one('username/' + $stateParams.username).get().then(function(user) {
-                            var loop = user.loops[0];
+                        if (angular.isDefined(Player.loop)) {
+                            Player.playShow(Player.loop.shows_list[0], 0);
+                            return Player.loop;
+                        }
+                        return Loops.getList({'username': $stateParams.username}).then(function(loops) {
+                            var loop = loops[0];
+                            loop.username = $stateParams.username;
                             Player.setLoop(loop);
-                            loop.user = user;
                             // shuffle ?
                             function shuffle(o) {
                                 for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x); // jshint ignore:line
@@ -71,7 +71,7 @@
                                     item_index = 0;
                                 }
                                 Player.playShow(show, item_index);
-                                return user;
+                                return loop;
                             });
                         });
                     }]
@@ -81,7 +81,11 @@
                 reloadOnSearch: false,
                 'abstract': true,
                 views: {
-                    header: headerState,
+                    header: {
+                        controller: 'StripHeaderCtrl',
+                        templateUrl: '/strip/header/template.html',
+                        controllerAs: 'vm'
+                    },
                     body: {
                         template: '<div ui-view="body"></div>'
                     }
@@ -96,7 +100,6 @@
                         templateUrl: '/strip/loop/template.html',
                         controllerAs: 'vm'
                     }
-
                 }
             })
             .state('index.open.show', {
@@ -111,35 +114,6 @@
                             show: function($stateParams, Shows) {
                                 return Shows.one($stateParams.showToExploreId).get();
                             }
-                        }
-                    }
-                }
-            })
-            .state('open', {
-                reloadOnSearch: false,
-                url: '/open/{q:.*}',
-                views: {
-                    '': {
-                        controller: 'PlayerCtrl',
-                        templateUrl: '/main.html',
-                        controllerAs: 'vm',
-                        resolve: {
-                            loopAuthor: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'findOrCreateItem',
-                            function($stateParams, Accounts, Player, login, $state, $q, Shows, findOrCreateItem) {
-                                function searchAndPlayForUser(user) {
-                                    var loop = user.loops[0];
-                                    Player.setLoop(loop);
-                                    return findOrCreateItem({url: $stateParams.q}).then(function(item) {
-                                        loop.shows_list[0].items.unshift(item);
-                                        Player.playShow(loop.shows_list[0], 0);
-                                        return user;
-                                    });
-                                }
-                                return login.login()
-                                .then(searchAndPlayForUser, function() {
-                                    return Accounts.one('username/ben').get().then(searchAndPlayForUser);
-                                });
-                            }]
                         }
                     }
                 }
@@ -173,6 +147,18 @@
                         }
                     }
                 }
+            })
+            .state('open', {
+                reloadOnSearch: false,
+                url: '/open/{q:.*}',
+                controller: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
+                function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
+                    return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
+                        var loop = {shows_list: [{items: [item]}]};
+                        Player.setLoop(loop);
+                        $state.go('index');
+                    });
+                }]
             });
         }])
         .service('$history', function($state, $rootScope, $window) {
@@ -211,7 +197,7 @@
                     $history.goingBack = false;
                     return;
                 }
-                if (!from['abstract'] && from.name !== 'index') {
+                if (!from['abstract'] && !_.contains(['index', 'open'], from.name)) {
                     delete fromParams.show;
                     delete fromParams.item;
                     $history.push(from, fromParams);
