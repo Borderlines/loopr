@@ -13,7 +13,7 @@
         <div class="list-group-item row" ng-repeat="result in vm.results">
                 <div class="col-xs-8 col-md-9" ng-click="vm.play(result)">
                     <h4 class="listItems__item__title list-group-item-heading" ng-bind="result.title"></h4>
-                    <p class="listItems__item__desc list-group-item-text"> Hello bonjour je suis une description</p>
+                    <p class="listItems__item__desc list-group-item-text" ng-bind="result.description"></p>
                 </div>
                 <div class="icons col-xs-2 col-md-2">
                     <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">playlist_add</i>
