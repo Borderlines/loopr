@@ -25,21 +25,29 @@
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="10"></banner>
                 </div>
             </div>
-            <div class="controls col-xs-12 col-md-4 text-right">
-                <span ng-click="vm.previousShow()"><i class="material-icons">first_page</i></span>
-                <span ng-click="vm.previousItem()"><i class="material-icons">chevron_left</i></span>
-                <span ng-click="vm.Player.playPause()"><i class="material-icons">play_arrow</i></span>
-                <span ng-click="vm.nextItem()"><i class="material-icons">chevron_right</i></span>
-                <span ng-click="vm.nextShow()"><i class="material-icons">last_page</i></span>
-                <span ng-click="vm.Player.toggleMute()">
-                    <i class="material-icons">{{ vm.Player.isMuted ? 'volume_off' : 'volume_up' }}</i>
-                </span>
-                <span><i class="material-icons text-muted">flash_off</i></span>
-                <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide">
-                    <i class="material-icons sm">{{ vm.stripService.isAutoHideEnabled === true ? 'call_to_action' : 'call_to_action' }}</i>
-                </span>
-                <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}"><i class="material-icons">fullscreen</i></span>
-                <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_down</i>
+            <div class="controller col-xs-12 col-md-4">
+                <div class="controller__prevPlayNext col-xs-8">
+                    <span ng-click="vm.previousShow()"><i class="material-icons">first_page</i></span>
+                    <span ng-click="vm.previousItem()"><i class="material-icons">chevron_left</i></span>
+                    <span ng-click="vm.Player.playPause()"><i class="material-icons">play_arrow</i></span>
+                    <span ng-click="vm.nextItem()"><i class="material-icons">chevron_right</i></span>
+                    <span ng-click="vm.nextShow()"><i class="material-icons">last_page</i></span>
+                    <span ng-click="vm.Player.toggleMute()">
+                        <i class="material-icons">{{ vm.Player.isMuted ? 'volume_off' : 'volume_up' }}</i>
+                    </span>
+                    <span><i class="material-icons text-muted">flash_off</i></span>
+                </div>
+                <div class="controller__display col-xs-3 text-left">
+                    <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide">
+                        <i class="material-icons sm">{{ vm.stripService.isAutoHideEnabled === true ? 'video_label' : 'call_to_action' }}</i>
+                    </span>
+                    <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}">
+                        <i class="material-icons">fullscreen</i>
+                    </span>
+                </div>
+                <div class="controller__toggle col-xs-1 text-right">
+                    <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_down</i>
+                </div>
             </div>
         </div>
         <div class="row" ng-if="vm.$state.current.name === 'index'">
@@ -48,7 +56,7 @@
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
                 </div>
             </div>
-            <div class="controls col-xs-1 text-right">
+            <div class="controller__toggle col-xs-1 text-right">
                 <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()">keyboard_arrow_up</i>
             </div>
         </div>

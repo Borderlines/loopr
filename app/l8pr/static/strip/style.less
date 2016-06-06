@@ -3,7 +3,7 @@
     .icon:hover {color: @brand-primary;}
     &__body {
         overflow-y: auto;
-        max-height: 45vh;
+        max-height: 50vh;
     }
     &__controls {
         position: relative;
@@ -15,7 +15,8 @@
         &--extended {
             > .row:first-child {
                 div:nth-child(2) {
-                    background-color: fade(@body-bg, 55);
+                    background-color: fade(@body-bg, 60);
+                    //filter: blur(50px);
                 }
             }
         }
@@ -35,12 +36,23 @@
                 }
             }
         }
-        .controls {
-            padding-right: (@MARGE * 2) !important;
+        .controller {
+            padding-right: @MARGE !important;
+            &__prevPlayNext {
+                padding-left: 20px !important;
+            }
+            &__display {
+                background-color: fade(@body-bg, 0) !important;
+            }
+            &__toggle {
+                float: right;
+                padding-right: 20px !important;
+            }
         }
         i {
             top: (@UPPER_STRIP_HEIGHT / 3);
             position: relative;
+
         }
         i.sm.material-icons {
         }
