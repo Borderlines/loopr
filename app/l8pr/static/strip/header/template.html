@@ -1,9 +1,13 @@
 <div class="row">
     <div class="strip__header">
         <div ng-if="!vm.searchBarVisible" class="strip__header__title col-xs-9 col-md-10">
-            <i class="material-icons" ng-click="#">all_inclusive</i>
-            <strong> {{ vm.loopAuthor }}</strong>'s loop
-            {{ vm.showsCount }} Shows
+            <div class="logo">
+                <a href="#"><i class="material-icons">all_inclusive</i></a>
+            </div>
+            <div class="info">
+                <a ui-sref="index.open.loop" class="user-name text-capitalize"><strong>{{ vm.loopAuthor }}</strong></a>
+                <i class="number-shows">{{ vm.showsCount }} Shows</i>
+            </div>
         </div>
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar col-xs-9 col-md-10">
             <form class="form-inline" ng-submit="vm.search(vm.searchQuery)">

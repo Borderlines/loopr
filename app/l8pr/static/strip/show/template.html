@@ -2,17 +2,14 @@
     <div class="Show__cover row">
         <div class="col-xs-12 col-md-9">
             <span class="Show__cover__title col-xs-12" ng-bind="vm.show.title"></span>
-            <!--<span class="Show__cover details" ng-if="vm.playingNow">Show Playing Now</span>-->
         </div>
             <div class="Show__cover__actions col-xs-12 col-md-3">
-                <i class="material-icons">more_horiz</i>
+                <i class="material-icons">play_circle_filled</i>
                 <i class="material-icons">favorite_border</i>
-                <i class="material-icons">visibility</i>
-                <i class="material-icons">settings</i>
-                <i class="material-icons" ui-sref="index.open.loop">close</i>
+                <i class="material-icons">more_horiz</i>
         </div>
     </div>
-    <div class="Show__listItems list-group col-xs-12 col-md-8">
+    <div class="Show__listItems list-group col-xs-12 col-md-9">
         <a class="Show__listItems__item list-group-item" ng-repeat="item in vm.show.items">
             <div class="list-group-item-heading" ng-click="vm.player.playShow(vm.show, $index)">
                 <i ng-if="vm.player.currentItem === item" class="material-icons">plause_circle_outline</i>
@@ -24,6 +21,6 @@
             </div>
         </a>
     </div>
-    <div class="Show__illu col-xs-12 col-md-4" ng-click="vm.player.playShow(show)">
+    <div class="Show__illu col-xs-12 col-md-3" ng-click="vm.player.playShow(show)">
     </div>
 </div>
