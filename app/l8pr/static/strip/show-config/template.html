@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3 class="row modal-title">Settings</h3>
+    {{ vm.show.title }}
+</div>
+<form name="form">
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="container-fluid">
+
+                <!-- <ul class="options">
+                    <li ng-repeat="option in vm.show.settings" ng-if="vm.optionIsSatisifed(option)">
+                        <div ng-switch="option.type">
+                            <label ng-switch-when="text">
+                                {{ option.label }}
+                                <span>
+                                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
+                                </span>
+                            </label>
+                            <label ng-switch-when="checkbox">
+                                <span>
+                                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'default blur' }">
+                                </span>
+                                {{ option.label }}
+                            </label>
+                        </div>
+                    </li>
+                    <br />
+                    <li>
+                        <label>
+                            <input type="checkbox" ng-model="vm.show.settings.shuffle" ng-change="vm.saveShow()">
+                            Shuffle Mode
+                        </label>
+                    </li>
+                </ul> -->
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.settings.giphy"> Use GIPHY to illustrate Soundcloud
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="hashtag">Giphy hashtags</label>
+                    <input type="text"
+                           ng-model="vm.settings.giphy_tags"
+                           class="input-lg form-control" id="hashtag"
+                           placeholder="Paste a Youtube or Soundcloud link here, to add content to this show">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.settings.dj_layout"> VJ Layout
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.settings.shuffle"> Shuffle Mode
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">Cancel</button>
+        <button class="btn btn-warning" type="button" ng-disabled="!form.$dirty" ng-click="vm.save()">Save</button>
+    </div>
+</form>

@@ -30,13 +30,19 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemSerializer(many=True, read_only=False)
-    settings = ShowSettingsSerializer(many=False, allow_null=True)
+    settings = ShowSettingsSerializer(many=False, allow_null=True, read_only=False)
 
     class Meta:
         model = Show
         fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
 
     def update(self, instance, validated_data):
+        # settings
+        settings = ShowSettings.objects.filter(pk=instance.settings.pk)
+        if settings:
+            settings.update(**validated_data.get('settings', {}))
+            instance.settings = settings[0]
+        # items
         order = 0
         instance.items.clear()
         for item in validated_data.get('items', []):

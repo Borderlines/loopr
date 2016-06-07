@@ -3,7 +3,7 @@
 (function() {
     'use strict';
 
-    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'loopr.addToShow', 'loopr.stripHeader'])
+    angular.module('loopr.strip', ['ngSanitize', 'ngAnimate', 'FBAngular', 'loopr.addToShow', 'loopr.stripHeader', 'loopr.showconfig'])
         .factory('strip', ['$timeout', '$state', '$history', function($timeout, $state, $history) {
             var hideTimeout;
             var service = {

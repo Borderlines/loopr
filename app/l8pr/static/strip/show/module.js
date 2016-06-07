@@ -1,14 +1,17 @@
 (function() {
 'use strict';
 
-ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show'];
-function ShowExplorerCtrl(Player, scope, stripService, show) {
+ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig'];
+function ShowExplorerCtrl(Player, scope, stripService, show, showConfig) {
     var vm = this;
     angular.extend(vm, {
         stripService: stripService,
         show: show,
         playingNow: Player.currentShow === show,
-        player: Player
+        player: Player,
+        showConfig: function() {
+            showConfig(show);
+        }
     });
     scope.$watch(function() {
         return Player.currentShow;
