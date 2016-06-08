@@ -9,6 +9,7 @@ from drf_haystack.serializers import HaystackSerializer
 from drf_haystack.viewsets import HaystackViewSet
 from .search_indexes import ItemIndex, ShowIndex
 from .youtube import youtube_search
+from django.utils import timezone
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -37,6 +38,7 @@ class ShowSerializer(serializers.ModelSerializer):
         fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
 
     def update(self, instance, validated_data):
+        instance.updated = timezone.now()
         # settings
         settings = ShowSettings.objects.filter(pk=instance.settings.pk)
         if settings:
@@ -52,6 +54,7 @@ class ShowSerializer(serializers.ModelSerializer):
                 order=order
             )
             order += 1
+        instance.save()
         return instance
 
 
@@ -101,6 +104,7 @@ class ShowViewSet(viewsets.ModelViewSet):
     queryset = Show.objects.all()
     serializer_class = ShowSerializer
     filter_fields = ('user',)
+    ordering_fields = ('updated',)
 
     def get_queryset(self):
         if 'pk' not in self.kwargs:
