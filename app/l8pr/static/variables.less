@@ -27,8 +27,8 @@
 @SHOW_COVER_COLOR: fade(@gray-darker, 70);
 
 // Fonts
-@FONT1: 'Montserrat', sans-serif;
-@FONT2: 'Lekton', monospace;
+@FONT1: 'Montserrat', 'Trebuchet Ms', sans-serif;
+@FONT2: 'Roboto Mono', 'Andale Mono', monospace; 
 
 
 
@@ -50,8 +50,8 @@
 
 @brand-primary:         blue; // darken(#428bca, 6.5%); // #337ab7
 @brand-success:         #5cb85c;
-@brand-info:            #5bc0de;
-@brand-warning:         #f0ad4e;
+@brand-info:            fade(@brand-primary, 50); //#5bc0de;
+@brand-warning:         fade(@gray, 50); //#f0ad4e;
 @brand-danger:          #d9534f;
 
 
@@ -101,7 +101,7 @@
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
 @headings-font-weight:    500;
-@headings-line-height:    1.1;
+@headings-line-height:    1.3;
 @headings-color:          inherit;
 
 

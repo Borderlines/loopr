@@ -6,7 +6,7 @@
              ng-style="{width: getWidth(show)}">
              <div class="Loop__show__body">
                 <a ui-sref="index.open.show({showToExploreId: show.id})">
-                    <div class="title">
+                    <div class="title" title="Browse this Show">
                         {{ show.title }}
                     </div>
                 </a>
@@ -21,7 +21,8 @@
             </div>
             <div class="Loop__show__background"
                  ng-click="vm.player.playShow(show)"
-                 ng-style="{'background-image': 'url(' + show.items[0].thumbnail + ')'}">
+                 ng-style="{'background-image': 'url(' + show.items[0].thumbnail + ')'}"
+                 title="Play this Show">
             </div>
         </div>
     </div>

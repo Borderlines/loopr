@@ -1,5 +1,5 @@
 .Search {
-    max-height: 80vh;
+    max-height: 75vh;
     overflow-y: auto;
     box-sizing: border-box;
     padding: 0 10px;
@@ -30,21 +30,29 @@
     // From SHOW
     &__filter {
         background-color: @gray-dark;
-        min-height: 550px;
-        color: @body-bg;
+        //min-height: 550px;
         &__parameters {
-            padding: 20px;
+            color: @gray-light;
+            padding: 10px;
+            padding-left: 20px;
+            .text-left;
+            //margin-bottom: 100px;
         }
     }
     .list-group {
+        min-height: 35vh;
     }
     .list-group-item {
-        padding: 0;
-        padding-left: 20px;
         font-family: @FONT2;
         overflow: hidden;
         background-color: fade(@gray-lighter, 90); // @LOW_OPACITY_BACKGROUND;
         margin-bottom: 0;
+        padding: 0px;
+        border: none;
+        // display: inline-block; //effet marrant
+        @media (max-width: @screen-sm){
+            padding-bottom: 30px !important;
+            }
         &:hover {
             a, [ng-click] {color: @text-color;}
             background-color: white;
@@ -57,30 +65,47 @@
             .list-group-item-heading {
                 font-weight: bold;
             }
+            .list-group-item-text {
+                opacity: 1;
+            }
+        }
+        &:active {
+            background-color: red;
         }
         .list-group-item-heading {
-            padding-top: 25px;
-            line-height: 1.4em;
+            padding-left: 30px;
+            padding-top: 30px;
+            .h5;
         }
+
         .list-group-item-text {
-            //margin-top: 10px;
-            opacity: 0.7;
+            //opacity: 0.6;
+            padding-left: 30px;
+            .h5;
+            i {
+                font-size: 80%;
+            }
         }
         .icons {
-            padding-top: 32px;
+            padding-top: 30px;
+            .text-center;
             a {
                 vertical-align: top;
             }
         }
-        .illu {
-            position: relative;
-            height: 100px;
+        .item__thumbnail {
             z-index: 100;
+            max-height: 120px;
+            overflow: hidden;
             img {
-                position: absolute;
-                right: 0;
-                top: 0;
-                height: 100%;
+                //.img-responsive;
+                width: auto;
+                max-height: 100%;
+                display: block;;
+                //.center-block;
+            }
+        @media (max-width: @screen-sm){
+            padding: 10px !important;
             }
         }
     }

@@ -1,7 +1,7 @@
 <div class="Show row" ng-class="{'Show--playing-now': vm.playingNow}">
     <div class="Show__cover row">
         <div class="col-xs-12 col-md-9">
-            <span class="Show__cover__title col-xs-12" ng-bind="vm.show.title"></span>
+            <h2 class="Show__cover__title col-xs-12" ng-bind="vm.show.title"></h2>
         </div>
             <div class="Show__cover__actions col-xs-12 col-md-3">
                 <i class="material-icons">play_circle_filled</i>
@@ -12,7 +12,7 @@
     <div class="Show__listItems list-group col-xs-12 col-md-9">
         <a class="Show__listItems__item list-group-item" ng-repeat="item in vm.show.items">
             <div class="list-group-item-heading" ng-click="vm.player.playShow(vm.show, $index)">
-                <i ng-if="vm.player.currentItem === item" class="material-icons">plause_circle_outline</i>
+                <i ng-if="vm.player.currentItem === item">PLAYING NOW </i>
                 <span class="index">
                     <span ng-if="$index < 9">0</span>{{ $index + 1 }}
                 </span>

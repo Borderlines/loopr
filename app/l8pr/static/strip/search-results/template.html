@@ -4,33 +4,39 @@
             <span class="Search__cover__title col-xs-12">Searched words</span>
         </div>
             <div class="Search__cover__actions col-xs-12 col-md-3">
-                <i class="material-icons">play_circle_filled</i>
+                <i class="material-icons" title="Play this list">play_circle_filled</i>
                 <i class="material-icons">more_horiz</i>
         </div>
     </div>
 
-    <div class="list-group col-xs-12 col-md-9">
-        <div class="list-group-item row" ng-repeat="result in vm.results">
-                <div class="col-xs-8 col-md-9" ng-click="vm.play(result)">
-                    <h4 class="listItems__item__title list-group-item-heading" ng-bind="result.title"></h4>
-                    <p class="listItems__item__desc list-group-item-text" ng-bind="result.description"></p>
-                </div>
-                <div class="icons col-xs-2 col-md-2">
-                    <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);">playlist_add</i>
-                    <a ng-href="{{ result.url }}" target="_blank">
-                        <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true"></i>
-                        <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true"></i>
-                    </a>
-                </div>
-                <div class="col-xs-2 col-md-1 illu" ng-click="vm.play(result)">
-                    <img ng-src="{{ result.thumbnail }}"/>
-                </div>
-        </div>
-        <div class="list-group-item row" ng-if="vm.results.length === 0">No result</div>
-    </div>
-    <div class="Search__filter col-xs-12 col-md-3 text-left">
+    <div class="Search__filter col-xs-12 col-md-3 col-md-push-9">
         <div class="Search__filter__parameters">
             <i class="material-icons">tune</i>
         </div>
     </div>
+
+    <div class="list-group col-xs-12 col-md-9 col-md-pull-3">
+        <div class="listItems list-group-item row" ng-repeat="result in vm.results">
+                <div class="col-xs-6 col-md-8" ng-click="vm.play(result)">
+                    <div class="listItems__item__title list-group-item-heading" ng-bind="result.title" title="Play {{result.title}}"></div>
+                    <div class="listItems__item__info list-group-item-text">
+                        <a ng-href="{{ result.url }}" target="_blank">
+                            <span>{{result.provider_name}} Video by User</span>
+                            <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{result.title}} on Youtube"></i>
+                            <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{result.title}} on Soundcloud"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="icons col-xs-2 col-md-1">
+                    <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);" title="Add this Item to a Show">playlist_add</i>
+                </div>
+                <div class="item__thumbnail col-xs-4 col-md-3" ng-click="vm.play(result)">
+                    <img class="img-responsive center-block" ng-src="{{ result.thumbnail }}"/>
+                </div>
+        </div>
+        <div class="list-group-item row" ng-if="vm.results.length === 0">
+            <div class="list-group-item-heading">No result</div>
+        </div>
+    </div>
+
 </div>
