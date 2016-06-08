@@ -47,7 +47,7 @@
                     },
                     shows: ['Shows', 'login', function (Shows, login) {
                         // FIXME: if not loged ?
-                        return Shows.getList({user: login.currentUser.id});
+                        return Shows.getList({user: login.currentUser.id, ordering: '-updated'});
                     }]
                 }
             });

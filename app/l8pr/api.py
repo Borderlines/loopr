@@ -9,6 +9,7 @@ from drf_haystack.serializers import HaystackSerializer
 from drf_haystack.viewsets import HaystackViewSet
 from .search_indexes import ItemIndex, ShowIndex
 from .youtube import youtube_search
+from django.utils import timezone
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -30,13 +31,20 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemSerializer(many=True, read_only=False)
-    settings = ShowSettingsSerializer(many=False, allow_null=True)
+    settings = ShowSettingsSerializer(many=False, allow_null=True, read_only=False)
 
     class Meta:
         model = Show
         fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
 
     def update(self, instance, validated_data):
+        instance.updated = timezone.now()
+        # settings
+        settings = ShowSettings.objects.filter(pk=instance.settings.pk)
+        if settings:
+            settings.update(**validated_data.get('settings', {}))
+            instance.settings = settings[0]
+        # items
         order = 0
         instance.items.clear()
         for item in validated_data.get('items', []):
@@ -46,6 +54,7 @@ class ShowSerializer(serializers.ModelSerializer):
                 order=order
             )
             order += 1
+        instance.save()
         return instance
 
 
@@ -95,6 +104,7 @@ class ShowViewSet(viewsets.ModelViewSet):
     queryset = Show.objects.all()
     serializer_class = ShowSerializer
     filter_fields = ('user',)
+    ordering_fields = ('updated',)
 
     def get_queryset(self):
         if 'pk' not in self.kwargs:

@@ -36,7 +36,7 @@ class ShowsRelationship(models.Model):
     order = models.PositiveIntegerField()
 
     def __str__(self):
-        return '%s ===> %s' % (self.show, self.loop)
+        return '%s > %s' % (self.show, self.loop)
 
 
 class ShowSettings(models.Model):
@@ -72,7 +72,7 @@ class ItemsRelationship(models.Model):
     order = models.PositiveIntegerField()
 
     def __str__(self):
-        return '%s ===> %s' % (self.item, self.show)
+        return '%s > %s' % (self.item, self.show)
 
 
 class Item(models.Model):
@@ -88,7 +88,7 @@ class Item(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.url
+        return self.title or self.url
 
 
 def get_youtube_duration(url):

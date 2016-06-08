@@ -1,9 +1,19 @@
 (function() {
     'use strict';
 
-    angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login', 'ui.bootstrap', 'loopr.player.vimeo',
-                                    'cfp.hotkeys', 'loopr.player.youtube', 'FBAngular', 'ui.router'])
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    angular.module('loopr.player', [
+        'loopr.api',
+        'loopr.strip',
+        'loopr.login',
+        'ui.bootstrap',
+        'loopr.player.vimeo',
+        'cfp.hotkeys',
+        'loopr.player.youtube',
+        'FBAngular',
+        'ui.router'])
+        .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider',
+        function($stateProvider, $urlRouterProvider, hotkeysProvider) {
+            hotkeysProvider.useNgRoute = false;
             $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('index', {
@@ -26,53 +36,9 @@
                             Player.playShow(Player.loop.shows_list[0], 0);
                             return Player.loop;
                         }
-                        return Loops.getList({'username': $stateParams.username}).then(function(loops) {
-                            var loop = loops[0];
-                            loop.username = $stateParams.username;
-                            Player.setLoop(loop);
-                            // shuffle ?
-                            function shuffle(o) {
-                                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x); // jshint ignore:line
-                                return o;
-                            }
-                            loop.shows_list.forEach(function(show) {
-                                if (show.settings && show.settings.shuffle) {
-                                    var item_to_save;
-                                    if (angular.isDefined($stateParams.item)) {
-                                        item_to_save = _.find(show.items, function(link) {
-                                            return link.id === $stateParams.item;
-                                        });
-                                    }
-                                    shuffle(show.items);
-                                    if (angular.isDefined(item_to_save)) {
-                                        show.items.splice(0, 0, show.items.splice(show.items.indexOf(item_to_save), 1)[0]);
-                                    }
-                                }
-                            });
-                            // a show is asked
-                            var show = _.find(loop.shows_list, function(show) { return show.id.toString() === $stateParams.show;});
-                            // a show is asked but not part of the loop, then we add it to the loop
-                            if (!angular.isDefined(show) && $stateParams.show) {
-                                show = Shows.one($stateParams.show).get().then(function(show) {
-                                    loop.shows_list.push(show);
-                                    return show;
-                                });
-                            }
-                            return $q.when(show).then(function(show) {
-                                var item_index;
-                                // an item is asked
-                                if (show && $stateParams.item) {
-                                    item_index = _.findIndex(show.items, function(link) {
-                                        return parseInt($stateParams.item, 10) === parseInt(link.id, 10);
-                                    });
-                                }
-                                // item not found, play first one
-                                if (item_index === -1) {
-                                    item_index = 0;
-                                }
-                                Player.playShow(show, item_index);
-                                return loop;
-                            });
+                        return Player.loadLoop($stateParams.username, $stateParams.item)
+                        .then(function(loop) {
+                            return Player.playLoop(loop, $stateParams.show, $stateParams.item);
                         });
                     }]
                 }
@@ -154,9 +120,19 @@
                 controller: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
                 function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
                     return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
-                        var loop = {shows_list: [{items: [item]}]};
-                        Player.setLoop(loop);
-                        $state.go('index');
+                        function loadLoopAndComplete(username) {
+                            return Player.loadLoop(username, $stateParams.item)
+                            .then(function(loop) {
+                                loop.shows_list.unshift({items: [item]});
+                                Player.setLoop(loop);
+                                $state.go('index');
+                            });
+                        }
+                        return login.login().then(function(user) {
+                            loadLoopAndComplete(user.username);
+                        }, function() {
+                            loadLoopAndComplete('discover');
+                        });
                     });
                 }]
             });
@@ -191,7 +167,7 @@
                 }
             });
         })
-        .run(function($history, $state, $rootScope) {
+        .run(['$history', '$state', '$rootScope', 'hotkeys', function($history, $state, $rootScope, hotkeys) {
             $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
                 if ($history.goingBack) {
                     $history.goingBack = false;
@@ -203,7 +179,17 @@
                     $history.push(from, fromParams);
                 }
             });
-        })
+            hotkeys.add({
+                combo: ['ctrl+f'],
+                description: 'Search',
+                callback: function(e) {
+                    e.preventDefault();
+                    $state.go('index.open.search').then(function(s) {
+                        $rootScope.$emit('openSearch');
+                    });
+                }
+            });
+        }])
         .filter('seconds', function() {
             return function(time) {
                 if (angular.isDefined(time) && angular.isNumber(time) && !isNaN(time)) {

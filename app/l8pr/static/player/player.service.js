@@ -1,8 +1,10 @@
 (function() {
     'use strict';
 
-    Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state', '$timeout'];
-    function Player($rootScope, localStorageService, $location, $state, $timeout) {
+    Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state',
+    '$timeout', 'login', 'Loops', 'Shows', '$q'];
+    function Player($rootScope, localStorageService, $location, $state,
+    $timeout, login, Loops, Shows, $q) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -28,6 +30,59 @@
             },
             setLoop: function(loop) {
                 self.loop = loop;
+            },
+            playLoop: function(loop, selectedShow, selectedItem) {
+                // a show is asked
+                var show = _.find(loop.shows_list, function(show) { return show.id.toString() === selectedShow;});
+                // a show is asked but not part of the loop, then we add it to the loop
+                if (!angular.isDefined(show) && selectedShow) {
+                    show = Shows.one(selectedShow).get().then(function(show) {
+                        loop.shows_list.push(show);
+                        return show;
+                    });
+                }
+                return $q.when(show).then(function(show) {
+                    var item_index;
+                    // an item is asked
+                    if (show && selectedItem) {
+                        item_index = _.findIndex(show.items, function(link) {
+                            return parseInt(selectedItem, 10) === parseInt(link.id, 10);
+                        });
+                    }
+                    // item not found, play first one
+                    if (item_index === -1) {
+                        item_index = 0;
+                    }
+                    self.setLoop(loop);
+                    self.playShow(show, item_index);
+                    return loop;
+                });
+            },
+            loadLoop: function(username, selectedItem) {
+                return Loops.getList({'username': username}).then(function(loops) {
+                    var loop = loops[0];
+                    loop.username = username;
+                    // shuffle ?
+                    function shuffle(o) {
+                        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x); // jshint ignore:line
+                        return o;
+                    }
+                    loop.shows_list.forEach(function(show) {
+                        if (show.settings && show.settings.shuffle) {
+                            var item_to_save;
+                            if (angular.isDefined(selectedItem)) {
+                                item_to_save = _.find(show.items, function(link) {
+                                    return link.id === selectedItem;
+                                });
+                            }
+                            shuffle(show.items);
+                            if (angular.isDefined(item_to_save)) {
+                                show.items.splice(0, 0, show.items.splice(show.items.indexOf(item_to_save), 1)[0]);
+                            }
+                        }
+                    });
+                    return loop;
+                });
             },
             toggleMute: function() {
                 self.isMuted = !self.isMuted;
