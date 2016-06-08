@@ -1,29 +1,32 @@
 (function() {
 'use strict';
 
-StripHeaderCtrl.$inject = ['login', 'Player', '$state', '$history', 'loop'];
-function StripHeaderCtrl(login, Player, $state, $history, loop) {
+StripHeaderCtrl.$inject = ['login', 'Player', '$state', '$history', 'loop', 'hotkeys', '$rootScope'];
+function StripHeaderCtrl(login, Player, $state, $history, loop, hotkeys, $rootScope) {
     var vm = this;
     angular.extend(vm, {
         searchQuery: $state.params.q,
-        searchBarVisible: $state.current.name === 'index.open.search' || ($state.params.q && $state.params.q !== ''),
+        searchBarVisible: $state.current.name === 'index.open.search' && ($state.params.q === undefined || $state.params.q === ''),
         loopAuthor: loop.username,
         showsCount: loop.shows_list.length,
         loginService: login,
         openLoginView: login.openLoginView,
         exit: function() {
-            vm.clear();
-            vm.searchBarVisible = false;
             if ($state.current.name === 'index.open.search') {
                 $history.back();
             }
         },
-        clear: function() {
-            vm.searchQuery = '';
-        },
         search: function(query) {
             $state.go('index.open.search', {q: query});
+            vm.searchBarVisible = false;
         }
+    });
+    // login to know the current user
+    login.login();
+    // listen for key shortcut
+    $rootScope.$on('openSearch', function() {
+        vm.searchQuery = '';
+        vm.searchBarVisible = true;
     });
 }
 

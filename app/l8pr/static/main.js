@@ -182,8 +182,11 @@
             hotkeys.add({
                 combo: ['ctrl+f'],
                 description: 'Search',
-                callback: function() {
-                    $state.go('index.open.search');
+                callback: function(e) {
+                    e.preventDefault();
+                    $state.go('index.open.search').then(function(s) {
+                        $rootScope.$emit('openSearch');
+                    });
                 }
             });
         }])
