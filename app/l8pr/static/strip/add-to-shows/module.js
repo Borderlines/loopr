@@ -1,12 +1,27 @@
 (function() {
     'use strict';
 
-    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item', 'findOrCreateItem', '$q'];
-    function ModalInstanceCtrl($scope, $uibModalInstance, shows, item, findOrCreateItem, $q) {
+    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item',
+    'findOrCreateItem', '$q', 'Shows', 'login'];
+    function ModalInstanceCtrl($scope, $uibModalInstance, shows, item,
+    findOrCreateItem, $q, Shows, login) {
         var vm = this;
         angular.extend(vm, {
             shows: shows,
             item: item,
+            newShow: {},
+            createShow: function() {
+                $q.all([
+                    findOrCreateItem({url: vm.item.url}),
+                    login.login()
+                ]).then(function(values) {
+                    vm.newShow.items = [values[0]];
+                    vm.newShow.user = values[1].id;
+                    Shows.post(vm.newShow).then(function(show) {
+                        $uibModalInstance.close(show);
+                    });
+                });
+            },
             addToShow: function(show) {
                 $q.when((function() {
                     if (vm.item.id === null) {

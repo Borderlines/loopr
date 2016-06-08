@@ -3,18 +3,34 @@
     {{ vm.item.title }}
 </div>
 <div class="modal-body">
-    <div class="list-group" ng-repeat="show in vm.shows">
-        <a class="list-group-item" ng-click="vm.addToShow(show)">
-            <div class="row">
-                <img class="col-xs-2 col-md-2" ng-src="{{ show.items[0].thumbnail }}"/>
-                <div class="col-xs-10 col-md-10">
-                    <h4 class="list-group-item-heading" ng-bind="show.title"></h4>
-                    <p class="list-group-item-text">{{ show.items.length }} shows, {{ show.duration() | seconds }}</p>
-                </div>
+    <uib-tabset active="active">
+        <uib-tab index="0" heading="Add to a show">
+            <div class="list-group" ng-repeat="show in vm.shows">
+                <a class="list-group-item" ng-click="vm.addToShow(show)">
+                    <div class="row">
+                        <img class="col-xs-2 col-md-2" ng-src="{{ show.items[0].thumbnail }}"/>
+                        <div class="col-xs-10 col-md-10">
+                            <h4 class="list-group-item-heading" ng-bind="show.title"></h4>
+                            <p class="list-group-item-text">{{ show.items.length }} shows, {{ show.duration() | seconds }}</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
+        </uib-tab>
+        <uib-tab index="1" heading="Create a show">
+            <form ng-submit="vm.createShow()">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Show title</label>
+                    <input type="text" class="form-control" ng-model="vm.newShow.title"/>
+                </div>
+                <div class="row text-right">
+                </div>
+            </form>
+        </uib-tab>
+    </uib-tabset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-default" type="button" ng-click="vm.cancel()">Cancel</button>
+    <button ng-if="active === 1" class="btn btn-warning" ng-click="vm.createShow()" type="submit">Create</button>
+
 </div>

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship, get_metadata
+from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship, get_metadata, ShowsRelationship
 from rest_framework import serializers, viewsets, views
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -31,11 +31,34 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemSerializer(many=True, read_only=False)
-    settings = ShowSettingsSerializer(many=False, allow_null=True, read_only=False)
+    settings = ShowSettingsSerializer(many=False, required=False, allow_null=True, read_only=False)
 
     class Meta:
         model = Show
         fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
+
+    def create(self, validated_data):
+        validated_data.pop('settings', {})
+        items = validated_data.pop('items', [])
+        current_user = self.context['request'].user
+        validated_data['user'] = current_user
+        show = Show.objects.create(**validated_data)
+        order = 0
+        for item in items:
+            ItemsRelationship.objects.create(
+                item=Item.objects.get(pk=item['id']),
+                show=show,
+                order=order
+            )
+            order += 1
+        order = 0
+        loop = Loop.objects.get(user=current_user)
+        ShowsRelationship.objects.create(
+            loop=loop,
+            show=show,
+            order=order
+        )
+        return show
 
     def update(self, instance, validated_data):
         instance.updated = timezone.now()

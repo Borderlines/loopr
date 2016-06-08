@@ -58,6 +58,7 @@ class Show(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
     settings = models.OneToOneField(ShowSettings,
+                                    null=True,
                                     on_delete=models.CASCADE,
                                     related_name='show')
     items = models.ManyToManyField('Item', through='ItemsRelationship', related_name='ItemsRelationship')
@@ -181,3 +182,12 @@ def completeItem(sender, instance, created, **kwargs):
             instance.save()
 
 signals.post_save.connect(completeItem, sender=Item)
+
+
+def create_show_settings(sender, instance, created, **kwargs):
+    if created:
+        settings = ShowSettings.objects.create()
+        instance.settings = settings
+        instance.save()
+
+signals.post_save.connect(create_show_settings, sender=Show)

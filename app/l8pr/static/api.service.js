@@ -75,6 +75,9 @@
     FindOrCreateItem.$inject = ['Items'];
     function FindOrCreateItem(Items) {
         return function(item) {
+            if (item.id) {
+                return item;
+            }
             return Items.getList({url: item.url}).then(function(items) {
                 if (items.length === 0) {
                     return Items.post({url: item.url}).then(function(item) {
