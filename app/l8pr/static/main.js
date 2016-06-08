@@ -1,9 +1,19 @@
 (function() {
     'use strict';
 
-    angular.module('loopr.player', ['loopr.api', 'loopr.strip', 'loopr.login', 'ui.bootstrap', 'loopr.player.vimeo',
-                                    'cfp.hotkeys', 'loopr.player.youtube', 'FBAngular', 'ui.router'])
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    angular.module('loopr.player', [
+        'loopr.api',
+        'loopr.strip',
+        'loopr.login',
+        'ui.bootstrap',
+        'loopr.player.vimeo',
+        'cfp.hotkeys',
+        'loopr.player.youtube',
+        'FBAngular',
+        'ui.router'])
+        .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider',
+        function($stateProvider, $urlRouterProvider, hotkeysProvider) {
+            hotkeysProvider.useNgRoute = false;
             $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('index', {
@@ -157,7 +167,7 @@
                 }
             });
         })
-        .run(function($history, $state, $rootScope) {
+        .run(['$history', '$state', '$rootScope', 'hotkeys', function($history, $state, $rootScope, hotkeys) {
             $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
                 if ($history.goingBack) {
                     $history.goingBack = false;
@@ -169,7 +179,14 @@
                     $history.push(from, fromParams);
                 }
             });
-        })
+            hotkeys.add({
+                combo: ['ctrl+f'],
+                description: 'Search',
+                callback: function() {
+                    $state.go('index.open.search');
+                }
+            });
+        }])
         .filter('seconds', function() {
             return function(time) {
                 if (angular.isDefined(time) && angular.isNumber(time) && !isNaN(time)) {
