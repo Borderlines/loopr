@@ -2,9 +2,9 @@
     'use strict';
 
     Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state',
-    '$timeout', 'login', 'Loops', 'Shows', '$q'];
+    '$timeout', 'login', 'Api', '$q'];
     function Player($rootScope, localStorageService, $location, $state,
-    $timeout, login, Loops, Shows, $q) {
+    $timeout, login, Api, $q) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -36,7 +36,7 @@
                 var show = _.find(loop.shows_list, function(show) { return show.id.toString() === selectedShow;});
                 // a show is asked but not part of the loop, then we add it to the loop
                 if (!angular.isDefined(show) && selectedShow) {
-                    show = Shows.one(selectedShow).get().then(function(show) {
+                    show = Api.Shows.one(selectedShow).get().then(function(show) {
                         loop.shows_list.push(show);
                         return show;
                     });
@@ -59,7 +59,7 @@
                 });
             },
             loadLoop: function(username, selectedItem) {
-                return Loops.getList({'username': username}).then(function(loops) {
+                return Api.Loops.getList({'username': username}).then(function(loops) {
                     var loop = loops[0];
                     loop.username = username;
                     // shuffle ?

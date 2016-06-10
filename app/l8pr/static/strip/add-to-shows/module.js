@@ -2,9 +2,9 @@
     'use strict';
 
     ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item',
-    'findOrCreateItem', '$q', 'Shows', 'login'];
+    '$q', 'Api', 'login'];
     function ModalInstanceCtrl($scope, $uibModalInstance, shows, item,
-    findOrCreateItem, $q, Shows, login) {
+    $q, Api, login) {
         var vm = this;
         angular.extend(vm, {
             shows: shows,
@@ -12,12 +12,12 @@
             newShow: {},
             createShow: function() {
                 $q.all([
-                    findOrCreateItem({url: vm.item.url}),
+                    Api.FindOrCreateItem({url: vm.item.url}),
                     login.login()
                 ]).then(function(values) {
                     vm.newShow.items = [values[0]];
                     vm.newShow.user = values[1].id;
-                    Shows.post(vm.newShow).then(function(show) {
+                    Api.Shows.post(vm.newShow).then(function(show) {
                         $uibModalInstance.close(show);
                     });
                 });
@@ -25,7 +25,7 @@
             addToShow: function(show) {
                 $q.when((function() {
                     if (vm.item.id === null) {
-                        return findOrCreateItem({url: vm.item.url});
+                        return Api.FindOrCreateItem({url: vm.item.url});
                     } else {
                         if (vm.item.id.toString().indexOf('.') > -1) {
                             var id = vm.item.id.split('.');
@@ -60,9 +60,9 @@
                     item: function() {
                         return item;
                     },
-                    shows: ['Shows', 'login', function (Shows, login) {
+                    shows: ['Api', 'login', function (Api, login) {
                         // FIXME: if not loged ?
-                        return Shows.getList({user: login.currentUser.id, ordering: '-updated'});
+                        return Api.Shows.getList({user: login.currentUser.id, ordering: '-updated'});
                     }]
                 }
             });

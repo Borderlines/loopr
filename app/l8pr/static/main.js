@@ -23,8 +23,8 @@
                 templateUrl: '/main.html',
                 controllerAs: 'vm',
                 resolve: {
-                    loop: ['$stateParams', 'Loops', 'Player', 'login', '$state', '$q', 'Shows',
-                        function($stateParams, Loops, Player, login, $state, $q, Shows) {
+                    loop: ['$stateParams', 'Player', 'login', '$state', '$q',
+                        function($stateParams, Player, login, $state, $q) {
                         if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
                             return login.login().then(function(user) {
                                 $state.go('index', {username: user.username});
@@ -77,9 +77,9 @@
                         templateUrl: '/strip/show/template.html',
                         controllerAs: 'vm',
                         resolve: {
-                            show: function($stateParams, Shows) {
-                                return Shows.one($stateParams.showToExploreId).get();
-                            }
+                            show: ['$stateParams', 'Api', function($stateParams, Api) {
+                                return Api.Shows.one($stateParams.showToExploreId).get();
+                            }]
                         }
                     }
                 }
@@ -96,16 +96,17 @@
                             query: function($stateParams) {
                                 return $stateParams.q;
                             },
-                            results: ['findOrCreateItem', 'query', 'Items', 'Search',
-                            function(findOrCreateItem, query, Items, Search) {
+                            results: ['Api', 'query',
+                            function(Api, query) {
+
                                 if (query) {
                                     var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
                                     if (urlRegex.test(query)) {
-                                        return findOrCreateItem({url: query}).then(function(item) {
+                                        return Api.FindOrCreateItem({url: query}).then(function(item) {
                                             return [item];
                                         });
                                     } else {
-                                        return Search.getList({'title': query});
+                                        return Api.Search.getList({'title': query});
                                     }
                                 }
                                 return [];
@@ -117,9 +118,9 @@
             .state('open', {
                 reloadOnSearch: false,
                 url: '/open/{q:.*}',
-                controller: ['$stateParams', 'Accounts', 'Player', 'login', '$state', '$q', 'Shows', 'getItemMetadata',
-                function($stateParams, Accounts, Player, login, $state, $q, Shows, getItemMetadata) {
-                    return getItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
+                controller: ['$stateParams', 'Player', 'login', '$state', '$q', 'Api',
+                function($stateParams, Player, login, $state, $q, Api) {
+                    return Api.GetItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
                         function loadLoopAndComplete(username) {
                             return Player.loadLoop(username, $stateParams.item)
                             .then(function(loop) {

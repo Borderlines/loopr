@@ -30,17 +30,17 @@ angular.module('loopr.login', ['loopr.api'])
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }])
-.service('login', ['Accounts', '$rootScope', 'Auth', '$uibModal',
-function(Accounts, $rootScope, Auth, $uibModal) {
+.service('login', ['Api', '$rootScope', '$uibModal',
+function(Api, $rootScope, $uibModal) {
     $rootScope.user = {};
     var service = {
         currentUser: {},
         logout: function() {
             service.currentUser = {};
-            return Auth.one('logout').get();
+            return Api.Auth.one('logout').get();
         },
         login: function() {
-            return Accounts.one('me').get().then(function(currentUser) {
+            return Api.Accounts.one('me').get().then(function(currentUser) {
                 $rootScope.currentUser = currentUser;
                 service.currentUser = currentUser;
                 return currentUser;
