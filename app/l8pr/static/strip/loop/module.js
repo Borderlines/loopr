@@ -33,7 +33,9 @@ angular.module('loopr.strip')
         link: function(scope, element, attr) {
             $timeout(function() {
                 scope.getBg = function(index) {
-                    return scope.swapOnHover[index % scope.swapOnHover.length].thumbnail;
+                    if(scope.swapOnHover && scope.swapOnHover.length > 0) {
+                        return scope.swapOnHover[index % scope.swapOnHover.length].thumbnail;
+                    }
                 };
                 var exit;
                 var enter = false;
