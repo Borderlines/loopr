@@ -20,6 +20,43 @@ function LoopExplorerCtrl(Player, scope, stripService) {
 
 angular.module('loopr.strip')
 .controller('LoopExplorerCtrl', LoopExplorerCtrl)
+.directive('swapOnHover', ['$timeout', function($timeout) {
+    return {
+        template: [
+            '<div class="swap-animation" ng-animate-swap="index"',
+            '     ng-style="{\'background-image\': \'url(\' + getBg(index) + \')\'}">',
+            '</div>'
+        ].join(''),
+        scope: {
+            swapOnHover: '='
+        },
+        link: function(scope, element, attr) {
+            $timeout(function() {
+                scope.getBg = function(index) {
+                    return scope.swapOnHover[index % scope.swapOnHover.length].thumbnail;
+                };
+                var exit;
+                var enter = false;
+                scope.index = 0;
+                function loadNew() {
+                    scope.index++;
+                    $timeout.cancel(exit);
+                    exit = $timeout(loadNew, 1500);
+                }
+                element.on('mouseenter', function() {
+                    if (!enter) {
+                        loadNew();
+                    }
+                    enter = true;
+                });
+                    element.on('mouseleave', function() {
+                    enter = false;
+                    $timeout.cancel(exit);
+                });
+            });
+        }
+    };
+}])
 .directive('infinitScroll', ['$timeout', function($timeout) {
     return {
         transclude: true,

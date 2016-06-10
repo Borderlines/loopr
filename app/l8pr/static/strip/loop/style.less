@@ -43,6 +43,28 @@
             height: (@LOOP_SHOW_HEIGHT + 30px);
             position: relative;
             top: (@CELL_HEIGHT * -1);
+            .swap-animation {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                &.ng-enter, &.ng-leave {
+                    transition:0.25s linear all;
+                }
+                &.ng-enter {
+                    top:(@LOOP_SHOW_HEIGHT + 30px) * -1;
+                }
+                &.ng-enter-active {
+                    top:0px;
+                }
+                &.ng-leave {
+                    top:0px;
+                }
+                &.ng-leave-active {
+                    top:(@LOOP_SHOW_HEIGHT + 30px);
+                }
+            }
         }
         &--current-show {
             width: 420px !important; //@CURRENT_SHOW_WIDTH
