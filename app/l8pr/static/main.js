@@ -96,13 +96,11 @@
                             query: function($stateParams) {
                                 return $stateParams.q;
                             },
-                            results: ['Api', 'query',
-                            function(Api, query) {
-
+                            results: ['Api', 'query', function(Api, query) {
                                 if (query) {
                                     var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
                                     if (urlRegex.test(query)) {
-                                        return Api.FindOrCreateItem({url: query}).then(function(item) {
+                                        return Api.GetItemMetadata.one().get({url: query}).then(function(item) {
                                             return [item];
                                         });
                                     } else {
