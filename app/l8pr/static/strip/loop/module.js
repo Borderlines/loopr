@@ -43,7 +43,7 @@ angular.module('loopr.strip')
                 function loadNew() {
                     scope.index++;
                     $timeout.cancel(exit);
-                    exit = $timeout(loadNew, 1500);
+                    exit = $timeout(loadNew, 2000);
                 }
                 element.on('mouseenter', function() {
                     if (!enter) {
