@@ -16,9 +16,9 @@
     </div>
     <div class="Show__list col-xs-12 col-md-9 col-md-pull-3">
         <div class="list__item" ng-repeat="item in vm.show.items">
-                <div class="col-xs-6 col-md-8" ng-click="vm.play(result)">
+                <div class="col-xs-6 col-md-8" ng-click="vm.play(item)">
                     <i ng-if="vm.player.currentItem === item">PLAYING NOW </i>
-                    <div class="list__item__title" ng-bind="item.title" title="Play {{item.title}}"></div>
+                    <div class="list__item__title" ng-click="vm.player.playShow(vm.show, $index)" ng-bind="item.title" title="Play {{item.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ item.url }}" target="_blank">
                             <span>{{item.provider_name}} Video by User</span>
@@ -31,7 +31,7 @@
                 <div class="list__item__actions col-xs-2 col-md-1">
                     <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);" title="Add this Item to a Show">playlist_add</i>
                 </div>
-                <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.play(item)">
+                <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
                     <img class="img-responsive center-block" ng-src="{{ item.thumbnail }}"/>
                 </div>
         </div>
