@@ -1,11 +1,11 @@
 .Search {
+
     max-height: 75vh;
     overflow-y: auto;
     box-sizing: border-box;
     padding: 0 10px;
     background-color: @LOW_OPACITY_BACKGROUND;
 
-    // Pasted from SHOW,  will factorize later.
     &__cover {
         font-family: @FONT1;
         color: @text-color;
@@ -16,7 +16,7 @@
         position: relative;
         z-index: 2;
         &__title {
-            font-weight: bold;
+            //font-weight: bold;
             font-size: 150%;
         }
         &__details {
@@ -27,9 +27,9 @@
             &:hover{color:blue;}
         }
     }
-    // From SHOW
     &__filter {
         background-color: @gray-dark;
+        font-family: @FONT2;
         //min-height: 550px;
         &__parameters {
             color: @gray-light;
@@ -39,13 +39,21 @@
             //margin-bottom: 100px;
         }
     }
-    .list-group {
+    &__list {
+        .list {}
         min-height: 35vh;
     }
-    .list-group-item {
+}
+
+.list {
+    .list-group;
+
+    &__item {
+        .list-group-item;
+        .row;
         font-family: @FONT2;
         overflow: hidden;
-        background-color: fade(@gray-lighter, 90); // @LOW_OPACITY_BACKGROUND;
+        background-color: fade(@gray-lighter, 90);
         margin-bottom: 0;
         padding: 0px;
         border: none;
@@ -53,6 +61,50 @@
         @media (max-width: @screen-sm){
             padding-bottom: 30px !important;
             }
+
+        &__title {
+            .list-group-item-heading;
+            padding-left: 30px;
+            padding-top: 30px;
+            .h5;
+            &--item {}
+            &--show {font-family: @FONT1;}
+        }
+        &__info {
+            .list-group-item-text;
+            padding-left: 30px;
+            .h5;
+            i {
+                font-size: 80%;
+            }
+        }
+        &__actions {
+            padding-top: 30px;
+            .text-center;
+            a {
+                vertical-align: top;
+            }
+        }
+        &__illu {
+            &--item {
+                z-index: 100;
+                max-height: 120px;
+                overflow: hidden;
+                img {
+                    //.img-responsive;
+                    width: auto;
+                    max-height: 100%;
+                    display: block;;
+                    //.center-block;
+                }
+            @media (max-width: @screen-sm){
+                padding: 10px !important;
+                }
+            }
+            &--show {}
+        }
+
+        &:active { background-color: red;}
         &:hover {
             a, [ng-click] {color: @text-color;}
             background-color: white;
@@ -67,45 +119,6 @@
             }
             .list-group-item-text {
                 opacity: 1;
-            }
-        }
-        &:active {
-            background-color: red;
-        }
-        .list-group-item-heading {
-            padding-left: 30px;
-            padding-top: 30px;
-            .h5;
-        }
-
-        .list-group-item-text {
-            //opacity: 0.6;
-            padding-left: 30px;
-            .h5;
-            i {
-                font-size: 80%;
-            }
-        }
-        .icons {
-            padding-top: 30px;
-            .text-center;
-            a {
-                vertical-align: top;
-            }
-        }
-        .item__thumbnail {
-            z-index: 100;
-            max-height: 120px;
-            overflow: hidden;
-            img {
-                //.img-responsive;
-                width: auto;
-                max-height: 100%;
-                display: block;;
-                //.center-block;
-            }
-        @media (max-width: @screen-sm){
-            padding: 10px !important;
             }
         }
     }

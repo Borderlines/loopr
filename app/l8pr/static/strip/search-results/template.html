@@ -1,7 +1,7 @@
 <div class="Search row">
     <div class="Search__cover row">
         <div class="col-xs-12 col-md-9">
-            <span class="Search__cover__title col-xs-12" ng-bind="vm.query"></span>
+            <span class="Search__cover__title col-xs-12">Results for <strong>{{vm.query}}</strong></span>
         </div>
             <div class="Search__cover__actions col-xs-12 col-md-3">
                 <i class="material-icons" title="Play this list">play_circle_filled</i>
@@ -11,15 +11,15 @@
 
     <div class="Search__filter col-xs-12 col-md-3 col-md-push-9">
         <div class="Search__filter__parameters">
-            <i class="material-icons">tune</i>
+            <p>filter<p>
         </div>
     </div>
 
-    <div class="list-group col-xs-12 col-md-9 col-md-pull-3">
-        <div class="listItems list-group-item row" ng-repeat="result in vm.results">
+    <div class="Search__list col-xs-12 col-md-9 col-md-pull-3">
+        <div class="list__item" ng-repeat="result in vm.results">
                 <div class="col-xs-6 col-md-8" ng-click="vm.play(result)">
-                    <div class="listItems__item__title list-group-item-heading" ng-bind="result.title" title="Play {{result.title}}"></div>
-                    <div class="listItems__item__info list-group-item-text">
+                    <div class="list__item__title" ng-bind="result.title" title="Play {{result.title}}"></div>
+                    <div class="list__item__info">
                         <a ng-href="{{ result.url }}" target="_blank">
                             <span>{{result.provider_name}} Video by User</span>
                             <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{result.title}} on Youtube"></i>
@@ -27,15 +27,15 @@
                         </a>
                     </div>
                 </div>
-                <div class="icons col-xs-2 col-md-1">
+                <div class="list__item__actions col-xs-2 col-md-1">
                     <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);" title="Add this Item to a Show">playlist_add</i>
                 </div>
-                <div class="item__thumbnail col-xs-4 col-md-3" ng-click="vm.play(result)">
+                <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.play(result)">
                     <img class="img-responsive center-block" ng-src="{{ result.thumbnail }}"/>
                 </div>
         </div>
-        <div class="list-group-item row" ng-if="vm.results.length === 0">
-            <div class="list-group-item-heading">No result</div>
+        <div class="list__item" ng-if="vm.results.length === 0">
+            <div class="list__item__title">No result</div>
         </div>
     </div>
 
