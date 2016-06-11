@@ -1,9 +1,10 @@
 .Show {
-    max-height: 60vh;
+    max-height: 75vh;
     overflow-y: auto;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 @MARGE;
     background-color: @LOW_OPACITY_BACKGROUND;
+    @media (max-width: @screen-xs){padding: 0px 0px;}
     &__cover {
         .cover;
         &__title {
@@ -11,11 +12,12 @@
         }
     }
     &__filter {
-        background-color: purple;
+        background-color: @gray-base;
         font-family: @FONT2;
-        //min-height: 550px;
         &__parameters {
-            color: @gray-light;
+            font-weight: normal;
+            font-style: italic;
+            color: @body-bg;
             padding: 10px;
             padding-left: 20px;
             .text-left;

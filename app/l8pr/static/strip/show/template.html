@@ -9,15 +9,17 @@
                 <i class="material-icons" ng-click="vm.showConfig()">more_horiz</i>
         </div>
     </div>
-    <div class="Search__filter col-xs-12 col-md-3 col-md-push-9">
-        <div class="Search__filter__parameters">
-            <p>filter<p>
+    <div class="Show__filter col-xs-12 col-md-3 col-md-push-9">
+        <div class="Show__filter__parameters">
+            <span>info<span>
         </div>
     </div>
     <div class="Show__list col-xs-12 col-md-9 col-md-pull-3">
         <div class="list__item" ng-repeat="item in vm.show.items">
                 <div class="col-xs-6 col-md-8" ng-click="vm.play(item)">
-                    <i ng-if="vm.player.currentItem === item">PLAYING NOW </i>
+                    <div class="list__item--playNow" ng-if="vm.player.currentItem === item">
+                        <i class="material-icons">pause</i>
+                    </div>
                     <div class="list__item__title" ng-click="vm.player.playShow(vm.show, $index)" ng-bind="item.title" title="Play {{item.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ item.url }}" target="_blank">

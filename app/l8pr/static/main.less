@@ -185,6 +185,7 @@ body .plyr {
             .list-group-item-heading;
             padding-left: 30px;
             padding-top: 30px;
+            @media (max-width: @screen-sm){padding-left: 20px;}
             .h5;
             &--item {}
             &--show {font-family: @FONT1;}
@@ -192,6 +193,7 @@ body .plyr {
         &__info {
             .list-group-item-text;
             padding-left: 30px;
+            @media (max-width: @screen-sm){padding-left: 20px;}
             .h5;
             i {
                 font-size: 80%;
@@ -199,6 +201,9 @@ body .plyr {
         }
         &__actions {
             padding-top: 30px;
+            @media (max-width: @screen-sm){
+                padding-top: 60px;
+            }
             .text-center;
             a {
                 vertical-align: top;
@@ -218,11 +223,16 @@ body .plyr {
                 }
             @media (max-width: @screen-sm){
                 padding: 10px !important;
+                padding-top: 40px !important;
                 }
             }
             &--show {}
         }
-
+        &--playNow {
+            color: @brand-primary;
+            position: absolute;
+            padding: 10px;
+        }
         &:active { background-color: red;}
         &:hover {
             a, [ng-click] {color: @text-color;}
@@ -251,7 +261,10 @@ body .plyr {
     color: @text-color;
     background-color: @body-bg;
     box-sizing: padding-box;
-    padding: (@MARGE * 2);
+    padding: (@MARGE * 2) (@MARGE * 3);
+    @media (max-width: @screen-sm){
+        padding: (@MARGE * 2) (@MARGE * 2);
+    }
     box-shadow: 0px 10px 0px @SHADOW;
     position: relative;
     z-index: 2;

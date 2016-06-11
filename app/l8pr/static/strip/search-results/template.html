@@ -21,10 +21,10 @@
                     <div class="list__item__title" ng-bind="result.title" title="Play {{result.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ result.url }}" target="_blank">
-                            <span>{{result.provider_name}} Video by User</span>
+                            <span>{{result.provider_name}} item by User</span>
                             <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{result.title}} on Youtube"></i>
                             <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{result.title}} on Soundcloud"></i>
-                            <i ng-if="result.provider_name === 'Vimeo'" class="fa fa-vimeo" aria-hidden="true" title="Watch {{result.title}} on Vimeo"></i>
+                            <i ng-if="result.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{result.title}} on Vimeo"></i>
                         </a>
                     </div>
                 </div>

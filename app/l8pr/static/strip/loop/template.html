@@ -11,12 +11,12 @@
                     </div>
                 </a>
                 <div class="details">
-                    <span ng-if="$index === 0">Playing Now</span>
-                    <span ng-if="$index === 1">Coming Next</span>
-                    <span ng-if="$index > 1"></span>
-                    <div class="metadata" style="text-decoration: italic;">
-                        SHOW {{ show.duration() | seconds }}
+                    <div class="metadata">
+                        <em>29 media / {{ show.duration() | seconds }}</em>
                     </div>
+                    <span ng-if="$index === 0">Playing Now</span>
+                    <!--<span ng-if="$index === 1">Coming Next</span>-->
+                    <span ng-if="$index > 1"></span>
                 </div>
             </div>
             <div class="Loop__show__background"

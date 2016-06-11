@@ -9,7 +9,7 @@
     }
     &__show {
         position: relative;
-        width: 200px;
+        width: @LOOP_SHOW_WIDTH;
         height: @LOOP_SHOW_HEIGHT;
         margin-right: 10px;
         display: inline-block;
@@ -23,6 +23,8 @@
             padding: 20px;
             //height: 120px ;
             .title {
+                .h5;
+                font-size: 110%;
                 font-family: @FONT1;
                 overflow: hidden;
                 margin-bottom: 10px;
@@ -31,7 +33,8 @@
                 font-weight: bold;
             }
             .details {
-                font-style: italic;
+                .h6;
+                //font-style: italic;
                 //bottom: 0;
                 //position: absolute;
             }
@@ -74,9 +77,11 @@
                 background-color: transparent;
                 color: white ;
                 .title {
-                    font-size: 180%;
+                    .h2;
+                    font-family: @FONT1;
                     font-weight: bold;
-                    height: auto;                    color: @body-bg;
+                    height: auto;
+                    color: @body-bg;
                 }
             }
             .Loop__show__background {
