@@ -2,7 +2,7 @@
     <div class="Loop__shows" infinit-scroll>
         <div class="Loop__show"
              ng-repeat="show in vm.shows"
-             ng-class="{'Loop__show--current-show': $index === 0}"
+             ng-class="{'Loop__show--current-show': vm.player.currentShow.id === show.id}"
              ng-style="{width: getWidth(show)}">
              <div class="Loop__show__body">
                 <a ui-sref="index.open.show({showToExploreId: show.id})">

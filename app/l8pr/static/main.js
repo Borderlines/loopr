@@ -45,7 +45,25 @@
             })
             .state('index.open', {
                 reloadOnSearch: false,
+                params: {
+                    loopToExplore: null
+                },
                 'abstract': true,
+                resolve: {
+                    loopToExplore: ['$stateParams', 'Api', 'Player',
+                    function($stateParams, Api, Player) {
+                        if ($stateParams.loopToExplore) {
+                            return Api.Loops.getList({username: $stateParams.loopToExplore})
+                            .then(function(loops) {
+                                var loop = loops[0];
+                                loop.username = $stateParams.loopToExplore;
+                                return loop;
+                            });
+                        } else {
+                            return Player.loop;
+                        }
+                    }]
+                },
                 views: {
                     header: {
                         controller: 'StripHeaderCtrl',
@@ -59,7 +77,7 @@
             })
             .state('index.open.loop', {
                 reloadOnSearch: false,
-                url: '/loop',
+                url: '/loop/:loopToExplore',
                 views: {
                     body: {
                         controller: 'LoopExplorerCtrl',
