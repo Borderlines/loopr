@@ -50,10 +50,10 @@
                 left: 0;
                 bottom: 0;
                 &.ng-enter, &.ng-leave {
-                    transition:0.25s linear all;
+                    transition:0.5s linear all;
                 }
                 &.ng-enter {
-                    top:(@LOOP_SHOW_HEIGHT + 30px) * -1;
+                    top:(@LOOP_SHOW_HEIGHT + 30px);
                 }
                 &.ng-enter-active {
                     top:0px;
@@ -62,7 +62,7 @@
                     top:0px;
                 }
                 &.ng-leave-active {
-                    top:(@LOOP_SHOW_HEIGHT + 30px);
+                    top:(@LOOP_SHOW_HEIGHT + 30px) * -1;
                 }
             }
         }
