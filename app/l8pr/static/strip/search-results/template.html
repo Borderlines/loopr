@@ -1,11 +1,11 @@
-<div class="Search row">
-    <div class="Search__cover row">
+<div class="Search">
+    <div class="Search__cover">
         <div class="col-xs-12 col-md-9">
             <span class="Search__cover__title col-xs-12">Results for <strong>{{vm.query}}</strong></span>
         </div>
             <div class="Search__cover__actions col-xs-12 col-md-3">
-                <i class="material-icons" title="Play this list">play_circle_filled</i>
                 <i class="material-icons">more_horiz</i>
+                <i class="material-icons" title="Play this list">play_circle_filled</i>
         </div>
     </div>
 
@@ -24,6 +24,7 @@
                             <span>{{result.provider_name}} Video by User</span>
                             <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{result.title}} on Youtube"></i>
                             <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{result.title}} on Soundcloud"></i>
+                            <i ng-if="result.provider_name === 'Vimeo'" class="fa fa-vimeo" aria-hidden="true" title="Watch {{result.title}} on Vimeo"></i>
                         </a>
                     </div>
                 </div>

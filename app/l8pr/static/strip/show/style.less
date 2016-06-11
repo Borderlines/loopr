@@ -5,45 +5,24 @@
     padding: 0 10px;
     background-color: @LOW_OPACITY_BACKGROUND;
     &__cover {
-        font-family: @FONT1;
-        color: @text-color;
-        background-color: @body-bg;
-        box-sizing: padding-box;
-        padding: (@MARGE * 2);
-        box-shadow: 0px 10px 0px @SHADOW;
-        position: relative;
-        z-index: 2;
+        .cover;
         &__title {
             font-weight: bold;
-            font-size: 150%;
-        }
-        &__details {
-            font-family: @FONT2;
-        }
-        &__actions {
-            text-align: right;
-            &:hover{color:blue;}
         }
     }
-    &__listItems, &__illu {
-        min-height: 500px;
-    }
-
-    &__illu {
+    &__filter {
         background-color: purple;
-    }
-
-    &__listItems {
         font-family: @FONT2;
-        background-color: fade(@body-bg, 95);
-        &__item {
-            padding-top: (@MARGE * 2) !important;
-            padding-left: (@MARGE * 2) !important;
-            .title {}
-            .details {}
-            .actions {}
+        //min-height: 550px;
+        &__parameters {
+            color: @gray-light;
+            padding: 10px;
+            padding-left: 20px;
+            .text-left;
         }
     }
-    &--playingNow {}
-    &--edit {}
+    &__list {
+        .list {}
+        min-height: 45vh;
+    }
 }
