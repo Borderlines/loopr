@@ -4,13 +4,14 @@
             <span class="Search__cover__title col-xs-12">Results for <strong>{{vm.query}}</strong></span>
         </div>
             <div class="Search__cover__actions col-xs-12 col-md-2">
+                <i class="material-icons" title="Play this list">play_circle_filled</i>
         </div>
     </div>
 
     <div class="Search__side-bar col-xs-12 col-md-3 col-md-push-9">
-        <div class="Search__side-bar__actions">
-            <i class="material-icons" title="Play this list">play_circle_filled</i>
-            <i class="material-icons">more_horiz</i>
+        <div class="Search__side-bar__info">
+            <span>12 media</span>
+            <span>1h34min</span>
         </div>
         <div class="Search__side-bar__filter">
             <h5 class="" data-toggle="collapse" data-target="#toggle-filter">
@@ -39,10 +40,10 @@
     <div class="Search__list col-xs-12 col-md-9 col-md-pull-3">
         <div class="list__item" ng-repeat="result in vm.results">
             <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.play(result)">
-                <img class="img-responsive center-block" ng-src="{{ result.thumbnail }}"/>
+                <img ng-src="{{ result.thumbnail }}"</>
             </div>
                 <div class="col-xs-6 col-md-8" ng-click="vm.play(result)">
-                    <div class="list__item__title" ng-bind="result.title" title="Play {{result.title}}"></div>
+                    <div class="list__item__title item" ng-bind="result.title" title="Play {{result.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ result.url }}" target="_blank">
                             <span>{{result.provider_name}} item by User</span>
@@ -65,7 +66,7 @@
                 </div>
             </div>
             <div class="list_item_illu col-xs-6 col-md-3">
-                <img class="img-responsive" src="//media.giphy.com/media/w3Er0gW94cG8E/giphy.gif">
+                <img class="" src="//media.giphy.com/media/w3Er0gW94cG8E/giphy.gif">
             </div>
         </div>
     </div>
