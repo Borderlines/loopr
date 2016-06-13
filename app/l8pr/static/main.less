@@ -172,20 +172,39 @@ body .plyr {
 
 // List *Ultimate* // Boom.
 .list {
+    font-family: @FONT2;
     .list-group;
+    > :nth-child(odd) {
+        background-color: @color-list-odd;
+    }
+    > :nth-child(even) {
+        background-color: @color-list-even;
+    }
+    > :nth-child(1) {
+        > :nth-child(2) {
+            padding-top: 10px;
+            @media (max-width: @screen-sm){
+                padding-top: 0px;
+            }
+        }
+        > :nth-child(3) {
+            padding-top: 40px;
+            @media (max-width: @screen-sm){
+                padding-top: 30px;
+            }
+        }
+    }
 
     &__item {
         .list-group-item;
         .row;
-        font-family: @FONT2;
         overflow: hidden;
-        background-color: fade(@gray-lighter, 90);
         margin-bottom: 0;
         padding: 0px;
-        border: none;
-        // display: inline-block; //effet marrant
+        height: 150px;
         @media (max-width: @screen-sm){
             padding-bottom: 30px !important;
+            height: auto;
             }
 
         &__title {
@@ -193,16 +212,25 @@ body .plyr {
             padding-left: 30px;
             padding-top: 30px;
             padding-right: 30px;
-            @media (max-width: @screen-sm){padding-left: 20px;}
+            @media (max-width: @screen-sm){
+                padding-left: 15px;
+                padding-top: 30px;
+            }
             .h5;
-            &--item {}
-            &--show {font-family: @FONT1;}
         }
+        .item {} //Default type
+        .show {
+            font-family: @FONT1;
+            font-size: 110%;
+            margin-bottom: 5px;
+            letter-spacing: .025em;
+        }
+
         &__info {
             .list-group-item-text;
             padding-left: 30px;
             font-weight: 300 !important;
-            @media (max-width: @screen-sm){padding-left: 20px;}
+            @media (max-width: @screen-sm){padding-left: 10px;}
             .h5;
             i {
                 font-size: 80%;
@@ -212,7 +240,7 @@ body .plyr {
             padding-top: 30px;
             padding-right: 30px !important;
             @media (max-width: @screen-sm){
-                padding-top: 40px;
+                padding-top: 30px;
             }
             .text-right;
             a {
@@ -222,28 +250,19 @@ body .plyr {
         &__illu {
             &--item {
                 z-index: 100;
-                max-height: 120px;
-                overflow: hidden;
                 img {
-                    //.img-responsive;
-                    width: auto;
-                    max-height: 100%;
-                    display: block;;
-                    //.center-block;
+                    .img-responsive;
+                    //height: 100% !important;
                 }
             @media (max-width: @screen-sm){
-                padding: 10px !important;
-                padding-top: 40px !important;
+                padding-left: 20px !important;
+                padding-top: 30px !important;
                 }
             }
             &--show {}
         }
         &--playNow {
             color: @brand-primary;
-            //position: absolute;
-            //margin: 30px auto;
-            //float: left;
-            //z-index: 333;
         }
         &:active { background-color: red;}
         &:hover {
@@ -254,6 +273,9 @@ body .plyr {
             }
             .fa-soundcloud {
                 color: @color_soundcloud;
+            }
+            .fa-vimeo {
+                color: @color_vimeo;
             }
             .list__item__title {
                 font-weight: bold;
@@ -294,9 +316,11 @@ body .plyr {
 
 //Side bar Show_info & Search_filter
 .side-bar {
-    background-color: @gray-dark;
+    background-blend-mode: multiply;
+    background-color: fade(@gray-dark, 90);
     font-family: @FONT2;
     color: @body-bg;
+    margin: 0 !important;
     a, [ng-click], [ui-sref] {
         color: @body-bg;
         &:hover {
@@ -304,18 +328,27 @@ body .plyr {
             background-color: @body-bg;
         }
     }
-    &__actions {
-        .text-right;
-        padding: 20px 30px 10px 30px;
-        @media (max-width: @screen-sm){
-            padding: 20px 20px 10px 20px;
+    &__info {
+        .text-left;
+        .h5;
+        font-size: 90%;
+        font-weight: 300 !important;
+        padding: 10px 20px 10px 20px;
+        @media (min-width: @screen-md){
+            .h2;
+            font-weight: 100 !important;
+            padding: 30px;
+            line-height: 1.5em;
             }
+        span {
+            padding-right: 30px;
+        }
     }
     &__filter {
         .text-left;
         font-size: 90%;
         font-weight: 300 !important;
         background-color: rgba(0,0,0, 0.2);
-        padding: 10px 30px 10px 20px;
+        padding: 20px 30px 10px 20px;
     }
 }
