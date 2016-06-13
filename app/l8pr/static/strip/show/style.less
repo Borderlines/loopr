@@ -1,49 +1,20 @@
 .Show {
-    max-height: 60vh;
     overflow-y: auto;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 @MARGE;
     background-color: @LOW_OPACITY_BACKGROUND;
+    @media (max-width: @screen-xs){padding: 0px 0px;}
     &__cover {
-        font-family: @FONT1;
-        color: @text-color;
-        background-color: @body-bg;
-        box-sizing: padding-box;
-        padding: (@MARGE * 2);
-        box-shadow: 0px 10px 0px @SHADOW;
-        position: relative;
-        z-index: 2;
+        .cover;
         &__title {
             font-weight: bold;
-            font-size: 150%;
-        }
-        &__details {
-            font-family: @FONT2;
-        }
-        &__actions {
-            text-align: right;
-            &:hover{color:blue;}
         }
     }
-    &__listItems, &__illu {
-        min-height: 500px;
+    &__side-bar {
+        .side-bar;
     }
-
-    &__illu {
-        background-color: purple;
+    &__list {
+        .list;
+        //min-height: 35vh;
     }
-
-    &__listItems {
-        font-family: @FONT2;
-        background-color: fade(@body-bg, 95);
-        &__item {
-            padding-top: (@MARGE * 2) !important;
-            padding-left: (@MARGE * 2) !important;
-            .title {}
-            .details {}
-            .actions {}
-        }
-    }
-    &--playingNow {}
-    &--edit {}
 }

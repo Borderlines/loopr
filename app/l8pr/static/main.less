@@ -10,12 +10,12 @@
 @import "strip/header/style.less";
 
 a, [ng-click], [ui-sref] {
-    color: @link-color;
+    //color: @link-color;
     text-decoration: none;
     cursor: pointer;
     &:hover {
         text-decoration: @link-hover-decoration;
-        color: @link-hover-color;
+        color: @text-color; // @link-hover-color;
     }
 }
 
@@ -108,6 +108,8 @@ body .plyr {
     right: 0;
     opacity: 1;
     transition-property: opacity;
+    transition-property: height;
+    transition-duration: 2s;
     &.hidden {
         opacity: 0;
     }
@@ -160,4 +162,155 @@ body .plyr {
 
 .material-icons {
     font-size: 22px !important;
+}
+
+
+// List *Ultimate* // Boom.
+.list {
+    .list-group;
+
+    &__item {
+        .list-group-item;
+        .row;
+        font-family: @FONT2;
+        overflow: hidden;
+        background-color: fade(@gray-lighter, 90);
+        margin-bottom: 0;
+        padding: 0px;
+        border: none;
+        // display: inline-block; //effet marrant
+        @media (max-width: @screen-sm){
+            padding-bottom: 30px !important;
+            }
+
+        &__title {
+            .list-group-item-heading;
+            padding-left: 30px;
+            padding-top: 30px;
+            padding-right: 30px;
+            @media (max-width: @screen-sm){padding-left: 20px;}
+            .h5;
+            &--item {}
+            &--show {font-family: @FONT1;}
+        }
+        &__info {
+            .list-group-item-text;
+            padding-left: 30px;
+            font-weight: 300 !important;
+            @media (max-width: @screen-sm){padding-left: 20px;}
+            .h5;
+            i {
+                font-size: 80%;
+            }
+        }
+        &__actions {
+            padding-top: 30px;
+            padding-right: 30px !important;
+            @media (max-width: @screen-sm){
+                padding-top: 40px;
+            }
+            .text-right;
+            a {
+                vertical-align: top;
+            }
+        }
+        &__illu {
+            &--item {
+                z-index: 100;
+                max-height: 120px;
+                overflow: hidden;
+                img {
+                    //.img-responsive;
+                    width: auto;
+                    max-height: 100%;
+                    display: block;;
+                    //.center-block;
+                }
+            @media (max-width: @screen-sm){
+                padding: 10px !important;
+                padding-top: 40px !important;
+                }
+            }
+            &--show {}
+        }
+        &--playNow {
+            color: @brand-primary;
+            //position: absolute;
+            //margin: 30px auto;
+            //float: left;
+            //z-index: 333;
+        }
+        &:active { background-color: red;}
+        &:hover {
+            a, [ng-click] {color: @text-color;}
+            background-color: white;
+            .fa-youtube-play {
+                color: @color_youtube;
+            }
+            .fa-soundcloud {
+                color: @color_soundcloud;
+            }
+            .list__item__title {
+                font-weight: bold;
+            }
+            .list-group-item-text {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+
+// Cover Ultimate
+.cover {
+    .row;
+    font-family: @FONT1;
+    color: @text-color;
+    background-color: @body-bg;
+    box-sizing: padding-box;
+    padding: (@MARGE * 2) (@MARGE * 3);
+    @media (max-width: @screen-sm){
+        padding: (@MARGE * 2) (@MARGE * 2);
+    }
+    box-shadow: 0px 10px 0px @SHADOW;
+    position: relative;
+    z-index: 2;
+    &__title {
+        font-size: 150%;
+    }
+    &__details {
+        font-family: @FONT2;
+    }
+    &__actions {
+        text-align: right;
+        &:hover{color:blue;}
+    }
+}
+
+//Side bar Show_info & Search_filter
+.side-bar {
+    background-color: @gray-dark;
+    font-family: @FONT2;
+    color: @body-bg;
+    a, [ng-click], [ui-sref] {
+        color: @body-bg;
+        &:hover {
+            color: @gray-dark;
+            background-color: @body-bg;
+        }
+    }
+    &__actions {
+        .text-right;
+        padding: 20px 30px 10px 30px;
+        @media (max-width: @screen-sm){
+            padding: 20px 20px 10px 20px;
+            }
+    }
+    &__filter {
+        .text-left;
+        font-size: 90%;
+        font-weight: 300 !important;
+        background-color: rgba(0,0,0, 0.2);
+        padding: 10px 30px 10px 20px;
+    }
 }
