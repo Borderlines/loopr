@@ -10,12 +10,12 @@
 @import "strip/header/style.less";
 
 a, [ng-click], [ui-sref] {
-    color: @link-color;
+    //color: @link-color;
     text-decoration: none;
     cursor: pointer;
     &:hover {
         text-decoration: @link-hover-decoration;
-        color: @link-hover-color;
+        color: @text-color; // @link-hover-color;
     }
 }
 
@@ -196,6 +196,7 @@ body .plyr {
         &__info {
             .list-group-item-text;
             padding-left: 30px;
+            font-weight: 300 !important;
             @media (max-width: @screen-sm){padding-left: 20px;}
             .h5;
             i {
@@ -204,10 +205,11 @@ body .plyr {
         }
         &__actions {
             padding-top: 30px;
+            padding-right: 30px !important;
             @media (max-width: @screen-sm){
-                padding-top: 60px;
+                padding-top: 40px;
             }
-            .text-center;
+            .text-right;
             a {
                 vertical-align: top;
             }
@@ -233,8 +235,10 @@ body .plyr {
         }
         &--playNow {
             color: @brand-primary;
-            position: absolute;
-            padding: 10px;
+            //position: absolute;
+            //margin: 30px auto;
+            //float: left;
+            //z-index: 333;
         }
         &:active { background-color: red;}
         &:hover {
@@ -280,5 +284,33 @@ body .plyr {
     &__actions {
         text-align: right;
         &:hover{color:blue;}
+    }
+}
+
+//Side bar Show_info & Search_filter
+.side-bar {
+    background-color: @gray-dark;
+    font-family: @FONT2;
+    color: @body-bg;
+    a, [ng-click], [ui-sref] {
+        color: @body-bg;
+        &:hover {
+            color: @gray-dark;
+            background-color: @body-bg;
+        }
+    }
+    &__actions {
+        .text-right;
+        padding: 20px 30px 10px 30px;
+        @media (max-width: @screen-sm){
+            padding: 20px 20px 10px 20px;
+            }
+    }
+    &__filter {
+        .text-left;
+        font-size: 90%;
+        font-weight: 300 !important;
+        background-color: rgba(0,0,0, 0.2);
+        padding: 10px 30px 10px 20px;
     }
 }

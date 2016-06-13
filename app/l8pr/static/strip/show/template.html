@@ -1,40 +1,37 @@
 <div class="Show row" ng-class="{'Show--playing-now': vm.playingNow}">
     <div class="Show__cover row">
-        <div class="col-xs-12 col-md-9">
+        <div class="col-xs-12 col-md-10">
             <h2 class="Show__cover__title col-xs-12" ng-bind="vm.show.title"></h2>
         </div>
-            <div class="Show__cover__actions col-xs-12 col-md-3">
-                <i class="material-icons">play_circle_filled</i>
-                <i class="material-icons">favorite_border</i>
-                <i class="material-icons" ng-click="vm.showConfig()">more_horiz</i>
+        <div class="Show__cover__actions col-xs-12 col-md-2">
         </div>
     </div>
-    <div class="Show__filter col-xs-12 col-md-3 col-md-push-9">
-        <div class="Show__filter__parameters">
-            <span>info<span>
+    <div class="Show__side-bar col-xs-12 col-md-3 col-md-push-9">
+        <div class="Show__side-bar__actions">
+            <i class="material-icons">play_circle_filled</i>
+            <i class="material-icons">favorite_border</i>
+            <i class="material-icons" ng-click="vm.showConfig()">more_horiz</i>
         </div>
     </div>
     <div class="Show__list col-xs-12 col-md-9 col-md-pull-3">
         <div class="list__item" ng-repeat="item in vm.show.items">
-                <div class="col-xs-6 col-md-8" ng-click="vm.play(item)">
-                    <div class="list__item--playNow" ng-if="vm.player.currentItem === item">
-                        <i class="material-icons">pause</i>
-                    </div>
+            <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
+                <img class="img-responsive center-block" ng-src="{{ item.thumbnail }}"/>
+            </div>
+                <div class="col-xs-6 col-md-7" ng-click="vm.play(item)">
                     <div class="list__item__title" ng-click="vm.player.playShow(vm.show, $index)" ng-bind="item.title" title="Play {{item.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ item.url }}" target="_blank">
-                            <span>{{item.provider_name}} Video by User</span>
+                            <span>{{item.provider_name}} video by User</span>
                             <i ng-if="item.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{item.title}} on Youtube"></i>
                             <i ng-if="item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{item.title}} on Soundcloud"></i>
                             <i ng-if="item.provider_name === 'Vimeo'" class="fa fa-vimeo" aria-hidden="true" title="Watch {{item.title}} on Vimeo"></i>
                         </a>
                     </div>
                 </div>
-                <div class="list__item__actions col-xs-2 col-md-1">
+                <div class="list__item__actions col-xs-2 col-md-2">
+                    <!--<i class="material-icons" ng-if="vm.player.currentItem === item">pause</i>-->
                     <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);" title="Add this Item to a Show">playlist_add</i>
-                </div>
-                <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
-                    <img class="img-responsive center-block" ng-src="{{ item.thumbnail }}"/>
                 </div>
         </div>
     </div>
