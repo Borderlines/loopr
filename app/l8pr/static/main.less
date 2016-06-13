@@ -5,6 +5,7 @@
 @import "variables.less";
 @import "strip/style.less";
 @import "strip/show/style.less";
+@import "/player/webtorrent/style.less";
 @import "strip/loop/style.less";
 @import "strip/search-results/style.less";
 @import "strip/header/style.less";
@@ -37,7 +38,11 @@ body .plyr {
     right: 0;
     left: 0;
     bottom: 0;
-    .plyr__video-embed {height: 100%;}
+    .plyr__video-embed,
+    .plyr__video-wrapper,
+    .plyr__video-wrapper video {
+        height: 100%;
+    }
 }
 .soundCloudViz {
     position: absolute;

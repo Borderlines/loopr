@@ -8,8 +8,8 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     url = indexes.CharField(model_attr='url')
     provider_name = indexes.CharField(model_attr='provider_name')
     title = indexes.CharField(model_attr='title')
-    author_name = indexes.CharField(model_attr='author_name')
-    thumbnail = indexes.CharField(model_attr='thumbnail')
+    author_name = indexes.CharField(model_attr='author_name', null=True)
+    thumbnail = indexes.CharField(model_attr='thumbnail', null=True)
     autocomplete = indexes.EdgeNgramField()
 
     def get_model(self):
@@ -18,7 +18,7 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     @staticmethod
     def prepare_autocomplete(obj):
         return " ".join((
-            obj.title, obj.author_name
+            obj.title, obj.author_name or ''
         ))
 
     def index_queryset(self, using=None):

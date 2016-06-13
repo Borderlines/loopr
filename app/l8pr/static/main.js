@@ -9,6 +9,7 @@
         'loopr.player.vimeo',
         'cfp.hotkeys',
         'loopr.player.youtube',
+        'loopr.player.webtorrent',
         'FBAngular',
         'ui.router'])
         .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider',
@@ -50,8 +51,8 @@
                 },
                 'abstract': true,
                 resolve: {
-                    loopToExplore: ['$stateParams', 'Api', 'Player',
-                    function($stateParams, Api, Player) {
+                    loopToExplore: ['$stateParams', 'Api', 'loop',
+                    function($stateParams, Api, loop) {
                         if ($stateParams.loopToExplore) {
                             return Api.Loops.getList({username: $stateParams.loopToExplore})
                             .then(function(loops) {
@@ -60,7 +61,7 @@
                                 return loop;
                             });
                         } else {
-                            return Player.loop;
+                            return loop;
                         }
                     }]
                 },
