@@ -1,10 +1,26 @@
 <div class="modal-header">
-    <h3 class="row modal-title">Add to a Show</h3>
-    {{ vm.item.title }}
+    <h3 class="row modal-title">Add <b>{{vm.item.title}}</b> to a Show</h3>
+    <div class="modal-header__item">
+        <div class="list__item__illu--item col-xs-4">
+            <img ng-src="{{ vm.item.thumbnail }}"</>
+        </div>
+        <div class="col-xs-6">
+            <div class="list__item__title item" ng-bind="vm.item.title"></div>
+            <div class="list__item__info">
+                <a ng-href="{{ vm.item.url }}" target="_blank">
+                    <span>{{vm.item.provider_name}} video by User</span>
+                    <i ng-if="vm.item.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.item.title}} on Youtube"></i>
+                    <i ng-if="vm.item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.item.title}} on Soundcloud"></i>
+                    <i ng-if="vm.item.provider_name === 'Vimeo'" class="fa fa-vimeo" aria-hidden="true" title="Watch {{vm.item.title}} on Vimeo"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="modal-body">
-    <uib-tabset class="modal-body__tabs" active="active">
-        <uib-tab index="0" heading="Add to a show">
+    <uib-tabset class="modal-body__tab" type="pills" active="active">
+        <uib-tab index="0" heading="Add to one of your shows" classes="btn-md">
 
             <div class="list" ng-repeat="show in vm.shows">
                 <a class="list__item" ng-click="vm.addToShow(show)">
@@ -21,7 +37,7 @@
             </div>
 
         </uib-tab>
-        <uib-tab class="modal-body__tabs" index="1" heading="Create a show">
+        <uib-tab class="modal-body__tab" index="1" heading="Create a new show" classes="btn-md">
             <form ng-submit="vm.createShow()">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Show title</label>

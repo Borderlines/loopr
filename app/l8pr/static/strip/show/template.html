@@ -24,10 +24,10 @@
     </div>
     <div class="Show__list col-xs-12 col-md-9 col-md-pull-3">
         <div class="list__item" ng-repeat="item in vm.show.items">
-            <div class="list__item__illu--item col-xs-4 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
+            <div class="list__item__illu--item col-xs-12 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
                 <img ng-src="{{ item.thumbnail }}"</>
             </div>
-            <div class="col-xs-6 col-md-7" ng-click="vm.play(item)">
+            <div class="col-xs-10 col-md-7" ng-click="vm.play(item)">
                 <div class="list__item__title item" ng-click="vm.player.playShow(vm.show, $index)" ng-bind="item.title" title="Play {{item.title}}"></div>
                 <div class="list__item__info">
                     <a ng-href="{{ item.url }}" target="_blank">

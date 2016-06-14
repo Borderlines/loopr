@@ -151,6 +151,15 @@ body .plyr {
     margin-left: 0px;
 }
 
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+    height: 180px;
+    background-color: @body-bg !important;
+    color: @text-color !important;
+    font-size: 5em !important;
+}
+
 .container-fluid {
     padding-left: 0px;
     padding-right: 0px;
@@ -190,25 +199,27 @@ body .plyr {
     &__item {
         .list-group-item;
         .row;
+        //.text-right;
         overflow: hidden;
         margin-bottom: 0;
         padding: 0px;
         height: 120px;
+        //box-shadow: inset 10px 10px 0px @SHADOW;
         @media (max-width: @screen-sm){
             padding-bottom: 30px !important;
             height: auto;
             }
-
         &__title {
             .list-group-item-heading;
             padding-left: 30px;
             padding-top: 30px;
             padding-right: 30px;
-            @media (max-width: @screen-sm){
-                padding-left: 15px;
-                padding-top: 30px;
-            }
             .h5;
+            @media (max-width: @screen-sm){
+                padding-left: 20px;
+                padding-top: 20px;
+                .h4;
+            }
         }
         .item {} //Default type
         .show {
@@ -221,8 +232,12 @@ body .plyr {
         &__info {
             .list-group-item-text;
             padding-left: 30px;
+            padding-right: 30px;
             font-weight: 300 !important;
-            @media (max-width: @screen-sm){padding-left: 10px;}
+            @media (max-width: @screen-sm){
+                padding-left: 20px;
+                padding-top: 5px;
+            }
             .h5;
             i {
                 font-size: 80%;
@@ -233,6 +248,7 @@ body .plyr {
             padding-right: 30px !important;
             @media (max-width: @screen-sm){
                 padding-top: 30px;
+                padding-right: 20px;
             }
             .text-right;
             a {
@@ -241,22 +257,24 @@ body .plyr {
         }
         &__illu {
             &--item {
-                z-index: 100;
                 img {
                     .img-responsive;
-                    //height: 100% !important;
+                    //margin: 10px; maybe ...
+                    //padding-right: 10px;
+                    @media (max-width: @screen-sm){
+                        padding: 20px 20px 0px 20px;
+                        }
+                    }
                 }
-            @media (max-width: @screen-sm){
-                padding-left: 20px !important;
-                padding-top: 30px !important;
-                }
-            }
+
             &--show {}
         }
         &--playNow {
             color: @brand-primary;
         }
-        &:active { background-color: red;}
+        &.active {
+            .list-group-item.active;
+        }
         &:hover {
             a, [ng-click] {color: @text-color;}
             background-color: white;
@@ -371,7 +389,7 @@ body .plyr {
         @media (min-width: @screen-md){
             .text-left;
             .h5;
-            padding: 30px 30px 30px 30px;
+            padding: 30px 30px 160px 30px;
             line-height: 1.5em;
             margin: 0px;
             }
@@ -379,12 +397,18 @@ body .plyr {
 }
 
 .modal-header {
+    font-family: @FONT2;
     padding: 40px 40px 20px 40px;
+    &__item {
+        padding-top: 20px;
+        .row;
+    }
 }
 
 .modal-body {
+    background-color: fade(@text-color, 10);
     padding: 10px 40px 40px 40px;
-    &__tabs {
+    &__tab {
         font-family: @FONT2;
     }
 }
