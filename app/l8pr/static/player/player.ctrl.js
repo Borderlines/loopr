@@ -122,7 +122,7 @@
                 function showCursor() {
                     element.css('cursor', '');
                 }
-                $timeout(hideCursor, 3000);
+                $timeout(hideCursor, 3000, false);
                 element.on('mouseout', function() {
                     $timeout.cancel(hideCursorTimeout);
                     showCursor();
@@ -130,7 +130,7 @@
                 element.on('mousemove', function() {
                     $timeout.cancel(hideCursorTimeout);
                     showCursor();
-                    hideCursorTimeout = $timeout(hideCursor, 3000);
+                    hideCursorTimeout = $timeout(hideCursor, 3000, false);
                 });
             }
         };

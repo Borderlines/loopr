@@ -11,7 +11,12 @@ import datetime
 import re
 # TODO: favorites in accounts
 
-PROVIDER_CHOICES = (('YouTube', 'YouTube'), ('SoundCloud', 'SoundCloud'), ('Vimeo', 'Vimeo'))
+PROVIDER_CHOICES = (
+    ('YouTube', 'YouTube'),
+    ('SoundCloud', 'SoundCloud'),
+    ('WebTorrent', 'WebTorrent'),
+    ('Vimeo', 'Vimeo'),
+)
 
 
 class Profile(models.Model):
@@ -84,7 +89,7 @@ class Item(models.Model):
     provider_name = models.CharField(max_length=255, null=True, blank=True, choices=PROVIDER_CHOICES)
     html = models.TextField(null=True, blank=True)
     duration = models.PositiveIntegerField(null=True, blank=True)
-    url = models.URLField(db_index=True, max_length=200)
+    url = models.TextField(db_index=True, max_length=400)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -149,18 +154,28 @@ def get_soundcloud_duration(url):
 
 
 def get_metadata(url, item_instance=None):
-    data = requests.get('http://iframe.ly/api/iframely?url=%s&api_key=%s' % (
-                        url, getattr(settings, 'IFRAMELY_API_KEY'))).json()
-    data = {
-        'title': data['meta']['title'],
-        'author_name': data['meta'].get('author'),
-        'thumbnail': data['links']['thumbnail'][0]['href'],
-        'provider_name': data['meta'].get('site'),
-        'html': data['html'],
-        'duration': data['meta'].get('duration'),
-        'url': data['meta'].get('canonical'),
-        'description': data['meta'].get('description')
-    }
+    res = requests.get('http://iframe.ly/api/iframely?url=%s&api_key=%s' % (
+                       url, getattr(settings, 'IFRAMELY_API_KEY'))).json()
+    try:
+        data = {
+            'title': res['meta']['title'],
+            'author_name': res['meta'].get('author'),
+            'thumbnail': res['links']['thumbnail'][0]['href'],
+            'provider_name': res['meta'].get('site'),
+            'html': res['html'],
+            'duration': res['meta'].get('duration'),
+            'url': res['meta'].get('canonical'),
+            'description': res['meta'].get('description')
+        }
+    except KeyError as e:
+        if res['links']['file'][0]['type'] == 'application/x-bittorrent':
+            data = {
+                'title': res['meta']['canonical'],
+                'url': res['meta']['canonical'],
+                'provider_name': 'WebTorrent'
+            }
+        else:
+            raise e
     if item_instance is None:
         item_instance = Item()
     for key, value in data.items():

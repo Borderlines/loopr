@@ -21,7 +21,7 @@
                         service.hideStrip(false);
                         hideTimeout = $timeout(function() {
                             service.hideStrip(true);
-                        }, 5000);
+                        }, 5000, false);
                     }
                 },
                 autoHideToggle: function(enable) {

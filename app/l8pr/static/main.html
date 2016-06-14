@@ -7,9 +7,11 @@
 <vimeo ng-if="vm.Player.currentItem.provider_name == 'Vimeo'"
          data-item="vm.Player.currentItem">
 </vimeo>
+<webtorrent ng-if="vm.Player.currentItem.provider_name == 'WebTorrent'"
+            class="webtorrent"
+            data-item="vm.Player.currentItem">
+</webtorrent>
 <div class="overlay"
-     ng-mousemove="vm.showAndHideStrip()"
-     auto-hide-cursor
      ng-click="vm.Player.playPause()">
 </div>
 <div class="container-fluid strip">

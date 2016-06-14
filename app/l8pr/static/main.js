@@ -9,6 +9,7 @@
         'loopr.player.vimeo',
         'cfp.hotkeys',
         'loopr.player.youtube',
+        'loopr.player.webtorrent',
         'FBAngular',
         'ui.router'])
         .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider',
@@ -45,7 +46,25 @@
             })
             .state('index.open', {
                 reloadOnSearch: false,
+                params: {
+                    loopToExplore: null
+                },
                 'abstract': true,
+                resolve: {
+                    loopToExplore: ['$stateParams', 'Api', 'loop',
+                    function($stateParams, Api, loop) {
+                        if ($stateParams.loopToExplore) {
+                            return Api.Loops.getList({username: $stateParams.loopToExplore})
+                            .then(function(loops) {
+                                var loop = loops[0];
+                                loop.username = $stateParams.loopToExplore;
+                                return loop;
+                            });
+                        } else {
+                            return loop;
+                        }
+                    }]
+                },
                 views: {
                     header: {
                         controller: 'StripHeaderCtrl',
@@ -59,7 +78,7 @@
             })
             .state('index.open.loop', {
                 reloadOnSearch: false,
-                url: '/loop',
+                url: '/loop/:loopToExplore',
                 views: {
                     body: {
                         controller: 'LoopExplorerCtrl',

@@ -1,13 +1,17 @@
 (function() {
 'use strict';
 
-LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip'];
-function LoopExplorerCtrl(Player, scope, stripService) {
+LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'loopToExplore'];
+function LoopExplorerCtrl(Player, scope, stripService, loopToExplore) {
     var vm = this;
     function reorderShows() {
-        var indexOfCurrentShow = _.findIndex(Player.loop.shows_list, function(s) {return s === Player.currentShow;});
-        var reordered = Player.loop.shows_list.slice(indexOfCurrentShow, Player.loop.shows_list.length);
-        vm.shows = reordered.concat(Player.loop.shows_list.slice(0, indexOfCurrentShow));
+        var indexOfCurrentShow = _.findIndex(loopToExplore.shows_list, function(s) {return s === Player.currentShow;});
+        if (indexOfCurrentShow > -1) {
+            var reordered = loopToExplore.shows_list.slice(indexOfCurrentShow, loopToExplore.shows_list.length);
+            vm.shows = reordered.concat(loopToExplore.shows_list.slice(0, indexOfCurrentShow));
+        } else {
+            vm.shows = loopToExplore.shows_list;
+        }
     }
     angular.extend(vm, {
         player: Player,
