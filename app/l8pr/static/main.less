@@ -179,6 +179,47 @@ body .plyr {
     margin: 0px;
 }
 
+
+// modals.less
+
+.modal {
+}
+
+.modal-content {
+    background-color: @body-bg;
+    .box-shadow(10px 10px 0px fade(@text-color, 20));
+    font-family: @FONT2;
+    border: none !important;
+    padding: 20px;
+}
+
+.modal-backdrop {
+    background-color: fade(@brand-primary, 10);
+    &.fade { .opacity(0); }
+    &.in { .opacity(@modal-backdrop-opacity); }
+}
+
+.modal-header {
+    border: none;
+    .row;
+}
+.modal-title {
+    .h3;
+    .row;
+    padding-bottom: 20px;
+}
+
+.modal-body {
+}
+.modal-footer {
+    border: none;
+}
+
+
+//
+// END Override Bootstrap //
+//
+
 // Material icons
 .material-icons {
     font-size: 22px !important;
@@ -393,22 +434,5 @@ body .plyr {
             line-height: 1.5em;
             margin: 0px;
             }
-    }
-}
-
-.modal-header {
-    font-family: @FONT2;
-    padding: 40px 40px 20px 40px;
-    &__item {
-        padding-top: 20px;
-        .row;
-    }
-}
-
-.modal-body {
-    background-color: fade(@text-color, 10);
-    padding: 10px 40px 40px 40px;
-    &__tab {
-        font-family: @FONT2;
     }
 }
