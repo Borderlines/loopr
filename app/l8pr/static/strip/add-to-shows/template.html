@@ -3,21 +3,25 @@
     {{ vm.item.title }}
 </div>
 <div class="modal-body">
-    <uib-tabset active="active">
+    <uib-tabset class="modal-body__tabs" active="active">
         <uib-tab index="0" heading="Add to a show">
-            <div class="list-group" ng-repeat="show in vm.shows">
-                <a class="list-group-item" ng-click="vm.addToShow(show)">
+
+            <div class="list" ng-repeat="show in vm.shows">
+                <a class="list__item" ng-click="vm.addToShow(show)">
                     <div class="row">
-                        <img class="col-xs-2 col-md-2" ng-src="{{ show.items[0].thumbnail }}"/>
-                        <div class="col-xs-10 col-md-10">
-                            <h4 class="list-group-item-heading" ng-bind="show.title"></h4>
-                            <p class="list-group-item-text">{{ show.items.length }} shows, {{ show.duration() | seconds }}</p>
+                        <div class="list__item__illu--item col-xs-4 col-md-4">
+                            <img ng-src="{{ show.items[0].thumbnail }}"</>
+                        </div>
+                        <div class="col-xs-8 col-md-8">
+                            <div class="list__item__title show" ng-bind="show.title"></div>
+                            <div class="list__item__info">{{ show.items.length }} shows, {{ show.duration() | seconds }}</div>
                         </div>
                     </div>
                 </a>
             </div>
+
         </uib-tab>
-        <uib-tab index="1" heading="Create a show">
+        <uib-tab class="modal-body__tabs" index="1" heading="Create a show">
             <form ng-submit="vm.createShow()">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Show title</label>
