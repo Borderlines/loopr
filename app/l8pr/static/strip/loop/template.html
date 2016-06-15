@@ -5,7 +5,7 @@
              ng-class="{'Loop__show--current-show': vm.player.currentShow.id === show.id}"
              ng-style="{width: getWidth(show)}">
              <div class="Loop__show__body">
-                <a ui-sref="index.open.show({showToExploreId: show.id})">
+                <a ui-sref="index.open.show({showToExplore: show})">
                     <div class="title" title="Browse this Show">
                         {{ show.title }}
                     </div>

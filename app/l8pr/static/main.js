@@ -90,6 +90,9 @@
             .state('index.open.show', {
                 reloadOnSearch: false,
                 url: '/show/:showToExploreId',
+                params: {
+                    showToExplore: null
+                },
                 views: {
                     body: {
                         controller: 'ShowExplorerCtrl',
@@ -97,6 +100,9 @@
                         controllerAs: 'vm',
                         resolve: {
                             show: ['$stateParams', 'Api', function($stateParams, Api) {
+                                if ($stateParams.showToExplore) {
+                                    return $stateParams.showToExplore;
+                                }
                                 return Api.Shows.one($stateParams.showToExploreId).get();
                             }]
                         }
