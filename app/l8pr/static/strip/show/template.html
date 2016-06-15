@@ -1,18 +1,18 @@
 <div class="Show row" ng-class="{'Show--playing-now': vm.playingNow}">
-    <div class="side-bar col-xs-12 col-md-3">
-        <div class="side-bar__title show" ng-bind="vm.show.title">
+    <div class="Show__side-bar col-xs-12 col-md-3">
+        <div class="Show__side-bar__title show" ng-bind="vm.show.title">
         </div>
-        <div class="side-bar__info">
+        <div class="Show_side-bar__info">
             <div style="display: inline-block; ">Show by <b>Vied12</b></div>
             <div style="display: inline-block; ">{{ vm.show.items.length }} media / 51min</div>
         </div>
-        <div class="side-bar__filter">
+        <div class="Show_side-bar__filter">
             <i class="material-icons">play_circle_filled</i>
             <i class="material-icons">favorite_border</i>
             <i class="material-icons text-right" ng-click="vm.showConfig()">settings</i>
         </div>
     </div>
-    <div class="list col-xs-12 col-md-9">
+    <div class="Show_list col-xs-12 col-md-9">
         <div class="list__item" ng-repeat="item in vm.show.items">
             <div class="list__item__illu--item col-xs-12 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
                 <img ng-src="{{ item.thumbnail }}"</>
