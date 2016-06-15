@@ -28,7 +28,7 @@
                         <i class="material-icons">play_arrow</i>
                     </div>
                     <div class="banner__title col-xs-9 col-md-9">
-                        <span>{{ vm.Player.currentItem.title }}</span>
+                        <span ui-sref="index.open.show({showToExplore: vm.Player.currentShow})">{{ vm.Player.currentItem.title }}</span>
                     </div>
                     <div class="col-xs-1 col-md-1 text-right">
                         <a ng-href="{{ vm.Player.currentItem.url }}" target="_blank">
