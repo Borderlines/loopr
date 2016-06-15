@@ -59,6 +59,27 @@
                 template: '<div class="time" ng-bind="time"></div>'
             };
         }])
+        .directive('bodyScrollable', ['$timeout', '$window', function($timeout, $window) {
+            return {
+                scope: {
+                },
+                link: function($scope, element) {
+                    var win = angular.element($window);
+                    function setHeight() {
+                        // remove what is above element
+                        var maxHeight = win.height() - element.offset().top;
+                        // remove strip bar controller space
+                        maxHeight -= win.height() - angular.element('.strip__controls').offset().top;
+                        element.css({
+                            'max-height': maxHeight,
+                            'overflow-y': 'auto'
+                        });
+                    }
+                    $timeout(setHeight);
+                    win.on('resize', setHeight);
+                }
+            };
+        }])
         .directive('banner', ['$interval', function($interval) {
             return {
                 restrict: 'E',

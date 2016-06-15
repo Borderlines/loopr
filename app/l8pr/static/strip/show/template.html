@@ -12,7 +12,7 @@
             <i class="material-icons text-right" ng-click="vm.showConfig()">settings</i>
         </div>
     </div>
-    <div class="Show_list col-xs-12 col-md-9">
+    <div class="list col-xs-12 col-md-9" body-scrollable>
         <div class="list__item" ng-repeat="item in vm.show.items">
             <div class="list__item__illu--item col-xs-12 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
                 <img ng-src="{{ item.thumbnail }}"</>
