@@ -36,15 +36,32 @@
             }
             .details {
                 .h6;
-                //font-style: italic;
-                //bottom: 0;
-                //position: absolute;
             }
         }
         &__background {
             z-index: 0;
-            position: relative;
-            top: (@CELL_HEIGHT * -1);
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            &:hover {
+                &:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    content: 'play_circle_outline';
+                    font-family: 'Material Icons';
+                    -webkit-font-feature-settings: 'liga';
+                    background-color: fade(@brand-primary, 80);
+                    color: white;
+                    font-size: 102px;
+                    padding-top: 100px;
+                    text-align: center;
+                }
+            }
             .swap-animation {
                 background-size: cover;
                 background-position: top center;
