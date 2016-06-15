@@ -1,16 +1,19 @@
 (function() {
     'use strict';
 
-    ModalInstanceCtrl.$inject = ['$uibModalInstance', 'show'];
-    function ModalInstanceCtrl($uibModalInstance, show) {
+    ModalInstanceCtrl.$inject = ['$uibModalInstance', 'show', 'Restangular'];
+    function ModalInstanceCtrl($uibModalInstance, show, Restangular) {
         var vm = this;
         angular.extend(vm, {
             shows: show,
-            settings: show.settings,
+            settings: angular.copy(show.settings),
             save: function() {
-                show.settings = vm.settings;
-                show.save();
-                $uibModalInstance.close(show);
+                var newShow = Restangular.copy(show);
+                angular.extend(newShow, {settings: vm.settings});
+                newShow.save().then(function(savedShow) {
+                    show.settings = savedShow.settings;
+                    $uibModalInstance.close(show);
+                });
             },
             cancel: function() {
                 $uibModalInstance.dismiss('cancel');
