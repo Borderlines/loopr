@@ -99,11 +99,20 @@
                         templateUrl: '/strip/show/template.html',
                         controllerAs: 'vm',
                         resolve: {
-                            show: ['$stateParams', 'Api', function($stateParams, Api) {
+                            show: ['$stateParams', 'Api', 'loop', function($stateParams, Api, loop) {
+                                // if a show object is given, open it and update the params
                                 if ($stateParams.showToExplore) {
                                     $stateParams.showToExploreId = $stateParams.showToExplore.id;
                                     return $stateParams.showToExplore;
                                 }
+                                // if the show is in the current loop, open it (and keep items order)
+                                var show = _.find(loop.shows_list, function(show) {
+                                    return show.id === parseInt($stateParams.showToExploreId, 10);
+                                });
+                                if(show) {
+                                    return show;
+                                }
+                                // otherwise, load from API
                                 return Api.Shows.one($stateParams.showToExploreId).get();
                             }]
                         }
