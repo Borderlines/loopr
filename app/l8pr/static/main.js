@@ -101,6 +101,7 @@
                         resolve: {
                             show: ['$stateParams', 'Api', function($stateParams, Api) {
                                 if ($stateParams.showToExplore) {
+                                    $stateParams.showToExploreId = $stateParams.showToExplore.id;
                                     return $stateParams.showToExplore;
                                 }
                                 return Api.Shows.one($stateParams.showToExploreId).get();

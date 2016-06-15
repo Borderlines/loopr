@@ -230,14 +230,13 @@ body .plyr {
 .list {
     font-family: @FONT2;
     .list-group;
-    > :nth-child(odd) {
-        background-color: @color-list-odd;
-    }
-    > :nth-child(even) {
-        background-color: @color-list-even;
-    }
-
     &__item {
+        &:nth-child(odd) {
+            background-color: @color-list-odd;
+        }
+        &:nth-child(even) {
+            background-color: @color-list-even;
+        }
         .list-group-item;
         .row;
         //.text-right;
@@ -249,6 +248,11 @@ body .plyr {
         @media (max-width: @screen-sm){
             //padding-bottom: 30px !important;
             height: auto;
+        }
+        &.list__item--playing {
+            background-color: @brand-primary;
+        }
+        &.list__item--active {
         }
         &__title {
             .list-group-item-heading;
@@ -306,12 +310,6 @@ body .plyr {
                     padding: 20px 20px 0px 20px;
                 }
             }
-        }
-        &--playNow {
-            color: @brand-primary;
-        }
-        &--active {
-            .list-group-item.active;
         }
         &:hover {
             a, [ng-click] {color: @text-color;}

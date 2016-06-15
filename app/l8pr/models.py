@@ -200,7 +200,7 @@ signals.post_save.connect(completeItem, sender=Item)
 
 
 def create_show_settings(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.settings is None:
         settings = ShowSettings.objects.create()
         instance.settings = settings
         instance.save()
