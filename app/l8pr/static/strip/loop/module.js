@@ -22,6 +22,16 @@ function LoopExplorerCtrl(Player, scope, stripService, loopToExplore) {
 
 angular.module('loopr.strip')
 .controller('LoopExplorerCtrl', LoopExplorerCtrl)
+.directive('horizontalScroll', [function() {
+    return {
+        link: function(scope, element) {
+            element.mousewheel(function(event, delta) {
+                this.scrollLeft -= (delta * 30);
+                event.preventDefault();
+            });
+        }
+    };
+}])
 .directive('swapOnHover', ['$timeout', function($timeout) {
     return {
         template: [
