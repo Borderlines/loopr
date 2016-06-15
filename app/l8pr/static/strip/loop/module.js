@@ -26,7 +26,8 @@ angular.module('loopr.strip')
     return {
         link: function(scope, element) {
             element.mousewheel(function(event, delta) {
-                this.scrollLeft -= (delta * 30);
+                delta = Math.max(-1, Math.min(1, delta));
+                this.scrollLeft -= (delta * 10);
                 event.preventDefault();
             });
         }
