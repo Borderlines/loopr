@@ -48,18 +48,20 @@
             &:hover {
                 &:after {
                     position: absolute;
-                    top: 0;
+                    top: 0px;
                     right: 0;
-                    left: 0;
+                    left: 0px;
                     bottom: 0;
-                    content: 'play_circle_outline';
+                    content: 'play_arrow';
                     font-family: 'Material Icons';
                     -webkit-font-feature-settings: 'liga';
-                    background-color: fade(@brand-primary, 80);
-                    color: white;
-                    font-size: 102px;
-                    padding-top: 100px;
+                    background-color: fade(@brand-primary, 15);
+                    background-blend-mode: multiply !important;
+                    color: @body-bg;
+                    font-size: 2.5em;
+                    padding-top: 140px;
                     text-align: center;
+                    text-shadow: 0px 0px 15px @text-color;
                 }
             }
             .swap-animation {
@@ -95,8 +97,9 @@
             background-blend-mode: multiply;
             box-shadow: none;
             .Loop__show__body {
+                padding-left: 30px;
                 background-color: transparent;
-                color: white ;
+                color: @body-bg ;
                 .title {
                     .h2;
                     font-family: @FONT1;
