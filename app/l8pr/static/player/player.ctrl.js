@@ -12,6 +12,7 @@
             Player: Player,
             showsCount: 0,
             currentUser: login.currentUser,
+            addToShowModal: addToShowModal,
             upperStrip: upperStrip,
             lowerStrip: lowerStrip,
             stripService: stripService,

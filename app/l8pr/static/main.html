@@ -31,14 +31,14 @@
                         <span>{{ vm.Player.currentItem.title }}</span>
                     </div>
                     <div class="col-xs-1 col-md-1 text-right">
-                        <a ng-href="{{ item.url }}" target="_blank">
+                        <a ng-href="{{ vm.Player.currentItem.url }}" target="_blank">
                             <i ng-if="vm.Player.currentItem.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Youtube"></i>
                             <i ng-if="vm.Player.currentItem.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Soundcloud"></i>
                             <i ng-if="vm.Player.currentItem.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Vimeo"></i>
                         </a>
                     </div>
                     <div class="col-xs-1 col-md-1 text-right">
-                        <i class="material-icons" ng-click="vm.addItemToAShow(vm.Player.currentItem)" title="Add this Item to a Show">playlist_add</i>
+                        <i class="material-icons" ng-click="vm.addToShowModal(vm.Player.currentItem)" title="Add this Item to a Show">playlist_add</i>
                     </div>
                 </div>
             </div>
