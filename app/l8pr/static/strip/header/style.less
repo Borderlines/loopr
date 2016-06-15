@@ -2,7 +2,11 @@
     background-color: @LOW_OPACITY_BACKGROUND;
     font-family: @FONT2;
     height: 50px;
-    padding: 15px (@MARGE * 3) 0 (@MARGE * 3);
+    padding: 15px (@MARGE * 2) 0 (@MARGE * 2);
+    @media (min-width: @screen-md){
+        padding: 15px (@MARGE * 3) 0 (@MARGE * 3);
+
+    }
     //border-top-left-radius: 2px;
     //border-top-right-radius: 2px;
 

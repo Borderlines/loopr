@@ -247,19 +247,20 @@ body .plyr {
         height: 120px;
         //box-shadow: inset 10px 10px 0px @SHADOW;
         @media (max-width: @screen-sm){
-            padding-bottom: 30px !important;
+            //padding-bottom: 30px !important;
             height: auto;
             }
         &__title {
             .list-group-item-heading;
-            padding-left: 30px;
-            padding-top: 30px;
-            padding-right: 30px;
-            .h5;
-            @media (max-width: @screen-sm){
-                padding-left: 20px;
-                padding-top: 20px;
-                .h4;
+            .h4;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 5px;
+            @media (min-width: @screen-md){
+                padding-left: 30px;
+                padding-top: 30px;
+                padding-right: 30px;
+                .h5;
             }
         }
         .item {} //Default type
@@ -272,14 +273,14 @@ body .plyr {
 
         &__info {
             .list-group-item-text;
-            padding-left: 30px;
-            padding-right: 30px;
-            font-weight: 300 !important;
-            @media (max-width: @screen-sm){
-                padding-left: 20px;
-                padding-top: 5px;
-            }
             .h5;
+            padding-left: 20px;
+            padding-bottom: 20px;
+            @media (min-width: @screen-md){
+                padding-left: 30px;
+                padding-right: 30px;
+                font-weight: 300 !important;
+            }
             i {
                 font-size: 80%;
             }
@@ -384,10 +385,10 @@ body .plyr {
         }
     }
     &__title {
-        .h3;
+        .h4;
         //font-family: @FONT1;
         margin: 0px;
-        padding: 20px;
+        padding: 20px 20px 10px 20px;
         font-weight: 500;
         background-color: @body-bg;
         @media (min-width: @screen-md){
@@ -422,17 +423,21 @@ body .plyr {
     }
     &__filter {
         .h5;
-        padding: 20px;
+        padding: 10px 20px;
         background-color: fade(@text-color, 90);
         color: fade(@body-bg, 90) !important;
         margin: 0px;
         border: none !important;
         @media (min-width: @screen-md){
-            .text-left;
+            //.text-left;
             .h5;
-            padding: 30px 30px 160px 30px;
+            padding: 30px 30px 60px 30px;
             line-height: 1.5em;
             margin: 0px;
             }
+        i {
+            //color: red;
+            font-size: 18px !important;
+        }
     }
 }
