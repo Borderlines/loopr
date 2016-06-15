@@ -17,9 +17,7 @@ function LoopExplorerCtrl(Player, scope, stripService, loopToExplore) {
         player: Player,
         stripService: stripService
     });
-    scope.$watch(function() {
-        return Player.currentShow;
-    }, reorderShows);
+    reorderShows();
 }
 
 angular.module('loopr.strip')
