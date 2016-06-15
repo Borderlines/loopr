@@ -12,7 +12,7 @@
                 </a>
                 <div class="details">
                     <div class="metadata">
-                        <em>29 media / {{ show.duration() | seconds }}</em>
+                        <em>{{ show.items.length }} media / {{ show.duration() | seconds }}</em>
                     </div>
                     <span ng-if="$index === 0">Playing Now</span>
                     <!--<span ng-if="$index === 1">Coming Next</span>-->
