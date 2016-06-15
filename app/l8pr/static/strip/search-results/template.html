@@ -19,7 +19,7 @@
 
     <div class="Search__list col-xs-12 col-md-9 col-md-pull-3" body-scrollable>
         <div class="list__item" ng-repeat="result in vm.results">
-            <div class="list__item__illu--item col-xs-12 col-md-3" ng-click="vm.play(result)">
+            <div class="list__item__illu col-xs-12 col-md-3" ng-click="vm.play(result)">
                 <img ng-src="{{ result.thumbnail }}"</>
             </div>
                 <div class="col-xs-10 col-md-8" ng-click="vm.play(result)">
@@ -38,7 +38,7 @@
                 </div>
         </div>
         <div class="list__item active" ng-if="vm.results.length === 0">
-            <div class="list__item__illu--item col-xs-12 col-md-4">
+            <div class="list__item__illu col-xs-12 col-md-4">
                 <img src="//media.giphy.com/media/w3Er0gW94cG8E/giphy.gif">
             </div>
             <div class="col-xs-12 col-md-8">

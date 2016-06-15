@@ -249,7 +249,7 @@ body .plyr {
         @media (max-width: @screen-sm){
             //padding-bottom: 30px !important;
             height: auto;
-            }
+        }
         &__title {
             .list-group-item-heading;
             .h4;
@@ -298,18 +298,14 @@ body .plyr {
             }
         }
         &__illu {
-            &--item {
-                img {
-                    .img-responsive;
-                    //margin: 10px; maybe ...
-                    //padding-right: 10px;
-                    @media (max-width: @screen-sm){
-                        padding: 20px 20px 0px 20px;
-                        }
-                    }
+            img {
+                .img-responsive;
+                //margin: 10px; maybe ...
+                //padding-right: 10px;
+                @media (max-width: @screen-sm) {
+                    padding: 20px 20px 0px 20px;
                 }
-
-            &--show {}
+            }
         }
         &--playNow {
             color: @brand-primary;
@@ -335,6 +331,21 @@ body .plyr {
             .list-group-item-text {
                 opacity: 1;
                 font-weight: 300;
+            }
+            .list__item__illu:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                content: 'play_circle_outline';
+                font-family: 'Material Icons';
+                -webkit-font-feature-settings: 'liga';
+                background-color: fade(@brand-primary, 80);
+                color: white;
+                font-size: 52px;
+                padding-top: 31px;
+                text-align: center;
             }
         }
     }

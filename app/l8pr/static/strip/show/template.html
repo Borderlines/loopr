@@ -16,7 +16,7 @@
         <div class="list__item"
              ng-repeat="item in vm.show.items"
              ng-class="{'list__item--active': vm.activeItem === item}">
-            <div class="list__item__illu--item col-xs-12 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
+            <div class="list__item__illu col-xs-12 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
                 <img ng-src="{{ item.thumbnail }}"</>
             </div>
             <div class="col-xs-10 col-md-7">
