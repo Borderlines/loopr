@@ -13,7 +13,9 @@
                 var gifTimeout;
                 var layoutTimeout;
                 var layouts = ['default', 'symmetry', 'repeat'];
-                var giphy_keywords = Player.currentShow.settings.giphy_tags && Player.currentShow.settings.giphy_tags.split(',') || [];
+                var giphy_keywords = Player.currentShow.settings &&
+                                     Player.currentShow.settings.giphy_tags &&
+                                     Player.currentShow.settings.giphy_tags.split(',') || [];
                 var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
 
                 scope.playPause = function() {
@@ -99,7 +101,7 @@
 
                     soundcloudPlayer.then(function(sound) {
                         sound.play();
-                        if (Player.currentShow.settings && Player.currentShow.settings.giphy) {
+                        if (!Player.currentShow.settings || (Player.currentShow.settings && Player.currentShow.settings.giphy)) {
                             updateGif();
                         }
                     });

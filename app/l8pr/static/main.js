@@ -157,7 +157,7 @@
                         function loadLoopAndComplete(username) {
                             return Player.loadLoop(username, $stateParams.item)
                             .then(function(loop) {
-                                loop.shows_list.unshift({title: 'Open', items: [item], settings: {giphy: false}});
+                                loop.shows_list.unshift({title: 'Open', items: [item]});
                                 Player.setLoop(loop);
                                 $state.go('index');
                             });
