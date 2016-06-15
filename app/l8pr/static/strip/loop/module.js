@@ -45,13 +45,14 @@ angular.module('loopr.strip')
                 var enter = false;
                 scope.index = 0;
                 function loadNew() {
-                    scope.index++;
                     $timeout.cancel(exit);
+                    scope.index++;
                     exit = $timeout(loadNew, 2000);
                 }
+                var debounced = _.debounce(loadNew, 500, {leading: true, trailing: false});
                 element.on('mouseenter', function() {
                     if (!enter) {
-                        loadNew();
+                        debounced();
                     }
                     enter = true;
                 });
