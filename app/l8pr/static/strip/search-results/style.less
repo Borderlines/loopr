@@ -1,6 +1,6 @@
 .Search {
     .row;
-    overflow-y: auto;
+    overflow-y: hidden;
     box-sizing: border-box;
     padding: 0 0;
     background-color: @LOW_OPACITY_BACKGROUND;
@@ -9,11 +9,9 @@
         .cover;
     }
     &__side-bar{
-        max-height: @STRIP_MAX_HEIGHT; overflow-y: auto; // put a scroll bar
         .side-bar;
     }
     &__list {
-        max-height: @STRIP_MAX_HEIGHT; overflow-y: auto; // put a scroll bar
         .list;
         min-height: 25vh;
     }
