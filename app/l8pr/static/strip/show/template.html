@@ -9,7 +9,7 @@
             <i class="material-icons" ng-click="vm.showConfig()">more_horiz</i>
         </div>
     </div>-->
-    <div class="Show__side-bar col-xs-12 col-md-3 col-md-push-9">
+    <div class="Show__side-bar col-xs-12 col-md-3">
         <div class="Show__side-bar__title show" ng-bind="vm.show.title">
         </div>
         <div class="Show__side-bar__info">
@@ -22,7 +22,7 @@
             <i class="material-icons" ng-click="vm.showConfig()">more_horiz</i>
         </div>
     </div>
-    <div class="Show__list col-xs-12 col-md-9 col-md-pull-3">
+    <div class="Show__list col-xs-12 col-md-9">
         <div class="list__item" ng-repeat="item in vm.show.items">
             <div class="list__item__illu--item col-xs-12 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
                 <img ng-src="{{ item.thumbnail }}"</>
