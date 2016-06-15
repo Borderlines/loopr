@@ -23,15 +23,30 @@
     <div class="strip__controls" ng-class="{'strip__controls--extended': vm.$state.current.name != 'index'}">
         <div class="row" ng-if="vm.$state.current.name != 'index'">
             <div class="banner col-xs-12 col-md-8">
-                <div class="banner-inner">
-                    <banner lines="vm.upperStrip.banner" transition="scroll" duration="10"></banner>
+                <div class="row">
+                    <div class="banner__playButton col-xs-1 col-md-1">
+                        <i class="material-icons">play_arrow</i>
+                    </div>
+                    <div class="banner__title col-xs-9 col-md-9">
+                        <span>{{ vm.Player.currentItem.title }}</span>
+                    </div>
+                    <div class="col-xs-1 col-md-1 text-right">
+                        <a ng-href="{{ item.url }}" target="_blank">
+                            <i ng-if="vm.Player.currentItem.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Youtube"></i>
+                            <i ng-if="vm.Player.currentItem.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Soundcloud"></i>
+                            <i ng-if="vm.Player.currentItem.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Vimeo"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-1 col-md-1 text-right">
+                        <i class="material-icons" ng-click="vm.addItemToAShow(vm.Player.currentItem)" title="Add this Item to a Show">playlist_add</i>
+                    </div>
                 </div>
             </div>
             <div class="controller col-xs-12 col-md-4">
                 <div class="controller__prevPlayNext col-xs-8">
                     <span ng-click="vm.previousShow()" title="Previous Show"><i class="material-icons">first_page</i></span>
                     <span ng-click="vm.previousItem()" title="Previous Item"><i class="material-icons">chevron_left</i></span>
-                    <span ng-click="vm.Player.playPause()" title="Play/Pause"><i class="material-icons">play_arrow</i></span>
+                    <span ng-click="vm.Player.playPause()" title="Play/Pause"><i class="material-icons">pause</i></span>
                     <span ng-click="vm.nextItem()" title="Next Item"><i class="material-icons">chevron_right</i></span>
                     <span ng-click="vm.nextShow()" title="Next Show"><i class="material-icons">last_page</i></span>
                     <span ng-click="vm.Player.toggleMute()" title="Mute on/off">
@@ -54,7 +69,7 @@
         </div>
         <div class="row" ng-if="vm.$state.current.name === 'index'">
             <div class="banner col-xs-11">
-                <div class="banner-inner">
+                <div class="banner__title closedNav">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
                 </div>
             </div>

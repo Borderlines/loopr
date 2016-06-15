@@ -2,11 +2,11 @@
     <div class="Show__side-bar col-xs-12 col-md-3">
         <div class="Show__side-bar__title show" ng-bind="vm.show.title">
         </div>
-        <div class="Show_side-bar__info">
+        <div class="Show__side-bar__info">
             <div style="display: inline-block; ">Show by <b>Vied12</b></div>
             <div style="display: inline-block; ">{{ vm.show.items.length }} media / 51min</div>
         </div>
-        <div class="Show_side-bar__filter">
+        <div class="Show__side-bar__filter">
             <i class="material-icons">play_circle_filled</i>
             <i class="material-icons">favorite_border</i>
             <i class="material-icons text-right" ng-click="vm.showConfig()">settings</i>
@@ -30,7 +30,7 @@
                         <span>{{item.provider_name}} video by User</span>
                         <i ng-if="item.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{item.title}} on Youtube"></i>
                         <i ng-if="item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{item.title}} on Soundcloud"></i>
-                        <i ng-if="result.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{result.title}} on Vimeo"></i>
+                        <i ng-if="item.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{item.title}} on Vimeo"></i>
                     </a>
                 </div>
             </div>

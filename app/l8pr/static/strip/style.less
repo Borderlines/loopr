@@ -22,18 +22,29 @@
         }
         .banner {
             //min-height: @UPPER_STRIP_HEIGHT;
-            padding: (@MARGE * 2) (@MARGE * 2) !important;
+            //padding: (@MARGE * 2) (@MARGE * 2) !important;
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
-            .banner-inner {
-                display: inline-block;
-                vertical-align: middle;
+            padding-left: 22px !important;
+            padding-right: 20px !important;
+            .banner__playButton {
+                color: @brand-primary;
+            }
+            .banner__title {
+                //display: inline-block;
+                //vertical-align: middle;
+                //padding: (@MARGE * 3) (@MARGE * 3) !important;
                 line-height: normal;
                 font-size: 120%;
-                .body {
-                    position: relative;
+                padding-top: 18px;
+                .text-left;
+                @media (min-width: @screen-md){
+                    margin-left: -20px;
                 }
+            }
+            .closedNav {
+                padding-left: 20px !important;
             }
         }
         .controller {
