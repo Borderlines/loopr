@@ -26,9 +26,10 @@ angular.module('loopr.strip')
     return {
         link: function(scope, element) {
             element.mousewheel(function(event, delta) {
-                delta = Math.max(-1, Math.min(1, delta));
-                this.scrollLeft -= (delta * 10);
-                event.preventDefault();
+                if (event.deltaY !== 0 && Math.abs(event.deltaY) === 1) {
+                    this.scrollLeft -= (event.deltaY * event.deltaFactor);
+                    event.preventDefault();
+                }
             });
         }
     };
