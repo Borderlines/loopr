@@ -244,17 +244,48 @@ body .plyr {
         margin-bottom: 0;
         padding: 0px;
         height: 120px;
-        //box-shadow: inset 10px 10px 0px @SHADOW;
+        transition-property: height;
+        transition-duration: .25s;
+        box-shadow: 0px -10px 20px fade(@text-color, 5);
+
         @media (max-width: @screen-sm){
-            //padding-bottom: 30px !important;
             height: auto;
         }
+        &.list__item--active {
+            background-color: @body-bg;
+            //color: red;
+            height: 200px;
+            //font-size: 130% !important;
+            .list__item__title {
+                .h3;
+                //ont-size: 2vw;
+                padding-bottom: 20px;
+                padding-left: 50px;
+                font-weight: 700;
+            }
+            .list__item__info {
+                padding-left: 50px;
+                //padding-right: 10%;
+                //.text-right;
+            }
+            .list__item__illu {
+                height: 120%;
+                img {
+                    height: 130%;
+                }
+            }
+        }
+
         &.list__item--playing,
         &.list__item--playing:hover {
-            background-color: @brand-primary;
+            .list__item--active ;
+            box-shadow: 0px -10px 25px fade(@text-color, 12),
+                        inset 0px -10px 25px fade(@text-color, 12);
+            .list__item__info{
+
+            }
         }
-        &.list__item--active {
-        }
+
         &__title {
             .list-group-item-heading;
             .h4;
@@ -262,7 +293,7 @@ body .plyr {
             padding-top: 20px;
             padding-bottom: 5px;
             @media (min-width: @screen-md){
-                padding-left: 30px;
+                padding-left: 40px;
                 padding-top: 30px;
                 padding-right: 30px;
                 .h5;
@@ -282,9 +313,12 @@ body .plyr {
             padding-left: 20px;
             padding-bottom: 20px;
             @media (min-width: @screen-md){
-                padding-left: 30px;
+                padding-left: 40px;
                 padding-right: 30px;
                 font-weight: 300 !important;
+            }
+            a {
+                //color: @text-color;
             }
             i {
                 font-size: 80%;
@@ -314,7 +348,7 @@ body .plyr {
         }
         &:hover {
             a, [ng-click] {color: @text-color;}
-            background-color: white;
+            //background-color: white;
             .fa-youtube-play {
                 color: @color_youtube;
             }

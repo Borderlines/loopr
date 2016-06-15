@@ -24,10 +24,10 @@
                 <div class="list__item__title"
                      ng-click="vm.activeItem = item"
                      ng-bind="item.title"
-                     title="Play {{item.title}}"></div>
+                     title="more info about {{item.title}}"></div>
                 <div class="list__item__info">
+                    <span>{{item.provider_name}} video by User </span>
                     <a ng-href="{{ item.url }}" target="_blank">
-                        <span>{{item.provider_name}} video by User</span>
                         <i ng-if="item.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{item.title}} on Youtube"></i>
                         <i ng-if="item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{item.title}} on Soundcloud"></i>
                         <i ng-if="item.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{item.title}} on Vimeo"></i>
