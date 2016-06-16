@@ -243,13 +243,13 @@ body .plyr {
         overflow: hidden;
         margin-bottom: 0;
         padding: 0px;
-        height: 120px;
+        height: auto;
         transition-property: height;
         transition-duration: .25s;
         box-shadow: 0px -10px 20px fade(@text-color, 5);
 
-        @media (max-width: @screen-sm){
-            height: auto;
+        @media (min-width: @screen-md){
+            height: 120px;
         }
         &.list__item--active {
             background-color: @body-bg;
@@ -257,7 +257,7 @@ body .plyr {
             height: 200px;
             //font-size: 130% !important;
             .list__item__title {
-                .h3;
+                .h4;
                 //ont-size: 2vw;
                 padding-bottom: 20px;
                 padding-left: 50px;
@@ -281,8 +281,9 @@ body .plyr {
             .list__item--active ;
             box-shadow: 0px -10px 25px fade(@text-color, 12),
                         inset 0px -10px 25px fade(@text-color, 12);
-            .list__item__info{
-
+            .list__item__title {
+                .h3;
+                font-weight: 700;
             }
         }
 
