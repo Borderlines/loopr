@@ -4,11 +4,11 @@
         </div>
         <div class="Show__side-bar__info">
             <div style="display: inline-block; ">Show by <b>Vied12</b></div>
-            <div style="display: inline-block; ">{{ vm.show.items.length }} media / 51min</div>
+            <div style="display: inline-block; ">{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
         </div>
         <div class="Show__side-bar__filter text-right">
-            <i class="material-icons">play_circle_filled</i>
-            <i class="material-icons">favorite_border</i>
+            <i class="material-icons text-muted">play_circle_filled</i>
+            <i class="material-icons text-muted">favorite_border</i>
             <i class="material-icons" ng-click="vm.showConfig()">settings</i>
         </div>
     </div>
@@ -26,7 +26,7 @@
                      ng-bind="item.title"
                      title="more info about {{item.title}}"></div>
                 <div class="list__item__info">
-                    <span>{{item.provider_name}} video by User </span>
+                    <span>{{item.provider_name}} video by <em>{{item.author_name}}</em> </span>
                     <a ng-href="{{ item.url }}" target="_blank">
                         <i ng-if="item.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{item.title}} on Youtube"></i>
                         <i ng-if="item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{item.title}} on Soundcloud"></i>

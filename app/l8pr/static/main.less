@@ -129,7 +129,7 @@ body .plyr {
 
 .col-xs-1, .col-xs-2, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-10, .col-xs-11, .col-xs-12,
 .col-sm-8, .col-sm-4, .col-sm-12,
-.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-8, .col-md-9, .col-md-10,
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-7, .col-md-8, .col-md-9, .col-md-10,
 .col-md-push-9,  .col-md-pull-3 {
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -253,20 +253,15 @@ body .plyr {
         }
         &.list__item--active {
             background-color: @body-bg;
-            //color: red;
             height: 200px;
-            //font-size: 130% !important;
             .list__item__title {
                 .h4;
-                //ont-size: 2vw;
                 padding-bottom: 20px;
                 padding-left: 50px;
                 font-weight: 700;
             }
             .list__item__info {
                 padding-left: 50px;
-                //padding-right: 10%;
-                //.text-right;
             }
             .list__item__illu {
                 height: 120%;
@@ -286,7 +281,6 @@ body .plyr {
                 font-weight: 700;
             }
         }
-
         &__title {
             .list-group-item-heading;
             .h4;
@@ -324,6 +318,12 @@ body .plyr {
             i {
                 font-size: 80%;
             }
+            span {
+                em {
+                    font-style: normal;
+                    font-weight: 500;
+                }
+            }
         }
         &__actions {
             padding-top: 30px;
@@ -356,7 +356,7 @@ body .plyr {
             .fa-soundcloud {
                 color: @color_soundcloud;
             }
-            .fa-vimeo {
+            .fa-vimeo-square {
                 color: @color_vimeo;
             }
             .list__item__title {
@@ -371,7 +371,7 @@ body .plyr {
                 top: 20px;
                 right: 20px;
                 left: 20px;
-                bottom: 0px;
+                bottom: 20px;
                 content: 'play_arrow';
                 font-family: 'Material Icons';
                 -webkit-font-feature-settings: 'liga';
