@@ -44,8 +44,9 @@ urlpatterns = [
     url(r'^auth/', include('rest_framework_social_oauth2.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomePageView.as_view(template_name='index.html')),
-    url(r'^(?P<username>\w+)$', HomePageView.as_view(template_name='index.html')),
     url(r'^open/.+$', HomePageView.as_view(template_name='index.html')),
+    url(r'^(?P<username>\w+)$', HomePageView.as_view(template_name='index.html')),
+    url(r'^(?P<username>\w+)/.*$', HomePageView.as_view(template_name='index.html')),
     # from FB auth
     url(r'^_=_/$', HomePageView.as_view(template_name='index.html')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
