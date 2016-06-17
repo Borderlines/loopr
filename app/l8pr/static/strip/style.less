@@ -10,9 +10,12 @@
         //height: @UPPER_STRIP_HEIGHT;
         // title + btn for toggle controller
         > .row:first-child {
-            > div {background-color: @body-bg; height: @UPPER_STRIP_HEIGHT;}
+            > div {
+                background-color: @body-bg;
+                height: @UPPER_STRIP_HEIGHT;}
         }
         &--extended {
+            //box-shadow: 0px -10px 20px @SHADOW;
             > .row:first-child {
                 div:nth-child(2) {
                     background-color: fade(@body-bg, 85);
