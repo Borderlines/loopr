@@ -12,11 +12,33 @@
         'loopr.player.webtorrent',
         'FBAngular',
         'ui.router'])
-        .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider',
-        function($stateProvider, $urlRouterProvider, hotkeysProvider) {
+        .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider', '$locationProvider',
+        function($stateProvider, $urlRouterProvider, hotkeysProvider, $locationProvider) {
             hotkeysProvider.useNgRoute = false;
-            $urlRouterProvider.otherwise('/');
+            $locationProvider.html5Mode({enabled:true}).hashPrefix('#');
             $stateProvider
+            .state('open', {
+                reloadOnSearch: false,
+                url: '/open/{q:.*}',
+                controller: ['$stateParams', 'Player', 'login', '$state', '$q', 'Api',
+                function($stateParams, Player, login, $state, $q, Api) {
+                    return Api.GetItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
+                        function loadLoopAndComplete(username) {
+                            return Player.loadLoop(username, $stateParams.item)
+                            .then(function(loop) {
+                                loop.shows_list.unshift({title: 'Open', items: [item]});
+                                Player.setLoop(loop);
+                                $state.go('index');
+                            });
+                        }
+                        return login.login().then(function(user) {
+                            loadLoopAndComplete(user.username);
+                        }, function() {
+                            loadLoopAndComplete('discover');
+                        });
+                    });
+                }]
+            })
             .state('index', {
                 reloadOnSearch: false,
                 url: '/:username?show&item',
@@ -147,28 +169,6 @@
                         }
                     }
                 }
-            })
-            .state('open', {
-                reloadOnSearch: false,
-                url: '/open/{q:.*}',
-                controller: ['$stateParams', 'Player', 'login', '$state', '$q', 'Api',
-                function($stateParams, Player, login, $state, $q, Api) {
-                    return Api.GetItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
-                        function loadLoopAndComplete(username) {
-                            return Player.loadLoop(username, $stateParams.item)
-                            .then(function(loop) {
-                                loop.shows_list.unshift({title: 'Open', items: [item]});
-                                Player.setLoop(loop);
-                                $state.go('index');
-                            });
-                        }
-                        return login.login().then(function(user) {
-                            loadLoopAndComplete(user.username);
-                        }, function() {
-                            loadLoopAndComplete('discover');
-                        });
-                    });
-                }]
             });
         }])
         .service('$history', function($state, $rootScope, $window) {

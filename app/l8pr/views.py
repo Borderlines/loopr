@@ -2,6 +2,9 @@ from django.views.generic.base import TemplateView
 import os
 from django.conf import settings
 from django.utils.text import normalize_newlines
+from django.contrib.auth.models import User
+from . import models
+
 
 def angular_templates():
     partials_dir = settings.STATICFILES_DIRS[0]
@@ -22,5 +25,27 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
+        if self.request.GET.get('show'):
+            context['show'] = models.Show.objects.get(pk=self.request.GET.get('show'))
+        if context.get('username'):
+            context['user'] = User.objects.get(username=context['username'])
+        if self.request.GET.get('item'):
+            context['item'] = models.Item.objects.get(pk=self.request.GET.get('item'))
+        # title & description & thumbnail
+        if context.get('item'):
+            context['title'] = context.get('item').title
+            context['description'] = 'Show %s by %s' % (context.get('show').title, context.get('user').username)
+            context['thumbnail'] = context.get('item').thumbnail
+        elif context.get('show'):
+            context['title'] = context.get('show').title
+            context['description'] = '%s\'s loop' % (context.get('user').username)
+            context['thumbnail'] = context.get('show').items.first().thumbnail
+        elif context.get('user'):
+            context['title'] = '%s\'s loop' % (context.get('user').username)
+            context['thumbnail'] = self.request.build_absolute_uri('static/images/L8PRtv.png')
+        else:
+            context['title'] = 'l8pr'
+            context['thumbnail'] = self.request.build_absolute_uri('static/images/L8PRtv.png')
+        # add templates
         context['templates'] = angular_templates()
         return context
