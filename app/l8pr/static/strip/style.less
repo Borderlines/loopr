@@ -7,7 +7,6 @@
     &__controls {
         box-shadow: 0px -10px 20px @SHADOW;
         position: relative;
-        //height: @UPPER_STRIP_HEIGHT;
         // title + btn for toggle controller
         > .row:first-child {
             > div {
@@ -15,17 +14,13 @@
                 height: @UPPER_STRIP_HEIGHT;}
         }
         &--extended {
-            //box-shadow: 0px -10px 20px @SHADOW;
             > .row:first-child {
                 div:nth-child(2) {
                     background-color: fade(@body-bg, 85);
-                    //filter: blur(50px);
                 }
             }
         }
         .banner {
-            //min-height: @UPPER_STRIP_HEIGHT;
-            //padding: (@MARGE * 2) (@MARGE * 2) !important;
             transition-duration: 1s;
             transition-property: height;
             overflow: hidden;
@@ -35,9 +30,6 @@
                 color: @brand-primary;
             }
             .banner__title {
-                //display: inline-block;
-                //vertical-align: middle;
-                //padding: (@MARGE * 3) (@MARGE * 3) !important;
                 line-height: normal;
                 font-size: 120%;
                 padding-top: 18px;
@@ -46,12 +38,16 @@
                     margin-left: -20px;
                 }
             }
-            .closedNav {
-                padding-left: 20px !important;
+            .closed {
+                padding-left: 10px;
+                @media (min-width: @screen-md){
+                    padding-left: 20px;
+                }
             }
         }
         .controller {
             padding-right: (@MARGE * 2) !important;
+
             &__prevPlayNext {
                 padding-left: 20px !important;
             }
@@ -59,8 +55,11 @@
                 background-color: fade(@body-bg, 0) !important;
             }
             &__toggle {
-                float: right;
-                padding-right: 30px !important;
+            }
+            &__toggle--closed {
+                i {
+                padding-right: 20px;
+            }
             }
         }
         i {

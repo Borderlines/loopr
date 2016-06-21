@@ -243,30 +243,24 @@ body .plyr {
         overflow: hidden;
         margin-bottom: 0;
         padding: 0px;
-        height: auto;
+        //height: auto;
         transition-property: height;
         transition-duration: .25s;
         box-shadow: 0px -10px 20px fade(@text-color, 5);
 
         @media (min-width: @screen-md){
-            height: 120px;
+            //height: 140px;
         }
         &.list__item--active {
             background-color: @body-bg;
-            height: 200px;
+            @media (min-width: @screen-md){
+                //min-height: 180px;
+            }
             .list__item__title {
-                .h4;
-                padding-bottom: 20px;
-                padding-left: 50px;
+                .h6;
                 font-weight: 700;
-            }
-            .list__item__info {
-                padding-left: 50px;
-            }
-            .list__item__illu {
-                height: 120%;
-                img {
-                    height: 130%;
+                @media (min-width: @screen-md){
+                    .h4;
                 }
             }
         }
@@ -277,21 +271,35 @@ body .plyr {
             box-shadow: 0px -10px 25px fade(@text-color, 12),
                         inset 0px -10px 25px fade(@text-color, 12);
             .list__item__title {
-                .h3;
+                .h5;
+                line-height: 1.4em !important;
                 font-weight: 700;
+                padding-bottom: 10px;
+                @media (min-width: @screen-md){
+                    .h3;
+                    line-height: 1.5em !important;
+                    font-weight: 700;
+                    padding-bottom: 10px;
+                }
+            }
+            .list__item__info {
+                padding-bottom: 40px;
+                //background-color: yellow;
+
             }
         }
         &__title {
             .list-group-item-heading;
-            .h4;
+            .h6;
+            line-height: 1.6em !important;
             padding-left: 20px;
-            padding-top: 20px;
+            padding-top: 10px;
             padding-bottom: 5px;
             @media (min-width: @screen-md){
+                .h5;
                 padding-left: 40px;
                 padding-top: 30px;
                 padding-right: 30px;
-                .h5;
             }
         }
         .item {} //Default type
@@ -304,12 +312,13 @@ body .plyr {
 
         &__info {
             .list-group-item-text;
-            .h5;
+            .h6;
             padding-left: 20px;
-            padding-bottom: 20px;
             @media (min-width: @screen-md){
+                .h5;
                 padding-left: 40px;
                 padding-right: 30px;
+                padding-bottom: 10px;
                 font-weight: 300 !important;
             }
             a {
@@ -327,10 +336,10 @@ body .plyr {
         }
         &__actions {
             padding-top: 30px;
-            padding-right: 30px !important;
-            @media (max-width: @screen-sm){
+            padding-right: 20px !important;
+            @media (min-width: @screen-md){
                 padding-top: 30px;
-                padding-right: 20px;
+                padding-right: 30px !important;
             }
             .text-right;
             a {
@@ -339,11 +348,9 @@ body .plyr {
         }
         &__illu {
             img {
-                .img-responsive;
-                //margin: 10px; maybe ...
-                //padding-right: 10px;
-                @media (max-width: @screen-sm) {
-                    padding: 20px 20px 0px 20px;
+                width: 100%;
+                @media (min-width: @screen-md) {
+                    .img-responsive;
                 }
             }
         }
@@ -368,10 +375,10 @@ body .plyr {
             }
             .list__item__illu:after {
                 position: absolute;
-                top: 20px;
-                right: 20px;
-                left: 20px;
-                bottom: 20px;
+                top: 0px;
+                right: 0px;
+                left: 0px;
+                bottom: 0px;
                 content: 'play_arrow';
                 font-family: 'Material Icons';
                 -webkit-font-feature-settings: 'liga';
@@ -379,7 +386,7 @@ body .plyr {
                 background-blend-mode: multiply !important;
                 color: @body-bg;
                 font-size: 2.5em;
-                padding-top: 140px;
+                padding-top: 20px;
                 text-align: center;
                 text-shadow: 0px 0px 15px @text-color;
                 @media (min-width: @screen-md){
