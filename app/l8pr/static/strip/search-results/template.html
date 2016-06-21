@@ -6,23 +6,64 @@
         </div>
         <div class="Search__side-bar__filter">
             <div class="" data-toggle="collapse" data-target="#toggle-filter">
-                Filter
+                FILTER
             </div>
             <div class="collapse navbar-collapse" id="toggle-filter">
-                    <div>> option 01</div>
-                    <div>> option 02</div>
-                    <div>> option 03</div>
-                    <div>> option 04</div>
+                <div class="Search__side-bar__filter__section">
+                    <em>Sources</em>
+                    <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        *
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="txt">
+                            For <b>Soundcloud</b> and <b>Vimeo</b>, we only show tracks and videos already added in L8pr.
+                            You can <b>paste a link directly in the search field</b> though.
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="true" ng-model="vm.search.youtube"> Youtube
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.search.soundcloud"> Soundcloud
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.search.vimeo"> Vimeo
+                        </label>
+                    </div>
+                </div>
+                <div class="Search__side-bar__filter__section">
+                    <em>Type</em>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.search.track"> Tracks
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.search.video"> Videos
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.search.show"> Shows, Playlists & Sets
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="Search__list col-xs-12 col-md-9 col-md-pull-3" body-scrollable>
         <div class="list__item" ng-repeat="result in vm.results">
-            <div class="list__item__illu col-xs-12 col-md-3" ng-click="vm.play(result)">
+            <div class="list__item__illu col-xs-4 col-md-3" ng-click="vm.play(result)">
                 <img ng-src="{{ result.thumbnail }}"</>
             </div>
-                <div class="col-xs-10 col-md-8" ng-click="vm.play(result)">
+                <div class="col-xs-6 col-md-8" ng-click="vm.play(result)">
                     <div class="list__item__title item" ng-bind="result.title" title="Play {{result.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ result.url }}" target="_blank">
