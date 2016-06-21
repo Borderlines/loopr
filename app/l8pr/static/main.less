@@ -10,7 +10,7 @@
 @import "strip/search-results/style.less";
 @import "strip/header/style.less";
 
-a, [ng-click], [ui-sref] {
+a, [ng-click], [ui-sref], [uib-dropdown-toggle] {
     //color: @link-color;
     text-decoration: none;
     cursor: pointer;
@@ -18,6 +18,11 @@ a, [ng-click], [ui-sref] {
         text-decoration: @link-hover-decoration;
         color: @text-color; // @link-hover-color;
     }
+}
+
+.form-control.ng-invalid.ng-dirty {
+    .has-error;
+    .form-control;
 }
 
 html, body, div[ng-view] {

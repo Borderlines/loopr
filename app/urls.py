@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^api/youtube/', SearchYoutubeView.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/logout/$', auth_views.logout),
+    url(r'^api/register/', include('djoser.urls')),
     url(r'^auth/', include('rest_framework_social_oauth2.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomePageView.as_view(template_name='index.html')),

@@ -18,3 +18,5 @@ HAYSTACK_CONNECTIONS = {
 COMPRESS_PRECOMPILERS = (
     ('text/less', '/app/.heroku/vendor/node/lib/node_modules/less/bin/lessc {infile} {outfile}'),
 )
+
+EMAIL_BACKEND = None

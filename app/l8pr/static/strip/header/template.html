@@ -18,8 +18,14 @@
             <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.exit()">search</i>
             <div class="current-user" ng-if="vm.loginService.currentUser.id"
                 ng-style="{'background-image': 'url(' + vm.loginService.currentUser.profile.avatar + ')'}">
-                <i ng-if="!vm.loginService.currentUser.profile.avatar" class="material-icons">account_circle</i>
-
+                <div uib-dropdown is-open="status.isopen">
+                    <i id="open-user-menu" ng-if="!vm.loginService.currentUser.profile.avatar" uib-dropdown-toggle class="material-icons">account_circle</i>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="open-user-menu">
+                        <li role="menuitem"><a ng-bind="vm.loginService.currentUser.username"></a></li>
+                        <li class="divider"></li>
+                        <li role="menuitem"><a ng-click="vm.loginService.logout()">Logout</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="current-user" ng-if="!vm.loginService.currentUser.id">
                 <i class="material-icons" ng-click="vm.openLoginView()">account_circle</i>

@@ -1,16 +1,43 @@
 <div class="modal-header">
     <h3 class="row modal-title">Login</h3>
 </div>
-<form class="form-signin">
-    <div class="modal-body">
+<uib-tabset type="pills" active="active">
+    <uib-tab index="0" heading="Sign in" classes="btn-md">
+        <div class="modal-body">
             <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input ng-model="vm.username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input ng-model="vm.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
-        <button class="btn btn-info" type="submit" ng-click="vm.login()">Sign in</button>
-    </div>
-</form>
+            <form id="loginForm" ng-submit="vm.login()">
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input ng-model="vm.username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input ng-model="vm.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <span class="help-block" ng-if="vm.loginError">Username or passwrd is wrong.</span>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+            <button class="btn btn-info" type="submit" form="loginForm">Sign in</button>
+        </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Create an account" classes="btn-md">
+        <div class="modal-body">
+            <h2 class="form-signin-heading">Create an account</h2>
+            <form name="vm.registerForm" novalidate>
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input ng-model="vm.username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input ng-model="vm.email" type="email" id="inputEmail" class="form-control" placeholder="Email" required>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input ng-model="vm.password" type="password" id="inputPassword" class="form-control" placeholder="password" required>
+                <span class="help-block" ng-if="vm.registerErrors">
+                    <div ng-repeat="(name, errors) in vm.registerErrors">
+                        {{name}}: <span ng-repeat="error in errors">{{ error }} </span>
+                    </div>
+                </span>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+            <button class="btn btn-info" type="submit" ng-click="vm.create()" ng-disabled="vm.registerForm.$invalid">Create</button>
+        </div>
+    </uib-tab>
+</uib-tabset>

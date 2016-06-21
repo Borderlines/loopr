@@ -6,6 +6,7 @@
         var self = {
             Accounts: Restangular.service('users'),
             Auth: Restangular.service('auth'),
+            Register: Restangular.service('register'),
             Items: Restangular.service('items'),
             Search: Restangular.service('search'),
             SearchYoutube: Restangular.service('youtube'),

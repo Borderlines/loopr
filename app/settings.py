@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'social.apps.django_app.default',
     'rest_framework_social_oauth2',
+    'djoser',
     'haystack',
     'drf_haystack',
     'app.l8pr',
@@ -171,6 +172,16 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter'
     )
 }
+# DJOSER = {
+#     'DOMAIN': 'frontend.com',
+#     'SITE_NAME': 'Frontend',
+#     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+#     'ACTIVATION_URL': '#/activate/{uid}/{token}',
+#     'SEND_ACTIVATION_EMAIL': True,
+#     'PASSWORD_VALIDATORS': [],
+#     'SERIALIZERS': {},
+# }
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = (
     # Facebook OAuth2
     'social.backends.facebook.Facebook2OAuth2',
