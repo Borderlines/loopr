@@ -67,12 +67,12 @@
             </div>
         </div>
         <div class="row" ng-if="!vm.isExtented()">
-            <div class="banner col-xs-11">
-                <div class="banner__title closedNav" ng-click="vm.stripService.toggleController()">
+            <div class="banner col-xs-10">
+                <div class="banner__title closed" ng-click="vm.stripService.toggleController()">
                     <banner lines="vm.upperStrip.banner" transition="scroll" duration="5"></banner>
                 </div>
             </div>
-            <div class="controller__toggle col-xs-1 text-right">
+            <div class="controller__toggle--closed col-xs-2 text-right">
                 <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()" title="Toggle Navigation">keyboard_arrow_up</i>
             </div>
         </div>
