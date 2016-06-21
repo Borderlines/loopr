@@ -243,18 +243,18 @@ body .plyr {
         overflow: hidden;
         margin-bottom: 0;
         padding: 0px;
-        //height: auto;
+        //height: 100px;
         transition-property: height;
         transition-duration: .25s;
         box-shadow: 0px -10px 20px fade(@text-color, 5);
 
         @media (min-width: @screen-md){
-            //height: 140px;
+            height: 120px;
         }
         &.list__item--active {
             background-color: @body-bg;
+            height: auto;
             @media (min-width: @screen-md){
-                //min-height: 180px;
             }
             .list__item__title {
                 .h6;
@@ -268,8 +268,9 @@ body .plyr {
         &.list__item--playing,
         &.list__item--playing:hover {
             .list__item--active ;
-            box-shadow: 0px -10px 25px fade(@text-color, 12),
-                        inset 0px -10px 25px fade(@text-color, 12);
+            box-shadow: 0px -10px 20px fade(@text-color, 0);
+            //box-shadow: 0px -10px 15px fade(@text-color, 4),
+            //            inset 0px -10px 15px fade(@text-color, 4);
             .list__item__title {
                 .h5;
                 line-height: 1.4em !important;
@@ -294,7 +295,6 @@ body .plyr {
             line-height: 1.6em !important;
             padding-left: 20px;
             padding-top: 10px;
-            padding-bottom: 5px;
             @media (min-width: @screen-md){
                 .h5;
                 padding-left: 40px;
@@ -356,7 +356,7 @@ body .plyr {
         }
         &:hover {
             a, [ng-click] {color: @text-color;}
-            //background-color: white;
+            background-color: @body-bg;
             .fa-youtube-play {
                 color: @color_youtube;
             }
