@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from . import models
 from django.core.exceptions import ObjectDoesNotExist
 
+
 def angular_templates():
     partials_dir = settings.STATICFILES_DIRS[0]
     exclude = ('bower_components',)
