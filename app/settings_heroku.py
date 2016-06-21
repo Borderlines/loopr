@@ -18,9 +18,10 @@ HAYSTACK_CONNECTIONS = {
 COMPRESS_PRECOMPILERS = (
     ('text/less', '/app/.heroku/vendor/node/lib/node_modules/less/bin/lessc {infile} {outfile}'),
 )
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
 EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+DJOSER['DOMAIN'] = 'l8pr-pr-6.herokuapp.com'
