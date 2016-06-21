@@ -136,9 +136,13 @@
                 self.currentItem = show.items[index];
                 // deep linking
                 $timeout(function() {
-                    $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
+                    if ($state.current.name.indexOf('index') > -1) {
+                        $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
+                    }
                 }, 250, false);
-                $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
+                $timeout(function() {
+                    $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
+                });
             },
             nextItem: function() {
                 var current_item_index = self.currentShow.items.indexOf(self.currentItem);

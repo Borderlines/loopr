@@ -20,11 +20,6 @@ a, [ng-click], [ui-sref], [uib-dropdown-toggle] {
     }
 }
 
-.form-control.ng-invalid.ng-dirty {
-    .has-error;
-    .form-control;
-}
-
 html, body, div[ng-view] {
     height: 100%;
     overflow: hidden;
@@ -219,8 +214,13 @@ body .plyr {
 .modal-footer {
     border: none;
 }
-
-
+.form-control {
+    height: 35px;
+    &.ng-invalid.ng-dirty {
+        .has-error;
+        .form-control;
+    }
+}
 
 // END Override Bootstrap //
 //

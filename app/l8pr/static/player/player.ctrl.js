@@ -21,6 +21,9 @@
             nextItem: Player.nextItem,
             nextShow: Player.nextShow,
             playPause: Player.playPause,
+            isExtented: function() {
+                return !_.contains(['index', 'resetPassword'], vm.$state.current.name);
+            },
             setPosition: function($event) {
                 return Player.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100);
             },

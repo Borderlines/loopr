@@ -20,3 +20,4 @@ drf-haystack==1.5.6
 gunicorn==19.4.5
 dj-database-url==0.4.0
 psycopg2
+sendgrid>=0.5.0

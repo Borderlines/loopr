@@ -172,15 +172,15 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter'
     )
 }
-# DJOSER = {
-#     'DOMAIN': 'frontend.com',
-#     'SITE_NAME': 'Frontend',
-#     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
-#     'ACTIVATION_URL': '#/activate/{uid}/{token}',
-#     'SEND_ACTIVATION_EMAIL': True,
-#     'PASSWORD_VALIDATORS': [],
-#     'SERIALIZERS': {},
-# }
+DJOSER = {
+    'DOMAIN': 'localhost:8000',
+    'SITE_NAME': 'l8pr',
+    'PASSWORD_RESET_CONFIRM_URL': 'resetpassword?uid={uid}&token={token}',
+    # 'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    # 'SEND_ACTIVATION_EMAIL': True,
+    'PASSWORD_VALIDATORS': [],
+    'SERIALIZERS': {},
+}
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = (
     # Facebook OAuth2

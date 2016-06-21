@@ -8,6 +8,15 @@ function ModalInstanceCtrl(login, $http, $uibModalInstance, Api) {
         cancel: function() {
             $uibModalInstance.dismiss('cancel');
         },
+        recover: function() {
+            Api.Register.one('password').one('reset').customPOST({
+                email: vm.email
+            }).then(function onSuccess(d) {
+                $uibModalInstance.close();
+            }, function onError(e) {
+                vm.recoverErrors = e.data;
+            });
+        },
         create: function() {
             vm.registerErrors = undefined;
             if (vm.registerForm.$invalid) {

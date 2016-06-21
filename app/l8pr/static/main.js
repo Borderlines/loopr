@@ -17,6 +17,26 @@
             hotkeysProvider.useNgRoute = false;
             $locationProvider.html5Mode({enabled:true}).hashPrefix('#');
             $stateProvider
+            .state('resetPassword', {
+                url: '/resetpassword?uid&token',
+                controllerAs: 'vm',
+                controller: 'PlayerCtrl',
+                resolve: {
+                    loop: ['Player', function(Player) {
+                        return Player.loadLoop('discover')
+                        .then(function(loop) {
+                            return Player.playLoop(loop);
+                        });
+                    }]
+                },
+                templateUrl: '/main.html',
+                onEnter: ['$state', 'resetPassword',
+                function($state, resetPassword) {
+                    resetPassword.open().result['finally'](function() {
+                        $state.go('index');
+                    });
+                }]
+            })
             .state('open', {
                 reloadOnSearch: false,
                 url: '/open/{q:.*}',
@@ -59,7 +79,11 @@
                             Player.playShow(Player.loop.shows_list[0], 0);
                             return Player.loop;
                         }
-                        return Player.loadLoop($stateParams.username, $stateParams.item)
+                        var username = $stateParams.username;
+                        if ($stateParams.username === 'resetpassword') {
+                            username = 'discover';
+                        }
+                        return Player.loadLoop(username, $stateParams.item)
                         .then(function(loop) {
                             return Player.playLoop(loop, $stateParams.show, $stateParams.item);
                         });
@@ -207,7 +231,7 @@
                     $history.goingBack = false;
                     return;
                 }
-                if (!from['abstract'] && !_.contains(['index', 'open'], from.name)) {
+                if (!from['abstract'] && !_.contains(['index', 'open', 'resetPassword'], from.name)) {
                     delete fromParams.show;
                     delete fromParams.item;
                     $history.push(from, fromParams);

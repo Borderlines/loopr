@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils.text import normalize_newlines
 from django.contrib.auth.models import User
 from . import models
-
+from django.core.exceptions import ObjectDoesNotExist
 
 def angular_templates():
     partials_dir = settings.STATICFILES_DIRS[0]
@@ -28,7 +28,10 @@ class HomePageView(TemplateView):
         if self.request.GET.get('show'):
             context['show'] = models.Show.objects.get(pk=self.request.GET.get('show'))
         if context.get('username'):
-            context['user'] = User.objects.get(username=context['username'])
+            try:
+                context['user'] = User.objects.get(username=context['username'])
+            except ObjectDoesNotExist:
+                pass
         if self.request.GET.get('item'):
             context['item'] = models.Item.objects.get(pk=self.request.GET.get('item'))
         # title & description & thumbnail
