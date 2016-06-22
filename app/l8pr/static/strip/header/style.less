@@ -1,15 +1,12 @@
 .strip__header {
     background-color: @LOW_OPACITY_BACKGROUND;
+    overflow: hidden;
     font-family: @FONT2;
     height: 50px;
     padding: 15px (@MARGE * 2) 0 (@MARGE * 2);
     @media (min-width: @screen-md){
         padding: 15px (@MARGE * 3) 0 (@MARGE * 3);
-
     }
-    //border-top-left-radius: 2px;
-    //border-top-right-radius: 2px;
-
     &__title {
         .logo {
             display: inline-block;
@@ -19,8 +16,6 @@
             .h5;
             display: inline-block;
             margin-top: -5px !important;
-            //position: absolute;
-            //font-size: 100% !important;
             .user-name, .user-name:active {
                 .text-capitalize;
                 padding-left: 3px;
@@ -48,9 +43,23 @@
         height: 25px;
     }
     &__searchbar {
-        //height: 35px;
-        //width: 80%;
-        border: none;
-        //box-shadow: 10px 10px 10px black;
+        input[type="text"] {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 18px;
+            appearance: none;
+            box-shadow: none;
+            border-radius: none;
+            padding: 5px;
+            border: solid 3px fade(@brand-primary, 30%);
+            transition: border 0.3s;
+            top: -12px;
+            position: relative;
+        }
+        input[type="text"]:focus,
+        input[type="text"].focus {
+        outline: none;
+          border: solid 3px fade(@brand-primary, 50%);
+        }
     }
 }
