@@ -1,8 +1,8 @@
 (function() {
 'use strict';
 
-ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig', 'addToShowModal'];
-function ShowExplorerCtrl(Player, scope, stripService, show, showConfig, addToShowModal) {
+ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig', 'addToShowModal', 'Api'];
+function ShowExplorerCtrl(Player, scope, stripService, show, showConfig, addToShowModal, Api) {
     var vm = this;
     angular.extend(vm, {
         stripService: stripService,
@@ -13,6 +13,9 @@ function ShowExplorerCtrl(Player, scope, stripService, show, showConfig, addToSh
             showConfig(show);
         },
         addItemToAShow: addToShowModal
+    });
+    Api.Accounts.one(show.user).get().then(function(user) {
+        vm.user = user;
     });
     scope.$watch(function() {
         return Player.currentShow;

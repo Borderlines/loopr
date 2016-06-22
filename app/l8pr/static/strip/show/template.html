@@ -3,8 +3,8 @@
         <div class="Show__side-bar__title show" ng-bind="vm.show.title">
         </div>
         <div class="Show__side-bar__info">
-            <div style="display: inline-block; ">Show by <b>Vied12</b></div>
-            <div style="display: inline-block; ">{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
+            <div>Show by <b ng-bind="vm.user.username"></b></div>
+            <div>{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
         </div>
         <div class="Show__side-bar__filter text-right">
             <i class="material-icons text-muted">play_circle_filled</i>
