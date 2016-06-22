@@ -43,15 +43,21 @@
         height: 25px;
     }
     &__searchbar {
+        z-index: 5555;
         input[type="text"] {
+            //.text-right;
+            //text-align: right;
+            font-family: @FONT2 !important;
             margin: 0;
-            font-family: sans-serif;
-            font-size: 18px;
+            margin-top:10px;
+            font-size: 13px;
+            width: 50%;
             appearance: none;
             box-shadow: none;
             border-radius: none;
-            padding: 5px;
-            border: solid 3px fade(@brand-primary, 30%);
+            padding: 5px 10px;
+            border: none;
+            box-shadow: 0px 0px 20px @SHADOW;
             transition: border 0.3s;
             top: -12px;
             position: relative;
@@ -59,7 +65,8 @@
         input[type="text"]:focus,
         input[type="text"].focus {
         outline: none;
-          border: solid 3px fade(@brand-primary, 50%);
+        border: none;
+          //border: solid 3px fade(@brand-primary, 50%);
         }
     }
 }
