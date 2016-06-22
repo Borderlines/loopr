@@ -21,7 +21,10 @@
                 <div uib-dropdown is-open="status.isopen">
                     <i id="open-user-menu" ng-if="!vm.loginService.currentUser.profile.avatar" uib-dropdown-toggle class="material-icons">account_circle</i>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="open-user-menu">
-                        <li role="menuitem"><a ng-bind="vm.loginService.currentUser.username"></a></li>
+                        <li role="menuitem">
+                            <a ui-sref="index.open.loop({loopToExplore: vm.loginService.currentUser.username})"
+                               ng-bind="vm.loginService.currentUser.username"></a>
+                        </li>
                         <li class="divider"></li>
                         <li role="menuitem"><a ng-click="vm.loginService.logout()">Logout</a></li>
                     </ul>
