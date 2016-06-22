@@ -215,7 +215,9 @@ body .plyr {
     border: none;
 }
 .form-control {
-    height: 35px;
+    &:not(.input-lg) {
+        height: 35px;
+    }
     &.ng-invalid.ng-dirty {
         .has-error;
         .form-control;
