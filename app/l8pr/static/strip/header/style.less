@@ -1,9 +1,10 @@
 .strip__header {
     background-color: @LOW_OPACITY_BACKGROUND;
-    overflow: hidden;
+    //overflow: hidden;
     font-family: @FONT2;
     height: 50px;
     padding: 15px (@MARGE * 2) 0 (@MARGE * 2);
+    //padding: 15px 0px 0px 0px;
     @media (min-width: @screen-md){
         padding: 15px (@MARGE * 3) 0 (@MARGE * 3);
     }
@@ -32,8 +33,17 @@
         }
     }
     .dropdown-menu {
-        left: -143px;
+        left: -160px;
+        top: -30px;
+        //z-index: 9999;
+        border: none;
+        box-shadow: 10px 10px 0px @SHADOW !important;
+        > li > a  {
+            margin: 0;
+            padding: 10px 20px;
+        }
     }
+
     .current-user {
         display: inline-block;
         background-repeat: no-repeat;
@@ -43,19 +53,16 @@
         height: 25px;
     }
     &__searchbar {
-        z-index: 5555;
         input[type="text"] {
-            //.text-right;
-            //text-align: right;
             font-family: @FONT2 !important;
             margin: 0;
             margin-top:10px;
             font-size: 13px;
-            width: 50%;
+            width: 100%;
             appearance: none;
             box-shadow: none;
             border-radius: none;
-            padding: 5px 10px;
+            padding: 3px 8px;
             border: none;
             box-shadow: 0px 0px 20px @SHADOW;
             transition: border 0.3s;
@@ -66,7 +73,6 @@
         input[type="text"].focus {
         outline: none;
         border: none;
-          //border: solid 3px fade(@brand-primary, 50%);
         }
     }
 }
