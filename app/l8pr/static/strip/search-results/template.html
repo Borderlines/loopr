@@ -52,7 +52,7 @@
                     <div class="list__item__title item" ng-bind="result.title" title="Play {{result.title}}"></div>
                     <div class="list__item__info">
                         <a ng-href="{{ result.url }}" target="_blank">
-                            <span>{{result.provider_name}} item by <em>{{result.author_name}}</em></span>
+                            <span>{{result.provider_name}} media by <em>{{result.author_name}}</em> </span>
                             <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{result.title}} on Youtube"></i>
                             <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{result.title}} on Soundcloud"></i>
                             <i ng-if="result.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{result.title}} on Vimeo"></i>
