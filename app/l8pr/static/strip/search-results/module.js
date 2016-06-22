@@ -1,12 +1,17 @@
 (function() {
 'use strict';
 
-SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', 'Api'];
-function SearchCtrl(query, results, Player, addToShowModal, Api) {
+SearchCtrl.$inject = ['query', 'results', 'Player', 'addToShowModal', 'Api', '$scope'];
+function SearchCtrl(query, results, Player, addToShowModal, Api, $scope) {
     var vm = this;
     angular.extend(vm, {
         query: query,
-        results: results,
+        results: angular.copy(results),
+        filters: {
+            YouTube: true,
+            SoundCloud: true,
+            Vimeo: true
+        },
         play: function(item) {
             Player.playItem(item);
         },
@@ -14,6 +19,17 @@ function SearchCtrl(query, results, Player, addToShowModal, Api) {
             addToShowModal(item);
         }
     });
+    $scope.$watch(function() {
+        return vm.filters;
+    }, function() {
+        var activeFiltersKeys = Object.keys(vm.filters);
+        var activeFilters = activeFiltersKeys.filter(function(key) {
+            return vm.filters[key];
+        });
+        vm.results = _.filter(results, function(r) {
+            return _.contains(activeFilters, r.provider_name);
+        });
+    }, true);
     // adds youtube results
     if (query) {
         Api.SearchYoutube.getList({q: query}).then(function(results) {
