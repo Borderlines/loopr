@@ -1,7 +1,7 @@
 <div class="Search">
     <div class="Search__side-bar col-xs-12 col-md-3 col-md-push-9" body-scrollable>
         <div class="Search__side-bar__title results">
-            <span>{{ vm.results.length }} results<span></br>
+            <span>{{ vm.results.length }} results<span>
             <span> for <strong>{{vm.query}}</strong></span>
         </div>
         <div class="Search__side-bar__filter">
@@ -63,7 +63,7 @@
                     <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);" title="Add this Item to a Show">playlist_add</i>
                 </div>
         </div>
-        <div class="list__item active" ng-if="vm.results.length === 0">
+        <div class="list__item--active" ng-if="vm.results.length === 0">
             <div class="list__item__illu col-xs-12 col-md-4">
                 <img src="//media.giphy.com/media/w3Er0gW94cG8E/giphy.gif">
             </div>
