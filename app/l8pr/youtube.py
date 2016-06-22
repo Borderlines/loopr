@@ -16,6 +16,7 @@ def youtube_search(options):
     search_response = youtube.search().list(
         q=options.get('q'),
         part='id,snippet',
+        type='video',
         maxResults=15
     ).execute()
     for search_result in search_response.get('items', []):
