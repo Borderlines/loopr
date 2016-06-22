@@ -58,10 +58,18 @@
                     return loop;
                 });
             },
-            loadLoop: function(username, selectedItem) {
-                return Api.Loops.getList({'username': username}).then(function(loops) {
-                    var loop = loops[0];
-                    loop.username = username;
+            loadLoop: function(usernameOrLoop, selectedItem) {
+                return $q.when((function() {
+                    if (typeof(usernameOrLoop) === 'string') {
+                        return Api.Loops.getList({'username': usernameOrLoop}).then(function(loops) {
+                            var loop = loops[0];
+                            loop.username = usernameOrLoop;
+                            return loop;
+                        });
+                    } else {
+                        return usernameOrLoop;
+                    }
+                })()).then(function(loop) {
                     // shuffle ?
                     function shuffle(o) {
                         for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x); // jshint ignore:line

@@ -97,15 +97,10 @@
                 },
                 'abstract': true,
                 resolve: {
-                    loopToExplore: ['$stateParams', 'Api', 'loop',
-                    function($stateParams, Api, loop) {
+                    loopToExplore: ['$stateParams', 'Player', 'loop',
+                    function($stateParams, Player, loop) {
                         if ($stateParams.loopToExplore) {
-                            return Api.Loops.getList({username: $stateParams.loopToExplore})
-                            .then(function(loops) {
-                                var loop = loops[0];
-                                loop.username = $stateParams.loopToExplore;
-                                return loop;
-                            });
+                            return Player.loadLoop($stateParams.loopToExplore);
                         } else {
                             return loop;
                         }

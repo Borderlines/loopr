@@ -14,7 +14,14 @@ function LoopExplorerCtrl(Player, scope, stripService, loopToExplore) {
         }
     }
     angular.extend(vm, {
-        player: Player,
+        Player: Player,
+        play: function(show) {
+            if (loopToExplore.id !== Player.loop.id) {
+                Player.playLoop(loopToExplore, show.id);
+            } else {
+                Player.playShow(show);
+            }
+        },
         stripService: stripService
     });
     reorderShows();
