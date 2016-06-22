@@ -1,0 +1,26 @@
+<div class="Loop">
+    <div class="Loop__shows" infinit-scroll horizontal-scroll>
+        <div class="Loop__show"
+             ng-repeat="show in ::vm.shows"
+             ng-class="{'Loop__show--current-show': vm.Player.currentShow.id === show.id}"
+             ng-style="{width: getWidth(show)}">
+             <div class="Loop__show__body">
+                <a ui-sref="index.open.show({showToExplore: show})">
+                    <div class="title" title="Browse this Show">
+                        {{ ::show.title }}
+                    </div>
+                </a>
+                <div class="details">
+                    <div class="metadata">
+                        <em>{{ ::show.items.length }} media / {{ ::show.duration() | seconds }}</em>
+                    </div>
+                </div>
+            </div>
+            <div class="Loop__show__background"
+                 ng-click="vm.play(show)"
+                 swap-on-hover="::show.items"
+                 title="Play this Show">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+.strip__header {
+    background-color: @LOW_OPACITY_BACKGROUND;
+    font-family: @FONT2;
+    height: 50px;
+    padding: 15px (@MARGE * 2) 0 (@MARGE * 2);
+    @media (min-width: @screen-md){
+        padding: 15px (@MARGE * 3) 0 (@MARGE * 3);
+
+    }
+    //border-top-left-radius: 2px;
+    //border-top-right-radius: 2px;
+
+    &__title {
+        .logo {
+            display: inline-block;
+            padding-right: @MARGE * 1.5;
+        }
+        .info {
+            .h5;
+            display: inline-block;
+            margin-top: -5px !important;
+            //position: absolute;
+            //font-size: 100% !important;
+            .user-name, .user-name:active {
+                .text-capitalize;
+                padding-left: 3px;
+                padding-right: 3px;
+                color: @text-color;
+            }
+            .user-name:hover{
+                color: @body-bg;
+                background-color: @text-color;
+            }
+            .number-shows {
+                font-style: italic;
+            }
+        }
+    }
+    .dropdown-menu {
+        left: -143px;
+    }
+    .current-user {
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        width: 25px;
+        height: 25px;
+    }
+    &__searchbar {
+        //height: 35px;
+        //width: 80%;
+        border: none;
+        //box-shadow: 10px 10px 10px black;
+    }
+}

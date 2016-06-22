@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <div class="modal-title col-xs-12 col-md-7">
+        <span>Add <b>{{vm.item.title}}</b></br>to a Show</span>
+    </div>
+    <div class="modal-itemToShare col-xs-3 col-md-4 col-md-push-1">
+        <img class="img-responsive center-block" ng-src="{{ vm.item.thumbnail }}"/>
+    </div>
+</div>
+<div class="modal-body">
+    <uib-tabset class="modal-body__tab" type="pills" active="active">
+        <uib-tab index="0" heading="Add to a Show" classes="btn-md">
+
+            <div class="list" ng-repeat="show in vm.shows">
+                <a class="list__item" ng-click="vm.addToShow(show)">
+                    <div class="row">
+                        <div class="list__item__illu col-xs-4 col-md-4">
+                            <img ng-src="{{ show.items[0].thumbnail }}"</>
+                        </div>
+                        <div class="col-xs-8 col-md-8">
+                            <div class="list__item__title show" ng-bind="show.title"></div>
+                            <div class="list__item__info">{{ show.items.length }} shows, {{ show.duration() | seconds }}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </uib-tab>
+        <uib-tab class="modal-body__tab" index="1" heading="Create a new show" classes="btn-md">
+            <form ng-submit="vm.createShow()">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Show title</label>
+                    <input type="text" class="form-control" ng-model="vm.newShow.title"/>
+                </div>
+                <div class="row text-right">
+                </div>
+            </form>
+        </uib-tab>
+    </uib-tabset>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="vm.cancel()">Cancel</button>
+    <button ng-if="active === 1" class="btn btn-warning" ng-click="vm.createShow()" type="submit">Create</button>
+
+</div>

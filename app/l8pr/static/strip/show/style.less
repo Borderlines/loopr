@@ -1,0 +1,21 @@
+.Show {
+    overflow-y: hidden;
+    box-sizing: border-box;
+    padding: 0 ;//@MARGE;
+    background-color: @LOW_OPACITY_BACKGROUND;
+    @media (max-width: @screen-xs){padding: 0px 0px;}
+    &__cover {
+        .cover;
+        &__title {
+            font-weight: bold;
+        }
+    }
+    &__side-bar {
+        .side-bar;
+    }
+    &__list {
+        .list;
+        .list__item {
+        }
+    }
+}

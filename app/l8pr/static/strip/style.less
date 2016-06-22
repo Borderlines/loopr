@@ -1,0 +1,88 @@
+.strip {
+    display: block;
+    .icon:hover {color: @brand-primary;}
+    &__body {
+        max-height: @STRIP_MAX_HEIGHT;
+    }
+    &__controls {
+        box-shadow: 0px -10px 20px @SHADOW;
+        position: relative;
+        // title + btn for toggle controller
+        > .row:first-child {
+            > div {
+                background-color: @body-bg;
+                height: @UPPER_STRIP_HEIGHT;}
+        }
+        &--extended {
+            > .row:first-child {
+                div:nth-child(2) {
+                    background-color: fade(@body-bg, 85);
+                }
+            }
+        }
+        .banner {
+            transition-duration: 1s;
+            transition-property: height;
+            overflow: hidden;
+            padding-left: 22px !important;
+            padding-right: 20px !important;
+            .banner__playButton {
+                color: @brand-primary;
+            }
+            .banner__title {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: normal;
+                padding-top: 18px;
+                font-weight: 500;
+                .text-left;
+
+                @media (min-width: @screen-md){
+                    margin-left: -20px;
+                    font-size: 120%;
+                }
+            }
+            .closed {
+                padding-left: 10px;
+                @media (min-width: @screen-md){
+                    padding-left: 20px;
+                }
+            }
+        }
+        .controller {
+            padding-right: (@MARGE * 2) !important;
+
+            &__prevPlayNext {
+                padding-left: 20px !important;
+            }
+            &__display {
+                background-color: fade(@body-bg, 0) !important;
+            }
+            &__toggle {
+            }
+            &__toggle--closed {
+                i {
+                padding-right: 20px;
+            }
+            }
+        }
+        i {
+            top: (@UPPER_STRIP_HEIGHT / 3);
+            position: relative;
+
+        }
+        i.sm.material-icons {
+        }
+        .progress {
+            margin-bottom: 0px;
+        }
+    }
+//     // actions state button
+//     .list-show .active {color: @GREEN;}
+//     .fullscreen.active {opacity: 1;}
+//     .fullscreen:not(.active) {opacity: .6;}
+//     .share.active {color: @GREEN;}
+//     .auto-hide.active {opacity: 1;}
+//     .auto-hide:not(.active) {opacity: .6;}
+}

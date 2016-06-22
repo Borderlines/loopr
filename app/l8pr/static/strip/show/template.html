@@ -1,0 +1,43 @@
+<div class="Show row" ng-class="{'Show--playing-now': vm.playingNow}">
+    <div class="Show__side-bar col-xs-12 col-md-3">
+        <div class="Show__side-bar__title show" ng-bind="vm.show.title">
+        </div>
+        <div class="Show__side-bar__info">
+            <div>Show by <b ng-bind="vm.user.username"></b></div>
+            <div>{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
+        </div>
+        <div class="Show__side-bar__filter text-right">
+            <i class="material-icons text-muted">play_circle_filled</i>
+            <i class="material-icons text-muted">favorite_border</i>
+            <i class="material-icons" ng-click="vm.showConfig()">settings</i>
+        </div>
+    </div>
+    <div class="list col-xs-12 col-md-9" body-scrollable>
+        <div class="list__item"
+             ng-repeat="item in vm.show.items"
+             ng-class="{'list__item--active_bk': vm.activeItem === item,
+                        'list__item--playing': vm.player.currentItem.id === item.id}">
+            <div class="list__item__illu col-xs-4 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
+                <img ng-src="{{ item.thumbnail }}"</>
+            </div>
+            <div class="col-xs-6 col-md-8">
+                <div class="list__item__title"
+                     ng-click="vm.activeItem = item"
+                     ng-bind="item.title"
+                     title="more info about {{item.title}}"></div>
+                <div class="list__item__info hidden-xs">
+                    <span>{{item.provider_name}} video by <em>{{item.author_name}}</em> </span>
+                    <a ng-href="{{ item.url }}" target="_blank">
+                        <i ng-if="item.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{item.title}} on Youtube"></i>
+                        <i ng-if="item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{item.title}} on Soundcloud"></i>
+                        <i ng-if="item.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{item.title}} on Vimeo"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="list__item__actions col-xs-2 col-md-1">
+                <!--<i class="material-icons" ng-if="vm.player.currentItem === item">pause</i>-->
+                <i class="material-icons" ng-click="vm.addItemToAShow(item)" title="Add this Item to a Show">playlist_add</i>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "less": "^2.5.1",
-    "bower": "latest"
-
+    "bower": "latest",
+    "less": "^2.5.1"
   },
   "devDependencies": {},
   "scripts": {},

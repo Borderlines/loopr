@@ -1,7 +1,18 @@
 {
-  "name":"L8pR",
-  "scripts":{},
+  "name":"l8pr",
+  "scripts":{
+    "postdeploy": "python3 manage.py migrate"
+  },
   "env":{
+    "DJANGO_SETTINGS_MODULE":{
+        "value": "app.settings_heroku"
+    },
+    "COMPRESS_ENABLED":{
+        "value": "True"
+    },
+    "COMPRESS_OFFLINE":{
+        "value": "True"
+    },
     "GOOGLE_API_KEY":{
       "required":true
     },
@@ -19,11 +30,12 @@
     }
   },
   "addons":[
-    "mongolab"
+    "heroku-postgresql",
+    "bonsai"
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/ddollar/heroku-buildpack-multi.git"
+      "url": "https://github.com/heroku/heroku-buildpack-python"
     }
   ]
 }

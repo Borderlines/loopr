@@ -1,0 +1,80 @@
+<div class="Search">
+    <div class="Search__side-bar col-xs-12 col-md-3 col-md-push-9" body-scrollable>
+        <div class="Search__side-bar__title results">
+            <span>{{ vm.results.length }} results<span>
+            <span> for <strong>{{vm.query}}</strong></span>
+        </div>
+        <div class="Search__side-bar__filter">
+            <div class="" data-toggle="collapse" data-target="#toggle-filter">
+                FILTER
+            </div>
+            <div class="collapse navbar-collapse" id="toggle-filter">
+                <div class="Search__side-bar__filter__section">
+                    <div class="title">Sources</div>
+                    <div class="note-btn">
+                        <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <!-- <i class="fa fa-exclamation" aria-hidden="true"></i> -->
+                            <i class="material-icons">error_outline</i>
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="note">
+                            For <b>SoundCloud</b> and <b>Vimeo</b>, we only show tracks and videos already added in L8pr.
+                        </br>You can <b>paste a link directly in the search field</b> though.
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="true" ng-model="vm.filters.YouTube"> YouTube
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.filters.SoundCloud"> SoundCloud
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.filters.Vimeo"> Vimeo
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Search__list col-xs-12 col-md-9 col-md-pull-3" body-scrollable>
+        <div class="list__item" ng-repeat="result in vm.results">
+            <div class="list__item__illu col-xs-4 col-md-3" ng-click="vm.play(result)">
+                <img ng-src="{{ result.thumbnail }}"</>
+            </div>
+                <div class="col-xs-6 col-md-8" ng-click="vm.play(result)">
+                    <div class="list__item__title item" ng-bind="result.title" title="Play {{result.title}}"></div>
+                    <div class="list__item__info">
+                        <a ng-href="{{ result.url }}" target="_blank">
+                            <span>{{result.provider_name}} media by <em>{{result.author_name}}</em> </span>
+                            <i ng-if="result.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{result.title}} on Youtube"></i>
+                            <i ng-if="result.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{result.title}} on Soundcloud"></i>
+                            <i ng-if="result.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{result.title}} on Vimeo"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="list__item__actions col-xs-2 col-md-1">
+                    <i class="material-icons" ng-click="$event.stopPropagation(); vm.addItemToAShow(result);" title="Add this Item to a Show">playlist_add</i>
+                </div>
+        </div>
+        <div class="list__item--active" ng-if="vm.results.length === 0">
+            <div class="list__item__illu col-xs-12 col-md-4">
+                <img src="//media.giphy.com/media/w3Er0gW94cG8E/giphy.gif">
+            </div>
+            <div class="col-xs-12 col-md-8">
+                <div class="list__item__title item text-right">
+                    <p>Sorry, no results :/</p>
+                    <p>You can also paste link in the search field,</p>
+                    <p>from Youtube, Soundcloud or Vimeo.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
