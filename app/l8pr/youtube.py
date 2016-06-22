@@ -16,7 +16,7 @@ def youtube_search(options):
     search_response = youtube.search().list(
         q=options.get('q'),
         part='id,snippet',
-        maxResults=5
+        maxResults=15
     ).execute()
     for search_result in search_response.get('items', []):
         if search_result['id']['kind'] == 'youtube#video':
