@@ -30,8 +30,7 @@
     }
   },
   "addons":[
-    "heroku-postgresql",
-    "bonsai"
+    "heroku-postgresql"
   ],
   "buildpacks": [
     {
