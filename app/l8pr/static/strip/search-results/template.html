@@ -10,14 +10,17 @@
             </div>
             <div class="collapse navbar-collapse" id="toggle-filter">
                 <div class="Search__side-bar__filter__section">
-                    <em>Sources</em>
-                    <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        *
-                    </a>
+                    <div class="title">Sources</div>
+                    <div class="note-btn">
+                        <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <!-- <i class="fa fa-exclamation" aria-hidden="true"></i> -->
+                            <i class="material-icons">error_outline</i>
+                        </a>
+                    </div>
                     <div class="collapse" id="collapseExample">
-                        <div class="txt">
+                        <div class="note">
                             For <b>SoundCloud</b> and <b>Vimeo</b>, we only show tracks and videos already added in L8pr.
-                            You can <b>paste a link directly in the search field</b> though.
+                        </br>You can <b>paste a link directly in the search field</b> though.
                         </div>
                     </div>
                     <div class="checkbox">
@@ -33,24 +36,6 @@
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-model="vm.filters.Vimeo"> Vimeo
-                        </label>
-                    </div>
-                </div>
-                <div class="Search__side-bar__filter__section">
-                    <em>Type</em>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="vm.search.track"> Tracks
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="vm.search.video"> Videos
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="vm.search.show"> Shows, Playlists & Sets
                         </label>
                     </div>
                 </div>

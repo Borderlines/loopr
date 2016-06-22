@@ -510,7 +510,21 @@ body .plyr {
         &__section {
             margin-top: 20px;
             font-weight: 300;
-            .txt {
+            display: inline-block;
+            .title {
+                font-style: italic;
+                display: inline-block;
+            }
+            .note-btn {
+                .text-right;
+                //float: right;
+                display: inline-block;
+                &:hover, a {
+                    color: @body-bg;
+                    background-color: fade(@text-color,0);
+                }
+            }
+            .note {
                 .h6;
                 margin: 5px;
                 font-style: italic;
