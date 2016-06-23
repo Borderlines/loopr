@@ -77,6 +77,9 @@ class ItemsRelationship(models.Model):
     show = models.ForeignKey('Show')
     order = models.PositiveIntegerField()
 
+    class Meta:
+        ordering = ('-order',)
+
     def __str__(self):
         return '%s > %s' % (self.item, self.show)
 

@@ -12,6 +12,10 @@ class ItemInline(admin.TabularInline):
     model = Item
 
 
+class ItemsRelationshipInline(admin.TabularInline):
+    model = Show.items.through
+
+
 class LoopAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'active')
     inlines = (ShowsRelationshipInline,)
@@ -27,6 +31,7 @@ admin.site.register(ShowSettings, ShowSettingsAdmin)
 
 class ShowAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'user', 'added', 'updated')
+    inlines = (ItemsRelationshipInline,)
 
 admin.site.register(Show, ShowAdmin)
 
