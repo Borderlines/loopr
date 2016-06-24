@@ -209,3 +209,12 @@ def create_show_settings(sender, instance, created, **kwargs):
         instance.save()
 
 signals.post_save.connect(create_show_settings, sender=Show)
+
+
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.get_or_create(user=instance)
+        Loop.objects.get_or_create(user=instance)
+
+
+signals.post_save.connect(create_profile, sender=User)
