@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', '$stateParams', '$timeout','login', 'loop', 'addToShowModal',
+    PlayerCtrl.$inject = ['Player', '$stateParams', '$timeout','login', 'loop', 'addToShowModal', 'Api',
     '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip'];
-    function PlayerCtrl(Player, $stateParams, $timeout, login, loop, addToShowModal,
+    function PlayerCtrl(Player, $stateParams, $timeout, login, loop, addToShowModal, Api,
         $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService) {
         var vm = this;
         angular.extend(vm, {

@@ -1,8 +1,10 @@
 (function() {
 'use strict';
 
-ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig', 'addToShowModal', 'Api'];
-function ShowExplorerCtrl(Player, scope, stripService, show, showConfig, addToShowModal, Api) {
+ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig',
+'addToShowModal', 'Api', '$state'];
+function ShowExplorerCtrl(Player, scope, stripService, show, showConfig,
+addToShowModal, Api, $state) {
     var vm = this;
     angular.extend(vm, {
         stripService: stripService,
@@ -16,6 +18,11 @@ function ShowExplorerCtrl(Player, scope, stripService, show, showConfig, addToSh
     });
     Api.Accounts.one(show.user).get().then(function(user) {
         vm.user = user;
+    });
+    scope.$on('l8pr.updatedShow', function(e, updatedShow) {
+        if (show.id === updatedShow.id) {
+            $state.reload($state.current.name);
+        }
     });
     scope.$watch(function() {
         return Player.currentShow;

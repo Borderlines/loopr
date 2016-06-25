@@ -86,7 +86,7 @@ class LoopSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loop
-        fields = ('shows_list', 'user', 'active')
+        fields = ('id', 'shows_list', 'user', 'active')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -120,7 +120,10 @@ class LoopViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         username = self.request.query_params.get('username', None)
-        return Loop.objects.filter(user__username=username)
+        if username:
+            return Loop.objects.filter(user__username=username)
+        else:
+            return Loop.objects.all()
 
 
 class ShowViewSet(viewsets.ModelViewSet):

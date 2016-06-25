@@ -1,8 +1,8 @@
 (function() {
 'use strict';
 
-LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'loopToExplore'];
-function LoopExplorerCtrl(Player, scope, stripService, loopToExplore) {
+LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'loopToExplore', '$state'];
+function LoopExplorerCtrl(Player, scope, stripService, loopToExplore, $state) {
     var vm = this;
     function reorderShows() {
         var indexOfCurrentShow = _.findIndex(loopToExplore.shows_list, function(s) {return s === Player.currentShow;});
@@ -25,6 +25,11 @@ function LoopExplorerCtrl(Player, scope, stripService, loopToExplore) {
         stripService: stripService
     });
     reorderShows();
+    scope.$on('l8pr.updatedLoop', function(e, updatedLoop) {
+        if (!updatedLoop || updatedLoop.id === loopToExplore.id) {
+            $state.reload('index.open');
+        }
+    });
 }
 
 angular.module('loopr.strip')

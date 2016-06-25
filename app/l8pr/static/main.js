@@ -99,11 +99,7 @@
                 resolve: {
                     loopToExplore: ['$stateParams', 'Player', 'loop',
                     function($stateParams, Player, loop) {
-                        if ($stateParams.loopToExplore) {
-                            return Player.loadLoop($stateParams.loopToExplore);
-                        } else {
-                            return loop;
-                        }
+                        return Player.loadLoop($stateParams.loopToExplore || loop);
                     }]
                 },
                 views: {
@@ -144,14 +140,14 @@
                                 // if a show object is given, open it and update the params
                                 if ($stateParams.showToExplore) {
                                     $stateParams.showToExploreId = $stateParams.showToExplore.id;
-                                    return $stateParams.showToExplore;
+                                    return $stateParams.showToExplore.get();
                                 }
                                 // if the show is in the current loop, open it (and keep items order)
                                 var show = _.find(loop.shows_list, function(show) {
                                     return show.id === parseInt($stateParams.showToExploreId, 10);
                                 });
                                 if(show) {
-                                    return show;
+                                    return show.get();
                                 }
                                 // otherwise, load from API
                                 return Api.Shows.one($stateParams.showToExploreId).get();

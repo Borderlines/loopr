@@ -2,9 +2,9 @@
     'use strict';
 
     ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'shows', 'item',
-    '$q', 'Api', 'login'];
+    '$q', 'Api', 'login', '$rootScope'];
     function ModalInstanceCtrl($scope, $uibModalInstance, shows, item,
-    $q, Api, login) {
+    $q, Api, login, $rootScope) {
         var vm = this;
         angular.extend(vm, {
             shows: shows,
@@ -19,6 +19,7 @@
                     vm.newShow.user = values[1].id;
                     Api.Shows.post(vm.newShow).then(function(show) {
                         $uibModalInstance.close(show);
+                        $rootScope.$broadcast('l8pr.updatedLoop');
                     });
                 });
             },
@@ -39,6 +40,7 @@
                     show.items.unshift(item);
                     show.save().then(function() {
                         $uibModalInstance.close(show);
+                        $rootScope.$broadcast('l8pr.updatedShow', show);
                     });
                 });
             },

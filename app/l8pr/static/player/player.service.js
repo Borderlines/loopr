@@ -67,7 +67,12 @@
                             return loop;
                         });
                     } else {
-                        return usernameOrLoop;
+                        return usernameOrLoop.get().then(function(loop) {
+                            return Api.Accounts.one(loop.user).get().then(function(user) {
+                                loop.username = user.username;
+                                return loop;
+                            });
+                        });
                     }
                 })()).then(function(loop) {
                     // shuffle ?
