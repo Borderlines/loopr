@@ -2,9 +2,9 @@
     'use strict';
 
     Player.$inject = ['$rootScope', 'localStorageService', '$location', '$state',
-    '$timeout', 'login', 'Api', '$q'];
+    '$timeout', 'login', 'Api', '$q', 'ApiCache'];
     function Player($rootScope, localStorageService, $location, $state,
-    $timeout, login, Api, $q) {
+    $timeout, login, Api, $q, ApiCache) {
         var self = this;
         angular.extend(self, {
             currentPosition: 0,
@@ -67,12 +67,17 @@
                             return loop;
                         });
                     } else {
-                        return usernameOrLoop.get().then(function(loop) {
-                            return Api.Accounts.one(loop.user).get().then(function(user) {
-                                loop.username = user.username;
-                                return loop;
+                        if (ApiCache.isDirty) {
+                            return usernameOrLoop.get().then(function(loop) {
+                                return Api.Accounts.one(loop.user).get().then(function(user) {
+                                    loop.username = user.username;
+                                    return loop;
+                                });
                             });
-                        });
+                        } else {
+                            return usernameOrLoop;
+                        }
+
                     }
                 })()).then(function(loop) {
                     // shuffle ?
