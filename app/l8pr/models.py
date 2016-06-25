@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models import signals
 from django.conf import settings
 from apiclient.discovery import build as Apiclient
@@ -39,6 +39,9 @@ class ShowsRelationship(models.Model):
     loop = models.ForeignKey('Loop')
     show = models.ForeignKey('Show')
     order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ('-order', '-id')
 
     def __str__(self):
         return '%s > %s' % (self.show, self.loop)
@@ -215,6 +218,8 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.get_or_create(user=instance)
         Loop.objects.get_or_create(user=instance)
+        api_user = Group.objects.get(name="api user")
+        instance.groups.add(api_user)
 
 
 signals.post_save.connect(create_profile, sender=User)
