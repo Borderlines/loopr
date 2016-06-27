@@ -11,6 +11,7 @@
             item: item,
             newShow: {},
             createShow: function() {
+                vm.loading = true;
                 $q.all([
                     Api.FindOrCreateItem({url: vm.item.url}),
                     login.login()
@@ -21,10 +22,15 @@
                         $uibModalInstance.close(show);
                         ApiCache.isDirty = true;
                         $rootScope.$broadcast('l8pr.updatedLoop');
+                        vm.loading = false;
                     });
+                }, function onError() {
+                    vm.loading = false;
                 });
             },
-            addToShow: function(show) {
+                addToShow: function(show) {
+                if (vm.loading) {return;}
+                vm.loading = true;
                 $q.when((function() {
                     if (vm.item.id === null) {
                         return Api.FindOrCreateItem({url: vm.item.url});
@@ -43,6 +49,9 @@
                         $uibModalInstance.close(show);
                         ApiCache.isDirty = true;
                         $rootScope.$broadcast('l8pr.updatedShow', show);
+                        vm.loading = false;
+                    }, function onError() {
+                        vm.loading = false;
                     });
                 });
             },

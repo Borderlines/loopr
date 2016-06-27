@@ -11,7 +11,7 @@
         <uib-tab index="0" heading="Add to a Show" classes="btn-md">
 
             <div class="list" ng-repeat="show in vm.shows">
-                <a class="list__item" ng-click="vm.addToShow(show)">
+                <a class="list__item" ng-click="!vm.loading && vm.addToShow(show)">
                     <div class="row">
                         <div class="list__item__illu col-xs-4 col-md-4">
                             <img ng-src="{{ show.items[0].thumbnail }}"</>
@@ -39,6 +39,6 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-default" type="button" ng-click="vm.cancel()">Cancel</button>
-    <button ng-if="active === 1" class="btn btn-warning" ng-click="vm.createShow()" type="submit">Create</button>
+    <button ng-if="active === 1" class="btn btn-warning" ng-disabled="vm.loading" ng-click="vm.createShow()" type="submit">Create</button>
 
 </div>
