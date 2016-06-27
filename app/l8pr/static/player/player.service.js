@@ -68,6 +68,7 @@
                         });
                     } else {
                         if (ApiCache.isDirty) {
+                            ApiCache.isDirty = false;
                             return usernameOrLoop.get().then(function(loop) {
                                 return Api.Accounts.one(loop.user).get().then(function(user) {
                                     loop.username = user.username;

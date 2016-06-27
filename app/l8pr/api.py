@@ -29,13 +29,33 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
 
 
+class ItemsField(serializers.Field):
+    def get_attribute(self, obj):
+        # We pass the object instance onto `to_representation`,
+        # not just the field attribute.
+        return obj
+
+    def to_representation(self, obj):
+        items = [rel.item for rel in ItemsRelationship.objects.filter(show=obj).order_by('-order')]
+        return ItemSerializer(items, many=True, read_only=True).data
+
+    def to_internal_value(self, data):
+        serializer = ItemSerializer(data=data, many=True)
+        serializer.is_valid()
+        return serializer.validated_data
+
+
 class ShowSerializer(serializers.ModelSerializer):
-    items = ItemSerializer(many=True, read_only=False)
+    items = ItemsField()
     settings = ShowSettingsSerializer(many=False, required=False, allow_null=True, read_only=False)
 
     class Meta:
         model = Show
         fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
+
+    def get_items(selfself, obj):
+        items = [rel.item for rel in ItemsRelationship.objects.filter(show=obj).order_by('-order')]
+        return ItemSerializer(items, many=True, read_only=True).data
 
     def create(self, validated_data):
         validated_data.pop('settings', {})
@@ -68,15 +88,16 @@ class ShowSerializer(serializers.ModelSerializer):
             settings.update(**validated_data.get('settings', {}))
             instance.settings = settings[0]
         # items
-        order = 0
         instance.items.clear()
-        for item in validated_data.get('items', []):
+        items_list = validated_data.get('items', [])
+        order = len(items_list)
+        for item in items_list:
             ItemsRelationship.objects.create(
                 item=Item.objects.get(pk=item['id']),
                 show=instance,
                 order=order
             )
-            order += 1
+            order -= 1
         instance.save()
         return instance
 
