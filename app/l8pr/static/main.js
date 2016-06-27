@@ -7,6 +7,7 @@
         'loopr.login',
         'ui.bootstrap',
         'loopr.player.vimeo',
+        'angular-confirm',
         'cfp.hotkeys',
         'loopr.player.youtube',
         'loopr.player.webtorrent',

@@ -2,9 +2,9 @@
 'use strict';
 
 ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig',
-'addToShowModal', 'Api', '$state'];
+'addToShowModal', 'Api', '$state', '$confirm'];
 function ShowExplorerCtrl(Player, scope, stripService, show, showConfig,
-addToShowModal, Api, $state) {
+addToShowModal, Api, $state, $confirm) {
     var vm = this;
     angular.extend(vm, {
         stripService: stripService,
@@ -13,6 +13,14 @@ addToShowModal, Api, $state) {
         player: Player,
         showConfig: function() {
             showConfig(show);
+        },
+        removeItem: function(item) {
+            $confirm({text: 'Are you sure you want to delete?'}).then(function() {
+                _.remove(show.items, function(i) {
+                    return item === i;
+                });
+                show.put();
+            });
         },
         addItemToAShow: addToShowModal
     });
