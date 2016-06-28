@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 is_superuser=account['username'] in ['vied12', 'ben']
             )
             loop = [loop for loop in loops if loop['user_id']['$oid'] == account['_id']['$oid']][0]
-            loop_obj = Loop.objects.create(
+            loop_obj, created = Loop.objects.get_or_create(
                 user=user_obj,
                 active=loop.get('active', True)
             )

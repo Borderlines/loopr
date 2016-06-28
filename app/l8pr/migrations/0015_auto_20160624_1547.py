@@ -3,14 +3,18 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def add_to_group(apps, schema_editor):
     User = apps.get_model("auth", "User")
     Group = apps.get_model("auth", "Group")
-    api_user = Group.objects.get(name="api user")
-    for user in User.objects.all():
-        user.groups.add(api_user)
+    try:
+        api_user = Group.objects.get(name="api user")
+        for user in User.objects.all():
+            user.groups.add(api_user)
+    except ObjectDoesNotExist:
+        pass
 
 
 class Migration(migrations.Migration):
