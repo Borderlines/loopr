@@ -1,11 +1,14 @@
 {
   "name":"l8pr",
   "scripts":{
-    "postdeploy": "python3 manage.py migrate"
+    "postdeploy": "scripts/post_deploy_pr.sh"
   },
   "env":{
     "DJANGO_SETTINGS_MODULE":{
         "value": "app.settings_heroku"
+    },
+    "DEBUG":{
+        "value": "False"
     },
     "COMPRESS_ENABLED":{
         "value": "True"
@@ -30,7 +33,9 @@
     }
   },
   "addons":[
-    "heroku-postgresql"
+    "heroku-postgresql",
+    "sendgrid",
+    "bonsai"
   ],
   "buildpacks": [
     {

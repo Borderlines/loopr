@@ -48,10 +48,10 @@ class ShowsRelationship(models.Model):
 
 
 class ShowSettings(models.Model):
-    # show = models.ForeignKey(Show, related_name='settings', on_delete=models.CASCADE)
     shuffle = models.BooleanField(default=False)
     dj_layout = models.BooleanField(default=False)
     giphy = models.BooleanField(default=True)
+    force_giphy = models.BooleanField(default=False)
     giphy_tags = models.TextField(blank=True, null=True)
     hide_strip = models.BooleanField(default=False)
 
