@@ -1,9 +1,12 @@
-<soundcloud-viz ng-if="vm.Player.currentItem.provider_name == 'SoundCloud'"
+<soundcloud ng-if="vm.Player.currentItem.provider_name == 'SoundCloud'"
                 soundcloud-item="vm.Player.currentItem">
-</soundcloud-viz>
+</soundcloud>
+<div ng-class="{'hidden': vm.Player.currentShow.settings.force_giphy}">
 <youtube ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
+
          data-item="vm.Player.currentItem">
 </youtube>
+</div>
 <vimeo ng-if="vm.Player.currentItem.provider_name == 'Vimeo'"
          data-item="vm.Player.currentItem">
 </vimeo>
@@ -11,6 +14,10 @@
             class="webtorrent"
             data-item="vm.Player.currentItem">
 </webtorrent>
+<loopr-giphy ng-if="vm.Player.currentShow.settings.force_giphy ||
+                    (vm.Player.currentItem.provider_name == 'SoundCloud' &&
+                    vm.Player.currentShow.settings.giphy)">
+</loopr-giphy>
 <div class="overlay"
      ng-click="vm.Player.playPause()">
 </div>

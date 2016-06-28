@@ -30,7 +30,9 @@
     }
   },
   "addons":[
-    "heroku-postgresql"
+    "heroku-postgresql",
+    "sendgrid",
+    "bonsai"
   ],
   "buildpacks": [
     {
