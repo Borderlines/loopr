@@ -6,46 +6,24 @@
     <div class="modal-body">
         <div class="form-group">
             <div class="container-fluid">
-
-                <!-- <ul class="options">
-                    <li ng-repeat="option in vm.show.settings" ng-if="vm.optionIsSatisifed(option)">
-                        <div ng-switch="option.type">
-                            <label ng-switch-when="text">
-                                {{ option.label }}
-                                <span>
-                                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'blur' }">
-                                </span>
-                            </label>
-                            <label ng-switch-when="checkbox">
-                                <span>
-                                    <input type="{{option.type}}" ng-model="vm.show.settings[option.name]" ng-change="vm.saveShow()" ng-model-options="{ updateOn: 'default blur' }">
-                                </span>
-                                {{ option.label }}
-                            </label>
-                        </div>
-                    </li>
-                    <br />
-                    <li>
-                        <label>
-                            <input type="checkbox" ng-model="vm.show.settings.shuffle" ng-change="vm.saveShow()">
-                            Shuffle Mode
-                        </label>
-                    </li>
-                </ul> -->
-
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="vm.settings.giphy"> Use GIPHY to illustrate Soundcloud
+                        <input type="checkbox" ng-model="vm.settings.giphy"> Use GIPHY to illustrate
                     </label>
                 </div>
-                <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.settings.force_giphy"> Use GIPHY to illustrate everything
+                    </label>
+                </div>
+                <div class="form-group" ng-if="vm.settings.giphy">
                     <label for="hashtag">Giphy hashtags</label>
                     <input type="text"
                            ng-model="vm.settings.giphy_tags"
                            class="input-lg form-control" id="hashtag"
                            placeholder="Type words or hashtags">
                 </div>
-                <div class="checkbox">
+                <div class="checkbox" ng-if="vm.settings.giphy">
                     <label>
                         <input type="checkbox" ng-model="vm.settings.dj_layout"> VJ Layout
                     </label>
