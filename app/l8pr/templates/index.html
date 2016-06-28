@@ -73,7 +73,6 @@
         {% for template_name, template_body in templates %}
         <script type="text/ng-template" id="/{{ template_name }}">{{ template_body | safe }}</script>
         {% endfor %}
-        {% comment %}
         {% if GA %}
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -84,6 +83,5 @@
             ga('send', 'pageview');
         </script>
         {% endif %}
-        {% endcomment %}
     </body>
 </html>

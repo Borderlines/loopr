@@ -52,4 +52,6 @@ class HomePageView(TemplateView):
             context['thumbnail'] = self.request.build_absolute_uri('static/images/L8PRtv.png')
         # add templates
         context['templates'] = angular_templates()
+        # add GA
+        context['GA'] = os.environ.get('GA')
         return context
