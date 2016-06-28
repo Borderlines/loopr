@@ -7,6 +7,9 @@
     "DJANGO_SETTINGS_MODULE":{
         "value": "app.settings_heroku"
     },
+    "DEBUG":{
+        "value": "False"
+    },
     "COMPRESS_ENABLED":{
         "value": "True"
     },
