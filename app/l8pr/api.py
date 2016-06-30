@@ -22,6 +22,7 @@ class ItemSerializer(serializers.ModelSerializer):
 class ShowSettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShowSettings
+        fields = ('shuffle', 'dj_layout', 'giphy', 'force_giphy', 'giphy_tags', 'hide_strip')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -47,7 +48,7 @@ class ItemsField(serializers.Field):
 
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemsField()
-    settings = ShowSettingsSerializer(many=False, required=False, allow_null=True, read_only=False)
+    settings = ShowSettingsSerializer(required=False)
 
     class Meta:
         model = Show

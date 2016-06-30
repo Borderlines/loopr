@@ -48,6 +48,7 @@ class ShowsRelationship(models.Model):
 
 
 class ShowSettings(models.Model):
+    show = models.OneToOneField('Show', on_delete=models.CASCADE, related_name="settings")
     shuffle = models.BooleanField(default=False)
     dj_layout = models.BooleanField(default=False)
     giphy = models.BooleanField(default=True)
@@ -56,7 +57,7 @@ class ShowSettings(models.Model):
     hide_strip = models.BooleanField(default=False)
 
     def __str__(self):
-        return '%s settings' % (getattr(self, 'show', ''))
+        return '%s settings' % (getattr(self, 'show'))
 
 
 class Show(models.Model):
@@ -65,10 +66,6 @@ class Show(models.Model):
     updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
-    settings = models.OneToOneField(ShowSettings,
-                                    null=True,
-                                    on_delete=models.CASCADE,
-                                    related_name='show')
     items = models.ManyToManyField('Item', through='ItemsRelationship', related_name='ItemsRelationship')
 
     def __str__(self):
@@ -206,10 +203,8 @@ signals.post_save.connect(completeItem, sender=Item)
 
 
 def create_show_settings(sender, instance, created, **kwargs):
-    if created and instance.settings is None:
-        settings = ShowSettings.objects.create()
-        instance.settings = settings
-        instance.save()
+    if created and not getattr(instance, 'settings', None):
+        ShowSettings.objects.create(show=instance)
 
 signals.post_save.connect(create_show_settings, sender=Show)
 
