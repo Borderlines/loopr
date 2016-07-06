@@ -1,1 +1,1 @@
-web: gunicorn app.wsgi --log-file -
+web: newrelic-admin gunicorn app.wsgi --log-file -
