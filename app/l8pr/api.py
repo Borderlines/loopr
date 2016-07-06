@@ -42,7 +42,7 @@ class ItemsField(serializers.Field):
 
     def to_internal_value(self, data):
         serializer = ItemSerializer(data=data, many=True)
-        serializer.is_valid()
+        serializer.is_valid(raise_exception=True)
         return serializer.validated_data
 
 

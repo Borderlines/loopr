@@ -170,6 +170,8 @@ def get_metadata(url, item_instance=None):
             'url': res['meta'].get('canonical'),
             'description': res['meta'].get('description')
         }
+        if data['thumbnail'].startswith('//'):
+            data['thumbnail'] = 'https:%s' % (data['thumbnail'])
     except KeyError as e:
         if res['links']['file'][0]['type'] == 'application/x-bittorrent':
             data = {
