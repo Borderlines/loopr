@@ -629,7 +629,7 @@
             "last_name": "",
             "password": "pbkdf2_sha256$24000$Fh1fOd55D8A5$NVnPHGM759cfdWzs2MoGQ0VzI6q9mARPiktNy0Bi3XE=",
             "user_permissions": [],
-            "username": "ben"
+            "username": "discover"
         },
         "model": "auth.user",
         "pk": 2

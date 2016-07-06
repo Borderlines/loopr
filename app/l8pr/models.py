@@ -9,14 +9,12 @@ import soundcloud
 from requests import HTTPError
 import datetime
 import re
-# TODO: favorites in accounts
+import json
+from twython import Twython
+from django.conf import settings
 
-PROVIDER_CHOICES = (
-    ('YouTube', 'YouTube'),
-    ('SoundCloud', 'SoundCloud'),
-    ('WebTorrent', 'WebTorrent'),
-    ('Vimeo', 'Vimeo'),
-)
+
+twitter = Twython(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
 
 
 class Profile(models.Model):
@@ -30,6 +28,33 @@ class Loop(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     shows_list = models.ManyToManyField('Show', through='ShowsRelationship', related_name='ShowsRelationship')
+    twitter_keywords = models.CharField(blank=True, null=True, max_length=255)
+    feed_json = models.TextField(blank=True, null=True, default='[]')
+
+    __original_twitter_keywords = None
+
+    def load_tweets(self):
+        if self.twitter_keywords:
+            feed = []
+            for key in self.twitter_keywords.split(','):
+                for r in twitter.search(q=key, count=5, result_type='mixed, recent, popular')['statuses']:
+                    feed.append({
+                        'body': r['text'],
+                        'name': r['user']['name'],
+                        'screen_name': r['user']['screen_name'],
+                        'href': 'https://twitter.com/%s/status/%s' % (r['user']['screen_name'], r['id_str'])
+                    })
+            self.feed_json = json.dumps(feed)
+
+    def __init__(self, *args, **kwargs):
+        super(Loop, self).__init__(*args, **kwargs)
+        self.__original_twitter_keywords = self.twitter_keywords
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        if self.twitter_keywords != self.__original_twitter_keywords:
+            self.load_tweets()
+        super(Loop, self).save(force_insert, force_update, *args, **kwargs)
+        self.__original_twitter_keywords = self.twitter_keywords
 
     def __str__(self):
         return '%s\'s loop' % self.user
@@ -85,6 +110,12 @@ class ItemsRelationship(models.Model):
 
 
 class Item(models.Model):
+    PROVIDER_CHOICES = (
+        ('YouTube', 'YouTube'),
+        ('SoundCloud', 'SoundCloud'),
+        ('WebTorrent', 'WebTorrent'),
+        ('Vimeo', 'Vimeo'),
+    )
     title = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)

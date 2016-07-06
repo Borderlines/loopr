@@ -108,7 +108,7 @@ class LoopSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loop
-        fields = ('id', 'shows_list', 'user', 'active')
+        fields = ('id', 'shows_list', 'user', 'active', 'feed_json')
 
 
 class UserSerializer(serializers.ModelSerializer):
