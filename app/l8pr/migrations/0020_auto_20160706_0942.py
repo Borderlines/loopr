@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     def complete_thumbnail(apps, schema_editor):
         Item = apps.get_model("l8pr", "Item")
         for item in Item.objects.all():
-            if item.thumbnail.startswith('//'):
+            if item.thumbnail and item.thumbnail.startswith('//'):
                 item.thumbnail = 'https:%s' % (item.thumbnail)
                 item.save()
 
