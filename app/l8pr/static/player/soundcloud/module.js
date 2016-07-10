@@ -13,10 +13,10 @@
 
                 scope.playPause = function() {
                     soundcloudPlayer.then(function(sound) {
-                        if (sound.getState() === 'paused') {
-                            play();
-                        } else {
+                        if (sound.isPlaying()) {
                             pause();
+                        } else {
+                            play();
                         }
                     });
                 };
@@ -46,7 +46,7 @@
                 function clear() {
                     if (angular.isDefined(soundcloudPlayer)) {
                         soundcloudPlayer.then(function(sound) {
-                            sound.stop();
+                            sound.pause();
                         });
                         soundcloudPlayer = null;
                     }
@@ -73,18 +73,20 @@
                     var soundDeferred = $q.defer();
                     soundcloudPlayer = soundDeferred.promise;
                     SC.initialize({client_id: '847e61a8117730d6b30098cfb715608c'});
-                    SC.get('/resolve/', {url: Player.currentItem.url}, function(data) {
-                        SC.stream(data.uri, function(sound) {
+                    SC.resolve(Player.currentItem.url).then(function(data) {
+                        SC.stream(data.uri.replace('https://api.soundcloud.com', '')).then(function(player) {
                             play();
-                            soundDeferred.resolve(sound);
+                            soundDeferred.resolve(player);
                             if (Player.isMuted) {
                                 mute();
                             }
                             $interval.cancel(progressionTracker);
                             progressionTracker = $interval(function() {
-                                Player.setCurrentPosition((sound.getCurrentPosition() /  sound.getDuration()) * 100);
-                                if (sound.getCurrentPosition() >  sound.getDuration() - 5){
-                                    Player.nextItem();
+                                if (player.streamInfo) {
+                                    Player.setCurrentPosition((player.currentTime() /  player.streamInfo.duration) * 100);
+                                    if (player.currentTime() >  player.streamInfo.duration - 5){
+                                        Player.nextItem();
+                                    }
                                 }
                             }, 250);
                         });
@@ -92,7 +94,7 @@
                 });
                 scope.$on('player.seekTo', function(e, percent) {
                     soundcloudPlayer.then(function(sound) {
-                        sound.seek(Math.ceil((percent/100) * sound.getDuration()));
+                        sound.seek(Math.ceil((percent/100) * sound.streamInfo.duration));
                     });
                 });
                 scope.$on('player.toggleMute', scope.toggleMute);
