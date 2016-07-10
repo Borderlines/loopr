@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    FeedCtrl.$inject = ['$interval', 'Player'];
-    function FeedCtrl($interval, Player) {
+    FeedCtrl.$inject = ['$interval', 'Player', 'Api'];
+    function FeedCtrl($interval, Player, Api) {
         var vm = this;
         var source = JSON.parse(Player.loop.feed_json);
         var timeInterval = 5000; // ms
@@ -21,6 +21,13 @@
             if (index >= source.length) {index = 0;}
             setScope(source[index]);
         }, timeInterval);
+        $interval(function() {
+            if (Player.loop.id) {
+                return Api.Loops.one(Player.loop.id).get().then(function(loop) {
+                    source = JSON.parse(loop.feed_json);
+                });
+            }
+        }, 60000 * 10);
     }
 
     angular.module('loopr.strip')
