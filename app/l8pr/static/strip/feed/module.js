@@ -27,7 +27,7 @@
                     source = JSON.parse(loop.feed_json);
                 });
             }
-        }, 60000 * 10);
+        }, 60000 * 3);
     }
 
     angular.module('loopr.strip')
