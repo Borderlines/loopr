@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    FeedCtrl.$inject = ['$interval', 'Player', 'Api'];
-    function FeedCtrl($interval, Player, Api) {
+    FeedCtrl.$inject = ['$interval', 'Player', 'Api', '$scope'];
+    function FeedCtrl($interval, Player, Api, $scope) {
         var vm = this;
         var source = JSON.parse(Player.loop.feed_json);
         var timeInterval = 5000; // ms
@@ -16,18 +16,26 @@
             });
         };
         setScope(source[index]);
-        $interval(function() {
+        var nextTweetInterval = $interval(function() {
             index += 1;
             if (index >= source.length) {index = 0;}
             setScope(source[index]);
         }, timeInterval);
-        $interval(function() {
+        var reloadFeed = $interval(function() {
             if (Player.loop.id) {
                 return Api.Loops.one(Player.loop.id).get().then(function(loop) {
+                    Player.loop.feed_json = loop.feed_json;
                     source = JSON.parse(loop.feed_json);
                 });
             }
         }, 60000 * 3);
+        $scope.$on('$destroy', function() {
+          // Make sure that the intervals are destroyed
+          $interval.cancel(reloadFeed);
+          $interval.cancel(nextTweetInterval);
+          reloadFeed = null;
+          nextTweetInterval = null;
+        });
     }
 
     angular.module('loopr.strip')
