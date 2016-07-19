@@ -61,6 +61,23 @@
                         return items[0];
                     });
                 };
+            })(),
+            FindOrCreateInbox: (function() {
+                return function(show) {
+                    return self.Shows.getList({show_type: 'inbox'}).then(function(shows) {
+                        if (shows.length === 0) {
+                            show = angular.extend({}, {
+                                show_type: 'inbox',
+                                title: 'my inbox',
+                                items: []
+                            }, show);
+                            return self.Shows.post(show).then(function(show) {
+                                return show;
+                            });
+                        }
+                        return shows[0];
+                    });
+                };
             })()
         };
         return self;

@@ -86,12 +86,14 @@ class ShowSettings(models.Model):
 
 
 class Show(models.Model):
+    SHOW_TYPES = (('normal', 'normal'), ('inbox', 'inbox'))
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
     items = models.ManyToManyField('Item', through='ItemsRelationship', related_name='ItemsRelationship')
+    show_type = models.CharField(max_length=255, choices=SHOW_TYPES, default='normal')
 
     def __str__(self):
         return self.title

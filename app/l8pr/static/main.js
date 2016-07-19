@@ -43,20 +43,40 @@
                 url: '/open/{q:.*}',
                 controller: ['$stateParams', 'Player', 'login', '$state', '$q', 'Api',
                 function($stateParams, Player, login, $state, $q, Api) {
-                    return Api.GetItemMetadata.one().get({url: $stateParams.q}).then(function(item) {
-                        function loadLoopAndComplete(username) {
-                            return Player.loadLoop(username, $stateParams.item)
-                            .then(function(loop) {
-                                loop.shows_list.unshift({title: 'Open', items: [item]});
+                    function loadLoopAndComplete(username, persist) {
+                        return Player.loadLoop(username, $stateParams.item)
+                        .then(function(loop) {
+                            $q.when((function getUpdatedInboxShow() {
+                                if (persist) {
+                                    return $q.all([
+                                        Api.FindOrCreateItem({url: $stateParams.q}),
+                                        Api.FindOrCreateInbox({user: loop.user})
+                                    ]).then(function(results) {
+                                        var item = results[0], show = results[1];
+                                        show.items.unshift(item);
+                                        show.put();
+                                        _.remove(loop.shows_list, function(s) {
+                                            return s.id === show.id;
+                                        });
+                                        return show;
+                                    });
+                                } else {
+                                    return Api.GetItemMetadata.one().get({url: $stateParams.q})
+                                    .then(function(item) {
+                                        return {title: 'Open', items: [item]};
+                                    });
+                                }
+                            })()).then(function(show) {
+                                loop.shows_list.unshift(show);
                                 Player.setLoop(loop);
                                 $state.go('index');
                             });
-                        }
-                        return login.login().then(function(user) {
-                            loadLoopAndComplete(user.username);
-                        }, function() {
-                            loadLoopAndComplete('discover');
                         });
+                    }
+                    return login.login().then(function(user) {
+                        return loadLoopAndComplete(user.username, true);
+                    }, function() {
+                        return loadLoopAndComplete('discover', false);
                     });
                 }]
             })

@@ -52,11 +52,7 @@ class ShowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Show
-        fields = ('id', 'added', 'updated', 'title', 'description', 'items', 'user', 'settings')
-
-    def get_items(selfself, obj):
-        items = [rel.item for rel in ItemsRelationship.objects.filter(show=obj).order_by('-order')]
-        return ItemSerializer(items, many=True, read_only=True).data
+        fields = ('id', 'added', 'updated', 'show_type', 'title', 'description', 'items', 'user', 'settings')
 
     def create(self, validated_data):
         validated_data.pop('settings', {})
@@ -104,7 +100,22 @@ class ShowSerializer(serializers.ModelSerializer):
 
 
 class LoopSerializer(serializers.ModelSerializer):
-    shows_list = ShowSerializer(many=True, read_only=False)
+    shows_list = serializers.SerializerMethodField()
+
+    def get_current_user(self):
+        user = None
+        request = self.context.get('request')
+        if request and hasattr(request, 'user'):
+            user = request.user
+        return user
+
+    def get_shows_list(self, obj):
+        shows = [sr.show for sr in ShowsRelationship.objects.filter(loop=obj)
+                 .order_by('-order')]
+        # remove inbox if not current user's loop
+        if self.get_current_user() != obj.user:
+            shows = [s for s in shows if s.show_type == 'normal']
+        return ShowSerializer(shows, many=True, read_only=True).data
 
     class Meta:
         model = Loop
@@ -151,7 +162,7 @@ class LoopViewSet(viewsets.ModelViewSet):
 class ShowViewSet(viewsets.ModelViewSet):
     queryset = Show.objects.all()
     serializer_class = ShowSerializer
-    filter_fields = ('user',)
+    filter_fields = ('user', 'show_type')
     ordering_fields = ('updated',)
 
     def get_queryset(self):
