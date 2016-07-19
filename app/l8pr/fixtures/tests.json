@@ -636,22 +636,6 @@
     },
     {
         "fields": {
-            "avatar": null,
-            "user": 1
-        },
-        "model": "l8pr.profile",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "avatar": null,
-            "user": 2
-        },
-        "model": "l8pr.profile",
-        "pk": 2
-    },
-    {
-        "fields": {
             "active": true,
             "added": "2016-06-28T21:15:14.833Z",
             "updated": "2016-06-28T21:15:14.833Z",
