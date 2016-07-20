@@ -33,7 +33,7 @@
                     function updateLayout() {
                         $timeout.cancel(layoutTimeout);
                         scope.layout = layouts[Math.floor(Math.random()*layouts.length)];
-                        layoutTimeout = $timeout(updateLayout, 3000);
+                        layoutTimeout = $timeout(updateLayout, 3000, false);
                     }
                     $timeout.cancel(gifTimeout);
                     scope.keyword = giphy_keywords[(giphy_keywords.indexOf(scope.keyword) + 1) % giphy_keywords.length];
@@ -46,7 +46,7 @@
                             if (Player.currentShow.settings && Player.currentShow.settings.dj_layout) {
                                 updateLayout();
                             }
-                            gifTimeout = $timeout(updateGif, 10000);
+                            gifTimeout = $timeout(updateGif, 10000, false);
                             this.remove();
                         });
                     });
