@@ -2,9 +2,9 @@
 'use strict';
 
 ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig',
-'addToShowModal', 'Api', '$state', '$confirm'];
+'addToShowModal', 'Api', '$state', '$confirm', 'Restangular'];
 function ShowExplorerCtrl(Player, scope, stripService, show, showConfig,
-addToShowModal, Api, $state, $confirm) {
+addToShowModal, Api, $state, $confirm, Restangular) {
     var vm = this;
     angular.extend(vm, {
         stripService: stripService,
@@ -16,10 +16,15 @@ addToShowModal, Api, $state, $confirm) {
         },
         removeItem: function(item) {
             $confirm({text: 'Are you sure you want to delete?'}).then(function() {
-                _.remove(show.items, function(i) {
-                    return item === i;
+                var oldShow = Restangular.copy(show);
+                _.remove(oldShow.items, function(i) {
+                    // FIXME: item can have no id
+                    return item.id === i.id;
                 });
-                show.put();
+                oldShow.items = angular.copy(oldShow.items);
+                return oldShow.put().then(function(s) {
+                    show.items = s.items;
+                });
             });
         },
         addItemToAShow: addToShowModal

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    SoundcloudDirective.$inject = ['Player', '$interval', '$timeout', '$q', '$http'];
-    function SoundcloudDirective(Player, $interval, $timeout, $q, $http) {
+    SoundcloudDirective.$inject = ['Player', '$interval', '$q', '$http'];
+    function SoundcloudDirective(Player, $interval, $q, $http) {
         return {
             scope: {
                 soundcloudItem: '='
