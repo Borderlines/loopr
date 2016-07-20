@@ -2,18 +2,12 @@ version: '2'
 services:
   db:
     image: postgres
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
   elasticsearch:
-    volumes:
-      - ./data/elastic:/usr/share/elasticsearch/data
     image: elasticsearch
   web:
     build: .
     # env_file: .env
     command: bash -c "sleep 5; python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/code
     ports:
       - "8000:8000"
     environment:
