@@ -2,11 +2,7 @@ version: '2'
 services:
   db:
     image: postgres
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
   elasticsearch:
-    volumes:
-      - ./data/elastic:/usr/share/elasticsearch/data
     image: elasticsearch
   web:
     build: .
