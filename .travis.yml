@@ -19,6 +19,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - docker-compose -v
   - docker -v
+  - export DISPLAY=:99.0 && /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1920x1080x24
 
 script:
   - docker-compose -f docker-compose-travis.yml build
@@ -27,5 +28,5 @@ script:
   - docker-compose -f docker-compose-travis.yml run web python3 manage.py collectstatic --noinput --settings app.settings_docker
   - docker-compose -f docker-compose-travis.yml run web python3 manage.py migrate --settings app.settings_docker
   - docker-compose -f docker-compose-travis.yml run web python3 manage.py loaddata tests --settings app.settings_docker
-  - docker-compose -f docker-compose-travis.yml run web scripts/e2e.sh
+  - docker-compose -f docker-compose-travis.yml run protractor protractor.js
   - docker-compose -f docker-compose-travis.yml logs
