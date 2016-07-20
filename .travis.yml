@@ -24,8 +24,7 @@ script:
   - docker-compose -f docker-compose-travis.yml build
   - docker-compose -f docker-compose-travis.yml up -d
   - sleep 10
-  - docker-compose -f docker-compose-travis.yml run web python3 manage.py collectstatic --noinput --settings app.settings_docker
   - docker-compose -f docker-compose-travis.yml run web python3 manage.py migrate --settings app.settings_docker
   - docker-compose -f docker-compose-travis.yml run web python3 manage.py loaddata tests --settings app.settings_docker
-  - docker-compose -f docker-compose-travis.yml run web scripts/e2e.sh
+  - docker-compose -f docker-compose-travis.yml run web bash -c 'export DISPLAY=:99.0 && /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1920x1080x24; protractor protractor.js --baseUrl=http://web:8000'
   - docker-compose -f docker-compose-travis.yml logs
