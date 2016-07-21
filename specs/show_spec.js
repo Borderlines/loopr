@@ -13,14 +13,16 @@
     beforeEach(function() {
         browser.get('/vied12');
         element(by.css('.toggle-controller')).click();
+        browser.waitForAngular();
         login();
     });
     afterEach(function() {
         browser.manage().logs().get('browser').then(function(browserLogs) {
-            browserLogs.forEach(function(log){
+            browserLogs.forEach(function(log) {
                 console.log(log.message);
             });
         });
+        browser.driver.get(browser.baseUrl + '/api/auth/logout/');
     });
     describe('Show', function() {
         var items = element.all(by.repeater('item in vm.show.items'));
@@ -49,7 +51,7 @@
                     shows.get(0).click();
                     browser.get('/vied12/loop/');
                     openShow(showName);
-                    expect(items.get(0).element(by.css('.list__item__title')).getText()).toEqual(itemTitle);
+                    expect(element(by.css('.list__item__title', itemTitle)).isPresent()).toBe(true);
                 });
             });
         });
