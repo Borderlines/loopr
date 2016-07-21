@@ -165,12 +165,6 @@ class ShowViewSet(viewsets.ModelViewSet):
     filter_fields = ('user', 'show_type')
     ordering_fields = ('updated',)
 
-    def get_queryset(self):
-        if 'pk' not in self.kwargs:
-            return Show.objects.filter(user=self.request.user)
-        else:
-            return Show.objects.all()
-
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()

@@ -1,17 +1,23 @@
 (function() {
 'use strict';
 
-LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'loopToExplore', '$state'];
-function LoopExplorerCtrl(Player, scope, stripService, loopToExplore, $state) {
+LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'loopToExplore',
+'latestItemsShow', '$state'];
+function LoopExplorerCtrl(Player, scope, stripService, loopToExplore,
+latestItemsShow, $state) {
     var vm = this;
     function reorderShows() {
+        var shows;
         var indexOfCurrentShow = _.findIndex(loopToExplore.shows_list, function(s) {return s === Player.currentShow;});
         if (indexOfCurrentShow > -1) {
             var reordered = loopToExplore.shows_list.slice(indexOfCurrentShow, loopToExplore.shows_list.length);
-            vm.shows = reordered.concat(loopToExplore.shows_list.slice(0, indexOfCurrentShow));
+            shows = reordered.concat(loopToExplore.shows_list.slice(0, indexOfCurrentShow));
         } else {
-            vm.shows = loopToExplore.shows_list;
+            shows = loopToExplore.shows_list;
         }
+        // load latest item and add it to a new show
+        shows.unshift(latestItemsShow);
+        vm.shows = shows;
     }
     angular.extend(vm, {
         Player: Player,
