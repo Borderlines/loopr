@@ -730,7 +730,7 @@
         "fields": {
             "dj_layout": false,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": null,
             "hide_strip": false,
             "show": 2,
@@ -743,7 +743,7 @@
         "fields": {
             "dj_layout": false,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": null,
             "hide_strip": false,
             "show": 3,
@@ -756,7 +756,7 @@
         "fields": {
             "dj_layout": false,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": null,
             "hide_strip": false,
             "show": 10,
@@ -769,7 +769,7 @@
         "fields": {
             "dj_layout": true,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": "psychedelic,punch,rave,electro",
             "hide_strip": false,
             "show": 11,
@@ -782,7 +782,7 @@
         "fields": {
             "dj_layout": false,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": null,
             "hide_strip": false,
             "show": 19,
@@ -795,7 +795,7 @@
         "fields": {
             "dj_layout": true,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": null,
             "hide_strip": true,
             "show": 21,
@@ -808,7 +808,7 @@
         "fields": {
             "dj_layout": false,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": "dance,sunglasses,abstract",
             "hide_strip": false,
             "show": 25,
@@ -821,7 +821,7 @@
         "fields": {
             "dj_layout": true,
             "force_giphy": false,
-            "giphy": true,
+            "giphy": false,
             "giphy_tags": "serge-gainsbourg,jane-birkin",
             "hide_strip": false,
             "show": 28,
