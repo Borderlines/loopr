@@ -35,7 +35,10 @@
                 var items = [];
                 return self.Shows.getList({ordering: '-updated', limit: 10}).then(function(shows) {
                     shows.forEach(function(show) {
-                        items = items.concat(show.items.slice(0, 5));
+                        show.items.slice(0, 5).forEach(function(item) {
+                            item.show = angular.copy(show);
+                            items.push(item);
+                        });
                     });
                     return items;
                 });

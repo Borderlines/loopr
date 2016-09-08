@@ -124,7 +124,7 @@
                     }],
                     latestItemsShow: ['Api', function(Api) {
                         return Api.LatestItems().then(function(items) {
-                            return {title: 'Last items', items: items, show_type: 'last_item'};
+                            return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
                         });
                     }]
                 },

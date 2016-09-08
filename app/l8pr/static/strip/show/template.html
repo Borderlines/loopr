@@ -33,6 +33,12 @@
                         <i ng-if="item.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{item.title}} on Soundcloud"></i>
                         <i ng-if="item.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{item.title}} on Vimeo"></i>
                     </a>
+                    <span ng-if="item.show.username">
+                        | looped by
+                        <a ui-sref="index.open.loop({loopToExplore: item.show.username})">
+                            {{ item.show.username }}
+                        </a>
+                    </span>
                 </div>
             </div>
             <div class="list__item__actions col-xs-2 col-md-1">

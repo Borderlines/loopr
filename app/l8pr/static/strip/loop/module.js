@@ -16,7 +16,11 @@ latestItemsShow, $state) {
             shows = loopToExplore.shows_list;
         }
         // load latest item and add it to a new show
-        shows.unshift(latestItemsShow);
+        if (!_.any(shows, function isALatestShow(s) {
+            return s.show_type === 'last_item';
+        })) {
+            shows.unshift(latestItemsShow);
+        }
         vm.shows = shows;
     }
     angular.extend(vm, {
