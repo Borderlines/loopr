@@ -12,6 +12,7 @@
     }
     beforeEach(function() {
         browser.get('/vied12');
+        browser.waitForAngular();
         element(by.css('.toggle-controller')).click();
         browser.waitForAngular();
         login();
@@ -55,23 +56,23 @@
                 });
             });
         });
-        // it('search an url and add it', function() {
-        //     element(by.css('[ng-click="vm.searchBarVisible = !vm.searchBarVisible"]')).click();
-        //     element(by.model('vm.searchQuery'))
-        //         .sendKeys('https://www.youtube.com/watch?v=dYHAFRtrL-Q')
-        //         .sendKeys(protractor.Key.ENTER);
-        //     element.all(by.repeater('result in vm.getResults()')).get(0)
-        //         .element(by.css('[ng-click="$event.stopPropagation(); vm.addItemToAShow(result);"]'))
-        //         .click();
-        //         var shows = element.all(by.repeater('show in vm.shows'));
-        //         shows.get(0).element(by.css('.list__item__title')).getText().then(function(showName) {
-        //             shows.get(0).click();
-        //             browser.waitForAngular();
-        //             browser.get('/vied12/loop/');
-        //             browser.waitForAngular();
-        //             openShow(showName);
-        //             expect(element(by.css('.list__item__title', 'Best Of - Alexandre Astier')).isPresent()).toBe(true);
-        //         });
-        // });
+        xit('search an url and add it', function() {
+            element(by.css('[ng-click="vm.searchBarVisible = !vm.searchBarVisible"]')).click();
+            element(by.model('vm.searchQuery'))
+                .sendKeys('https://www.youtube.com/watch?v=dYHAFRtrL-Q')
+                .sendKeys(protractor.Key.ENTER);
+            element.all(by.repeater('result in vm.getResults()')).get(0)
+            .element(by.css('[ng-click="$event.stopPropagation(); vm.addItemToAShow(result);"]'))
+            .click();
+            var shows = element.all(by.repeater('show in vm.shows'));
+            shows.get(0).element(by.css('.list__item__title')).getText().then(function(showName) {
+                shows.get(0).click();
+                browser.waitForAngular();
+                browser.get('/vied12/loop/');
+                browser.waitForAngular();
+                openShow(showName);
+                expect(element(by.css('.list__item__title', 'Best Of - Alexandre Astier')).isPresent()).toBe(true);
+            });
+        });
     });
 })();

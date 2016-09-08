@@ -121,6 +121,11 @@
                     loopToExplore: ['$stateParams', 'Player', 'loop',
                     function($stateParams, Player, loop) {
                         return Player.loadLoop($stateParams.loopToExplore || loop);
+                    }],
+                    latestItemsShow: ['Api', function(Api) {
+                        return Api.LatestItems().then(function(items) {
+                            return {title: 'Last items', items: items, show_type: 'last_item'};
+                        });
                     }]
                 },
                 views: {
@@ -183,6 +188,23 @@
                                 }
                                 // otherwise, load from API
                                 return Api.Shows.one($stateParams.showToExploreId).get();
+                            }]
+                        }
+                    }
+                }
+            })
+            .state('index.open.latest', {
+                url: '/latest',
+                reloadOnSearch: false,
+                views: {
+                    body: {
+                        controller: 'SearchCtrl',
+                        templateUrl: '/strip/search-results/template.html',
+                        controllerAs: 'vm',
+                        resolve: {
+                            query: function() {return 'latest';},
+                            results: ['Api', function(Api) {
+                                return Api.LatestItems();
                             }]
                         }
                     }

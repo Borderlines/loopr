@@ -33,7 +33,11 @@
             },
             playLoop: function(loop, selectedShow, selectedItem) {
                 // a show is asked
-                var show = _.find(loop.shows_list, function(show) { return show.id.toString() === selectedShow;});
+                var show = _.find(loop.shows_list, function(show) {
+                    if (show.id) {
+                        return show.id.toString() === selectedShow;
+                    }
+                });
                 // a show is asked but not part of the loop, then we add it to the loop
                 if (!angular.isDefined(show) && selectedShow) {
                     show = Api.Shows.one(selectedShow).get().then(function(show) {
@@ -158,11 +162,11 @@
                 self.currentShow = show;
                 self.currentItem = show.items[index];
                 // deep linking
-                $timeout(function() {
-                    if ($state.current.name.indexOf('index') > -1) {
-                        $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
-                    }
-                }, 250, false);
+                // $timeout(function() {
+                //     if ($state.current.name.indexOf('index') > -1) {
+                //         $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
+                //     }
+                // }, 250, false);
                 $timeout(function() {
                     $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
                 });

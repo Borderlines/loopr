@@ -11,7 +11,7 @@
                     if (!_.contains(['index'], $state.current.name)) {
                         $state.go($state.current.name.split('.')[0]);
                     } else {
-                        $history.back($state.current.name.split('.')[0] + '.open.loop');
+                        $history.back('index.open.loop');
                     }
                 },
                 isAutoHideEnabled: false,

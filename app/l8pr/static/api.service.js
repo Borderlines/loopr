@@ -31,6 +31,15 @@
                 });
                 return Restangular.service('shows');
             })(),
+            LatestItems: function() {
+                var items = [];
+                return self.Shows.getList({ordering: '-updated', limit: 10}).then(function(shows) {
+                    shows.forEach(function(show) {
+                        items = items.concat(show.items.slice(0, 5));
+                    });
+                    return items;
+                });
+            },
             Loops: (function() {
                 Restangular.extendModel('loops', function(model) {
                     if (angular.isDefined(model.shows_list)) {
@@ -94,6 +103,14 @@
         .config(['RestangularProvider', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('/api');
             RestangularProvider.setRequestSuffix('/');
+            RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+                var extractedData = data;
+                // .. to look for getList operations
+                if (operation === 'getList' && !Array.isArray(extractedData) && extractedData.results) {
+                    extractedData = extractedData.results;
+                }
+                return extractedData;
+            });
             // X-CSRFToken
             function getCookie(name) {
                 var cookieValue = null;
