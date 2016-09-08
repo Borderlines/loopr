@@ -5,6 +5,8 @@ from django.utils.text import normalize_newlines
 from django.contrib.auth.models import User
 from . import models
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils.decorators import method_decorator
 
 
 def angular_templates():
@@ -20,6 +22,7 @@ def angular_templates():
                     yield (file_name, normalize_newlines(fh.read().decode('utf-8')).replace('\n', ' '))
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class HomePageView(TemplateView):
 
     template_name = "home.html"
