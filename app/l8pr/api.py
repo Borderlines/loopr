@@ -84,6 +84,9 @@ class ShowSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.updated = timezone.now()
+        current_user = self.context['request'].user
+        if current_user != instance.user:
+            raise Exception('you can not update a show that is not yours!')
         # settings
         settings = ShowSettings.objects.filter(pk=instance.settings.pk)
         if settings:
