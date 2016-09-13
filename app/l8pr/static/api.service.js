@@ -75,8 +75,9 @@
                 };
             })(),
             FindOrCreateInbox: (function() {
-                return function(show) {
-                    return self.Shows.getList({show_type: 'inbox'}).then(function(shows) {
+                return function(params) {
+                    return self.Shows.getList({show_type: 'inbox', user: params.user}).then(function(shows) {
+                        var show;
                         if (shows.length === 0) {
                             show = angular.extend({}, {
                                 show_type: 'inbox',
@@ -86,6 +87,9 @@
                             return self.Shows.post(show).then(function(show) {
                                 return show;
                             });
+                        }
+                        if (shows.length > 1) {
+                            throw  {message: 'We found more than 1 inbox', params: params};
                         }
                         return shows[0];
                     });

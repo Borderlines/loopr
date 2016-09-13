@@ -46,10 +46,19 @@ class ItemsField(serializers.Field):
         return serializer.validated_data
 
 
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(many=False)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'loops', 'profile')
+
+
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemsField()
     settings = ShowSettingsSerializer(required=False)
-    username = serializers.SerializerMethodField()
+    user = UserSerializer(required=False, read_only=True)
+    username = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Show
@@ -128,14 +137,6 @@ class LoopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loop
         fields = ('id', 'shows_list', 'user', 'active', 'feed_json')
-
-
-class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(many=False)
-
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'loops', 'profile')
 
 
 class UserViewSet(viewsets.ModelViewSet):
