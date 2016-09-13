@@ -15,21 +15,17 @@
         browser.waitForAngular();
         element(by.css('.toggle-controller')).click();
         browser.waitForAngular();
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
         login();
     });
     afterEach(function() {
-        browser.manage().logs().get('browser').then(function(browserLogs) {
-            browserLogs.forEach(function(log) {
-                console.log(log.message);
-            });
-        });
         browser.driver.get(browser.baseUrl + '/api/auth/logout/');
     });
+    function openShow(show) {
+        element(by.cssContainingText('[ui-sref="index.open.show({showToExplore: show})"]', show)).click();
+    }
     describe('Show', function() {
         var items = element.all(by.repeater('item in vm.show.items'));
-        function openShow(show) {
-            element(by.cssContainingText('[ui-sref="index.open.show({showToExplore: show})"]', show)).click();
-        }
         it('should remove an item from a show', function() {
             openShow('SLWX');
             items.count().then(function(initialCount) {
@@ -73,6 +69,34 @@
                 openShow(showName);
                 expect(element(by.css('.list__item__title', 'Best Of - Alexandre Astier')).isPresent()).toBe(true);
             });
+        });
+    });
+    describe('Open', function() {
+        function openUrlInLoopr(url, title) {
+            browser.get('/open/' + encodeURIComponent(url));
+            browser.waitForAngular();
+            browser.sleep(1000);
+            element(by.css('.banner__title')).getText().then(function(itemTitle) {
+                expect(itemTitle).toBe(title);
+                element(by.css('.toggle-controller')).click();
+                element(by.css('.banner [ng-click="vm.addToShowModal(vm.Player.currentItem)"]')).click();
+                var shows = element.all(by.repeater('show in vm.shows'));
+                shows.get(1).element(by.css('.list__item__title')).getText().then(function(showName) {
+                    shows.get(1).click();
+                    browser.get('/vied12/loop/');
+                    openShow(showName);
+                    expect(element(by.css('.list__item__title', itemTitle)).isPresent()).toBe(true);
+                    element(by.css('[ui-sref="index.open.loop"]')).click();
+                    openShow('my inbox');
+                    expect(element(by.css('.list__item__title', itemTitle)).isPresent()).toBe(true);
+                });
+            });
+        }
+        fit('open an url with loopr.tv (firefox extension)', function() {
+            openUrlInLoopr('https://www.youtube.com/watch?v=sSrXhylmIQc',
+                'Top 10 Science Experiments - Experiments You Can Do at Home Compilation');
+            openUrlInLoopr('https://www.youtube.com/watch?v=05E-mtVbMIE',
+                '6 Science Tricks - Amazing Experiments');
         });
     });
 })();
