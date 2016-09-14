@@ -92,7 +92,7 @@
                 });
             });
         }
-        fit('open an url with loopr.tv (firefox extension)', function() {
+        it('open an url with loopr.tv (firefox extension)', function() {
             openUrlInLoopr('https://www.youtube.com/watch?v=sSrXhylmIQc',
                 'Top 10 Science Experiments - Experiments You Can Do at Home Compilation');
             openUrlInLoopr('https://www.youtube.com/watch?v=05E-mtVbMIE',
