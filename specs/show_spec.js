@@ -75,7 +75,7 @@
         function openUrlInLoopr(url, title) {
             browser.get('/open/' + encodeURIComponent(url));
             browser.waitForAngular();
-            browser.sleep(1000);
+            browser.sleep(2000);
             element(by.css('.banner__title')).getText().then(function(itemTitle) {
                 expect(itemTitle).toBe(title);
                 element(by.css('.toggle-controller')).click();
