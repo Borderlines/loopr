@@ -4,8 +4,9 @@ services:
   - docker
 
 env:
-  DEBUG: "False"
-
+  DEBUG: 'False'
+  global:
+    secure: ZGp7iIf8Eq+6D0exKy2s+/QAjP2DE1qCRSIDRJ8JNm+OZwjgfdWPw87UPbGq+aKhUtbjWfUwpHcXk/t1eYrjEe4f44SzflCGlTgA33LAiL7EWmwjuUe8oDyaiuEAOlxTSb0lQwe27LQrTqmo/aoO5noGZR8PqTL2gqcut7TNKjUXqK6VGovUlimS8BHN4bZmcVtoCWP9UmEsCErpEaxtpxx2rOEHJgW+NXsYN72+s1G59OxVIhuMgVcfGU+EMqRpgcuC+NDiKH5farWrlQbdy5h9dBr06q5/ljcBsnFYfYlPuMYI4ud4H8P5Gcc+VWsYINXJlWbazihsoQJxPbwp36hlQPye/+bdIT3fbqFl4qNB3iIm964Y35w8r+PvVL2PlUTyW9F5jvj61BOVmkpABneh9S8gXXMD5tUbur8SUEfpWPcMY212CLA/16IUPabvzf5C/Od5Wlvc4p2jN8ZmJxhmbWfVka+P9Tp01vZWNeVMWHuEw4cYRt5epE1MQcBhJ6WriHgl/i554goUS+TBq19SzV7S2PuVtTVOJADYIE1gw9y4dH7z23H8ynMEtDsJSHhIhXzRklldC6AbD8kzbk6YXtvgr30DdZT5ytkY7fYa7fsrVeZQlpwlhGjAeQmdy6XQ6iM2SzF8hpIOBQTPB159mmkoI+Uo/m5cGVbb/K4=
 
 before_install:
   - sudo sh -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-precise main" > /etc/apt/sources.list.d/docker.list'
