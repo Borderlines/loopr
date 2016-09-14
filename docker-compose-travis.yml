@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     environment:
       - IFRAMELY_API_KEY
+      - GOOGLE_API_KEY
       - DJANGO_SETTINGS_MODULE=app.settings_docker
     depends_on:
       - elasticsearch

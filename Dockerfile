@@ -3,7 +3,7 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
 
-RUN apt-get update
+RUN apt-get update || true
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install -y openjdk-7-jdk nodejs chromium Xvfb
 
