@@ -5,6 +5,8 @@ services:
   elasticsearch:
     image: elasticsearch
   web:
+    environment:
+      - IFRAMELY_API_KEY
     build: .
     command: bash -c "sleep 5; python manage.py runserver 0.0.0.0:8000"
     ports:
