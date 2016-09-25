@@ -7,7 +7,8 @@ import { Provider } from 'react-redux';
 
 const DevTools = createDevTools(
   <DockMonitor toggleVisibilityKey='ctrl-h'
-               changePositionKey='ctrl-q'>
+               defaultPosition='top'
+               changePositionKey='ctrl-e'>
     <LogMonitor theme='tomorrow' />
   </DockMonitor>
 );

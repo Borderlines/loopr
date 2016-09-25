@@ -15,8 +15,8 @@
             data-item="vm.currentItem">
 </webtorrent>
 <loopr-giphy ng-if="vm.currentShow.settings.force_giphy ||
-                    (vm.currentItem.provider_name == 'SoundCloud' &&
-                    vm.currentShow.settings.giphy)">
+                    (vm.currentItem.provider_name == 'SoundCloud')"
+            data-item="vm.currentShow">
 </loopr-giphy>
 <div class="overlay"
      ng-click="vm.Player.playPause()">
