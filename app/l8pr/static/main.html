@@ -1,22 +1,22 @@
-<soundcloud ng-if="vm.Player.currentItem.provider_name == 'SoundCloud'"
-                soundcloud-item="vm.Player.currentItem">
+<soundcloud ng-if="vm.currentItem.provider_name == 'SoundCloud'"
+                soundcloud-item="vm.currentItem">
 </soundcloud>
-<div ng-class="{'hidden': vm.Player.currentShow.settings.force_giphy}">
-<youtube ng-if="vm.Player.currentItem.provider_name == 'YouTube'"
+<div ng-class="{'hidden': vm.currentShow.settings.force_giphy}">
+<youtube ng-if="vm.currentItem.provider_name == 'YouTube'"
 
-         data-item="vm.Player.currentItem">
+         data-item="vm.currentItem">
 </youtube>
 </div>
-<vimeo ng-if="vm.Player.currentItem.provider_name == 'Vimeo'"
-         data-item="vm.Player.currentItem">
+<vimeo ng-if="vm.currentItem.provider_name == 'Vimeo'"
+         data-item="vm.currentItem">
 </vimeo>
-<webtorrent ng-if="vm.Player.currentItem.provider_name == 'WebTorrent'"
+<webtorrent ng-if="vm.currentItem.provider_name == 'WebTorrent'"
             class="webtorrent"
-            data-item="vm.Player.currentItem">
+            data-item="vm.currentItem">
 </webtorrent>
-<loopr-giphy ng-if="vm.Player.currentShow.settings.force_giphy ||
-                    (vm.Player.currentItem.provider_name == 'SoundCloud' &&
-                    vm.Player.currentShow.settings.giphy)">
+<loopr-giphy ng-if="vm.currentShow.settings.force_giphy ||
+                    (vm.currentItem.provider_name == 'SoundCloud' &&
+                    vm.currentShow.settings.giphy)">
 </loopr-giphy>
 <div class="overlay"
      ng-click="vm.Player.playPause()">
@@ -34,17 +34,17 @@
                         <i class="material-icons">play_arrow</i>
                     </div>
                     <div class="banner__title col-xs-9 col-md-9">
-                        <span ui-sref="index.open.show({showToExplore: vm.Player.currentShow})">{{ vm.Player.currentItem.title }}</span>
+                        <span ui-sref="index.open.show({showToExplore: vm.currentShow})">{{ vm.currentItem.title }}</span>
                     </div>
                     <div class="col-xs-1 col-md-1 text-right">
-                        <a ng-href="{{ vm.Player.currentItem.url }}" target="_blank">
-                            <i ng-if="vm.Player.currentItem.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Youtube"></i>
-                            <i ng-if="vm.Player.currentItem.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Soundcloud"></i>
-                            <i ng-if="vm.Player.currentItem.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Vimeo"></i>
+                        <a ng-href="{{ vm.currentItem.url }}" target="_blank">
+                            <i ng-if="vm.currentItem.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.currentItem.title}} on Youtube"></i>
+                            <i ng-if="vm.currentItem.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.currentItem.title}} on Soundcloud"></i>
+                            <i ng-if="vm.currentItem.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{vm.currentItem.title}} on Vimeo"></i>
                         </a>
                     </div>
                     <div class="col-xs-1 col-md-1 text-right">
-                        <i class="material-icons" ng-click="vm.addToShowModal(vm.Player.currentItem)" title="Add this Item to a Show">playlist_add</i>
+                        <i class="material-icons" ng-click="vm.addToShowModal(vm.currentItem)" title="Add this Item to a Show">playlist_add</i>
                     </div>
                 </div>
             </div>
@@ -89,10 +89,10 @@
                 <div class="progress" ng-click="vm.setPosition($event)">
                     <div class="progress-bar"
                          role="progressbar"
-                         aria-valuenow="{{ vm.Player.currentPosition }}"
+                         aria-valuenow="{{ vm.progression }}"
                          aria-valuemin="0"
                          aria-valuemax="100"
-                         ng-style="{width: vm.Player.currentPosition + '%'}">
+                         ng-style="{width: vm.progression + '%'}">
                     </div>
                 </div>
             </div>

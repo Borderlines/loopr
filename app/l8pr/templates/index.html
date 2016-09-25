@@ -28,14 +28,14 @@
     </head>
     <body>
         {% csrf_token %}
+        <div id="devTools"></div>
         <div ui-view></div>
         <script src="//connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
         {% compress js %}
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/modernizr/modernizr.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/jquery/dist/jquery.min.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/lodash/lodash.min.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular/angular.min.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-ui-router/release/angular-ui-router.js" />
+        <script type="module" charset="utf-8" src="/static/index.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-resource/angular-resource.min.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-sanitize/angular-sanitize.min.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-animate/angular-animate.min.js" />
@@ -52,10 +52,7 @@
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-confirm-modal/angular-confirm.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js" />
         <script type="text/javascript" charset="utf-8" src="/static/bower_components/jquery-mousewheel/jquery.mousewheel.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/main.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/player/player.ctrl.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/player.service.js" />
-        <script type="text/javascript" charset="utf-8" src="/static/player/soundcloud/module.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/giphy.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/youtube/module.js" />
         <script type="text/javascript" charset="utf-8" src="/static/player/webtorrent/module.js" />

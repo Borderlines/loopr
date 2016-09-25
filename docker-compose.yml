@@ -11,9 +11,11 @@ services:
   web:
     build: .
     env_file: .env
-    command: bash -c "sleep 5; python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
+      - /code/node_modules
+      - /code/app/l8pr/static/bower_components
     ports:
       - "8000:8000"
     environment:

@@ -5,7 +5,7 @@ WORKDIR /code
 
 RUN apt-get update || true
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get install -y openjdk-7-jdk nodejs chromium Xvfb
+RUN apt-get install -y openjdk-7-jdk nodejs chromium Xvfb || true
 
 ADD requirements.txt /code/
 RUN pip install -r requirements.txt
@@ -15,9 +15,8 @@ COPY ./bower.json /code/
 COPY ./.bowerrc /code/
 
 RUN npm install -g npm
-RUN npm install -g protractor
+RUN npm install -g protractor bower
 RUN webdriver-manager update
-RUN npm install -g bower
 RUN npm install
 RUN bower --allow-root install
 ADD . /code/

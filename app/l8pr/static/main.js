@@ -1,7 +1,17 @@
+import rootReducer from './player/reducers';
+import ngRedux from 'ng-redux';
+import { default as DevTools, runDevTools} from './devTools';
+import ngReduxUiRouter from 'redux-ui-router';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
+import SoundcloudDirective from './player/soundcloud';
+import ProgressionService from './player/services/progression';
+
 (function() {
     'use strict';
-
     angular.module('loopr.player', [
+        ngRedux,
+        ngReduxUiRouter,
         'loopr.api',
         'loopr.strip',
         'loopr.login',
@@ -13,6 +23,8 @@
         'loopr.player.webtorrent',
         'FBAngular',
         'ui.router'])
+        .service('progression', ProgressionService)
+        .directive('soundcloud', SoundcloudDirective)
         .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider', '$locationProvider',
         function($stateProvider, $urlRouterProvider, hotkeysProvider, $locationProvider) {
             hotkeysProvider.useNgRoute = false;
@@ -87,28 +99,28 @@
                 templateUrl: '/main.html',
                 controllerAs: 'vm',
                 resolve: {
-                    loop: ['$stateParams', 'Player', 'login', '$state', '$q',
-                        function($stateParams, Player, login, $state, $q) {
-                        if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
-                            return login.login().then(function(user) {
-                                $state.go('index', {username: user.username});
-                            }, function() {
-                                $state.go('index', {username: 'discover'});
-                            });
-                        }
-                        if (angular.isDefined(Player.loop)) {
-                            Player.playShow(Player.loop.shows_list[0], 0);
-                            return Player.loop;
-                        }
-                        var username = $stateParams.username;
-                        if ($stateParams.username === 'resetpassword') {
-                            username = 'discover';
-                        }
-                        return Player.loadLoop(username, $stateParams.item)
-                        .then(function(loop) {
-                            return Player.playLoop(loop, $stateParams.show, $stateParams.item);
-                        });
-                    }]
+                    // loop: ['$stateParams', 'Player', 'login', '$state', '$q', '$ngRedux',
+                    //     function($stateParams, Player, login, $state, $q, $ngRedux) {
+                    //     if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
+                    //         return login.login().then(function(user) {
+                    //             $state.go('index', {username: user.username});
+                    //         }, function() {
+                    //             $state.go('index', {username: 'discover'});
+                    //         });
+                    //     }
+                    //     let playerState = $ngRedux.getState().player;
+                    //     if (playerState.shows.length > 0) {
+                    //         return playerState;
+                    //     }
+                    //     var username = $stateParams.username;
+                    //     if ($stateParams.username === 'resetpassword') {
+                    //         username = 'discover';
+                    //     }
+                    //     return Player.loadLoop(username, $stateParams.item)
+                    //     .then(function(loop) {
+                    //         return Player.playLoop(loop, $stateParams.show, $stateParams.item);
+                    //     });
+                    // }]
                 }
             })
             .state('index.open', {
@@ -240,6 +252,14 @@
                 }
             });
         }])
+        .config(['$ngReduxProvider', function($ngReduxProvider) {
+            const logger = createLogger({
+                level: 'info',
+                collapsed: true
+            });
+            $ngReduxProvider.createStoreWith(rootReducer, ['ngUiRouterMiddleware', thunk, logger], [DevTools.instrument()]);
+        }])
+        .run(runDevTools)
         .service('ApiCache', [function() {
             var self = this;
             angular.extend(self, {
