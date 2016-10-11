@@ -2,9 +2,9 @@
     'use strict';
 
     PlayerCtrl.$inject = ['Player', '$stateParams', '$timeout','login', 'loop', 'addToShowModal', 'Api',
-    '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip'];
+    '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip', 'help'];
     function PlayerCtrl(Player, $stateParams, $timeout, login, loop, addToShowModal, Api,
-        $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService) {
+        $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService, help) {
         var vm = this;
         angular.extend(vm, {
             $state: $state,
@@ -21,6 +21,10 @@
             nextItem: Player.nextItem,
             nextShow: Player.nextShow,
             playPause: Player.playPause,
+            help: function() {
+                    console.log('coucou');
+                    help.open();
+            },
             isExtented: function() {
                 return !_.contains(['index', 'resetPassword'], vm.$state.current.name);
             },

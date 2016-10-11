@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="controller col-xs-12 col-md-4">
-                <div class="controller__prevPlayNext col-xs-8">
+                <div class="controller__prevPlayNext col-xs-7">
                     <span ng-click="vm.previousShow()" title="Previous Show"><i class="material-icons">first_page</i></span>
                     <span ng-click="vm.previousItem()" title="Previous Item"><i class="material-icons">chevron_left</i></span>
                     <span ng-click="vm.Player.playPause()" title="Play/Pause"><i class="material-icons">pause</i></span>
@@ -58,7 +58,6 @@
                     <span ng-click="vm.Player.toggleMute()" title="Mute on/off">
                         <i class="material-icons">{{ vm.Player.isMuted ? 'volume_off' : 'volume_up' }}</i>
                     </span>
-                    <span><i class="material-icons text-muted" title="Coming Soon...">flash_off</i></span>
                 </div>
                 <div class="controller__display col-xs-3 text-left">
                     <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide" title="Strip auto-hide on/off">
@@ -67,6 +66,9 @@
                     <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}" title="Enter Fullscreen">
                         <i class="material-icons">fullscreen</i>
                     </span>
+                </div>
+                <div class="controller__help col-xs-1">
+                    <span><i class="material-icons" ng-click="vm.help()" title="about Loopr">help_outline</i></span>
                 </div>
                 <div class="controller__toggle col-xs-1 text-right">
                     <i class="toggle-controller material-icons" ng-click="vm.stripService.toggleController()" title="Toggle Navigation">keyboard_arrow_down</i>
