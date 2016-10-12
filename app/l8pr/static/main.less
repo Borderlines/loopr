@@ -521,7 +521,19 @@ font-family: @FONT1 !important;
         background-color: @text-color !important;
         color: @body-bg !important;
     }
-
+    &__back-to-loop {
+        background-color: @body-bg;
+        padding: 5px 30px 20px 30px;
+        i {
+            color: @text-color;
+        }
+        i:hover {
+            color: @brand-primary;
+        }
+        span {
+            margin-top: 0px !important;
+        }
+    }
     &__info {
         .h6;
         .row;
@@ -546,7 +558,7 @@ font-family: @FONT1 !important;
             font-size: 18px !important;
         }
         @media (min-width: @screen-md){
-            .text-left;
+            //.text-left;
             .h5;
             padding: 30px 30px 140px 30px;
             line-height: 1.5em;

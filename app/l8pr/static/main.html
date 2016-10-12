@@ -36,7 +36,7 @@
                     <div class="banner__title col-xs-9 col-md-9">
                         <span ui-sref="index.open.show({showToExplore: vm.Player.currentShow})">{{ vm.Player.currentItem.title }}</span>
                     </div>
-                    <div class="col-xs-1 col-md-1 text-right">
+                    <div class="col-xs-1 col-md-1">
                         <a ng-href="{{ vm.Player.currentItem.url }}" target="_blank">
                             <i ng-if="vm.Player.currentItem.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Youtube"></i>
                             <i ng-if="vm.Player.currentItem.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.Player.currentItem.title}} on Soundcloud"></i>
