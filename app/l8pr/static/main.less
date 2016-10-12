@@ -9,6 +9,7 @@
 @import "strip/loop/style.less";
 @import "strip/search-results/style.less";
 @import "strip/header/style.less";
+@import "strip/help/style.less";
 @import "strip/feed/style.less";
 
 a, [ng-click], [ui-sref], [uib-dropdown-toggle] {
@@ -191,11 +192,11 @@ body .plyr {
     .box-shadow(10px 10px 0px fade(@text-color, 20));
     font-family: @FONT2;
     border: none !important;
-    padding: 20px;
+    padding: 30px;
 }
 
 .modal-backdrop {
-    background-color: fade(@brand-primary, 10);
+    background-color: fade(@brand-primary, 20);
     &.fade { .opacity(0); }
     &.in { .opacity(@modal-backdrop-opacity); }
 }
@@ -207,7 +208,7 @@ body .plyr {
 .modal-title {
     .h3;
     .row;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
 }
 
 .modal-body {
@@ -225,6 +226,47 @@ body .plyr {
     }
 }
 
+//panels
+
+.panel {
+  //margin-bottom: @line-height-computed;
+  //background-color: @panel-bg;
+  border: 0px !important;
+  //border-radius: @panel-border-radius;
+  .box-shadow(0 0px 0px rgba(0,0,0,0));
+  background-color: transparent;
+
+}
+
+
+.panel-heading, .panel-default {
+  padding: 10 0 10 0;
+  border: 0px !important;
+  background-color: transparent;;
+  //.border-top-radius((@panel-border-radius - 1));
+
+  > .dropdown .dropdown-toggle {
+    color: inherit;
+  }
+}
+.panel-default > .panel-heading {
+    border: 0px !important;
+    background-color: transparent;;
+}
+.panel-body {
+    border: 0px !important;
+  padding: @panel-body-padding;
+  &:extend(.clearfix all);
+  background-color: transparent;;
+
+}
+
+.panel-title {
+padding: 10 0 10 0;
+border: 0px !important;
+background-color: transparent;
+font-family: @FONT1 !important;
+}
 // END Override Bootstrap //
 //
 

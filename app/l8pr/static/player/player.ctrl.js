@@ -4,9 +4,9 @@ import {showSelector, itemSelector} from './selectors';
     'use strict';
 
     PlayerCtrl.$inject = ['Player', '$timeout','login', 'addToShowModal', 'Api', '$ngRedux', 'progression', '$interval',
-    '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip'];
+    '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip', 'help'];
     function PlayerCtrl(Player, $timeout, login, addToShowModal, Api, $ngRedux, progression, $interval,
-        $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService) {
+        $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService, help) {
         var vm = this;
         let disconnect = $ngRedux.connect(state => ({
             player: state.player,
@@ -33,7 +33,11 @@ import {showSelector, itemSelector} from './selectors';
             nextItem: () => vm.nextItem,
             nextShow: () => vm.nextShow,
             // playPause: () => vm.playPause,
-            isExtented: function() {
+			help: function() {
+                    console.log('coucou');
+                    help.open();
+            },
+			isExtented: function() {
                 return !_.contains(['index', 'resetPassword'], $state.current.name);
             },
             setPosition: $event =>  progression.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100),
