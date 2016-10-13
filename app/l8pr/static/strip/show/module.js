@@ -29,9 +29,6 @@ addToShowModal, Api, $state, $confirm, Restangular) {
         },
         addItemToAShow: addToShowModal
     });
-    Api.Accounts.one(show.user).get().then(function(user) {
-        vm.user = user;
-    });
     scope.$on('l8pr.updatedShow', function(e, updatedShow) {
         if (show.id === updatedShow.id) {
             $state.reload($state.current.name);
