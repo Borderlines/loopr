@@ -1,8 +1,12 @@
 .help {
-    h4 {
+    h5 {
         font-family: @FONT1;
-        padding: 30px 0px 20px 0px;
+        padding: 40px 0px 20px 0px;
         font-weight: bold;
+        text-transform: uppercase;
+    }
+    p {
+        margin-right: 20%;
     }
     &__loopr-name {
         color: @text-color;
@@ -27,6 +31,7 @@
         font-family: @FONT2;
         font-size: @font-size-h5;
         margin-top: 5px;
+        margin-bottom: 20px;
         //font-style: italic;
         //margin-left: 10px;
 
@@ -68,8 +73,25 @@
             display: inline-block;
         }
     }
+    &__plugin {
+        a {
+            font-weight: bold;
+        }
+        a:hover {
+            font-weight: bolder;
+            color: @brand-primary;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+    }
     &__footer {
+        color: #666;
         margin: 0px 15px 0px 0px;
+        line-height: 2em;
+        a {
+            color: #666;
+        }
         a:hover {
             font-weight: bolder;
             color: @brand-primary;

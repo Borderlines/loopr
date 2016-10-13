@@ -483,13 +483,14 @@ font-family: @FONT1 !important;
 
 //Side bar
 .side-bar {
+    background-color: fade(@text-color, 90);
     .row;
     .text-left;
     background-blend-mode: multiply;
     font-family: @FONT2;
     color: @text-color;
     margin: 0 !important;
-    box-shadow: 0px 10px 0px @SHADOW;
+    overflow: hidden;
 
     a, [ng-click], [ui-sref] {
         color: @body-bg;
@@ -523,7 +524,7 @@ font-family: @FONT1 !important;
     }
     &__back-to-loop {
         background-color: @body-bg;
-        padding: 5px 30px 20px 30px;
+        padding: 0px 30px 20px 30px;
         i {
             color: @text-color;
         }
@@ -550,7 +551,7 @@ font-family: @FONT1 !important;
     &__filter {
         .h5;
         padding: 10px 20px;
-        background-color: fade(@text-color, 90);
+        //background-color: fade(@text-color, 90);
         color: fade(@body-bg, 90) !important;
         margin: 0px;
         border: none !important;
@@ -560,7 +561,7 @@ font-family: @FONT1 !important;
         @media (min-width: @screen-md){
             //.text-left;
             .h5;
-            padding: 30px 30px 140px 30px;
+            padding: 20px 30px 50px 30px;
             line-height: 1.5em;
             margin: 0px;
             i {
