@@ -6,7 +6,7 @@ WORKDIR /code
 RUN apt-get update || true
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install -y nodejs
-# RUN apt-get install -y openjdk-7-jdk nodejs chromium Xvfb
+RUN apt-get install -y openjdk-7-jdk nodejs chromium Xvfb
 
 ADD requirements.txt /code/
 RUN pip install -r requirements.txt
