@@ -16,6 +16,9 @@
     "COMPRESS_OFFLINE":{
         "value": "True"
     },
+    "DOMAIN":{
+        "value": "True"
+    },
     "GOOGLE_API_KEY":{
       "required":true
     },
