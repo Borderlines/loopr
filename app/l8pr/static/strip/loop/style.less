@@ -15,6 +15,14 @@
         display: inline-block;
         overflow: hidden;
         background-color: fade(@gray-dark, 90);
+        &__icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 2;
+            padding: 10px;
+            i {font-size: 2em !important;}
+        }
         &__body {
             font-family: @FONT2;
             background-color: @body-bg;

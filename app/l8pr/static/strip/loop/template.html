@@ -4,6 +4,12 @@
              ng-repeat="show in ::vm.shows"
              ng-class="{'Loop__show--current-show': vm.Player.currentShow.id === show.id}"
              ng-style="{width: getWidth(show)}">
+            <div class="Loop__show__icon" ng-if="::show.show_type === 'last_item'">
+                <i class="material-icons">new_releases</i>
+            </div>
+            <div class="Loop__show__icon" ng-if="::show.show_type === 'inbox'">
+                <i class="material-icons">move_to_inbox</i>
+            </div>
              <div class="Loop__show__body">
                 <a ui-sref="index.open.show({showToExplore: show})">
                     <div class="title" title="Browse this Show">
