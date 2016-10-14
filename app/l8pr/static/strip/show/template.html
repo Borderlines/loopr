@@ -5,13 +5,11 @@
             <div>Show by <b ng-bind="vm.show.username"></b></div>
             <div>{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
         </div>
-        <div class="Show__side-bar__back-to-loop">
+        <div class="Show__side-bar__filter">
             <a ui-sref="index.open.loop" class="user-name">
                 <i class="material-icons" title="Back to the loop">arrow_back</i>
             </a>
-        </div>
-        <div class="Show__side-bar__filter text-right">
-            <i class="material-icons" ng-click="vm.showConfig()">settings</i>
+            <i class="material-icons pull-right" ng-click="vm.showConfig()">settings</i>
         </div>
     </div>
     <div class="list col-xs-12 col-md-9" body-scrollable>

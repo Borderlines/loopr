@@ -483,7 +483,6 @@ font-family: @FONT1 !important;
 
 //Side bar
 .side-bar {
-    background-color: fade(@text-color, 90);
     .row;
     .text-left;
     background-blend-mode: multiply;
@@ -493,22 +492,20 @@ font-family: @FONT1 !important;
     overflow: hidden;
 
     a, [ng-click], [ui-sref] {
-        color: @body-bg;
+        color: fade(@text-color, 80) !important;
         &:hover {
-            color: @text-color;
-            background-color: @body-bg;
+            color: fade(@brand-primary, 100) !important;
+            //background-color: @body-bg;
         }
     }
     &__title {
         .h4;
-        //font-family: @FONT1;
         margin: 0px;
         padding: 20px 20px 10px 20px;
         font-weight: 500;
         background-color: @body-bg;
         @media (min-width: @screen-md){
             .h2;
-            //font-family: @FONT1;
             padding: 30px;
             line-height: 1.5em;
             margin: 0px;
@@ -522,19 +519,7 @@ font-family: @FONT1 !important;
         background-color: @text-color !important;
         color: @body-bg !important;
     }
-    &__back-to-loop {
-        background-color: @body-bg;
-        padding: 0px 30px 20px 30px;
-        i {
-            color: @text-color;
-        }
-        i:hover {
-            color: @brand-primary;
-        }
-        span {
-            margin-top: 0px !important;
-        }
-    }
+
     &__info {
         .h6;
         .row;
@@ -551,8 +536,7 @@ font-family: @FONT1 !important;
     &__filter {
         .h5;
         padding: 10px 20px;
-        //background-color: fade(@text-color, 90);
-        color: fade(@body-bg, 90) !important;
+        color: fade(@text-color, 90) !important;
         margin: 0px;
         border: none !important;
         i {
