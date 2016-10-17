@@ -135,7 +135,7 @@
                         controllerAs: 'vm'
                     },
                     body: {
-                        template: '<div ui-view="body"></div>'
+                        template: '<div ui-view="body" class="spinner"></div>'
                     }
                 }
             })
@@ -276,7 +276,19 @@
                 }
             });
         }])
-        .run(['$history', '$state', '$rootScope', 'hotkeys', function($history, $state, $rootScope, hotkeys) {
+        .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout',
+        function($history, $state, $rootScope, hotkeys, $timeout) {
+            $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+                $timeout(function() {
+                    $('[ui-view="body"]').addClass('spinner');
+                }, 0, false);
+            });
+
+            $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
+                $timeout(function() {
+                    $('[ui-view="body"]').removeClass('spinner');
+                }, 0, false);
+            });
             $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
                 if ($history.goingBack) {
                     $history.goingBack = false;
