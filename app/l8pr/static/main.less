@@ -489,25 +489,23 @@ font-family: @FONT1 !important;
     font-family: @FONT2;
     color: @text-color;
     margin: 0 !important;
-    box-shadow: 0px 10px 0px @SHADOW;
+    overflow: hidden;
 
     a, [ng-click], [ui-sref] {
-        color: @body-bg;
+        color: fade(@text-color, 80) !important;
         &:hover {
-            color: @text-color;
-            background-color: @body-bg;
+            color: fade(@brand-primary, 100) !important;
+            //background-color: @body-bg;
         }
     }
     &__title {
         .h4;
-        //font-family: @FONT1;
         margin: 0px;
         padding: 20px 20px 10px 20px;
         font-weight: 500;
         background-color: @body-bg;
         @media (min-width: @screen-md){
             .h2;
-            //font-family: @FONT1;
             padding: 30px;
             line-height: 1.5em;
             margin: 0px;
@@ -538,17 +536,16 @@ font-family: @FONT1 !important;
     &__filter {
         .h5;
         padding: 10px 20px;
-        background-color: fade(@text-color, 90);
-        color: fade(@body-bg, 90) !important;
+        color: fade(@text-color, 90) !important;
         margin: 0px;
         border: none !important;
         i {
             font-size: 18px !important;
         }
         @media (min-width: @screen-md){
-            .text-left;
+            //.text-left;
             .h5;
-            padding: 30px 30px 140px 30px;
+            padding: 20px 30px 50px 30px;
             line-height: 1.5em;
             margin: 0px;
             i {
@@ -579,5 +576,47 @@ font-family: @FONT1 !important;
                 line-height: 1.6em;
             }
         }
+    }
+}
+// LOADER
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes spinner {
+    to {-webkit-transform: rotate(360deg);}
+}
+
+.spinner {
+    min-width: 30px;
+    position: relative;
+    min-height: 30px;
+    &:before {
+        position: absolute;
+        z-index: 9;
+        background-color: rgba(0,0,0,.2);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        content: '';
+    }
+    &:after {
+        content: 'Loading…';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        margin-top: -13px;
+        margin-left: -13px;
+    }
+    &:not(:required):after {
+        content: '';
+        border-radius: 50%;
+        border-top: 4px solid black;
+        border-right: 4px solid transparent;
+        animation: spinner .6s linear infinite;
+        -webkit-animation: spinner .6s linear infinite;
     }
 }

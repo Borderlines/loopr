@@ -31,8 +31,11 @@
             <div class="banner col-xs-12 col-md-8">
                 <div class="row">
                     <div class="banner__playButton col-xs-1 col-md-1">
-                        <i class="material-icons">play_arrow</i>
+                        <span ng-click="vm.Player.playPause()" title="Play/Pause">
+                            <i class="material-icons">{{ vm.Player.currentStatus === 'playing' ? 'pause' : 'play_arrow' }}</i>
+                        </span>
                     </div>
+
                     <div class="banner__title col-xs-9 col-md-9">
                         <span ui-sref="index.open.show({showToExplore: vm.currentShow})">{{ vm.currentItem.title }}</span>
                     </div>
@@ -52,7 +55,9 @@
                 <div class="controller__prevPlayNext col-xs-7">
                     <span ng-click="vm.previousShow()" title="Previous Show"><i class="material-icons">first_page</i></span>
                     <span ng-click="vm.previousItem()" title="Previous Item"><i class="material-icons">chevron_left</i></span>
-                    <span ng-click="vm.Player.playPause()" title="Play/Pause"><i class="material-icons">pause</i></span>
+                    <span ng-click="vm.Player.playPause()" title="Play/Pause">
+                        <i class="material-icons">{{ vm.Player.currentStatus === 'playing' ? 'pause' : 'play_arrow' }}</i>
+                    </span>
                     <span ng-click="vm.nextItem()" title="Next Item"><i class="material-icons">chevron_right</i></span>
                     <span ng-click="vm.nextShow()" title="Next Show"><i class="material-icons">last_page</i></span>
                     <span ng-click="vm.Player.toggleMute()" title="Mute on/off">

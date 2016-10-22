@@ -2,8 +2,9 @@
     <div class="strip__header row">
         <div ng-if="!vm.searchBarVisible" class="strip__header__title row col-xs-9 col-md-11">
             <div class="info">
+                <i class="logo material-icons" title="soon access a catalog of loops. Coming december 2016.">all_inclusive</i>
                 <a ui-sref="index.open.loop" class="user-name"><strong>{{ vm.loopAuthor }}</strong></a>
-                <i class="number-shows">{{ vm.showsCount }} Shows</i>
+                <a class="number-shows">{{ vm.showsCount }} Shows</a>
             </div>
         </div>
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar text-right col-xs-9 col-md-11">

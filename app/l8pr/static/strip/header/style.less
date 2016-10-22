@@ -12,6 +12,8 @@
         .logo {
             display: inline-block;
             padding-right: @MARGE * 1.5;
+            cursor:default;
+            margin-left: -5px;
         }
         .info {
             .h5;
@@ -19,7 +21,7 @@
             margin-top: -5px !important;
             .user-name, .user-name:active {
                 .text-capitalize;
-                padding-left: 3px;
+                margin-left: 40px;
                 padding-right: 3px;
                 color: @text-color;
             }
@@ -29,6 +31,9 @@
             }
             .number-shows {
                 font-style: italic;
+            }
+            i {
+                position: absolute;
             }
         }
     }

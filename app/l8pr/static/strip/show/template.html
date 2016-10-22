@@ -1,15 +1,15 @@
 <div class="Show row" ng-class="{'Show--playing-now': vm.playingNow}">
     <div class="Show__side-bar col-xs-12 col-md-3">
-        <div class="Show__side-bar__title show" ng-bind="vm.show.title">
-        </div>
+        <div class="Show__side-bar__title show" ng-bind="vm.show.title"></div>
         <div class="Show__side-bar__info">
-            <div>Show by <b ng-bind="vm.user.username"></b></div>
+            <div>Show by <b ng-bind="vm.show.username"></b></div>
             <div>{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
         </div>
-        <div class="Show__side-bar__filter text-right">
-            <i class="material-icons text-muted">play_circle_filled</i>
-            <i class="material-icons text-muted">favorite_border</i>
-            <i class="material-icons" ng-click="vm.showConfig()">settings</i>
+        <div class="Show__side-bar__filter">
+            <a ui-sref="index.open.loop" class="user-name">
+                <i class="material-icons" title="Back to the loop">arrow_back</i>
+            </a>
+            <i class="material-icons pull-right" ng-click="vm.showConfig()">settings</i>
         </div>
     </div>
     <div class="list col-xs-12 col-md-9" body-scrollable>
@@ -21,9 +21,9 @@
                 <img ng-src="{{ item.thumbnail }}"</>
             </div>
 
-            <div class="col-xs-6 col-md-8">
+            <div class="col-xs-6 col-md-7">
                 <div class="list__item__title"
-                     ng-click="vm.activeItem = item"
+                     ng-click="vm.player.playShow(vm.show, $index)"
                      ng-bind="item.title"
                      title="more info about {{item.title}}"></div>
                 <div class="list__item__info hidden-xs">
@@ -41,8 +41,7 @@
                     </span>
                 </div>
             </div>
-            <div class="list__item__actions col-xs-2 col-md-1">
-                <!--<i class="material-icons" ng-if="vm.player.currentItem === item">pause</i>-->
+            <div class="list__item__actions col-xs-2 col-md-2">
                 <i class="material-icons" ng-click="vm.addItemToAShow(item)" title="Add this Item to a Show">playlist_add</i>
                 <i class="material-icons" ng-click="vm.removeItem(item)" title="Remove this Item from this show">clear</i>
             </div>

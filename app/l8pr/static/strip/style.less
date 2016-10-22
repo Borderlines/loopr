@@ -36,6 +36,10 @@
                 color: @brand-primary;
             }
             .banner__title {
+                i {
+                    color: blue;
+                    margin-top: -30px;
+                }
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -54,6 +58,16 @@
                 @media (min-width: @screen-md){
                     padding-left: 20px;
                 }
+            }
+
+            .fa-youtube-play:hover {
+                color: @color_youtube;
+            }
+            .fa-soundcloud:hover {
+                color: @color_soundcloud;
+            }
+            .fa-vimeo-square:hover {
+                color: @color_vimeo;
             }
         }
         .controller {
