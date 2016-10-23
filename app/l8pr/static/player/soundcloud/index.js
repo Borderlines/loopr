@@ -1,4 +1,4 @@
-import * as playerAction from '../actions/player';
+import * as playerAction from '../actions';
 
 SoundcloudDirective.$inject = ['$interval', '$q', '$http', '$ngRedux', 'progression'];
 export default function SoundcloudDirective($interval, $q, $http, $ngRedux, progression) {

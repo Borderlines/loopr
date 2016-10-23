@@ -51,12 +51,12 @@
                         Player.nextItem();
                     },
                     playing: function(event) {
-                        Player.setStatus('playing');
+                        // Player.setStatus('playing');
                         plyrPlayer.setVolume((Player.isMuted) ? 0 : 100);
                         trackProgression(plyrPlayer.embed);
                     },
                     pause: function(event) {
-                        Player.setStatus('pause');
+                        // Player.setStatus('pause');
                     },
                     ended: function(event) {
                         $interval.cancel(progressionTracker);

@@ -1,4 +1,4 @@
-import * as playerAction from './actions/player';
+import * as playerAction from './actions';
 import {showSelector, itemSelector} from './selectors';
 (function() {
     'use strict';
@@ -8,14 +8,18 @@ import {showSelector, itemSelector} from './selectors';
     function PlayerCtrl(Player, $timeout, login, addToShowModal, Api, $ngRedux, progression, $interval,
         $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService, help) {
         var vm = this;
-        let disconnect = $ngRedux.connect(state => ({
+        const mapStateToTarget = (state) => ({
+            router: state.router,
             player: state.player,
+            strip: state.strip,
             currentShow: showSelector(state.player),
             currentItem: itemSelector(state.player)
-        }), playerAction)(vm);
-        Player.loadLoop('vied12').then(function(loop) {
+        })
+        let disconnect = $ngRedux.connect(mapStateToTarget, playerAction)(vm);
+        const {username, show, item} = vm.router.currentParams;
+        Player.loadLoop(username).then(function(loop) {
             vm.setLoop(loop.shows_list);
-            vm.playItem(0, 1);
+            vm.playItem(show, item);
         });
         $scope.$on('$destroy', disconnect);
         angular.extend(vm, {
@@ -28,33 +32,27 @@ import {showSelector, itemSelector} from './selectors';
             upperStrip: upperStrip,
             lowerStrip: lowerStrip,
             stripService: stripService,
-            previousShow: () => vm.previousShow,
-            previousItem: () => vm.previousItem,
-            nextItem: () => vm.nextItem,
-            nextShow: () => vm.nextShow,
-            // playPause: () => vm.playPause,
-			help: function() {
-                    console.log('coucou');
+            help: function() {
                     help.open();
             },
-			isExtented: function() {
+            isExtented: function() {
                 return !_.contains(['index', 'resetPassword'], $state.current.name);
             },
-            setPosition: $event =>  progression.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100),
+            // setPosition: $event =>  progression.setPosition(($event.offsetX / $event.currentTarget.offsetWidth) * 100),
             isFullScreen: Fullscreen.isEnabled,
-            toggleFullscreen: function() {
-                if (Fullscreen.isEnabled()) {
-                    Fullscreen.cancel();
-                } else {
-                    Fullscreen.all();
-                }
-            },
+            // toggleFullscreen: function() {
+            //     if (Fullscreen.isEnabled()) {
+            //         Fullscreen.cancel();
+            //     } else {
+            //         Fullscreen.all();
+            //     }
+            // },
             login: login,
             showAndHideStrip: _.throttle(strip.showAndHide, 500)
         });
-        $interval(function() {
-            vm.progression = progression.getValue();
-        }, 1000);
+        // $interval(function() {
+        //     vm.progression = progression.getValue();
+        // }, 1000);
         function setBanner(item, show) {
             var lines = [item.title];
             if (show) {
@@ -79,7 +77,7 @@ import {showSelector, itemSelector} from './selectors';
         .add({
             combo: ['c'],
             description: 'Show the controller',
-            callback: strip.toggleController
+            callback: () => vm.toogleStrip()
         })
         .add({
             combo: 'm',

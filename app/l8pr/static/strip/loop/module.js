@@ -37,7 +37,7 @@ latestItemsShow, $state) {
     reorderShows();
     scope.$on('l8pr.updatedLoop', function(e, updatedLoop) {
         if (!updatedLoop || updatedLoop.id === loopToExplore.id) {
-            $state.reload('index.open');
+            $state.reload('root.app.open');
         }
     });
 }

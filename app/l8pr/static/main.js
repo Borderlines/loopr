@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import SoundcloudDirective from './player/soundcloud';
 import ProgressionService from './player/services/progression';
+import StripCtrl from './strip/strip.ctrl';
 
 (function() {
     'use strict';
@@ -46,7 +47,7 @@ import ProgressionService from './player/services/progression';
                 onEnter: ['$state', 'resetPassword',
                 function($state, resetPassword) {
                     resetPassword.open().result['finally'](function() {
-                        $state.go('index');
+                        $state.go('root');
                     });
                 }]
             })
@@ -81,7 +82,7 @@ import ProgressionService from './player/services/progression';
                             })()).then(function(show) {
                                 loop.shows_list.unshift(show);
                                 Player.setLoop(loop);
-                                $state.go('index');
+                                $state.go('root');
                             });
                         });
                     }
@@ -92,165 +93,155 @@ import ProgressionService from './player/services/progression';
                     });
                 }]
             })
-            .state('index', {
+            .state('root', {
                 reloadOnSearch: false,
-                url: '/:username?show&item',
-                controller: 'PlayerCtrl',
-                templateUrl: '/main.html',
-                controllerAs: 'vm',
-                resolve: {
-                    // loop: ['$stateParams', 'Player', 'login', '$state', '$q', '$ngRedux',
-                    //     function($stateParams, Player, login, $state, $q, $ngRedux) {
-                    //     if (!angular.isDefined($stateParams.username) || $stateParams.username === '' || $stateParams.username === '_=_') {
-                    //         return login.login().then(function(user) {
-                    //             $state.go('index', {username: user.username});
-                    //         }, function() {
-                    //             $state.go('index', {username: 'discover'});
-                    //         });
-                    //     }
-                    //     let playerState = $ngRedux.getState().player;
-                    //     if (playerState.shows.length > 0) {
-                    //         return playerState;
-                    //     }
-                    //     var username = $stateParams.username;
-                    //     if ($stateParams.username === 'resetpassword') {
-                    //         username = 'discover';
-                    //     }
-                    //     return Player.loadLoop(username, $stateParams.item)
-                    //     .then(function(loop) {
-                    //         return Player.playLoop(loop, $stateParams.show, $stateParams.item);
-                    //     });
-                    // }]
-                }
+                url: '',
+                templateUrl: '/template.html',
             })
-            .state('index.open', {
+            .state('root.app', {
                 reloadOnSearch: false,
-                params: {
-                    loopToExplore: null
-                },
-                'abstract': true,
-                resolve: {
-                    loopToExplore: ['$stateParams', 'Player', 'loop',
-                    function($stateParams, Player, loop) {
-                        return Player.loadLoop($stateParams.loopToExplore || loop);
-                    }],
-                    latestItemsShow: ['Api', function(Api) {
-                        return Api.LatestItems().then(function(items) {
-                            return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
-                        });
-                    }]
-                },
+                url: '/:username/:show/:item',
                 views: {
-                    header: {
-                        controller: 'StripHeaderCtrl',
-                        templateUrl: '/strip/header/template.html',
+                    player: {
+                        controller: 'PlayerCtrl',
+                        templateUrl: '/player/template.html',
                         controllerAs: 'vm'
                     },
-                    body: {
-                        template: '<div ui-view="body" class="spinner"></div>'
-                    }
-                }
-            })
-            .state('index.open.loop', {
-                reloadOnSearch: false,
-                url: '/loop/:loopToExplore',
-                views: {
-                    body: {
-                        controller: 'LoopExplorerCtrl',
-                        templateUrl: '/strip/loop/template.html',
-                        controllerAs: 'vm'
-                    }
-                }
-            })
-            .state('index.open.show', {
-                reloadOnSearch: false,
-                url: '/show/:showToExploreId',
-                params: {
-                    showToExplore: null
-                },
-                views: {
-                    body: {
-                        controller: 'ShowExplorerCtrl',
-                        templateUrl: '/strip/show/template.html',
+                    strip: {
+                        templateUrl: '/strip/template.html',
                         controllerAs: 'vm',
-                        resolve: {
-                            show: ['$stateParams', 'Api', 'loop', 'ApiCache',
-                            function($stateParams, Api, loop, ApiCache) {
-                                // if a show object is given, open it and update the params
-                                if ($stateParams.showToExplore) {
-                                    $stateParams.showToExploreId = $stateParams.showToExplore.id;
-                                    if (ApiCache.isDirty) {
-                                        ApiCache.isDirty = false;
-                                        return $stateParams.showToExplore.get();
-                                    } else {
-                                        return $stateParams.showToExplore;
-                                    }
-                                }
-                                // if the show is in the current loop, open it (and keep items order)
-                                var show = _.find(loop.shows_list, function(show) {
-                                    return show.id === parseInt($stateParams.showToExploreId, 10);
-                                });
-                                if(show) {
-                                    if (ApiCache.isDirty) {
-                                        ApiCache.isDirty = false;
-                                        return show.get();
-                                    } else {
-                                        return show;
-                                    }
-                                }
-                                // otherwise, load from API
-                                return Api.Shows.one($stateParams.showToExploreId).get();
-                            }]
-                        }
+                        controller: StripCtrl
                     }
                 }
             })
-            .state('index.open.latest', {
-                url: '/latest',
-                reloadOnSearch: false,
-                views: {
-                    body: {
-                        controller: 'SearchCtrl',
-                        templateUrl: '/strip/search-results/template.html',
-                        controllerAs: 'vm',
-                        resolve: {
-                            query: function() {return 'latest';},
-                            results: ['Api', function(Api) {
-                                return Api.LatestItems();
-                            }]
-                        }
-                    }
-                }
-            })
-            .state('index.open.search', {
-                url: '/search/{q:.*}',
-                reloadOnSearch: false,
-                views: {
-                    body: {
-                        controller: 'SearchCtrl',
-                        templateUrl: '/strip/search-results/template.html',
-                        controllerAs: 'vm',
-                        resolve: {
-                            query: function($stateParams) {
-                                return $stateParams.q;
-                            },
-                            results: ['Api', 'query', function(Api, query) {
-                                if (query) {
-                                    var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
-                                    if (urlRegex.test(query)) {
-                                        return Api.GetItemMetadata.one().get({url: query}).then(function(item) {
-                                            return [item];
-                                        });
-                                    } else {
-                                        return Api.Search.getList({'title': query});
-                                    }
-                                }
-                                return [];
-                            }]
-                        }
-                    }
-                }
-            });
+            // .state('root.app.open', {
+            //     reloadOnSearch: false,
+            //     params: {
+            //         loopToExplore: null
+            //     },
+            //     'abstract': true,
+            //     resolve: {
+            //         loopToExplore: ['$stateParams', 'Player', 'loop',
+            //         function($stateParams, Player, loop) {
+            //             return Player.loadLoop($stateParams.loopToExplore || loop);
+            //         }],
+            //         latestItemsShow: ['Api', function(Api) {
+            //             return Api.LatestItems().then(function(items) {
+            //                 return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
+            //             });
+            //         }]
+            //     },
+            //     views: {
+            //         header: {
+            //             controller: 'StripHeaderCtrl',
+            //             templateUrl: '/strip/header/template.html',
+            //             controllerAs: 'vm'
+            //         },
+            //         body: {
+            //             template: '<div ui-view="body" class="spinner"></div>'
+            //         }
+            //     }
+            // })
+            // .state('root.app.open.loop', {
+            //     reloadOnSearch: false,
+            //     url: '/loop/:loopToExplore',
+            //     views: {
+            //         body: {
+            //             controller: 'LoopExplorerCtrl',
+            //             templateUrl: '/strip/loop/template.html',
+            //             controllerAs: 'vm'
+            //         }
+            //     }
+            // })
+            // .state('root.app.open.show', {
+            //     reloadOnSearch: false,
+            //     url: '/show/:showToExploreId',
+            //     params: {
+            //         showToExplore: null
+            //     },
+            //     views: {
+            //         body: {
+            //             controller: 'ShowExplorerCtrl',
+            //             templateUrl: '/strip/show/template.html',
+            //             controllerAs: 'vm',
+            //             resolve: {
+            //                 show: ['$stateParams', 'Api', 'loop', 'ApiCache',
+            //                 function($stateParams, Api, loop, ApiCache) {
+            //                     // if a show object is given, open it and update the params
+            //                     if ($stateParams.showToExplore) {
+            //                         $stateParams.showToExploreId = $stateParams.showToExplore.id;
+            //                         if (ApiCache.isDirty) {
+            //                             ApiCache.isDirty = false;
+            //                             return $stateParams.showToExplore.get();
+            //                         } else {
+            //                             return $stateParams.showToExplore;
+            //                         }
+            //                     }
+            //                     // if the show is in the current loop, open it (and keep items order)
+            //                     var show = _.find(loop.shows_list, function(show) {
+            //                         return show.id === parseInt($stateParams.showToExploreId, 10);
+            //                     });
+            //                     if(show) {
+            //                         if (ApiCache.isDirty) {
+            //                             ApiCache.isDirty = false;
+            //                             return show.get();
+            //                         } else {
+            //                             return show;
+            //                         }
+            //                     }
+            //                     // otherwise, load from API
+            //                     return Api.Shows.one($stateParams.showToExploreId).get();
+            //                 }]
+            //             }
+            //         }
+            //     }
+            // })
+            // .state('root.app.open.latest', {
+            //     url: '/latest',
+            //     reloadOnSearch: false,
+            //     views: {
+            //         body: {
+            //             controller: 'SearchCtrl',
+            //             templateUrl: '/strip/search-results/template.html',
+            //             controllerAs: 'vm',
+            //             resolve: {
+            //                 query: function() {return 'latest';},
+            //                 results: ['Api', function(Api) {
+            //                     return Api.LatestItems();
+            //                 }]
+            //             }
+            //         }
+            //     }
+            // })
+            // .state('root.app.open.search', {
+            //     url: '/search/{q:.*}',
+            //     reloadOnSearch: false,
+            //     views: {
+            //         body: {
+            //             controller: 'SearchCtrl',
+            //             templateUrl: '/strip/search-results/template.html',
+            //             controllerAs: 'vm',
+            //             resolve: {
+            //                 query: function($stateParams) {
+            //                     return $stateParams.q;
+            //                 },
+            //                 results: ['Api', 'query', function(Api, query) {
+            //                     if (query) {
+            //                         var urlRegex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
+            //                         if (urlRegex.test(query)) {
+            //                             return Api.GetItemMetadata.one().get({url: query}).then(function(item) {
+            //                                 return [item];
+            //                             });
+            //                         } else {
+            //                             return Api.Search.getList({'title': query});
+            //                         }
+            //                     }
+            //                     return [];
+            //                 }]
+            //             }
+            //         }
+            //     }
+            // });
         }])
         .config(['$ngReduxProvider', function($ngReduxProvider) {
             const logger = createLogger({
@@ -290,7 +281,7 @@ import ProgressionService from './player/services/progression';
                         if (fallback) {
                             $state.go(fallback);
                         } else {
-                            $state.go('index');
+                            $state.go('root');
                         }
                     }
                 }
@@ -298,34 +289,34 @@ import ProgressionService from './player/services/progression';
         }])
         .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout',
         function($history, $state, $rootScope, hotkeys, $timeout) {
-            $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-                $timeout(function() {
-                    $('[ui-view="body"]').addClass('spinner');
-                }, 0, false);
-            });
-
-            $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
-                $timeout(function() {
-                    $('[ui-view="body"]').removeClass('spinner');
-                }, 0, false);
-            });
-            $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
-                if ($history.goingBack) {
-                    $history.goingBack = false;
-                    return;
-                }
-                if (!from['abstract'] && !_.contains(['index', 'open', 'resetPassword'], from.name)) {
-                    delete fromParams.show;
-                    delete fromParams.item;
-                    $history.push(from, fromParams);
-                }
-            });
+        //     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        //         $timeout(function() {
+        //             $('[ui-view="body"]').addClass('spinner');
+        //         }, 0, false);
+        //     });
+        //
+        //     $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
+        //         $timeout(function() {
+        //             $('[ui-view="body"]').removeClass('spinner');
+        //         }, 0, false);
+        //     });
+        //     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+        //         if ($history.goingBack) {
+        //             $history.goingBack = false;
+        //             return;
+        //         }
+        //         if (!from['abstract'] && !_.contains(['index', 'open', 'resetPassword'], from.name)) {
+        //             delete fromParams.show;
+        //             delete fromParams.item;
+        //             $history.push(from, fromParams);
+        //         }
+        //     });
             hotkeys.add({
                 combo: ['ctrl+f'],
                 description: 'Search',
                 callback: function(e) {
                     e.preventDefault();
-                    $state.go('index.open.search').then(function(s) {
+                    $state.go('root.app.open.search').then(function(s) {
                         $rootScope.$emit('openSearch');
                     });
                 }

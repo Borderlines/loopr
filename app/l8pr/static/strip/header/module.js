@@ -6,18 +6,18 @@ function StripHeaderCtrl(login, $state, $history, $rootScope, loopToExplore) {
     var vm = this;
     angular.extend(vm, {
         searchQuery: $state.params.q,
-        searchBarVisible: $state.current.name === 'index.open.search' && ($state.params.q === undefined || $state.params.q === ''),
+        searchBarVisible: $state.current.name === 'root.app.open.search' && ($state.params.q === undefined || $state.params.q === ''),
         loopAuthor: loopToExplore.username,
         showsCount: loopToExplore.shows_list.length,
         loginService: login,
         openLoginView: login.openLoginView,
         exit: function() {
-            if ($state.current.name === 'index.open.search') {
+            if ($state.current.name === 'root.app.open.search') {
                 $history.back();
             }
         },
         search: function(query) {
-            $state.go('index.open.search', {q: query});
+            $state.go('root.app.open.search', {q: query});
             vm.searchBarVisible = false;
         }
     });
