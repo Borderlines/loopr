@@ -41,13 +41,13 @@
                 function trackProgression(media) {
                     $interval.cancel(progressionTracker);
                     progressionTracker = $interval(function() {
-                        Player.setCurrentPosition((media.getCurrentTime() / media.getDuration()) * 100);
+                        // Player.setCurrentPosition((media.getCurrentTime() / media.getDuration()) * 100);
                     }, 250);
                 }
                 var playerEvents = {
                     error: function(event) {
                         $interval.cancel(progressionTracker);
-                        Player.setCurrentPosition(0);
+                        // Player.setCurrentPosition(0);
                         Player.nextItem();
                     },
                     playing: function(event) {
@@ -60,7 +60,7 @@
                     },
                     ended: function(event) {
                         $interval.cancel(progressionTracker);
-                        Player.setCurrentPosition(0);
+                        // Player.setCurrentPosition(0);
                         Player.nextItem();
                     }
                 };

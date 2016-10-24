@@ -1,8 +1,8 @@
 import * as actions from '../player/actions';
 import {showSelector, itemSelector} from '../player/selectors';
 
-StripCtrl.$inject = ['$ngRedux', 'progression', '$interval', 'upperStrip'];
-function StripCtrl($ngRedux, progression, $interval, upperStrip) {
+StripCtrl.$inject = ['$ngRedux', 'progression', '$interval', 'upperStrip', 'Player', '$scope'];
+function StripCtrl($ngRedux, progression, $interval, upperStrip, Player, $scope) {
     var vm = this;
     const mapStateToTarget = (state) => ({
         strip: state.strip,
@@ -12,6 +12,11 @@ function StripCtrl($ngRedux, progression, $interval, upperStrip) {
         currentItem: itemSelector(state.player)
     })
     let disconnect = $ngRedux.connect(mapStateToTarget, actions)(vm);
+    $scope.$on('$destroy', disconnect);
+    const {username, loopToExplore} = $ngRedux.getState().router.currentParams;
+    Player.loadLoop(loopToExplore || username).then(function(loop) {
+        vm.setStripLoop(loop.shows_list);
+    });
     angular.extend(vm, {
         upperStrip: upperStrip,
         progression: 0,

@@ -13,6 +13,7 @@ export const PREVIOUS_ITEM = 'PREVIOUS_ITEM';
 export const OPEN_STRIP = 'OPEN_STRIP';
 export const CLOSE_STRIP = 'CLOSE_STRIP';
 export const SET_UPPER_STRIP = 'SET_UPPER_STRIP';
+export const STRIP_SET_LOOP = 'STRIP_SET_LOOP';
 
 function updateUrl(show, item) {
     return (dispatch, getState) => {
@@ -23,7 +24,13 @@ function updateUrl(show, item) {
 
 export function setLoop(shows) {return {type: SET_LOOP, shows};}
 
-export function playShow(showIndex) {return {type: PLAY_SHOW, showIndex};}
+export function playShow(showIndex) {
+    return (dispatch) => {
+        dispatch({type: PLAY_SHOW, showIndex});
+        dispatch(playItem(showIndex, 0));
+    }
+    return ;
+}
 
 export function setUpperStrip({itemIndex, showIndex}) {
     return (dispatch, getState) => {
@@ -104,8 +111,16 @@ export function previousItem() {
 }
 
 // strip
-export const openStrip = () => ({type: OPEN_STRIP})
-export const closeStrip = () => ({type: CLOSE_STRIP})
+// export const openStrip = () => ({type: OPEN_STRIP})
+export const openStrip = () => ((dispatch) => {
+    dispatch({type: OPEN_STRIP})
+    dispatch(stateGo('root.app.open.loop'))
+})
+export const closeStrip = () => ((dispatch) => {
+    dispatch({type: CLOSE_STRIP})
+    dispatch(stateGo('root.app'))
+})
 export const toogleStrip = () => ((dispatch, getState) => {
     getState().strip.open ? dispatch(closeStrip()) : dispatch(openStrip())
 })
+export const setStripLoop = (shows) => ({type: STRIP_SET_LOOP, shows})

@@ -114,88 +114,89 @@ import StripCtrl from './strip/strip.ctrl';
                     }
                 }
             })
-            // .state('root.app.open', {
-            //     reloadOnSearch: false,
-            //     params: {
-            //         loopToExplore: null
-            //     },
-            //     'abstract': true,
-            //     resolve: {
-            //         loopToExplore: ['$stateParams', 'Player', 'loop',
-            //         function($stateParams, Player, loop) {
-            //             return Player.loadLoop($stateParams.loopToExplore || loop);
-            //         }],
-            //         latestItemsShow: ['Api', function(Api) {
-            //             return Api.LatestItems().then(function(items) {
-            //                 return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
-            //             });
-            //         }]
-            //     },
-            //     views: {
-            //         header: {
-            //             controller: 'StripHeaderCtrl',
-            //             templateUrl: '/strip/header/template.html',
-            //             controllerAs: 'vm'
-            //         },
-            //         body: {
-            //             template: '<div ui-view="body" class="spinner"></div>'
-            //         }
-            //     }
-            // })
-            // .state('root.app.open.loop', {
-            //     reloadOnSearch: false,
-            //     url: '/loop/:loopToExplore',
-            //     views: {
-            //         body: {
-            //             controller: 'LoopExplorerCtrl',
-            //             templateUrl: '/strip/loop/template.html',
-            //             controllerAs: 'vm'
-            //         }
-            //     }
-            // })
-            // .state('root.app.open.show', {
-            //     reloadOnSearch: false,
-            //     url: '/show/:showToExploreId',
-            //     params: {
-            //         showToExplore: null
-            //     },
-            //     views: {
-            //         body: {
-            //             controller: 'ShowExplorerCtrl',
-            //             templateUrl: '/strip/show/template.html',
-            //             controllerAs: 'vm',
-            //             resolve: {
-            //                 show: ['$stateParams', 'Api', 'loop', 'ApiCache',
-            //                 function($stateParams, Api, loop, ApiCache) {
-            //                     // if a show object is given, open it and update the params
-            //                     if ($stateParams.showToExplore) {
-            //                         $stateParams.showToExploreId = $stateParams.showToExplore.id;
-            //                         if (ApiCache.isDirty) {
-            //                             ApiCache.isDirty = false;
-            //                             return $stateParams.showToExplore.get();
-            //                         } else {
-            //                             return $stateParams.showToExplore;
-            //                         }
-            //                     }
-            //                     // if the show is in the current loop, open it (and keep items order)
-            //                     var show = _.find(loop.shows_list, function(show) {
-            //                         return show.id === parseInt($stateParams.showToExploreId, 10);
-            //                     });
-            //                     if(show) {
-            //                         if (ApiCache.isDirty) {
-            //                             ApiCache.isDirty = false;
-            //                             return show.get();
-            //                         } else {
-            //                             return show;
-            //                         }
-            //                     }
-            //                     // otherwise, load from API
-            //                     return Api.Shows.one($stateParams.showToExploreId).get();
-            //                 }]
-            //             }
-            //         }
-            //     }
-            // })
+            .state('root.app.open', {
+                reloadOnSearch: false,
+                params: {
+                    loopToExplore: null
+                },
+                'abstract': true,
+                resolve: {
+                    // loopToExplore: ['$ngRedux', 'Player',
+                    // function($ngRedux, Player) {
+                    //     const {username, loopToExplore} = $ngRedux.getState().router.currentParams;
+                    //     return Player.loadLoop(loopToExplore || username);
+                    // }],
+                    latestItemsShow: ['Api', function(Api) {
+                        return Api.LatestItems().then(function(items) {
+                            return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
+                        });
+                    }]
+                },
+                views: {
+                    header: {
+                        controller: 'StripHeaderCtrl',
+                        templateUrl: '/strip/header/template.html',
+                        controllerAs: 'vm'
+                    },
+                    body: {
+                        template: '<div ui-view="body" class="spinner"></div>'
+                    }
+                }
+            })
+            .state('root.app.open.loop', {
+                views: {
+                    body: {
+                        controller: 'LoopExplorerCtrl',
+                        templateUrl: '/strip/loop/template.html',
+                        controllerAs: 'vm'
+                    }
+                }
+            })
+            .state('root.app.open.show', {
+                reloadOnSearch: false,
+                params: {
+                    showToExplore: null
+                },
+                views: {
+                    body: {
+                        controller: 'ShowExplorerCtrl',
+                        templateUrl: '/strip/show/template.html',
+                        controllerAs: 'vm',
+                        resolve: {
+                            show: ['$stateParams', 'Api', 'ApiCache', '$ngRedux',
+                            function($stateParams, Api, ApiCache, $ngRedux) {
+                                console.log($ngRedux.getState());
+
+                                var loop = $ngRedux.getState().router.currentParams.username;
+                                // if a show object is given, open it and update the params
+                                if ($stateParams.showToExplore) {
+                                    $stateParams.showToExploreId = $stateParams.showToExplore.id;
+                                    if (ApiCache.isDirty) {
+                                        ApiCache.isDirty = false;
+                                        return $stateParams.showToExplore.get();
+                                    } else {
+                                        return $stateParams.showToExplore;
+                                    }
+                                }
+                                // if the show is in the current loop, open it (and keep items order)
+                                var show = _.find(loop.shows_list, function(show) {
+                                    return show.id === parseInt($stateParams.showToExploreId, 10);
+                                });
+                                if(show) {
+                                    if (ApiCache.isDirty) {
+                                        ApiCache.isDirty = false;
+                                        return show.get();
+                                    } else {
+                                        return show;
+                                    }
+                                }
+                                // otherwise, load from API
+                                return Api.Shows.one($stateParams.showToExploreId).get();
+                            }]
+                        }
+                    }
+                }
+            })
             // .state('root.app.open.latest', {
             //     url: '/latest',
             //     reloadOnSearch: false,
@@ -289,17 +290,17 @@ import StripCtrl from './strip/strip.ctrl';
         }])
         .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout',
         function($history, $state, $rootScope, hotkeys, $timeout) {
-        //     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-        //         $timeout(function() {
-        //             $('[ui-view="body"]').addClass('spinner');
-        //         }, 0, false);
-        //     });
-        //
-        //     $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
-        //         $timeout(function() {
-        //             $('[ui-view="body"]').removeClass('spinner');
-        //         }, 0, false);
-        //     });
+            $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+                $timeout(function() {
+                    $('[ui-view="body"]').addClass('spinner');
+                }, 0, false);
+            });
+
+            $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
+                $timeout(function() {
+                    $('[ui-view="body"]').removeClass('spinner');
+                }, 0, false);
+            });
         //     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
         //         if ($history.goingBack) {
         //             $history.goingBack = false;
