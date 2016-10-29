@@ -2,7 +2,9 @@ import * as actions from '../actions';
 
 export default function strip(state={
     loop: null,
-    stripType: 'loop',
+    upperStrip: [],
+    shows: [],
+    view: 'loop',
     open: false,
 }, action=null) {
     let newState = Object.assign({}, state);
@@ -10,7 +12,14 @@ export default function strip(state={
         case actions.STRIP_SET_LOOP:
             return Object.assign({}, state, {shows: action.shows});
         case actions.OPEN_STRIP:
-            return Object.assign({}, state, {open: true});
+            newState.open = true;
+            if (action.view) {
+                newState.view = action.view;
+            }
+            if (action.stripParams) {
+                newState.stripParams = action.stripParams;
+            }
+            return newState;
         case actions.CLOSE_STRIP:
         return Object.assign({}, state, {open: false});
         case actions.SET_UPPER_STRIP:

@@ -1,7 +1,7 @@
 <div class="Loop">
     <div class="Loop__shows" infinit-scroll horizontal-scroll>
         <div class="Loop__show"
-             ng-repeat="show in ::vm.strip.shows"
+             ng-repeat="show in vm.strip.shows"
              ng-class="{'Loop__show--current-show': vm.currentShow.id === show.id}"
              ng-style="{width: getWidth(show)}">
             <div class="Loop__show__icon" ng-if="::show.show_type === 'last_item'">
@@ -11,7 +11,7 @@
                 <i class="material-icons">move_to_inbox</i>
             </div>
              <div class="Loop__show__body">
-                <a ui-sref="root.app.open.show({showToExplore: show})">
+                <a ng-click="vm.openStrip('show', { show: show })">
                     <div class="title" title="Browse this Show">
                         {{ ::show.title }}
                     </div>

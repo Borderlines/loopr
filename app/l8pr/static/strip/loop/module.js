@@ -1,8 +1,8 @@
 import * as actions from '../../player/actions';
 import {showSelector} from '../../player/selectors';
 
-LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'latestItemsShow', '$state', '$ngRedux'];
-function LoopExplorerCtrl(Player, $scope, stripService, latestItemsShow, $state, $ngRedux) {
+LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', '$state', '$ngRedux'];
+function LoopExplorerCtrl(Player, $scope, stripService, $state, $ngRedux) {
     var vm = this;
     console.log('LoopExplorerCtrl');
     const mapStateToTarget = (state) => ({
@@ -28,6 +28,12 @@ angular.module('loopr.strip')
         }
     };
 }])
+.directive('looprStripLoop', () => ({
+    scope: {},
+    controller: LoopExplorerCtrl,
+    controllerAs: 'vm',
+    templateUrl: '/strip/loop/template.html'
+}))
 .directive('swapOnHover', ['$timeout', function($timeout) {
     return {
         template: [

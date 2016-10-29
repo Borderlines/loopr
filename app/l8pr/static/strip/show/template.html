@@ -6,7 +6,7 @@
             <div>{{ vm.show.items.length }} media / {{ ::vm.show.duration() | seconds }}</div>
         </div>
         <div class="Show__side-bar__filter">
-            <a ui-sref="root.app.open.loop" class="user-name">
+            <a ng-click="vm.openStrip('loop')">
                 <i class="material-icons" title="Back to the loop">arrow_back</i>
             </a>
             <i class="material-icons pull-right" ng-click="vm.showConfig()">settings</i>
@@ -16,14 +16,14 @@
         <div class="list__item"
              ng-repeat="item in vm.show.items"
              ng-class="{'list__item--active_bk': vm.activeItem === item,
-                        'list__item--playing': vm.player.currentItem.id === item.id}">
-            <div class="list__item__illu col-xs-4 col-md-3" ng-click="vm.player.playShow(vm.show, $index)">
+                        'list__item--playing': vm.currentItem.id === item.id}">
+            <div class="list__item__illu col-xs-4 col-md-3" ng-click="vm.playShow(vm.show)">
                 <img ng-src="{{ item.thumbnail }}"</>
             </div>
 
             <div class="col-xs-6 col-md-7">
                 <div class="list__item__title"
-                     ng-click="vm.player.playShow(vm.show, $index)"
+                     ng-click="vm.playShow(vm.show)"
                      ng-bind="item.title"
                      title="more info about {{item.title}}"></div>
                 <div class="list__item__info hidden-xs">
@@ -35,7 +35,7 @@
                     </a>
                     <span ng-if="item.show.username">
                         | looped by
-                        <a ui-sref="root.app.open.loop({loopToExplore: item.show.username})">
+                        <a ui-sref="vm.openStrip('loop', { loop: 'item.show.username' })">
                             {{ item.show.username }}
                         </a>
                     </span>

@@ -96,7 +96,6 @@ import * as actions from './player/actions';
             .state('root', {
                 url: '/',
                 controller: ['$ngRedux', ($ngRedux) => {
-                    console.log('root loadAndStartLoop')
                     $ngRedux.dispatch(actions.loadAndStartLoop())
                 }],
                 template: '<div ui-view="player"></div><div ui-view="strip"></div>',
@@ -117,87 +116,83 @@ import * as actions from './player/actions';
                     }
                 }
             })
-            // .state('root.app.player', {
-            //     url: ':username/:show/:item',
-            //     // reloadOnSearch: false,
+            // .state('root.app.close', {
             // })
-            .state('root.app.close', {
-            })
-            .state('root.app.open', {
-                reloadOnSearch: false,
-                'abstract': true,
-                resolve: {
-                    // loopToExplore: ['$ngRedux', 'Player',
-                    // function($ngRedux, Player) {
-                    //     const {username, loopToExplore} = $ngRedux.getState().router.currentParams;
-                    //     return Player.loadLoop(loopToExplore || username);
-                    // }],
-                    latestItemsShow: ['Api', function(Api) {
-                        return Api.LatestItems().then(function(items) {
-                            return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
-                        });
-                    }]
-                },
-                views: {
-                    header: {
-                        controller: 'StripHeaderCtrl',
-                        templateUrl: '/strip/header/template.html',
-                        controllerAs: 'vm'
-                    },
-                    body: {
-                        template: '<div ui-view="body" class="spinner"></div>'
-                    }
-                }
-            })
-            .state('root.app.open.loop', {
-                views: {
-                    body: {
-                        controller: 'LoopExplorerCtrl',
-                        templateUrl: '/strip/loop/template.html',
-                        controllerAs: 'vm'
-                    }
-                }
-            })
-            .state('root.app.open.show', {
-                reloadOnSearch: false,
-                views: {
-                    body: {
-                        controller: 'ShowExplorerCtrl',
-                        templateUrl: '/strip/show/template.html',
-                        controllerAs: 'vm',
-                        resolve: {
-                            show: ['$stateParams', 'Api', 'ApiCache', '$ngRedux',
-                            function($stateParams, Api, ApiCache, $ngRedux) {
-                                var loop = $ngRedux.getState().router.currentParams.username;
-                                // if a show object is given, open it and update the params
-                                if ($stateParams.showToExplore) {
-                                    $stateParams.showToExploreId = $stateParams.showToExplore.id;
-                                    if (ApiCache.isDirty) {
-                                        ApiCache.isDirty = false;
-                                        return $stateParams.showToExplore.get();
-                                    } else {
-                                        return $stateParams.showToExplore;
-                                    }
-                                }
-                                // if the show is in the current loop, open it (and keep items order)
-                                var show = _.find(loop.shows_list, function(show) {
-                                    return show.id === parseInt($stateParams.showToExploreId, 10);
-                                });
-                                if(show) {
-                                    if (ApiCache.isDirty) {
-                                        ApiCache.isDirty = false;
-                                        return show.get();
-                                    } else {
-                                        return show;
-                                    }
-                                }
-                                // otherwise, load from API
-                                return Api.Shows.one($stateParams.showToExploreId).get();
-                            }]
-                        }
-                    }
-                }
-            })
+            // .state('root.app.open', {
+            //     reloadOnSearch: false,
+            //     'abstract': true,
+            //     resolve: {
+            //         // loopToExplore: ['$ngRedux', 'Player',
+            //         // function($ngRedux, Player) {
+            //         //     const {username, loopToExplore} = $ngRedux.getState().router.currentParams;
+            //         //     return Player.loadLoop(loopToExplore || username);
+            //         // }],
+            //         latestItemsShow: ['Api', function(Api) {
+            //             return Api.LatestItems().then(function(items) {
+            //                 return {title: 'What\'s new in loopr.tv', items: items, show_type: 'last_item'};
+            //             });
+            //         }]
+            //     },
+            //     views: {
+            //         header: {
+            //             controller: 'StripHeaderCtrl',
+            //             templateUrl: '/strip/header/template.html',
+            //             controllerAs: 'vm'
+            //         },
+            //         body: {
+            //             template: '<div ui-view="body" class="spinner"></div>'
+            //         }
+            //     }
+            // })
+            // .state('root.app.open.loop', {
+            //     views: {
+            //         body: {
+            //             controller: 'LoopExplorerCtrl',
+            //             templateUrl: '/strip/loop/template.html',
+            //             controllerAs: 'vm'
+            //         }
+            //     }
+            // })
+            // .state('root.app.open.show', {
+            //     reloadOnSearch: false,
+            //     views: {
+            //         body: {
+            //             controller: 'ShowExplorerCtrl',
+            //             templateUrl: '/strip/show/template.html',
+            //             controllerAs: 'vm',
+            //             resolve: {
+            //                 show: ['$stateParams', 'Api', 'ApiCache', '$ngRedux',
+            //                 function($stateParams, Api, ApiCache, $ngRedux) {
+            //                     var loop = $ngRedux.getState().router.currentParams.username;
+            //                     // if a show object is given, open it and update the params
+            //                     if ($stateParams.showToExplore) {
+            //                         $stateParams.showToExploreId = $stateParams.showToExplore.id;
+            //                         if (ApiCache.isDirty) {
+            //                             ApiCache.isDirty = false;
+            //                             return $stateParams.showToExplore.get();
+            //                         } else {
+            //                             return $stateParams.showToExplore;
+            //                         }
+            //                     }
+            //                     // if the show is in the current loop, open it (and keep items order)
+            //                     var show = _.find(loop.shows_list, function(show) {
+            //                         return show.id === parseInt($stateParams.showToExploreId, 10);
+            //                     });
+            //                     if(show) {
+            //                         if (ApiCache.isDirty) {
+            //                             ApiCache.isDirty = false;
+            //                             return show.get();
+            //                         } else {
+            //                             return show;
+            //                         }
+            //                     }
+            //                     // otherwise, load from API
+            //                     return Api.Shows.one($stateParams.showToExploreId).get();
+            //                 }]
+            //             }
+            //         }
+            //     }
+            // })
             // .state('root.app.open.latest', {
             //     url: '/latest',
             //     reloadOnSearch: false,
@@ -245,14 +240,15 @@ import * as actions from './player/actions';
             //     }
             // });
         }])
-        .config(['$ngReduxProvider', 'PlayerProvider', function($ngReduxProvider, PlayerProvider) {
+        .config(['$ngReduxProvider', 'PlayerProvider',
+        function($ngReduxProvider, PlayerProvider) {
             const logger = createLogger({
                 level: 'info',
                 collapsed: true
             });
             $ngReduxProvider.createStoreWith(rootReducer, [
                 'ngUiRouterMiddleware',
-                thunk.withExtraArgument({Player: PlayerProvider.$get()}),
+                thunk.withExtraArgument({ Player: PlayerProvider.$get() }),
                 logger
             ]);
         }])

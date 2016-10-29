@@ -17,11 +17,9 @@ export const SET_UPPER_STRIP = 'SET_UPPER_STRIP';
 export const STRIP_SET_LOOP = 'STRIP_SET_LOOP';
 export const LOAD_AND_START_LOOP = 'LOAD_AND_START_LOOP';
 
-var Player;
-
 
 function updateUrl(show, item) {
-    return (dispatch, getState) => {
+    return (dispatch, getState, { $location }) => {
         const loop = getState().player.loop
         const username = loop.username
         const current = getState().router.currentParams
@@ -29,15 +27,9 @@ function updateUrl(show, item) {
             console.log('no change')
             return;
         }
-        console.log('update url', current, username, show, item)
-
         let stateToGo = Object.assign({}, getState().router.currentParams, {show, item, username });
         let notify = false
         let stateName = 'root.app'
-        if (getState().router.currentState.name.indexOf('root.app') > -1) {
-            stateName = getState().router.currentState.name
-            notify = true
-        }
         dispatch(stateGo(stateName, stateToGo, { notify }));
     }
 }
@@ -151,13 +143,13 @@ export function previousItem() {
 
 // strip
 // export const openStrip = () => ({type: OPEN_STRIP})
-export const openStrip = () => ((dispatch, getState) => {
-    dispatch({type: OPEN_STRIP})
-    dispatch(stateGo('root.app.open.loop'))
+export const openStrip = (view, stripParams) => ({
+    type: OPEN_STRIP,
+    view,
+    stripParams
 })
-export const closeStrip = () => ((dispatch) => {
-    dispatch({type: CLOSE_STRIP})
-    dispatch(stateGo('root.app.close'))
+export const closeStrip = () => ({
+    type: CLOSE_STRIP
 })
 export const toogleStrip = () => ((dispatch, getState) => {
     getState().strip.open ? dispatch(closeStrip()) : dispatch(openStrip())

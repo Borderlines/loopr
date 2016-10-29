@@ -1,7 +1,8 @@
 <div class="container-fluid strip">
-    <div ui-view="header"></div>
-    <div class="strip__body row">
-        <div ui-view='body'></div>
+    <div loopr-strip-header></div>
+    <div class="strip__body row" ng-if="vm.strip.open">
+        <div loopr-strip-loop ng-if="vm.strip.view === 'loop'"></div>
+        <div loopr-strip-show ng-if="vm.strip.view === 'show'"></div>
     </div>
     <div class="strip__controls" ng-class="{'strip__controls--extended': vm.strip.open}">
         <div class="row" ng-if="vm.strip.open">
@@ -12,7 +13,6 @@
                             <i class="material-icons">{{ vm.player.playing ? 'pause' : 'play_arrow' }}</i>
                         </span>
                     </div>
-
                     <div class="banner__title col-xs-9 col-md-9">
                         <span ui-sref="root.app.open.show({showToExplore: vm.currentShow})">{{ vm.currentItem.title }}</span>
                     </div>
