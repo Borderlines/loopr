@@ -1,10 +1,9 @@
 import * as actions from '../../player/actions';
 import {showSelector} from '../../player/selectors';
 
-LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', '$state', '$ngRedux'];
-function LoopExplorerCtrl(Player, $scope, stripService, $state, $ngRedux) {
+LoopExplorerCtrl.$inject = ['$scope', '$ngRedux'];
+function LoopExplorerCtrl($scope, $ngRedux) {
     var vm = this;
-    console.log('LoopExplorerCtrl');
     const mapStateToTarget = (state) => ({
         strip: state.strip,
         player: state.player,

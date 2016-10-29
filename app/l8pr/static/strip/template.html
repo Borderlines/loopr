@@ -1,5 +1,5 @@
 <div class="container-fluid strip">
-    <div loopr-strip-header></div>
+    <div loopr-strip-header ng-if="vm.strip.open"></div>
     <div class="strip__body row" ng-if="vm.strip.open">
         <div loopr-strip-loop ng-if="vm.strip.view === 'loop'"></div>
         <div loopr-strip-show ng-if="vm.strip.view === 'show'"></div>

@@ -1,10 +1,10 @@
 import * as actions from '../../player/actions';
 import { showSelector, itemSelector } from '../../player/selectors';
 
-ShowExplorerCtrl.$inject = ['$ngRedux', 'Player', '$scope', 'strip', 'showConfig',
-'addToShowModal', 'Api', '$state', '$confirm', 'Restangular'];
-function ShowExplorerCtrl($ngRedux, Player, $scope, stripService, showConfig,
-addToShowModal, Api, $state, $confirm, Restangular) {
+ShowExplorerCtrl.$inject = ['$ngRedux', '$scope', 'showConfig',
+'addToShowModal', '$confirm'];
+function ShowExplorerCtrl($ngRedux, $scope, showConfig,
+addToShowModal, $confirm) {
     var vm = this;
     const mapStateToTarget = (state) => {
         let show = state.strip.stripParams.show;
