@@ -2,7 +2,8 @@ import {stateGo} from 'redux-ui-router';
 import {showSelector, itemSelector} from '../selectors';
 
 export const SET_LOOP = 'SET_LOOP';
-export const PLAY_SHOW = 'PLAY_SHOW';
+export const SET_SHOWS = 'SET_SHOWS';
+export const INSERT_SHOW = 'INSERT_SHOW';
 export const PLAY_ITEM = 'PLAY_ITEM';
 export const PAUSE = 'PAUSE';
 export const PLAY = 'PLAY';
@@ -14,19 +15,57 @@ export const OPEN_STRIP = 'OPEN_STRIP';
 export const CLOSE_STRIP = 'CLOSE_STRIP';
 export const SET_UPPER_STRIP = 'SET_UPPER_STRIP';
 export const STRIP_SET_LOOP = 'STRIP_SET_LOOP';
+export const LOAD_AND_START_LOOP = 'LOAD_AND_START_LOOP';
+
+var Player;
+
 
 function updateUrl(show, item) {
     return (dispatch, getState) => {
-        let stateToGo = Object.assign({}, getState().router.currentParams, {show, item});
-        dispatch(stateGo('root.app', stateToGo, {notify: false}));
+        const loop = getState().player.loop
+        const username = loop.username
+        const current = getState().router.currentParams
+        if (current.username === username && current.show === show.toString() && current.item === item.toString()) {
+            console.log('no change')
+            return;
+        }
+        console.log('update url', current, username, show, item)
+
+        let stateToGo = Object.assign({}, getState().router.currentParams, {show, item, username });
+        let notify = false
+        let stateName = 'root.app'
+        if (getState().router.currentState.name.indexOf('root.app') > -1) {
+            stateName = getState().router.currentState.name
+            notify = true
+        }
+        dispatch(stateGo(stateName, stateToGo, { notify }));
     }
 }
 
-export function setLoop(shows) {return {type: SET_LOOP, shows};}
+export const loadAndStartLoop = () => ((dispatch, getState, {Player}) => {
+    dispatch({type: LOAD_AND_START_LOOP})
+    let username = 'discover';
+    Player.loadLoop(username).then((loop) => {
+        dispatch(setLoop(loop))
+        dispatch(playItem(0, 0))
+    })
+})
 
-export function playShow(showIndex) {
-    return (dispatch) => {
-        dispatch({type: PLAY_SHOW, showIndex});
+export function setLoop(loop) {
+    return (dispatch, getState) => {
+    //     let stateToGo = Object.assign({}, getState().router.currentParams, {show, item});
+    //     dispatch(stateGo('root.app', stateToGo, {notify: false}));
+        dispatch({ type: SET_LOOP, loop })
+        dispatch(setShows(loop.shows_list));
+    }
+}
+
+export const setShows = (shows)=> ({ type: SET_SHOWS, shows })
+
+export function playShow(showObj) {
+    return (dispatch, getState) => {
+        dispatch({type: INSERT_SHOW, showObj});
+        var showIndex = getState().player.shows.indexOf(showObj);
         dispatch(playItem(showIndex, 0));
     }
     return ;
@@ -112,13 +151,13 @@ export function previousItem() {
 
 // strip
 // export const openStrip = () => ({type: OPEN_STRIP})
-export const openStrip = () => ((dispatch) => {
+export const openStrip = () => ((dispatch, getState) => {
     dispatch({type: OPEN_STRIP})
     dispatch(stateGo('root.app.open.loop'))
 })
 export const closeStrip = () => ((dispatch) => {
     dispatch({type: CLOSE_STRIP})
-    dispatch(stateGo('root.app'))
+    dispatch(stateGo('root.app.close'))
 })
 export const toogleStrip = () => ((dispatch, getState) => {
     getState().strip.open ? dispatch(closeStrip()) : dispatch(openStrip())

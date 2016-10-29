@@ -1,13 +1,13 @@
 import rootReducer from './player/reducers';
 import ngRedux from 'ng-redux';
-import { default as DevTools, runDevTools} from './devTools';
 import ngReduxUiRouter from 'redux-ui-router';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import SoundcloudDirective from './player/soundcloud';
 import ProgressionService from './player/services/progression';
+import uiRouter from 'angular-ui-router';
 import StripCtrl from './strip/strip.ctrl';
-
+import * as actions from './player/actions';
 (function() {
     'use strict';
     angular.module('loopr.player', [
@@ -23,7 +23,7 @@ import StripCtrl from './strip/strip.ctrl';
         'loopr.player.youtube',
         'loopr.player.webtorrent',
         'FBAngular',
-        'ui.router'])
+        uiRouter])
         .service('progression', ProgressionService)
         .directive('soundcloud', SoundcloudDirective)
         .config(['$stateProvider', '$urlRouterProvider', 'hotkeysProvider', '$locationProvider',
@@ -94,13 +94,16 @@ import StripCtrl from './strip/strip.ctrl';
                 }]
             })
             .state('root', {
-                reloadOnSearch: false,
-                url: '',
-                templateUrl: '/template.html',
+                url: '/',
+                controller: ['$ngRedux', ($ngRedux) => {
+                    console.log('root loadAndStartLoop')
+                    $ngRedux.dispatch(actions.loadAndStartLoop())
+                }],
+                template: '<div ui-view="player"></div><div ui-view="strip"></div>',
             })
             .state('root.app', {
+                url: ':username/:show/:item',
                 reloadOnSearch: false,
-                url: '/:username/:show/:item',
                 views: {
                     player: {
                         controller: 'PlayerCtrl',
@@ -114,11 +117,14 @@ import StripCtrl from './strip/strip.ctrl';
                     }
                 }
             })
+            // .state('root.app.player', {
+            //     url: ':username/:show/:item',
+            //     // reloadOnSearch: false,
+            // })
+            .state('root.app.close', {
+            })
             .state('root.app.open', {
                 reloadOnSearch: false,
-                params: {
-                    loopToExplore: null
-                },
                 'abstract': true,
                 resolve: {
                     // loopToExplore: ['$ngRedux', 'Player',
@@ -154,9 +160,6 @@ import StripCtrl from './strip/strip.ctrl';
             })
             .state('root.app.open.show', {
                 reloadOnSearch: false,
-                params: {
-                    showToExplore: null
-                },
                 views: {
                     body: {
                         controller: 'ShowExplorerCtrl',
@@ -165,8 +168,6 @@ import StripCtrl from './strip/strip.ctrl';
                         resolve: {
                             show: ['$stateParams', 'Api', 'ApiCache', '$ngRedux',
                             function($stateParams, Api, ApiCache, $ngRedux) {
-                                console.log($ngRedux.getState());
-
                                 var loop = $ngRedux.getState().router.currentParams.username;
                                 // if a show object is given, open it and update the params
                                 if ($stateParams.showToExplore) {
@@ -244,14 +245,17 @@ import StripCtrl from './strip/strip.ctrl';
             //     }
             // });
         }])
-        .config(['$ngReduxProvider', function($ngReduxProvider) {
+        .config(['$ngReduxProvider', 'PlayerProvider', function($ngReduxProvider, PlayerProvider) {
             const logger = createLogger({
                 level: 'info',
                 collapsed: true
             });
-            $ngReduxProvider.createStoreWith(rootReducer, ['ngUiRouterMiddleware', thunk, logger], [DevTools.instrument()]);
+            $ngReduxProvider.createStoreWith(rootReducer, [
+                'ngUiRouterMiddleware',
+                thunk.withExtraArgument({Player: PlayerProvider.$get()}),
+                logger
+            ]);
         }])
-        .run(runDevTools)
         .service('ApiCache', [function() {
             var self = this;
             angular.extend(self, {
@@ -288,9 +292,23 @@ import StripCtrl from './strip/strip.ctrl';
                 }
             });
         }])
+        // .config(['$urlRouterProvider', function ($urlRouterProvider) {
+        //     $urlRouterProvider.deferIntercept();
+        // }])
+        // .run(['$rootScope', '$urlRouter', '$location', '$state', function ($rootScope, $urlRouter, $location, $state) {
+        //     $rootScope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
+        //         e.preventDefault();
+        //         if ($state.current.name !== 'root.app') {
+        //             console.log('sync');
+        //             $urlRouter.sync();
+        //         }
+        //     });
+        //     $urlRouter.listen();
+        // }])
         .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout',
         function($history, $state, $rootScope, hotkeys, $timeout) {
             $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+                console.log('$stateChangeStart', toState);
                 $timeout(function() {
                     $('[ui-view="body"]').addClass('spinner');
                 }, 0, false);

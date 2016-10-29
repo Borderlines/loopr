@@ -2,6 +2,7 @@ import * as playerActions from '../actions';
 
 export default function player(state={
     shows: [],
+    loop: null,
     show: null,
     mute: false,
     item: null,
@@ -10,6 +11,8 @@ export default function player(state={
     let newState = Object.assign({}, state);
     switch (action.type) {
         case playerActions.SET_LOOP:
+            return Object.assign({}, state, {loop: action.loop});
+        case playerActions.SET_SHOWS:
             return Object.assign({}, state, {shows: action.shows});
         case playerActions.PLAY_ITEM:
             return Object.assign({}, state, {show: action.showIndex, item: action.itemIndex, playing: true});
@@ -21,6 +24,14 @@ export default function player(state={
             return Object.assign({}, state, {mute: true});
         case playerActions.UNMUTE:
             return Object.assign({}, state, {mute: false});
+        case playerActions.INSERT_SHOW:
+                // if the show is not in the loop, insert it at the current position
+                var shows = state.shows.slice()
+                if (state.shows.indexOf(action.showObj) === -1) {
+                    shows.splice(state.item, 0, action.showObj)
+                    console.log('added', action.showObj, shows)
+                }
+                return Object.assign({}, state, { shows: shows });
         default:
             return state;
     }
