@@ -1,5 +1,6 @@
 import {stateGo} from 'redux-ui-router';
 import {showSelector, itemSelector} from '../selectors';
+import fetch from 'isomorphic-fetch';
 
 export const SET_LOOP = 'SET_LOOP';
 export const SET_SHOWS = 'SET_SHOWS';
@@ -16,7 +17,12 @@ export const CLOSE_STRIP = 'CLOSE_STRIP';
 export const SET_UPPER_STRIP = 'SET_UPPER_STRIP';
 export const STRIP_SET_LOOP = 'STRIP_SET_LOOP';
 export const LOAD_AND_START_LOOP = 'LOAD_AND_START_LOOP';
-
+export const AUTH = 'AUTH';
+export const LOGIN = 'LOGIN';
+export const LOGGED_IN = 'LOGGED_IN';
+export const LOGGED_OUT = 'LOGGED_OUT';
+export const OPEN_SEARCH_BAR = 'OPEN_SEARCH_BAR';
+export const CLOSE_SEARCH_BAR = 'CLOSE_SEARCH_BAR';
 
 function updateUrl(show, item) {
     return (dispatch, getState, { $location }) => {
@@ -34,9 +40,8 @@ function updateUrl(show, item) {
     }
 }
 
-export const loadAndStartLoop = () => ((dispatch, getState, {Player}) => {
+export const loadAndStartLoop = (username='discover') => ((dispatch, getState, {Player}) => {
     dispatch({type: LOAD_AND_START_LOOP})
-    let username = 'discover';
     Player.loadLoop(username).then((loop) => {
         dispatch(setLoop(loop))
         dispatch(playItem(0, 0))
@@ -45,8 +50,6 @@ export const loadAndStartLoop = () => ((dispatch, getState, {Player}) => {
 
 export function setLoop(loop) {
     return (dispatch, getState) => {
-    //     let stateToGo = Object.assign({}, getState().router.currentParams, {show, item});
-    //     dispatch(stateGo('root.app', stateToGo, {notify: false}));
         dispatch({ type: SET_LOOP, loop })
         dispatch(setShows(loop.shows_list));
     }
@@ -142,7 +145,6 @@ export function previousItem() {
 }
 
 // strip
-// export const openStrip = () => ({type: OPEN_STRIP})
 export const openStrip = (view, stripParams) => ({
     type: OPEN_STRIP,
     view,
@@ -154,4 +156,65 @@ export const closeStrip = () => ({
 export const toogleStrip = () => ((dispatch, getState) => {
     getState().strip.open ? dispatch(closeStrip()) : dispatch(openStrip())
 })
-export const setStripLoop = (shows) => ({type: STRIP_SET_LOOP, shows})
+export const setStripLoop = (shows) => ({
+    type: STRIP_SET_LOOP, shows
+})
+export const openSearchBar = () => ({
+    type: OPEN_SEARCH_BAR,
+})
+export const closeSearchBar = () => ({
+    type: CLOSE_SEARCH_BAR
+})
+// Login
+export const authenticate = () => ((dispatch, getState, { Api }) => {
+    dispatch({ type: AUTH })
+    return Api.Accounts.one('me').get()
+    .then((user) =>  {
+        dispatch(loggedIn(user))
+        return user;
+    }, (error) => (null))
+})
+export const login = (user, password) => ((dispatch, getState, { Api }) => {
+    dispatch({ type: LOGIN })
+    return fetch('api-auth/login/', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'x-csrftoken': getCookie('csrftoken')
+        },
+        body: 'username='+encodeURIComponent(user)+'&password='+encodeURIComponent(password)
+    }).then((data) => {
+        if (data.ok) {
+            return dispatch(authenticate()).then((user) => {
+                if (!user) {
+                    throw new Error('login failed')
+                }
+            })
+        } else {
+            throw new Error('login failed')
+        }
+    })
+})
+export const logout = () => (dispatch, getState, { Api }) => (
+    Api.Auth.one('logout').get()
+    .then(() => dispatch(loggedOut()))
+)
+const loggedIn = (user) => ({ type: LOGGED_IN, user })
+const loggedOut = () => ({ type: LOGGED_OUT })
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = $.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

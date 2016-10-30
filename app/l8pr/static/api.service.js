@@ -118,7 +118,7 @@
                 }
                 return extractedData;
             });
-            // X-CSRFToken
+            // x-csrftoken
             function getCookie(name) {
                 var cookieValue = null;
                 if (document.cookie && document.cookie !== '') {
@@ -134,6 +134,6 @@
                 }
                 return cookieValue;
             }
-            RestangularProvider.setDefaultHeaders({'X-CSRFToken': getCookie('csrftoken')});
+            RestangularProvider.setDefaultHeaders({'x-csrftoken': getCookie('csrftoken')});
         }]);
 })();

@@ -3,8 +3,8 @@
         <div ng-if="!vm.searchBarVisible" class="strip__header__title row col-xs-9 col-md-11">
             <div class="info">
                 <i class="logo material-icons" title="soon access a catalog of loops. Coming december 2016.">all_inclusive</i>
-                <a ui-sref="root.app.open.loop" class="user-name"><strong>{{ vm.loopAuthor }}</strong></a>
-                <a class="number-shows">{{ vm.showsCount }} Shows</a>
+                <a ui-sref="root.app.open.loop" class="user-name"><strong>{{ vm.strip.loop.username }}</strong></a>
+                <a class="number-shows">{{ vm.strip.shows.length }} Shows</a>
             </div>
         </div>
         <div ng-if="vm.searchBarVisible" class="strip__header__searchbar text-right col-xs-9 col-md-11">
@@ -15,22 +15,22 @@
             </form>
         </div>
         <div class="col-xs-3 col-md-1 text-right">
-            <i ng-if="!vm.searchBarVisible" class="material-icons" ng-click="vm.searchBarVisible = !vm.searchBarVisible">search</i>
-            <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.exit()">search</i>
-            <div class="current-user" ng-if="vm.loginService.currentUser.id"
-                ng-style="{'background-image': 'url(' + vm.loginService.currentUser.profile.avatar + ')'}">
+            <i ng-if="!vm.searchBarVisible" class="material-icons" ng-click="vm.openSearchBar()">search</i>
+            <i ng-if="vm.searchBarVisible" class="material-icons" ng-click="vm.closeSearchBar()">search</i>
+            <div class="current-user" ng-if="vm.auth.user.id"
+                ng-style="{'background-image': 'url(' + vm.auth.user.profile.avatar + ')'}">
                 <div uib-dropdown is-open="status.isopen">
-                    <i id="open-user-menu" ng-if="!vm.loginService.currentUser.profile.avatar" uib-dropdown-toggle class="material-icons">account_circle</i>
+                    <i id="open-user-menu" ng-if="!vm.auth.user.profile.avatar" uib-dropdown-toggle class="material-icons">account_circle</i>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="open-user-menu">
                         <li role="menuitem">
-                            <a ui-sref="root.app.open.loop({loopToExplore: vm.loginService.currentUser.username})"
-                               ng-bind="vm.loginService.currentUser.username"></a>
+                            <a ng-click="vm.loadAndStartLoop(vm.auth.user.username)"
+                               ng-bind="vm.auth.user.username"></a>
                         </li>
-                        <li role="menuitem"><a ng-click="vm.loginService.logout()">Logout</a></li>
+                        <li role="menuitem"><a ng-click="vm.logout()">Logout</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="current-user" ng-if="!vm.loginService.currentUser.id">
+            <div class="current-user" ng-if="!vm.auth.user.id">
                 <i class="material-icons" ng-click="vm.openLoginView()">account_circle</i>
             </div>
         </div>

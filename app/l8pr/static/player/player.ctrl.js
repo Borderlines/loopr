@@ -3,9 +3,9 @@ import {showSelector, itemSelector} from './selectors';
 (function() {
     'use strict';
 
-    PlayerCtrl.$inject = ['Player', '$timeout','login', 'addToShowModal', 'Api', '$ngRedux', 'progression', '$interval',
+    PlayerCtrl.$inject = ['Player', '$timeout', 'addToShowModal', 'Api', '$ngRedux', 'progression', '$interval',
     '$rootScope', 'hotkeys', '$scope', '$q', 'Fullscreen', 'upperStrip', 'lowerStrip', 'strip', '$state', 'strip', 'help'];
-    function PlayerCtrl(Player, $timeout, login, addToShowModal, Api, $ngRedux, progression, $interval,
+    function PlayerCtrl(Player, $timeout, addToShowModal, Api, $ngRedux, progression, $interval,
         $rootScope, hotkeys, $scope, $q, Fullscreen, upperStrip, lowerStrip, strip, $state, stripService, help) {
         var vm = this;
         const mapStateToTarget = (state) => ({
@@ -16,18 +16,12 @@ import {showSelector, itemSelector} from './selectors';
             currentItem: itemSelector(state.player)
         })
         let disconnect = $ngRedux.connect(mapStateToTarget, playerAction)(vm);
-        // const {username, show, item} = vm.router.currentParams;
-        // Player.loadLoop(username).then(function(loop) {
-        //     vm.setLoop(loop.shows_list);
-        //     vm.playItem(show, item);
-        // });
         $scope.$on('$destroy', disconnect);
         angular.extend(vm, {
             strip: strip,
             Player: Player,
             progression: 0,
             showsCount: 0,
-            currentUser: login.currentUser,
             addToShowModal: addToShowModal,
             upperStrip: upperStrip,
             lowerStrip: lowerStrip,
@@ -47,31 +41,8 @@ import {showSelector, itemSelector} from './selectors';
             //         Fullscreen.all();
             //     }
             // },
-            login: login,
             showAndHideStrip: _.throttle(strip.showAndHide, 500)
         });
-        // $interval(function() {
-        //     vm.progression = progression.getValue();
-        // }, 1000);
-        // function setBanner(item, show) {
-        //     var lines = [item.title];
-        //     if (show) {
-        //         lines.push(['Show', '<b>'+show.title+'</b>', 'by', loop.username].join(' '));
-        //     }
-        //     if (item.subtitle) {
-        //         lines.push(item.subtitle);
-        //     }
-        //     lines.push(item.title);
-        //     upperStrip.setBanner(lines);
-        //     // show strip
-        //     if (strip.isAutoHideEnabled) {
-        //         strip.showAndHide();
-        //     }
-        // }
-        // setBanner(vm.Player.currentItem, vm.Player.currentShow);
-        // $scope.$on('player.play', function ($event, item, show) {
-        //     setBanner(item, show);
-        // });
         // HOTKEYS
         hotkeys.bindTo($scope)
         .add({

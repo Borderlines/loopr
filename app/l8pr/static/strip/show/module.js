@@ -21,7 +21,7 @@ addToShowModal, $confirm) {
     $scope.$on('$destroy', disconnect);
     angular.extend(vm, {
         showConfig: function() {
-            showConfig(show);
+            showConfig(vm.show);
         },
         removeItem: function(item) {
             $confirm({text: 'Are you sure you want to delete?'}).then(function() {

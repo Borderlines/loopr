@@ -1,11 +1,12 @@
 import rootReducer from './player/reducers';
 import ngRedux from 'ng-redux';
-import ngReduxUiRouter from 'redux-ui-router';
+import ngReduxUiRouter, {stateGo} from 'redux-ui-router';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import SoundcloudDirective from './player/soundcloud';
 import ProgressionService from './player/services/progression';
 import uiRouter from 'angular-ui-router';
+import login from './login/module';
 import StripCtrl from './strip/strip.ctrl';
 import * as actions from './player/actions';
 (function() {
@@ -15,7 +16,7 @@ import * as actions from './player/actions';
         ngReduxUiRouter,
         'loopr.api',
         'loopr.strip',
-        'loopr.login',
+        login,
         'ui.bootstrap',
         'loopr.player.vimeo',
         'angular-confirm',
@@ -94,14 +95,22 @@ import * as actions from './player/actions';
                 }]
             })
             .state('root', {
-                url: '/',
+                url: '/:username',
                 controller: ['$ngRedux', ($ngRedux) => {
-                    $ngRedux.dispatch(actions.loadAndStartLoop())
+                    let username = $ngRedux.getState().router.currentParams.username
+                    $ngRedux.dispatch(actions.authenticate())
+                    .then((user) => {
+                        let loopToOpen = username ? username : user ? user.username : 'discover';
+                        return $ngRedux.dispatch(stateGo('root.app', { username: loopToOpen  }))
+                        .then(() => $ngRedux.dispatch(
+                            actions.loadAndStartLoop(loopToOpen)
+                        ))
+                    });
                 }],
                 template: '<div ui-view="player"></div><div ui-view="strip"></div>',
             })
             .state('root.app', {
-                url: ':username/:show/:item',
+                url: '/:show/:item',
                 reloadOnSearch: false,
                 views: {
                     player: {
@@ -240,15 +249,15 @@ import * as actions from './player/actions';
             //     }
             // });
         }])
-        .config(['$ngReduxProvider', 'PlayerProvider',
-        function($ngReduxProvider, PlayerProvider) {
+        .config(['$ngReduxProvider', 'PlayerProvider', 'ApiProvider',
+        function($ngReduxProvider, PlayerProvider, ApiProvider) {
             const logger = createLogger({
                 level: 'info',
                 collapsed: true
             });
             $ngReduxProvider.createStoreWith(rootReducer, [
                 'ngUiRouterMiddleware',
-                thunk.withExtraArgument({ Player: PlayerProvider.$get() }),
+                thunk.withExtraArgument({ Player: PlayerProvider.$get(), Api: ApiProvider.$get() }),
                 logger
             ]);
         }])
@@ -295,7 +304,6 @@ import * as actions from './player/actions';
         //     $rootScope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
         //         e.preventDefault();
         //         if ($state.current.name !== 'root.app') {
-        //             console.log('sync');
         //             $urlRouter.sync();
         //         }
         //     });
@@ -304,7 +312,6 @@ import * as actions from './player/actions';
         .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout',
         function($history, $state, $rootScope, hotkeys, $timeout) {
             $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-                console.log('$stateChangeStart', toState);
                 $timeout(function() {
                     $('[ui-view="body"]').addClass('spinner');
                 }, 0, false);

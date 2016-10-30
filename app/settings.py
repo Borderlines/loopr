@@ -150,6 +150,7 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app', 'l8pr', 'static'),
 ]
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 COMPRESS_ENABLED = str(os.environ.get('COMPRESS_ENABLED', not DEBUG)).lower() == 'true'
 COMPRESS_OFFLINE = str(os.environ.get('COMPRESS_OFFLINE', not DEBUG)).lower() == 'true'
 COMPRESS_PRECOMPILERS = (

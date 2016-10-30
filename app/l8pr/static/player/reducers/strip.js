@@ -5,10 +5,16 @@ export default function strip(state={
     upperStrip: [],
     shows: [],
     view: 'loop',
+    stripParams: {},
+    searchBar: false,
     open: false,
 }, action=null) {
     let newState = Object.assign({}, state);
     switch (action.type) {
+        case actions.OPEN_SEARCH_BAR:
+            return Object.assign({}, state, {searchBar: true});
+        case actions.CLOSE_SEARCH_BAR:
+            return Object.assign({}, state, {searchBar: false});
         case actions.STRIP_SET_LOOP:
             return Object.assign({}, state, {shows: action.shows});
         case actions.OPEN_STRIP:
