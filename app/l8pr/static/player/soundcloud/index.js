@@ -15,17 +15,6 @@ export default function SoundcloudDirective($interval, $q, $http, $ngRedux, prog
 
             scope.$on('$destroy', disconnect);
             var soundcloudPlayer;
-            var progressionTracker;
-
-            scope.playPause = function() {
-                soundcloudPlayer.then(function(sound) {
-                    if (sound.isPlaying()) {
-                        pause();
-                    } else {
-                        play();
-                    }
-                });
-            };
 
             function mute() {
                 soundcloudPlayer.then(function(sound) {
@@ -39,16 +28,6 @@ export default function SoundcloudDirective($interval, $q, $http, $ngRedux, prog
                 });
             }
 
-            scope.toggleMute = function() {
-                soundcloudPlayer.then(function(sound) {
-                    if (sound.getVolume() === 1) {
-                        mute();
-                    } else {
-                        unmute();
-                    }
-                });
-            };
-
             function clear() {
                 if (angular.isDefined(soundcloudPlayer) && soundcloudPlayer) {
                     soundcloudPlayer.then(function(sound) {
@@ -56,7 +35,6 @@ export default function SoundcloudDirective($interval, $q, $http, $ngRedux, prog
                         soundcloudPlayer = null;
                     });
                 }
-                $interval.cancel(progressionTracker);
                 progression.clear();
             }
 
@@ -86,20 +64,12 @@ export default function SoundcloudDirective($interval, $q, $http, $ngRedux, prog
                         if (scope.player.mute) {
                             mute();
                         }
-                        $interval.cancel(progressionTracker);
                         progression.bindProgression(function() {
                             if (player.streamInfo) {
                                 return (player.currentTime() /  player.streamInfo.duration) * 100;
                             }
                             return 0;
                         });
-                        progressionTracker = $interval(function() {
-                            if (player.streamInfo) {
-                                if (player.currentTime() >  player.streamInfo.duration - 5){
-                                    scope.nextItem();
-                                }
-                            }
-                        }, 250);
                     });
                 });
             });
@@ -108,8 +78,24 @@ export default function SoundcloudDirective($interval, $q, $http, $ngRedux, prog
                     sound.seek(Math.ceil((percent/100) * sound.streamInfo.duration));
                 });
             });
-            scope.$on('player.toggleMute', scope.toggleMute);
-            scope.$on('player.playPause', scope.playPause);
+            scope.$watch('player.mute', (_mute) => {
+                soundcloudPlayer.then(function(sound) {
+                    if (_mute) {
+                        mute();
+                    } else {
+                        unmute();
+                    }
+                });
+            })
+            scope.$watch('player.playing', (playing) => {
+                soundcloudPlayer.then(function(sound) {
+                    if (playing) {
+                        play();
+                    } else {
+                        pause();
+                    }
+                });
+            })
             scope.$on('$destroy', function() {
                 clear();
             });
