@@ -28,5 +28,5 @@ ln -s -f ../../vendor/node/bin/npm .heroku/python/bin/npm
 
 npm install -g less
 npm install -g bower
-npm install
+npm install -g
 /app/.heroku/vendor/node/lib/node_modules/bower/bin/bower install
