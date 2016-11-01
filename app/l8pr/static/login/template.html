@@ -5,7 +5,7 @@
     <uib-tab index="0" heading="Sign in" classes="btn-md">
         <div class="modal-body">
             <h2 class="form-signin-heading">Please sign in</h2>
-            <form name="vm.loginForm" id="loginForm" ng-submit="vm.login()" novalidate>
+            <form name="vm.loginForm" id="loginForm" ng-submit="vm.handleLogin()" novalidate>
                 <div class="form-group">
                     <label for="inputUsername" class="sr-only">Username</label>
                     <input ng-model="vm.username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>

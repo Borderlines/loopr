@@ -14,8 +14,9 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-
 COMPRESS_PRECOMPILERS = (
+    ('module', 'PATH=$PATH:/app/.heroku/vendor/node/lib/node_modules/.bin ; /app/.heroku/vendor/node/lib/node_modules/.bin/browserify "{infile}" -d -o "{outfile}" '
+     '-t [ "babelify" --plugins="babel-plugin-transform-react-jsx" --presets="babel-preset-es2015" ]'),
     ('text/less', '/app/.heroku/vendor/node/lib/node_modules/less/bin/lessc {infile} {outfile}'),
 )
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

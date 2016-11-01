@@ -1,9 +1,13 @@
-(function() {
-'use strict';
+import * as playerAction from '../player/actions';
 
-ModalInstanceCtrl.$inject = ['login', '$http', '$uibModalInstance', 'Api'];
-function ModalInstanceCtrl(login, $http, $uibModalInstance, Api) {
+ModalInstanceCtrl.$inject = ['login', '$uibModalInstance', 'Api', '$ngRedux', '$scope'];
+function ModalInstanceCtrl(login, $uibModalInstance, Api, $ngRedux, $scope) {
     var vm = this;
+    const mapStateToTarget = (state) => ({
+        auth: state.auth
+    })
+    let disconnect = $ngRedux.connect(mapStateToTarget, playerAction)(vm);
+    $scope.$on('$destroy', disconnect);
     angular.extend(vm, {
         cancel: function() {
             $uibModalInstance.dismiss('cancel');
@@ -27,56 +31,30 @@ function ModalInstanceCtrl(login, $http, $uibModalInstance, Api) {
                 email: vm.email,
                 username: vm.username
             }).then(function onSuccess(d) {
-                login.loginWithCred(vm.username, vm.password).then($uibModalInstance.close);
+                vm.login(vm.username, vm.password)
+                .then($uibModalInstance.close);
             }, function onError(e) {
                 vm.registerErrors = e.data;
             });
         },
-        login: function() {
+        handleLogin: function() {
             vm.loginError = false;
-            login.loginWithCred(vm.username, vm.password).then($uibModalInstance.close, function error(err) {
+            vm.login(vm.username, vm.password)
+            .then($uibModalInstance.close, function error(err) {
                 vm.loginError = true;
             });
         }
     });
 }
 
-angular.module('loopr.login', ['loopr.api'])
+const login = angular.module('loopr.login', ['loopr.api'])
 .config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    $httpProvider.defaults.xsrfHeaderName = 'x-csrftoken';
 }])
-.service('login', ['Api', '$rootScope', '$uibModal', '$http', '$q',
-function(Api, $rootScope, $uibModal, $http, $q) {
-    $rootScope.user = {};
+.service('login', ['Api', '$uibModal', '$http', '$q',
+function(Api, $uibModal, $http, $q) {
     var service = {
-        currentUser: {},
-        logout: function() {
-            service.currentUser = {};
-            return Api.Auth.one('logout').get();
-        },
-        loginWithCred: function(username, password) {
-            return $q(function(resolve, reject) {
-                $http.post('api-auth/login/', {
-                    username: username,
-                    password: password
-                }, {
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                    transformRequest: function(data){
-                        return $.param(data);
-                    }
-                }).success(function(responseData) {
-                    resolve(service.login());
-                });
-            });
-        },
-        login: function() {
-            return Api.Accounts.one('me').get().then(function(currentUser) {
-                $rootScope.currentUser = currentUser;
-                service.currentUser = currentUser;
-                return currentUser;
-            });
-        },
         openLoginView: function() {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -89,4 +67,5 @@ function(Api, $rootScope, $uibModal, $http, $q) {
     };
     return service;
 }]);
-})();
+
+export default login.name;

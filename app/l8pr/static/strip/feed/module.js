@@ -4,7 +4,8 @@
     FeedCtrl.$inject = ['$interval', 'Player', 'Api', '$scope'];
     function FeedCtrl($interval, Player, Api, $scope) {
         var vm = this;
-        var source = JSON.parse(Player.loop.feed_json);
+        var source = JSON.parse('[]');
+        // var source = JSON.parse(Player.loop.feed_json);
         var timeInterval = 5000; // ms
         if (!source && source.length < 1) {
             return;

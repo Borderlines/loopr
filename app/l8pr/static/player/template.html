@@ -1,0 +1,23 @@
+<soundcloud ng-if="vm.currentItem.provider_name == 'SoundCloud'"
+                soundcloud-item="vm.currentItem">
+</soundcloud>
+<div ng-class="{'hidden': vm.currentShow.settings.force_giphy}">
+<youtube ng-if="vm.currentItem.provider_name == 'YouTube'"
+
+         data-item="vm.currentItem">
+</youtube>
+</div>
+<vimeo ng-if="vm.currentItem.provider_name == 'Vimeo'"
+         data-item="vm.currentItem">
+</vimeo>
+<webtorrent ng-if="vm.currentItem.provider_name == 'WebTorrent'"
+            class="webtorrent"
+            data-item="vm.currentItem">
+</webtorrent>
+<loopr-giphy ng-if="vm.currentShow.settings.force_giphy ||
+                    (vm.currentItem.provider_name == 'SoundCloud')"
+            data-item="vm.currentShow">
+</loopr-giphy>
+<div class="overlay"
+     ng-click="vm.Player.playPause()">
+</div>

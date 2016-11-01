@@ -1,48 +1,52 @@
-(function() {
-'use strict';
+import * as actions from '../../player/actions';
+import { showSelector, itemSelector } from '../../player/selectors';
 
-ShowExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'show', 'showConfig',
-'addToShowModal', 'Api', '$state', '$confirm', 'Restangular'];
-function ShowExplorerCtrl(Player, scope, stripService, show, showConfig,
-addToShowModal, Api, $state, $confirm, Restangular) {
+ShowExplorerCtrl.$inject = ['$ngRedux', '$scope', 'showConfig',
+'addToShowModal', '$confirm'];
+function ShowExplorerCtrl($ngRedux, $scope, showConfig,
+addToShowModal, $confirm) {
     var vm = this;
+    const mapStateToTarget = (state) => {
+        let show = state.strip.stripParams.show;
+        return {
+            strip: state.strip,
+            show: show,
+            player: state.player,
+            playingNow: showSelector(state.player) === show,
+            currentItem: itemSelector(state.player),
+            currentShow: showSelector(state.player),
+        }
+    }
+    let disconnect = $ngRedux.connect(mapStateToTarget, actions)(vm);
+    $scope.$on('$destroy', disconnect);
     angular.extend(vm, {
-        stripService: stripService,
-        show: show,
-        playingNow: Player.currentShow === show,
-        player: Player,
         showConfig: function() {
-            showConfig(show);
+            showConfig(vm.show);
         },
         removeItem: function(item) {
             $confirm({text: 'Are you sure you want to delete?'}).then(function() {
-                var oldShow = Restangular.copy(show);
-                _.remove(oldShow.items, function(i) {
-                    // FIXME: item can have no id
-                    return item.id === i.id;
-                });
-                oldShow.items = angular.copy(oldShow.items);
-                return oldShow.put().then(function(s) {
-                    show.items = s.items;
-                });
+                // FIXME: use redux
+                // var oldShow = Restangular.copy(show);
+                // _.remove(oldShow.items, function(i) {
+                //     // FIXME: item can have no id
+                //     return item.id === i.id;
+                // });
+                // oldShow.items = angular.copy(oldShow.items);
+                // return oldShow.put().then(function(s) {
+                //     show.items = s.items;
+                // });
             });
         },
         addItemToAShow: addToShowModal
-    });
-    scope.$on('l8pr.updatedShow', function(e, updatedShow) {
-        if (show.id === updatedShow.id) {
-            $state.reload($state.current.name);
-        }
-    });
-    scope.$watch(function() {
-        return Player.currentShow;
-    }, function(currentShow) {
-        vm.playingNow = currentShow === show;
     });
 }
 
 
 angular.module('loopr.strip')
+.directive('looprStripShow', () => ({
+    scope: {},
+    controller: ShowExplorerCtrl,
+    controllerAs: 'vm',
+    templateUrl: '/strip/show/template.html'
+}))
 .controller('ShowExplorerCtrl', ShowExplorerCtrl);
-
-})();

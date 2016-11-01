@@ -1,0 +1,93 @@
+<div class="container-fluid strip">
+    <div loopr-strip-header ng-if="vm.strip.open"></div>
+    <div class="strip__body row" ng-if="vm.strip.open">
+        <div loopr-strip-loop ng-if="vm.strip.view === 'loop'"></div>
+        <div loopr-strip-show ng-if="vm.strip.view === 'show'"></div>
+    </div>
+    <div class="strip__controls" ng-class="{'strip__controls--extended': vm.strip.open}">
+        <div class="row" ng-if="vm.strip.open">
+            <div class="banner col-xs-12 col-md-8">
+                <div class="row">
+                    <div class="banner__playButton col-xs-1 col-md-1">
+                        <span ng-click="vm.togglePlay()" title="Play/Pause">
+                            <i class="material-icons">{{ vm.player.playing ? 'pause' : 'play_arrow' }}</i>
+                        </span>
+                    </div>
+                    <div class="banner__title col-xs-9 col-md-9">
+                        <span ui-sref="root.app.open.show({showToExplore: vm.currentShow})">{{ vm.currentItem.title }}</span>
+                    </div>
+                    <div class="col-xs-1 col-md-1 text-right">
+                        <a ng-href="{{ vm.currentItem.url }}" target="_blank">
+                            <i ng-if="vm.currentItem.provider_name === 'YouTube'" class="fa fa-youtube-play" aria-hidden="true" title="Watch {{vm.currentItem.title}} on Youtube"></i>
+                            <i ng-if="vm.currentItem.provider_name === 'SoundCloud'" class="fa fa-soundcloud" aria-hidden="true" title="Watch {{vm.currentItem.title}} on Soundcloud"></i>
+                            <i ng-if="vm.currentItem.provider_name === 'Vimeo'" class="fa fa-vimeo-square" aria-hidden="true" title="Watch {{vm.currentItem.title}} on Vimeo"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-1 col-md-1 text-right">
+                        <i class="material-icons" ng-click="vm.addToShowModal(vm.currentItem)" title="Add this Item to a Show">playlist_add</i>
+                    </div>
+                </div>
+            </div>
+            <div class="controller col-xs-12 col-md-4">
+                <div class="controller__prevPlayNext col-xs-7">
+                    <span ng-click="vm.previousShow()" title="Previous Show"><i class="material-icons">first_page</i></span>
+                    <span ng-click="vm.previousItem()" title="Previous Item"><i class="material-icons">chevron_left</i></span>
+                    <span ng-click="vm.togglePlay()" title="Play/Pause">
+                        <i class="material-icons">{{ vm.player.playing ? 'pause' : 'play_arrow' }}</i>
+                    </span>
+                    <span ng-click="vm.nextItem()" title="Next Item"><i class="material-icons">chevron_right</i></span>
+                    <span ng-click="vm.nextShow()" title="Next Show"><i class="material-icons">last_page</i></span>
+                    <span ng-click="vm.toggleMute()" title="Mute on/off">
+                        <i class="material-icons">{{ vm.player.mute ? 'volume_off' : 'volume_up' }}</i>
+                    </span>
+                </div>
+                <div class="controller__display col-xs-3 text-left">
+                    <!-- <span ng-click="vm.stripService.autoHideToggle()" class="auto-hide" title="Strip auto-hide on/off">
+                        <i class="material-icons sm">{{ vm.stripService.isAutoHideEnabled === true ? 'video_label' : 'call_to_action' }}</i>
+                    </span> -->
+                    <!-- <span ng-click="vm.toggleFullscreen()" class="fullscreen" ng-class="{'active': vm.isFullScreen()}" title="Enter Fullscreen">
+                        <i class="material-icons">fullscreen</i>
+                    </span> -->
+                </div>
+                <!-- <div class="controller__help col-xs-1">
+                    <span><i class="material-icons" ng-click="vm.help()" title="about Loopr">help_outline</i></span>
+                </div> -->
+                <div class="controller__toggle col-xs-1 text-right">
+                    <i class="toggle-controller material-icons" ng-click="vm.toogleStrip()" title="Toggle Navigation">keyboard_arrow_down</i>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="!vm.strip.open">
+            <div class="banner col-xs-10">
+                <div class="banner__title closed" ng-click="vm.toogleStrip()">
+                    <banner lines="vm.upperStrip" transition="scroll" duration="5"></banner>
+                </div>
+            </div>
+            <div class="controller__toggle--closed col-xs-2 text-right">
+                <i class="toggle-controller material-icons" ng-click="vm.toogleStrip()" title="Toggle Navigation">keyboard_arrow_up</i>
+            </div>
+        </div>
+        <!-- progress bar -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="progress" ng-click="vm.setPosition($event)">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         aria-valuenow="{{ vm.progression }}"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         ng-style="{width: vm.progression + '%'}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: progress bar -->
+    </div>
+    <div class="container-fluid" ng-if="vm.Player.loop.feed_json !== '[]'">
+        <div class="row">
+            <div class="feed col-md-12">
+                <l8pr-feed></l8pr-feed>
+            </div>
+        </div>
+    </div>
+</div>

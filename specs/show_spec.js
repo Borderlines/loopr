@@ -22,7 +22,7 @@
         browser.driver.get(browser.baseUrl + '/api/auth/logout/');
     });
     function openShow(show) {
-        element(by.cssContainingText('[ui-sref="index.open.show({showToExplore: show})"]', show)).click();
+        element(by.cssContainingText('[ui-sref="root.app.open.show({showToExplore: show})"]', show)).click();
     }
     describe('Show', function() {
         var items = element.all(by.repeater('item in vm.show.items'));
@@ -86,7 +86,7 @@
                     browser.get('/vied12/loop/');
                     openShow(showName);
                     expect(element(by.css('.list__item__title', itemTitle)).isPresent()).toBe(true);
-                    element(by.css('[ui-sref="index.open.loop"]')).click();
+                    element(by.css('[ui-sref="root.app.open.loop"]')).click();
                     openShow('my inbox');
                     expect(element(by.css('.list__item__title', itemTitle)).isPresent()).toBe(true);
                 });

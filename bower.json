@@ -14,7 +14,6 @@
   ],
   "dependencies": {
     "modernizr": "~2.8.3",
-    "angular": "~1.5.0",
     "angular-resource": "~1.5.0",
     "restangular": "~1.5.1",
     "angular-sanitize": "~1.5.0",
@@ -27,7 +26,6 @@
     "angular-fullscreen": "~1.0.1",
     "angular-perfect-scrollbar": "~0.0.4",
     "bootstrap": "~3.3.6",
-    "angular-ui-router": "~0.3.0",
     "angular-bootstrap": "~1.3.2",
     "plyr": "~1.6.16",
     "webtorrent": "~0.94.4",

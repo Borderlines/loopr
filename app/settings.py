@@ -150,9 +150,12 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app', 'l8pr', 'static'),
 ]
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 COMPRESS_ENABLED = str(os.environ.get('COMPRESS_ENABLED', not DEBUG)).lower() == 'true'
 COMPRESS_OFFLINE = str(os.environ.get('COMPRESS_OFFLINE', not DEBUG)).lower() == 'true'
 COMPRESS_PRECOMPILERS = (
+    ('module', 'PATH=$PATH:node_modules/.bin ; node_modules/.bin/browserify "{infile}" -d -o "{outfile}" '
+     '-t [ "babelify" --plugins="babel-plugin-transform-react-jsx" --presets="babel-preset-es2015" ]'),
     ('text/less', 'node_modules/less/bin/lessc {infile} {outfile}'),
 )
 REST_FRAMEWORK = {

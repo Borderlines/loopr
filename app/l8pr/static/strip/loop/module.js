@@ -1,45 +1,16 @@
-(function() {
-'use strict';
+import * as actions from '../../player/actions';
+import {showSelector} from '../../player/selectors';
 
-LoopExplorerCtrl.$inject = ['Player', '$scope', 'strip', 'loopToExplore',
-'latestItemsShow', '$state'];
-function LoopExplorerCtrl(Player, scope, stripService, loopToExplore,
-latestItemsShow, $state) {
+LoopExplorerCtrl.$inject = ['$scope', '$ngRedux'];
+function LoopExplorerCtrl($scope, $ngRedux) {
     var vm = this;
-    function reorderShows() {
-        var shows;
-        var indexOfCurrentShow = _.findIndex(loopToExplore.shows_list, function(s) {return s === Player.currentShow;});
-        if (indexOfCurrentShow > -1) {
-            var reordered = loopToExplore.shows_list.slice(indexOfCurrentShow, loopToExplore.shows_list.length);
-            shows = reordered.concat(loopToExplore.shows_list.slice(0, indexOfCurrentShow));
-        } else {
-            shows = loopToExplore.shows_list;
-        }
-        // load latest item and add it to a new show
-        if (!_.any(shows, function isALatestShow(s) {
-            return s.show_type === 'last_item';
-        })) {
-            shows.unshift(latestItemsShow);
-        }
-        vm.shows = shows;
-    }
-    angular.extend(vm, {
-        Player: Player,
-        play: function(show) {
-            if (loopToExplore.id !== Player.loop.id) {
-                Player.playLoop(loopToExplore, show.id);
-            } else {
-                Player.playShow(show);
-            }
-        },
-        stripService: stripService
-    });
-    reorderShows();
-    scope.$on('l8pr.updatedLoop', function(e, updatedLoop) {
-        if (!updatedLoop || updatedLoop.id === loopToExplore.id) {
-            $state.reload('index.open');
-        }
-    });
+    const mapStateToTarget = (state) => ({
+        strip: state.strip,
+        player: state.player,
+        currentShow: showSelector(state.player),
+    })
+    let disconnect = $ngRedux.connect(mapStateToTarget, actions)(vm);
+    $scope.$on('$destroy', disconnect);
 }
 
 angular.module('loopr.strip')
@@ -56,6 +27,12 @@ angular.module('loopr.strip')
         }
     };
 }])
+.directive('looprStripLoop', () => ({
+    scope: {},
+    controller: LoopExplorerCtrl,
+    controllerAs: 'vm',
+    templateUrl: '/strip/loop/template.html'
+}))
 .directive('swapOnHover', ['$timeout', function($timeout) {
     return {
         template: [
@@ -131,5 +108,3 @@ angular.module('loopr.strip')
         }
     };
 }]);
-
-})();

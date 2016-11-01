@@ -5,6 +5,9 @@
     function(Player, $timeout, $http) {
         return {
             restrict: 'E',
+            scope: {
+                show: '=item'
+            },
             template: [
                '<div class="loopr-giphy {{ layout }}">',
                    '<div class="background"',
@@ -22,9 +25,9 @@
                 var gifTimeout;
                 var layoutTimeout;
                 var layouts = ['default', 'symmetry', 'repeat'];
-                var giphy_keywords = Player.currentShow.settings &&
-                                     Player.currentShow.settings.giphy_tags &&
-                                     Player.currentShow.settings.giphy_tags.split(',') || [];
+                var giphy_keywords = scope.show.settings &&
+                                     scope.show.settings.giphy_tags &&
+                                     scope.show.settings.giphy_tags.split(',') || [];
                 var giphy_url = '//api.giphy.com/v1/gifs/random?rating=r&api_key=dc6zaTOxFJmzC&tag=';
                 angular.extend(scope, {
                     background: '/static/images/recordPlayer.gif'
@@ -43,7 +46,7 @@
                         .attr('src', image_url)
                         .on('load', function() {
                             scope.soundcloudArtwork = image_url;
-                            if (Player.currentShow.settings && Player.currentShow.settings.dj_layout) {
+                            if (scope.show.settings && scope.show.settings.dj_layout) {
                                 updateLayout();
                             }
                             gifTimeout = $timeout(updateGif, 10000, false);

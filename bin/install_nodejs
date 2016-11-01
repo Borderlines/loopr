@@ -26,7 +26,7 @@ ln -s -f ../../vendor/node/bin/node .heroku/python/bin/node
 ln -s -f ../../vendor/node/bin/node-waf .heroku/python/bin/node-waf
 ln -s -f ../../vendor/node/bin/npm .heroku/python/bin/npm
 
-
 npm install -g less
 npm install -g bower
+npm install -g
 /app/.heroku/vendor/node/lib/node_modules/bower/bin/bower install
