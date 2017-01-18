@@ -276,8 +276,8 @@
                 }
             });
         }])
-        .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout',
-        function($history, $state, $rootScope, hotkeys, $timeout) {
+        .run(['$history', '$state', '$rootScope', 'hotkeys', '$timeout', '$location', 'Player',
+        function($history, $state, $rootScope, hotkeys, $timeout, $location, Player) {
             $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
                 $timeout(function() {
                     $('[ui-view="body"]').addClass('spinner');
@@ -299,6 +299,13 @@
                     delete fromParams.item;
                     $history.push(from, fromParams);
                 }
+                var params = {
+                    show: Player.currentShow && Player.currentShow.id || toParams.show,
+                    item: Player.currentItem && Player.currentItem.id || toParams.item,
+                };
+                $timeout(function() {
+                    $location.search(angular.extend({}, $location.search(), params));
+                }, 250, false);
             });
             hotkeys.add({
                 combo: ['ctrl+f'],

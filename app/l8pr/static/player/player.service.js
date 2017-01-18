@@ -162,11 +162,11 @@
                 self.currentShow = show;
                 self.currentItem = show.items[index];
                 // deep linking
-                // $timeout(function() {
-                //     if ($state.current.name.indexOf('index') > -1) {
-                //         $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
-                //     }
-                // }, 250, false);
+                $timeout(function() {
+                    if ($state.current.name.indexOf('index') > -1) {
+                        $location.search(angular.extend({}, $location.search(),{show: self.currentShow.id, item: self.currentItem.id}));
+                    }
+                }, 250, false);
                 $timeout(function() {
                     $rootScope.$broadcast('player.play', self.currentItem, self.currentShow);
                 });
