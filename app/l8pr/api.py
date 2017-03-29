@@ -16,6 +16,7 @@ class ItemSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
 
     class Meta:
+        fields = '__all__'
         model = Item
 
 
@@ -27,6 +28,7 @@ class ShowSettingsSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
+        fields = '__all__'
         model = Profile
 
 
