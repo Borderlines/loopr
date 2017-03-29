@@ -7,6 +7,8 @@ from . import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
+from django.views.generic import View
+from django.http import HttpResponse
 
 
 def angular_templates():
@@ -20,6 +22,16 @@ def angular_templates():
                 with open(file_path, 'rb') as fh:
                     file_name = file_path[len(partials_dir) + 1:]
                     yield (file_name, normalize_newlines(fh.read().decode('utf-8')).replace('\n', ' '))
+
+
+class IndexView(View):
+    """Render main page."""
+
+    def get(self, request):
+        """Return html for main application page."""
+
+        abspath = open(os.path.join(settings.BASE_DIR, 'static_dist/index.html'), 'r')
+        return HttpResponse(content=abspath.read())
 
 
 @method_decorator(xframe_options_exempt, name='dispatch')

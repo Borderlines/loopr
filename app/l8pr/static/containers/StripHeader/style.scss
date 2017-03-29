@@ -1,0 +1,12 @@
+.StripHeader {
+    background-color: white;
+}
+.StripHeader__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    padding-top: 18px;
+    font-weight: 500;
+    text-align: left;
+}

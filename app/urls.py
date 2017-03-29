@@ -19,7 +19,7 @@ from django.contrib import admin
 from rest_framework import routers
 from .l8pr.api import (UserViewSet, LoopViewSet, ShowViewSet, ItemViewSet, ItemSearchView,
 SearchYoutubeView, MetadataView)
-from .l8pr.views import HomePageView
+from .l8pr.views import HomePageView, IndexView
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
@@ -44,11 +44,12 @@ urlpatterns = [
     url(r'^api/register/', include('djoser.urls')),
     url(r'^auth/', include('rest_framework_social_oauth2.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', HomePageView.as_view(template_name='index.html')),
     url(r'^open/.+$', HomePageView.as_view(template_name='index.html')),
-    url(r'^(?P<username>\w+)$', HomePageView.as_view(template_name='index.html')),
-    url(r'^(?P<username>\w+)/.*$', HomePageView.as_view(template_name='index.html')),
+    # url(r'^(?P<username>\w+)$', HomePageView.as_view(template_name='index.html')),
+    # url(r'^(?P<username>\w+)/.*$', HomePageView.as_view(template_name='index.html')),
     # from FB auth
-    url(r'^_=_/$', HomePageView.as_view(template_name='index.html')),
+    url(r'', IndexView.as_view(), name='index'),
+
+    # url(r'^_=_/$', HomePageView.as_view(template_name='index.html')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
