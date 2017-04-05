@@ -3,8 +3,7 @@ import { get } from 'lodash'
 
 export default function (state = {
     playlist: [],
-    currentTrack: undefined,
-    currentShow: undefined,
+    currentTrack: 0,
     muted: false,
     playing: false
 }, action = null) {
@@ -15,13 +14,9 @@ export default function (state = {
                 playlist: action.payload,
             }
         case c.PLAY:
-            var showId = get(action, 'payload.show') || state.currentShow || state.playlist[0].id
-            var itemId = get(action, 'payload.item') || state.currentTrack || state.playlist[0].items[0].id
             return {
                 ...state,
                 playing: true,
-                currentShow: parseInt(showId),
-                currentTrack: parseInt(itemId),
             }
         case c.PAUSE:
             return { ...state, playing: false }

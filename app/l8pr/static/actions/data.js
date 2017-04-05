@@ -6,6 +6,20 @@ import { checkHttpStatus, parseJSON } from '../utils';
 import { DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA, RECEIVE_LOOP } from '../constants';
 import { authLoginUserFailure } from './auth';
 
+export function fetchLastItems({user}) {
+    return (dispatch) => (
+        fetch(`${SERVER_URL}/api/items/?users=${user}`, {
+            // credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                // Authorization: `Token ${token}`
+            }
+        })
+        .then(checkHttpStatus)
+        .then(parseJSON)
+    )
+}
+
 export function dataReceiveProtectedData(data) {
     return {
         type: DATA_RECEIVE_PROTECTED_DATA,

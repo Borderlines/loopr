@@ -21,7 +21,13 @@ export function play(showAndItem) {
         })
         const show = selectors.currentShow(getState())
         const item = selectors.currentTrack(getState())
-        dispatch(push(`/show/${show}/item/${item}`))
+        let url = ''
+        if (show) {
+            url += `/show/${show}`
+        } if (item) {
+            url += `/item/${item}`
+        }
+        dispatch(push(url))
     }
 }
 
@@ -48,4 +54,8 @@ export function next() {
 
 export function previous() {
     return { type: c.PREVIOUS }
+}
+
+export function pause() {
+    return { type: c.PAUSE }
 }

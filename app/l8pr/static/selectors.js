@@ -5,6 +5,14 @@ export const currentTrack = (state) => state.player.currentTrack
 export const currentShow = (state) => state.player.currentShow
 export const playlist = (state) => state.player.playlist
 export const getPathname = (state) => state.routing.locationBeforeTransitions.pathname
+
+export const getCurrentTrack = createSelector(
+    [playlist, currentTrack],
+    (playlist, currentTrackPosition) => {
+        return playlist[currentTrackPosition]
+    }
+)
+
 export const getCurrentShow = createSelector(
     [currentShow, playlist],
     (currentShowId, playlist) => {
@@ -12,14 +20,6 @@ export const getCurrentShow = createSelector(
     }
 )
 
-export const getCurrentTrack = createSelector(
-  [getCurrentShow, currentTrack],
-  (currentShow, currentTrackId) => {
-      if (currentShow) {
-          return currentShow.items.find((i) => i.id === currentTrackId)
-      }
-  }
-)
 
 export const getCurrentShowPositionInShow = createSelector(
   [currentShow, playlist],

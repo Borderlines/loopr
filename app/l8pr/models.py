@@ -111,6 +111,19 @@ class ItemsRelationship(models.Model):
         return '%s > %s' % (self.item, self.show)
 
 
+class ItemsUsersRelationship(models.Model):
+    item = models.ForeignKey('Item')
+    user = models.ForeignKey(User)
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-added',)
+
+    def __str__(self):
+        return '%s > %s' % (self.item, self.user)
+
+
 class Item(models.Model):
     PROVIDER_CHOICES = (
         ('YouTube', 'YouTube'),
@@ -118,6 +131,7 @@ class Item(models.Model):
         ('WebTorrent', 'WebTorrent'),
         ('Vimeo', 'Vimeo'),
     )
+    users = models.ManyToManyField(User, through='ItemsUsersRelationship', related_name='ItemsUsersRelationship')
     title = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)

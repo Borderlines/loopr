@@ -180,7 +180,7 @@ class ShowViewSet(viewsets.ModelViewSet):
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    filter_fields = ('url',)
+    filter_fields = ('url', 'users')
 
 
 class ItemSearchSerializer(HaystackSerializer):

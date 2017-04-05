@@ -5,9 +5,11 @@ export default function NavPlayer({
     onPreviousShow,
     onPreviousItem,
     onPlay,
+    onPause,
     onNextItem,
     onNextShow,
     onMute,
+    playing,
 }) {
     return (
         <div className="NavPlayer row">
@@ -18,9 +20,16 @@ export default function NavPlayer({
                 <a onClick={onPreviousItem} title="Previous Item">
                     <i className="material-icons">chevron_left</i>
                 </a>
-                <a onClick={onPlay} title="Play/Pause">
-                    <i className="material-icons">play_arrow</i>
-                </a>
+                {playing &&
+                    <a onClick={onPause} title="Play/Pause">
+                        <i className="material-icons">pause</i>
+                    </a>
+                }
+                {!playing &&
+                    <a onClick={onPlay} title="Play/Pause">
+                        <i className="material-icons">play_arrow</i>
+                    </a>
+                }
                 <a onClick={onNextItem} title="Next Item">
                     <i className="material-icons">chevron_right</i>
                 </a>

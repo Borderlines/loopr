@@ -8,7 +8,6 @@ export default class Screen extends React.Component {
         return (
             <ReactPlayer
                 className="Screen"
-                playing
                 {...this.props}
                 width="100%"
                 height="100%"/>

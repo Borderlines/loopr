@@ -34,7 +34,7 @@ function receiveLoop(loop) {
     }
 }
 
-export function fetchLoop(userId=2) {
+export function fetchShows(userId=2) {
     return (dispatch) => (
         fetch(`${SERVER_URL}/api/loops/${userId}/`, {
             // credentials: 'include',
