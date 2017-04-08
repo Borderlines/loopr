@@ -24,8 +24,8 @@ function StripHeaderComponent({ trackTitle, stripOpened, toggleStrip, showTitle,
 }
 
 const mapStateToProps = (state) => ({
-    trackTitle: get(selectors.getCurrentTrack(state), 'title'),
-    showTitle: get(selectors.getCurrentShow(state), 'title'),
+    trackTitle: get(selectors.currentTrack(state), 'title'),
+    showTitle: get(selectors.currentShow(state), 'title'),
     stripOpened: state.browser.stripOpened,
 })
 

@@ -1,12 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 import { Loop } from '../../components'
-import { StripHeader,  Controller} from '../index'
+import { StripHeader,  Controller } from '../index'
 import './style.scss'
 
 class Strip extends React.Component {
     static propTypes = {
-    };
+        stripOpened: React.PropTypes.bool,
+        loopItems: React.PropTypes.array,
+    }
 
     render() {
         const { stripOpened, loopItems } = this.props
@@ -24,6 +26,6 @@ class Strip extends React.Component {
 
 const mapStateToProps = (state) => ({
     stripOpened: state.browser.stripOpened,
-    loopItems: state.browser.loop
+    loopItems: state.browser.loop,
 })
 export default connect(mapStateToProps)(Strip)

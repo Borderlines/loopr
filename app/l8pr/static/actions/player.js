@@ -1,9 +1,6 @@
-import fetch from 'isomorphic-fetch';
-import { SERVER_URL } from '../utils/config';
-import { checkHttpStatus, parseJSON } from '../utils';
-import * as c from '../constants';
+import { fetchLastItems, fetchUserShows } from './data'
+import * as c from '../constants'
 import * as selectors from '../selectors'
-import { get } from 'lodash'
 import { push } from 'react-router-redux'
 
 export function setPlaylist(playlist) {
@@ -11,6 +8,44 @@ export function setPlaylist(playlist) {
         type: c.SET_PLAYLIST,
         payload: playlist,
     }
+}
+
+export function initQueueList() {
+    return (dispatch) => (
+        Promise.all([
+            // LAST ITEMS
+            fetchLastItems({ user: 1 })
+            // set context
+            .then((items) => (items.map((i) => ({
+                ...i,
+                context: { title: 'Last Items' },
+            })))),
+            // SHOWS
+            fetchUserShows({ user: 1 })
+            .then((shows) => (
+                shows.map((show) => (
+                    // set context
+                    show.items.map((i) => ({
+                        ...i,
+                        context: {
+                            ...show,
+                            items: null,
+                        },
+                    }))
+                ))
+            ))
+            // flatten items
+            .then((showsItems) => ([].concat.apply([], showsItems))),
+        ])
+        // flatten
+        .then((results) => ([].concat.apply([], results)))
+        // add to playlist
+        .then((items) => (dispatch(setPlaylist(items))))
+        // set the current item
+        .then(() => dispatch(next()))
+        // start the player
+        .then(() => dispatch(play()))
+    )
 }
 
 export function play(showAndItem) {
@@ -31,29 +66,28 @@ export function play(showAndItem) {
     }
 }
 
+export function previousContext() {
+    return { type: c.PREVIOUS_CONTEXT }
+}
+
+export function nextContext() {
+    return { type: c.NEXT_CONTEXT }
+}
+
 export function next() {
-    return (dispatch, getState) => {
-        let nextItem = undefined
-        let nextShow = undefined
-        const currentShow = selectors.getCurrentShow(getState())
-        const itemPositionInShow = selectors.getCurrentTrackPositionInShow(getState())
-        if (itemPositionInShow < currentShow.items.length - 1) {
-            nextItem = currentShow.items[itemPositionInShow + 1]
-        } else {
-            const showPosition = selectors.getCurrentShowPositionInShow(getState())
-            const playlist = selectors.playlist(getState())
-            nextShow = playlist[(showPosition + 1) % playlist.length]
-            nextItem = nextShow.items[0]
-        }
-        return dispatch(play({
-            item: get(nextItem, 'id'),
-            show: get(nextShow, 'id'),
-        }))
-    }
+    return { type: c.NEXT }
 }
 
 export function previous() {
     return { type: c.PREVIOUS }
+}
+
+export function mute() {
+    return { type: c.MUTE }
+}
+
+export function unmute() {
+    return { type: c.UNMUTE }
 }
 
 export function pause() {

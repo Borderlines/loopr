@@ -1,41 +1,10 @@
 import { createSelector } from 'reselect'
 import { get } from 'lodash'
 
-export const currentTrack = (state) => state.player.currentTrack
-export const currentShow = (state) => state.player.currentShow
+export const currentTrack = (state) => state.player.current
+export const currentShow = (state) => get(state, 'player.current.context')
 export const playlist = (state) => state.player.playlist
 export const getPathname = (state) => state.routing.locationBeforeTransitions.pathname
-
-export const getCurrentTrack = createSelector(
-    [playlist, currentTrack],
-    (playlist, currentTrackPosition) => {
-        return playlist[currentTrackPosition]
-    }
-)
-
-export const getCurrentShow = createSelector(
-    [currentShow, playlist],
-    (currentShowId, playlist) => {
-        return playlist.find((s) => s.id === currentShowId)
-    }
-)
-
-
-export const getCurrentShowPositionInShow = createSelector(
-  [currentShow, playlist],
-  (currentShowId, playlist) => {
-      return playlist.findIndex((s) => s.id === currentShowId)
-  }
-)
-
-export const getCurrentTrackPositionInShow = createSelector(
-  [getCurrentShow, currentTrack],
-  (currentShow, currentTrackId) => {
-      if (currentShow) {
-          return currentShow.items.findIndex((i) => i.id === currentTrackId)
-      }
-  }
-)
 
 export const getLocation = createSelector(
     [getPathname],

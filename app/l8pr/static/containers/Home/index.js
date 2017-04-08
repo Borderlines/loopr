@@ -1,23 +1,25 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { Screen } from '../../components'
 import { Strip } from '../index'
-import { fetchLastItems } from '../../actions/data'
-import { setPlaylist, play, pause, next } from '../../actions/player'
+import { play, pause, next, initQueueList } from '../../actions/player'
 import * as selectors from '../../selectors'
 import './style.scss'
 
 class HomeView extends React.Component {
 
     componentWillMount() {
-        this.props.fetchLastItems({ user: 1 })
-        .then((items) => this.props.setPlaylist(items))
-        .then(() => this.props.play(this.props.location))
+        this.props.initQueueList()
     }
 
     static propTypes = {
-        media: React.PropTypes.object
+        media: React.PropTypes.object,
+        playing: React.PropTypes.bool,
+        nextItem: React.PropTypes.func,
+        play: React.PropTypes.func,
+        pause: React.PropTypes.func,
+        initQueueList: React.PropTypes.func,
+        volume: React.PropTypes.number,
     }
 
     render() {
@@ -27,6 +29,7 @@ class HomeView extends React.Component {
                     <Screen
                         url={this.props.media.url}
                         playing={this.props.playing}
+                        volume={this.props.volume}
                         onEnded={this.props.nextItem}
                         onPlay={this.props.play}
                         onPause={this.props.pause}
@@ -39,17 +42,16 @@ class HomeView extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-        media: selectors.getCurrentTrack(state),
-        location: selectors.getLocation(state),
-        playing: state.player.playing,
+    media: selectors.currentTrack(state),
+    playing: state.player.playing,
+    volume: state.player.muted ? 0 : 1,
 })
 
 const mapDispatchToProps = (dispatch) => ({
     nextItem: () => (dispatch(next())),
-    fetchLastItems: (d) => (dispatch(fetchLastItems(d))),
-    setPlaylist: (loop) => (dispatch(setPlaylist(loop))),
     play: (args) => (dispatch(play(args))),
     pause: (args) => (dispatch(pause(args))),
+    initQueueList: () => (dispatch(initQueueList())),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeView)
