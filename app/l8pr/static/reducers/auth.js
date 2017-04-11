@@ -9,7 +9,6 @@ import {
 
 const initialState = {
     token: null,
-    userName: null,
     isAuthenticated: false,
     isAuthenticating: false,
     statusText: null
@@ -27,7 +26,7 @@ export default createReducer(initialState, {
             isAuthenticating: false,
             isAuthenticated: true,
             token: payload.token,
-            userName: payload.user.email,
+            user: payload.user,
             statusText: 'You have been successfully logged in.'
         });
     },
@@ -36,7 +35,6 @@ export default createReducer(initialState, {
             isAuthenticating: false,
             isAuthenticated: false,
             token: null,
-            userName: null,
             statusText: `Authentication Error: ${payload.status} - ${payload.statusText}`
         });
     },
@@ -44,7 +42,6 @@ export default createReducer(initialState, {
         return Object.assign({}, state, {
             isAuthenticated: false,
             token: null,
-            userName: null,
             statusText: 'You have been successfully logged out.'
         });
     }

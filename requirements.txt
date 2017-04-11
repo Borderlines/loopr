@@ -10,13 +10,14 @@ six==1.10.0
 wheel==0.24.0
 google-api-python-client==1.5.0
 soundcloud==0.5.0
-django-rest-framework-social-oauth2==1.0.5
+# django-rest-framework-social-oauth2==1.0.5
 whitenoise==2.0.6
 git+https://github.com/django-haystack/django-haystack.git@cc0974d53de637c16468b6779d486794ac9caaf5
 elasticsearch==2.3.0
-djoser==0.5.0
+# djoser==0.5.0
 drf-haystack==1.5.6
 twython==3.4.0
+django-rest-knox==2.2.0
 # PROD
 gunicorn==19.4.5
 dj-database-url==0.4.0

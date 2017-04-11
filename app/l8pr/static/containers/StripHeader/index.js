@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as selectors from '../../selectors'
 import { toggleStrip } from '../../actions/browser'
+import { showModal } from '../../actions/modal'
 import { get } from 'lodash'
 import './style.scss'
 
@@ -31,6 +32,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toggleStrip: () => (dispatch(toggleStrip())),
-    onLogin: () => (dispatch(login())),
+    onLogin: () => (dispatch(showModal({ modalType: 'LOGIN' }))),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(StripHeaderComponent)

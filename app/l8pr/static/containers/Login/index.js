@@ -1,28 +1,23 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import { push } from 'react-router-redux';
-import t from 'tcomb-form';
+import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import classNames from 'classnames'
+import { push } from 'react-router-redux'
+import t from 'tcomb-form'
 
-import * as actionCreators from '../../actions/auth';
+import * as actionCreators from '../../actions/auth'
 
-const Form = t.form.Form;
+const Form = t.form.Form
 
 const Login = t.struct({
-    email: t.String,
-    password: t.String
-});
+    username: t.String,
+    password: t.String,
+})
 
 const LoginFormOptions = {
     auto: 'placeholders',
-    help: <i>Hint: a@a.com / qw</i>,
-    fields: {
-        password: {
-            type: 'password'
-        }
-    }
-};
+    fields: { password: { type: 'password' } },
+}
 
 class LoginView extends React.Component {
 
@@ -31,53 +26,49 @@ class LoginView extends React.Component {
         isAuthenticated: React.PropTypes.bool.isRequired,
         isAuthenticating: React.PropTypes.bool.isRequired,
         statusText: React.PropTypes.string,
-        actions: React.PropTypes.shape({
-            authLoginUser: React.PropTypes.func.isRequired
-        }).isRequired,
-        location: React.PropTypes.shape({
-            query: React.PropTypes.object.isRequired
-        })
-    };
+        actions: React.PropTypes.shape({ authLoginUser: React.PropTypes.func.isRequired }).isRequired,
+        location: React.PropTypes.shape({ query: React.PropTypes.object.isRequired }),
+    }
 
     constructor(props) {
-        super(props);
+        super(props)
 
-        const redirectRoute = this.props.location ? this.props.location.query.next || '/' : '/';
+        const redirectRoute = this.props.location ? this.props.location.query.next || '/' : '/'
         this.state = {
             formValues: {
-                email: '',
-                password: ''
+                username: '',
+                password: '',
             },
-            redirectTo: redirectRoute
-        };
+            redirectTo: redirectRoute,
+        }
     }
 
     componentWillMount() {
         if (this.props.isAuthenticated) {
-            this.props.dispatch(push('/'));
+            this.props.dispatch(push('/'))
         }
     }
 
     onFormChange = (value) => {
-        this.setState({ formValues: value });
-    };
+        this.setState({ formValues: value })
+    }
 
     login = (e) => {
-        e.preventDefault();
-        const value = this.loginForm.getValue();
+        if (e) e.preventDefault()
+        const value = this.loginForm.getValue()
         if (value) {
-            this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
+            this.props.actions.authLoginUser(value.username, value.password, this.state.redirectTo)
         }
-    };
+    }
 
     render() {
-        let statusText = null;
+        let statusText = null
         if (this.props.statusText) {
             const statusTextClassNames = classNames({
                 'alert': true,
                 'alert-danger': this.props.statusText.indexOf('Authentication Error') === 0,
-                'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0
-            });
+                'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0,
+            })
 
             statusText = (
                 <div className="row">
@@ -87,16 +78,15 @@ class LoginView extends React.Component {
                         </div>
                     </div>
                 </div>
-            );
+            )
         }
 
         return (
-            <div className="container login">
-                <h1 className="text-center">Login</h1>
+            <div className="login">
                 <div className="login-container margin-top-medium">
                     {statusText}
                     <form onSubmit={this.login}>
-                        <Form ref={(ref) => { this.loginForm = ref; }}
+                        <Form ref={(ref) => { this.loginForm = ref }}
                               type={Login}
                               options={LoginFormOptions}
                               value={this.state.formValues}
@@ -104,14 +94,14 @@ class LoginView extends React.Component {
                         />
                         <button disabled={this.props.isAuthenticating}
                                 type="submit"
-                                className="btn btn-default btn-block"
+                                className="hidden btn btn-default btn-block"
                         >
                             Submit
                         </button>
                     </form>
                 </div>
             </div>
-        );
+        )
     }
 }
 
@@ -119,16 +109,21 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
-    };
-};
+        statusText: state.auth.statusText,
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        actions: bindActionCreators(actionCreators, dispatch)
-    };
-};
+        actions: bindActionCreators(actionCreators, dispatch),
+    }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
-export { LoginView as LoginViewNotConnected };
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    null,
+    { withRef: true },
+)(LoginView)
+export { LoginView as LoginViewNotConnected }

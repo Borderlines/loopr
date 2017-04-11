@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Screen } from '../../components'
-import { Strip } from '../index'
+import { Strip, ModalsContainer } from '../index'
 import { play, pause, next, initQueueList } from '../../actions/player'
 import * as selectors from '../../selectors'
 import './style.scss'
@@ -25,6 +25,7 @@ class HomeView extends React.Component {
     render() {
         return (
             <div className="Home">
+                <ModalsContainer/>
                 {this.props.media &&
                     <Screen
                         url={this.props.media.url}

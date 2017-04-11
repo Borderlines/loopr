@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'webpack_loader',
     # 'compressor',
     'rest_framework',
+    'rest_framework.authtoken',
     'oauth2_provider',
     # 'social.apps.django_app.default',
-    'rest_framework_social_oauth2',
+    # 'rest_framework_social_oauth2',
     'djoser',
     'haystack',
     'drf_haystack',
@@ -166,7 +167,8 @@ REST_FRAMEWORK = {
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
         # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_FILTER_BACKENDS': (
@@ -187,7 +189,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = (
     # Facebook OAuth2
     # django-rest-framework-social-oauth2
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+    # 'rest_framework_social_oauth2.backends.DjangoOAuth2',
     # Django
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -239,8 +241,6 @@ TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
 TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 IFRAMELY_API_KEY = os.environ.get('IFRAMELY_API_KEY')
-
-import os
 
 LOGGING = {
     'version': 1,
