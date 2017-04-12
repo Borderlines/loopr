@@ -14,7 +14,7 @@ soundcloud==0.5.0
 whitenoise==2.0.6
 git+https://github.com/django-haystack/django-haystack.git@cc0974d53de637c16468b6779d486794ac9caaf5
 elasticsearch==2.3.0
-# djoser==0.5.0
+djoser==0.5.0
 drf-haystack==1.5.6
 twython==3.4.0
 django-rest-knox==2.2.0
