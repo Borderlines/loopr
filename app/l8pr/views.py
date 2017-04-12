@@ -11,19 +11,6 @@ from django.views.generic import View
 from django.http import HttpResponse
 
 
-def angular_templates():
-    partials_dir = settings.STATICFILES_DIRS[0]
-    exclude = ('bower_components',)
-    for (root, dirs, files) in os.walk(partials_dir, topdown=True):
-        dirs[:] = [d for d in dirs if d not in exclude]
-        for file_name in files:
-            if file_name.endswith('.html'):
-                file_path = os.path.join(root, file_name)
-                with open(file_path, 'rb') as fh:
-                    file_name = file_path[len(partials_dir) + 1:]
-                    yield (file_name, normalize_newlines(fh.read().decode('utf-8')).replace('\n', ' '))
-
-
 class IndexView(View):
     """Render main page."""
 
@@ -65,8 +52,6 @@ class HomePageView(TemplateView):
         else:
             context['title'] = 'l8pr'
             context['thumbnail'] = self.request.build_absolute_uri('static/images/L8PRtv.png')
-        # add templates
-        context['templates'] = angular_templates()
         # add GA
         context['GA'] = os.environ.get('GA')
         return context
