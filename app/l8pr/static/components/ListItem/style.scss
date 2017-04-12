@@ -1,4 +1,24 @@
+.ListItem {
+    font-family: $primaryFont;
+    background-color: white;
+    border-bottom: 1px solid $colorItem;
+    padding: 5px 25px;
+    color: $colorItem;
+}
+
+.ListItem__title {
+    display: inline-block;
+
+}
+
+.ListItem__details {
+    display: inline-block;
+}
+
+.ListItem__desc {
+    max-height: 50px;
+    overflow: scroll;
+}
+
 .ListItem__thumbnail {
-    width: 50px;
-    height: 50px;
 }

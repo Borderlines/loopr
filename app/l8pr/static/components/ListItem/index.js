@@ -7,11 +7,11 @@ export default function ListItem({ item, onPlayClick }) {
         <div className="ListItem" onClick={onPlayClick.bind(null, item)}>
             <div>
                 <span className="ListItem__title">{item.title}</span>
-                <span className="ListItem__duration">{moment.duration(item.duration, 's').humanize()}</span>
-                <div>{item.description}</div>
+                <span className="ListItem__details">{moment.duration(item.duration, 's').humanize()}</span>
+                <div className="ListItem__desc hidden">{item.description}</div>
             </div>
             <div>
-                <img className="ListItem__thumbnail img-responsive" src={item.thumbnail}/>
+                <img className="ListItem__thumbnail hidden" src={item.thumbnail}/>
             </div>
         </div>
     )
