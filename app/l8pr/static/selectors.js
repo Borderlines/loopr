@@ -5,6 +5,8 @@ export const currentTrack = (state) => state.player.current
 export const currentShow = (state) => get(state, 'player.current.context')
 export const playlist = (state) => state.player.playlist
 export const getPathname = (state) => state.routing.locationBeforeTransitions.pathname
+export const currentUser = (state) => get(state.auth, 'user')
+export const currentUserId = createSelector(currentUser, (user) => get(user, 'id'))
 
 export const getLocation = createSelector(
     [getPathname],

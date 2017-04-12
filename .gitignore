@@ -15,3 +15,4 @@ app/l8pr/static/bower_components
 staticfiles/
 uploaded/
 static_dist/
+yarn.lock

@@ -13,7 +13,7 @@ export function setPlaylist(playlist) {
 
 export function initQueueList() {
     return (dispatch, getState) => {
-        const currentUserId = get(getState().auth, 'user.id')
+        const currentUserId = selectors.currentUserId(getState())
         if (!initQueueList) {return}
         return Promise.all([
             // LAST ITEMS
