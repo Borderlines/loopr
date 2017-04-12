@@ -9,10 +9,10 @@ import './style.scss'
 function StripHeaderComponent({ trackTitle, stripOpened, toggleStrip, showTitle, onLogin }) {
     return (
         <div className="StripHeader row">
-            <span className="StripHeader__title col-xs-10">
-                {trackTitle}<br/>
-                {showTitle}
-            </span>
+            <div className="StripHeader__playingNow col-xs-10">
+                <div className="StripHeader__playingNow__item">{trackTitle}</div><br/>
+                <div className="StripHeader__playingNow__show">{showTitle}</div>
+            </div>
             <div className="col-xs-2 text-right">
                 <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
                     {!stripOpened && 'keyboard_arrow_up'}
