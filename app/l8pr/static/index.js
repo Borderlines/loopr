@@ -7,6 +7,7 @@ import Root from './containers/Root/Root'
 import configureStore from './store/configureStore'
 import { authLoginUserSuccess } from './actions/auth'
 import * as browser from './actions/browser'
+import * as player from './actions/player'
 
 
 const initialState = {}
@@ -15,11 +16,13 @@ const target = document.getElementById('root')
 const store = configureStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store)
 
-const handlers = {
-    toggleStrip: () => store.dispatch(browser.toggleStrip()),
-}
 const map = {
     toggleStrip: 'c',
+    playPause: 'space',
+}
+const handlers = {
+    toggleStrip: () => store.dispatch(browser.toggleStrip()),
+    playPause: () => store.dispatch(player.togglePlay()),
 }
 const node = (
     <HotKeys handlers={handlers} keyMap={map} focused={true} attach={window}>

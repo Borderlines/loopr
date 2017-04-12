@@ -73,6 +73,16 @@ export function play() {
     }
 }
 
+export function togglePlay() {
+    return (dispatch, getState) => {
+        if (getState().player.playing) {
+            dispatch(pause())
+        } else {
+            dispatch(play())
+        }
+    }
+}
+
 export function previousContext() {
     return { type: c.PREVIOUS_CONTEXT }
 }
