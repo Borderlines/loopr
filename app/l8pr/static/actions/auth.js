@@ -11,8 +11,8 @@ import {
 } from '../constants'
 
 export function authLoginUserSuccess(token, user) {
-    sessionStorage.setItem('token', token)
-    sessionStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(user))
     return {
         type: AUTH_LOGIN_USER_SUCCESS,
         payload: {
@@ -23,7 +23,7 @@ export function authLoginUserSuccess(token, user) {
 }
 
 export function authLoginUserFailure(error, message) {
-    sessionStorage.removeItem('token')
+    localStorage.removeItem('token')
     return {
         type: AUTH_LOGIN_USER_FAILURE,
         payload: {
@@ -38,8 +38,8 @@ export function authLoginUserRequest() {
 }
 
 export function authLogout() {
-    sessionStorage.removeItem('token')
-    sessionStorage.removeItem('user')
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     return { type: AUTH_LOGOUT_USER }
 }
 

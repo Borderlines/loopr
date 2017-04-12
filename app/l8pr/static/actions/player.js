@@ -11,17 +11,18 @@ export function setPlaylist(playlist) {
 }
 
 export function initQueueList() {
-    return (dispatch) => (
-        Promise.all([
+    return (dispatch, getState) => {
+        const currentUserId = getState().auth.user.id
+        return Promise.all([
             // LAST ITEMS
-            fetchLastItems({ user: 1 })
+            fetchLastItems({ user: currentUserId })
             // set context
             .then((items) => (items.map((i) => ({
                 ...i,
                 context: { title: 'Last Items' },
             })))),
             // SHOWS
-            fetchUserShows({ user: 1 })
+            fetchUserShows({ user: currentUserId })
             .then((shows) => (
                 shows.map((show) => (
                     // set context
@@ -45,7 +46,7 @@ export function initQueueList() {
         .then(() => dispatch(next()))
         // start the player
         .then(() => dispatch(play()))
-    )
+    }
 }
 
 export function play(showAndItem) {
@@ -58,9 +59,9 @@ export function play(showAndItem) {
         const item = selectors.currentTrack(getState())
         let url = ''
         if (show) {
-            url += `/show/${show}`
+            url += `/show/${show.id}`
         } if (item) {
-            url += `/item/${item}`
+            url += `/item/${item.id}`
         }
         dispatch(push(url))
     }
