@@ -1,5 +1,8 @@
 import * as c from '../constants'
-import { get } from 'lodash'
+import { get, reject } from 'lodash'
+
+
+const rejectNull = (source) => reject(source, (i) => i === null)
 
 export default function (state = {
     current: null,
@@ -9,6 +12,14 @@ export default function (state = {
     playing: false,
 }, action = null) {
     switch (action.type) {
+        case c.SET_CURRENT:
+            return {
+                ...state,
+                current: action.payload,
+                history: [state.current, ...state.history],
+                // remove what was before the item
+                playQueue: state.playQueue.slice(state.playQueue.indexOf(action.payload) + 1),
+            }
         case c.NEXT:
             var playQueue = [...state.playQueue]
             var next = playQueue.shift()
@@ -16,7 +27,7 @@ export default function (state = {
                 ...state,
                 current: next,
                 playQueue,
-                history: [state.current, ...state.history],
+                history: rejectNull([state.current, ...state.history]),
             }
         case c.PREVIOUS:
             var history = [...state.history]
@@ -24,7 +35,7 @@ export default function (state = {
             return {
                 ...state,
                 current: previous,
-                playQueue: [state.current, ...state.playQueue],
+                playQueue: rejectNull([state.current, ...state.playQueue]),
                 history,
             }
         case c.NEXT_CONTEXT:
@@ -35,7 +46,7 @@ export default function (state = {
                 ...state,
                 current: state.playQueue[nextIndex],
                 playQueue: state.playQueue.slice(nextIndex + 1),
-                history: [...state.playQueue.slice(0, nextIndex).reverse(), ...state.history],
+                history: rejectNull([...state.playQueue.slice(0, nextIndex).reverse(), state.current, ...state.history]),
             }
         case c.PREVIOUS_CONTEXT:
             var previousIndex = state.history.findIndex(
@@ -45,7 +56,7 @@ export default function (state = {
                 ...state,
                 current: state.history[previousIndex],
                 history: state.history.slice(previousIndex + 1),
-                playQueue: [...state.history.slice(0, previousIndex).reverse(), ...state.playQueue],
+                playQueue: rejectNull([...state.history.slice(0, previousIndex).reverse(), state.current, ...state.playQueue]),
             }
         case c.SET_PLAYLIST:
             return {

@@ -1,4 +1,4 @@
 export Screen from './Screen'
-export Loop from './Loop'
-export LoopItem from './LoopItem'
+export PlayQueue from './PlayQueue'
+export ListItem from './ListItem'
 export LoginModal from './LoginModal'

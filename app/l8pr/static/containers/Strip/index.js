@@ -1,22 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Loop } from '../../components'
+import { PlayQueue } from '../../components'
 import { StripHeader,  Controller } from '../index'
+import * as player from '../../actions/player'
 import './style.scss'
 
 class Strip extends React.Component {
     static propTypes = {
         stripOpened: React.PropTypes.bool,
-        loopItems: React.PropTypes.array,
+        playlist: React.PropTypes.array,
+        onItemPlayClick: React.PropTypes.func,
     }
 
     render() {
-        const { stripOpened, loopItems } = this.props
+        const { stripOpened, playlist, onItemPlayClick } = this.props
         return (
             <div className="Strip">
                 <StripHeader/>
                 { stripOpened &&
-                    <Loop items={loopItems}/>
+                    <PlayQueue items={playlist} onItemPlayClick={onItemPlayClick}/>
                 }
                 <Controller/>
             </div>
@@ -26,6 +28,9 @@ class Strip extends React.Component {
 
 const mapStateToProps = (state) => ({
     stripOpened: state.browser.stripOpened,
-    loopItems: state.browser.loop,
+    playlist: [state.player.current, ...state.player.playQueue],
 })
-export default connect(mapStateToProps)(Strip)
+const mapDispatchToProps = (dispatch) => ({
+    onItemPlayClick: (item) => (dispatch(player.playItem(item))),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Strip)

@@ -49,12 +49,16 @@ export function initQueueList() {
     }
 }
 
-export function play(showAndItem) {
+export function playItem(item) {
+    return {
+        type: c.SET_CURRENT,
+        payload: item,
+    }
+}
+
+export function play() {
     return (dispatch, getState) => {
-        dispatch({
-            type: c.PLAY,
-            payload: showAndItem,
-        })
+        dispatch({ type: c.PLAY })
         const show = selectors.currentShow(getState())
         const item = selectors.currentTrack(getState())
         let url = ''
