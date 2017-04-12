@@ -1,6 +1,7 @@
 import { fetchLastItems, fetchUserShows } from './data'
 import * as c from '../constants'
 import * as selectors from '../selectors'
+import { get } from 'lodash'
 import { push } from 'react-router-redux'
 
 export function setPlaylist(playlist) {
@@ -12,7 +13,8 @@ export function setPlaylist(playlist) {
 
 export function initQueueList() {
     return (dispatch, getState) => {
-        const currentUserId = getState().auth.user.id
+        const currentUserId = get(getState().auth, 'user.id')
+        if (!initQueueList) {return}
         return Promise.all([
             // LAST ITEMS
             fetchLastItems({ user: currentUserId })
