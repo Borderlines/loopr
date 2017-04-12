@@ -16,9 +16,14 @@ export default class PlayQueue extends React.Component {
             <div className="PlayQueue row">
                 <ul>
                     {contexts.map((c) => (
-                        <li key={c.context.id}>
-                            <div className="context__title">{c.context.title}</div>
-                            <div className="context__duration">{moment.duration(getDuration(c.items), 's').humanize()}</div>
+                        <li className="context" key={c.context.id}>
+                            <div className="context_cover">
+                                <div className="context__title">{c.context.title}</div>
+                                <div className="context__details">
+                                    <span>66 items / </span>
+                                    <span>{moment.duration(getDuration(c.items), 's').humanize()}</span>
+                                </div>
+                            </div>
                             <ol>
                                 {c.items.map(i => (
                                     <li key={i.id}>

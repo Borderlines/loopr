@@ -1,8 +1,26 @@
 .PlayQueue {
-    max-height: 74vh;
+    max-height: 55vh;
     overflow: auto;
-    background-color: white;
 }
+
+.context {
+    border-bottom: 10px solid $colorShow;
+    background-image: url('https://i.giphy.com/yidUziP8gSfROqx0Zy.gif');
+}
+
+.context_cover {
+    vertical-align: top;
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: white;
+    color: $colorShow;
+}
+
 .context__title {
-    font-size: 1.25em;
+    font-family: $secondaryFont;
+    font-size: 2em;
+}
+
+.context__details {
+    font-family: $primaryFont;
 }
