@@ -17,11 +17,16 @@ export default class PlayQueue extends React.Component {
                 <ul>
                     {contexts.map((c) => (
                         <li className="context" key={c.context.id}>
-                            <div className="context_cover">
-                                <div className="context__title">{c.context.title}</div>
-                                <div className="context__details">
-                                    <span>66 items / </span>
-                                    <span>{moment.duration(getDuration(c.items), 's').humanize()}</span>
+                            <div className="context__cover">
+                                <div className="context__title">
+                                    {c.context.title}<br/>
+                                    <span className="context__details">{c.items.length} items / </span>
+                                    <span className="context__details">{moment.duration(getDuration(c.items), 's').humanize()}</span>
+                                </div>
+                                <div className="context__illustrations">
+                                    {c.items.slice(0, 15).map((i)=> (
+                                        <img src={i.thumbnail}/>
+                                    ))}
                                 </div>
                             </div>
                             <ol>

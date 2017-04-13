@@ -5,22 +5,36 @@
 
 .context {
     border-bottom: 10px solid $colorShow;
-    background-image: url('https://i.giphy.com/yidUziP8gSfROqx0Zy.gif');
 }
-
-.context_cover {
+.context__cover {
     vertical-align: top;
     display: inline-block;
     padding: 15px 25px;
     background-color: white;
     color: $colorShow;
+    display: flex;
+}
+
+.context__illustrations {
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 100px;
+    width: 100%;
+    img {
+        background-size: cover;
+        height: 100%;
+    }
 }
 
 .context__title {
     font-family: $secondaryFont;
     font-size: 2em;
+    flex-grow: 1;
 }
 
 .context__details {
     font-family: $primaryFont;
+    font-size: 0.5em;
+
 }
