@@ -1,3 +1,9 @@
 .NavPlayer {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: $colorPlaying;
+    padding: 10px;
+    color: white;
+}
+
+.NavPlayer a {
+    color: white;
 }
