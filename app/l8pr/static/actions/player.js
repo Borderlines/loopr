@@ -12,9 +12,7 @@ export function setPlaylist(playlist) {
 
 export function initQueueList({ user, queue, item }) {
     return (dispatch, getState) => {
-        console.log(user, selectors.currentUser(getState()))
         const username = user && user || selectors.currentUser(getState()).username
-        console.log(username)
         if (!initQueueList) {return}
         return Promise.all([
             // LAST ITEMS
