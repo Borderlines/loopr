@@ -2,15 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Screen } from '../../components'
 import { Strip, ModalsContainer } from '../index'
-import { play, pause, next, initQueueList } from '../../actions/player'
+import { play, pause, next } from '../../actions/player'
 import * as selectors from '../../selectors'
 import './style.scss'
 
 class HomeView extends React.Component {
-
-    componentWillMount() {
-        this.props.initQueueList()
-    }
 
     static propTypes = {
         media: React.PropTypes.object,
@@ -18,7 +14,6 @@ class HomeView extends React.Component {
         nextItem: React.PropTypes.func,
         play: React.PropTypes.func,
         pause: React.PropTypes.func,
-        initQueueList: React.PropTypes.func,
         volume: React.PropTypes.number,
     }
 
@@ -52,7 +47,6 @@ const mapDispatchToProps = (dispatch) => ({
     nextItem: () => (dispatch(next())),
     play: (args) => (dispatch(play(args))),
     pause: (args) => (dispatch(pause(args))),
-    initQueueList: () => (dispatch(initQueueList())),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeView)

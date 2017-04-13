@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { get } from 'lodash'
+import { get, zipObject } from 'lodash'
 
 export const currentTrack = (state) => state.player.current
 export const currentShow = (state) => get(state, 'player.current.context')
@@ -11,11 +11,14 @@ export const currentUserId = createSelector(currentUser, (user) => get(user, 'id
 export const getLocation = createSelector(
     [getPathname],
     (pathname) => {
-        const locationRegex = /show\/([0-9]+)\/item\/([0-9]+)/g
-        const m = locationRegex.exec(pathname)
-        return {
-            show: get(m, '[1]'),
-            item: get(m, '[2]'),
+        function getValueForKey(key) {
+            const regex = `/${key}/([a-z0-9]+)`
+            const re = RegExp(regex, 'gi')
+            const m = re.exec(pathname)
+            return get(m, '[1]')
         }
+        const keys = ['user', 'item', 'show']
+        const values = keys.map((key) => getValueForKey(key))
+        return zipObject(keys, values)
     }
 )

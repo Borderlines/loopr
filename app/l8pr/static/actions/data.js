@@ -6,8 +6,8 @@ import { checkHttpStatus, parseJSON } from '../utils'
 import * as c from '../constants'
 import { authLoginUserFailure } from './auth'
 
-export function fetchLastItems({ user }) {
-    return fetch(`${SERVER_URL}/api/items/?users=${user}&limit=10`, {
+export function fetchLastItems({ username }) {
+    return fetch(`${SERVER_URL}/api/items/?users=${username}&limit=10`, {
         // credentials: 'include',
         headers: {
             Accept: 'application/json',
@@ -19,8 +19,8 @@ export function fetchLastItems({ user }) {
     .then((data) => data.results)
 }
 
-export function fetchUserShows({ user }) {
-    return fetch(`${SERVER_URL}/api/loops/?user=${user}`, {
+export function fetchUserShows({ username }) {
+    return fetch(`${SERVER_URL}/api/loops/?username=${username}`, {
         // credentials: 'include',
         headers: {
             Accept: 'application/json',

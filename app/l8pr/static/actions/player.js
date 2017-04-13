@@ -1,7 +1,6 @@
 import { fetchLastItems, fetchUserShows } from './data'
 import * as c from '../constants'
 import * as selectors from '../selectors'
-import { get } from 'lodash'
 import { push } from 'react-router-redux'
 
 export function setPlaylist(playlist) {
@@ -11,20 +10,22 @@ export function setPlaylist(playlist) {
     }
 }
 
-export function initQueueList() {
+export function initQueueList({ user, queue, item }) {
     return (dispatch, getState) => {
-        const currentUserId = selectors.currentUserId(getState())
+        console.log(user, selectors.currentUser(getState()))
+        const username = user && user || selectors.currentUser(getState()).username
+        console.log(username)
         if (!initQueueList) {return}
         return Promise.all([
             // LAST ITEMS
-            fetchLastItems({ user: currentUserId })
+            fetchLastItems({ username: username })
             // set context
             .then((items) => (items.map((i) => ({
                 ...i,
                 context: { title: 'Last Items' },
             })))),
             // SHOWS
-            fetchUserShows({ user: currentUserId })
+            fetchUserShows({ username: username })
             .then((shows) => (
                 shows.map((show) => (
                     // set context

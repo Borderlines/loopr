@@ -20,7 +20,8 @@
     white-space: nowrap;
     overflow: hidden;
     max-height: 100px;
-    width: 100%;
+    flex-shrink: 1;
+    text-align: right;
     img {
         background-size: cover;
         height: 100%;
@@ -31,10 +32,12 @@
     font-family: $secondaryFont;
     font-size: 2em;
     flex-grow: 1;
+    width: auto;
 }
 
 .context__details {
     font-family: $primaryFont;
     font-size: 0.5em;
+    white-space: nowrap;
 
 }

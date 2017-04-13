@@ -8,7 +8,7 @@ import configureStore from './store/configureStore'
 import { authLoginUserSuccess } from './actions/auth'
 import * as browser from './actions/browser'
 import * as player from './actions/player'
-
+import * as selectors from './selectors'
 
 const initialState = {}
 const target = document.getElementById('root')
@@ -31,15 +31,20 @@ const node = (
 )
 
 const token = localStorage.getItem('token')
-let user = {}
+let currentUser = {}
 try {
-    user = JSON.parse(localStorage.getItem('user'))
+    currentUser = JSON.parse(localStorage.getItem('user'))
 } catch (e) {
     // Failed to parse
 }
 
 if (token !== null) {
-    store.dispatch(authLoginUserSuccess(token, user))
+    store.dispatch(authLoginUserSuccess(token, currentUser))
 }
+
+store.dispatch(player.initQueueList(
+    selectors.getLocation(store.getState())
+))
+
 
 ReactDOM.render(node, target)
