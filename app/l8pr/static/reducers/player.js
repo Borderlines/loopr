@@ -67,6 +67,11 @@ export default function (state = {
                 ...state,
                 playQueue: action.payload,
             }
+        case c.APPEND_TO_PLAYLIST:
+            return {
+                ...state,
+                playQueue: [...state.playQueue, ...action.payload],
+            }
         case c.PLAY:
             return {
                 ...state,

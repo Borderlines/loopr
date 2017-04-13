@@ -1,7 +1,7 @@
-import { fetchLastItems, fetchUserShows } from './data'
 import * as c from '../constants'
 import * as selectors from '../selectors'
 import { push } from 'react-router-redux'
+import * as contextLoaders from '../utils/itemsLoaders'
 
 export function setPlaylist(playlist) {
     return {
@@ -10,38 +10,31 @@ export function setPlaylist(playlist) {
     }
 }
 
-export function fillQueueList() {
-
+export function appendToPlaylist(items) {
+    return {
+        type: c.APPEND_TO_PLAYLIST,
+        payload: items,
+    }
 }
 
-export function initQueueList({ user, queue, item }) {
+export function fillQueueList() {
+    return (dispatch, getState) => (
+        contextLoaders.lastItemsInLoopr({ excludeIds: selectors.history(getState()).map((i) => i.id) })
+        .then((items) => (
+            dispatch(appendToPlaylist(items))
+        ))
+    )
+}
+
+export function initQueueList() {
     return (dispatch, getState) => {
-        const username = user && user || selectors.currentUser(getState()).username
-        if (!initQueueList) {return}
+        const inUrl = selectors.getLocation(getState())
+        const username = inUrl.user || selectors.currentUser(getState()).username
         return Promise.all([
-            // LAST ITEMS
-            fetchLastItems({ username: username })
-            // set context
-            .then((items) => (items.map((i) => ({
-                ...i,
-                context: { title: 'Last Items' },
-            })))),
+            // LAST USER ITEMS
+            contextLoaders.lastUserItems({ username }),
             // SHOWS
-            fetchUserShows({ username: username })
-            .then((shows) => (
-                shows.map((show) => (
-                    // set context
-                    show.items.map((i) => ({
-                        ...i,
-                        context: {
-                            ...show,
-                            items: null,
-                        },
-                    }))
-                ))
-            ))
-            // flatten items
-            .then((showsItems) => ([].concat.apply([], showsItems))),
+            contextLoaders.shows({ username }),
         ])
         // flatten
         .then((results) => ([].concat.apply([], results)))
@@ -73,9 +66,9 @@ export function play() {
             url += `/item/${item.id}`
         }
         dispatch(push(url))
-        // if (selectors.getPlaylistGroupedByContext(getState()).length < 3) {
-        //     dispatch(fillQueueList())
-        // }
+        if (selectors.getPlaylistGroupedByContext(getState()).length < 2) {
+            dispatch(fillQueueList())
+        }
     }
 }
 
