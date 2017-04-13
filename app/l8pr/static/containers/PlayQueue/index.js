@@ -1,15 +1,17 @@
 import React from 'react'
-import { ListItem } from '../index'
+import { ListItem } from '../../components'
 import moment from 'moment'
-
+import { connect } from 'react-redux'
+import * as selectors from '../../selectors'
 import './style.scss'
+import * as player from '../../actions/player'
 
-export default class PlayQueue extends React.Component {
+class PlayQueue extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
-        const { contexts, onItemPlayClick } = this.props
+        const { contexts, onItemPlayClick, currentItem } = this.props
         return (
             <div className="PlayQueue row">
                 <ul>
@@ -30,7 +32,10 @@ export default class PlayQueue extends React.Component {
                             <ol>
                                 {c.items.map(i => (
                                     <li key={i.id}>
-                                        <ListItem item={i} onPlayClick={onItemPlayClick}/>
+                                        <ListItem
+                                            item={i}
+                                            onPlayClick={onItemPlayClick}
+                                            isPlaying={currentItem === i}/>
                                     </li>
                                 ))}
                             </ol>
@@ -45,8 +50,18 @@ export default class PlayQueue extends React.Component {
 PlayQueue.propTypes = {
     contexts: React.PropTypes.array.isRequired,
     onItemPlayClick: React.PropTypes.func.isRequired,
+    currentItem: React.PropTypes.object.isRequired,
 }
 
 function getDuration(items) {
     return items.reduce((r, i) => (r + i.duration), 0)
 }
+
+const mapStateToProps = (state) => ({
+    contexts: selectors.getPlaylistGroupedByContext(state),
+    currentItem: selectors.currentTrack(state),
+})
+const mapDispatchToProps = (dispatch) => ({
+    onItemPlayClick: (item) => (dispatch(player.playItem(item))),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(PlayQueue)
