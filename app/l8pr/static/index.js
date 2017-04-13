@@ -38,10 +38,12 @@ try {
     // Failed to parse
 }
 
+// login from localstorage
 if (token !== null) {
     store.dispatch(authLoginUserSuccess(token, currentUser))
 }
 
+// init playqueue from url
 store.dispatch(player.initQueueList(
     selectors.getLocation(store.getState())
 ))

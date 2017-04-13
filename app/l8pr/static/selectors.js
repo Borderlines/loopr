@@ -2,11 +2,17 @@ import { createSelector } from 'reselect'
 import { get, zipObject } from 'lodash'
 
 export const currentTrack = (state) => state.player.current
+export const history = (state) => state.player.history
 export const currentShow = (state) => get(state, 'player.current.context')
-export const playlist = (state) => state.player.playlist
+export const playQueue = (state) => state.player.playQueue
 export const getPathname = (state) => state.routing.locationBeforeTransitions.pathname
 export const currentUser = (state) => get(state.auth, 'user')
 export const currentUserId = createSelector(currentUser, (user) => get(user, 'id'))
+
+export const playlist = createSelector(
+    [currentTrack, playQueue],
+    (currentTrack, playQueue) => ([currentTrack, ...playQueue].filter(i => i !== null))
+)
 
 export const getLocation = createSelector(
     [getPathname],
@@ -22,3 +28,27 @@ export const getLocation = createSelector(
         return zipObject(keys, values)
     }
 )
+
+function groupByContext(items) {
+    if (items.length < 1) {
+        return []
+    }
+    const contexts = [{
+        context: items[0].context,
+        items: [],
+    }]
+    const getLastContext = () => contexts[contexts.length - 1]
+    items.forEach((i) => {
+        if (i.context.id !== get(getLastContext(), 'context.id')) {
+            contexts.push({
+                context: null,
+                items: [],
+            })
+        }
+        if (getLastContext().context === null) getLastContext().context = i.context
+        getLastContext().items.push(i)
+    })
+    return contexts
+}
+
+export const getPlaylistGroupedByContext = createSelector(playlist, (p) => groupByContext(p))

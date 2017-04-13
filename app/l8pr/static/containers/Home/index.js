@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Screen } from '../../components'
 import { Strip, ModalsContainer } from '../index'
 import { play, pause, next } from '../../actions/player'
+import { SOUNDCLOUD_API } from '../../utils/config'
 import * as selectors from '../../selectors'
 import './style.scss'
 
@@ -24,6 +25,7 @@ class HomeView extends React.Component {
                 {this.props.media &&
                     <Screen
                         url={this.props.media.url}
+                        soundcloudConfig={{ clientId: SOUNDCLOUD_API }}
                         playing={this.props.playing}
                         volume={this.props.volume}
                         onEnded={this.props.nextItem}

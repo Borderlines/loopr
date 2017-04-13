@@ -4,6 +4,9 @@ services:
     nginx:
         restart: always
         image: nginx:1.11.6-alpine
+    elasticsearch:
+        restart: always
+        image: elasticsearch:2
     postgres:
         restart: always
         image: postgres:9.5.4
@@ -25,3 +28,6 @@ services:
             dockerfile: ./docker/web/Dockerfile
         volumes:
             - .:/django
+        environment:
+            - SOUNDCLOUD_API
+            - SERVER_URL

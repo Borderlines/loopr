@@ -10,6 +10,10 @@ export function setPlaylist(playlist) {
     }
 }
 
+export function fillQueueList() {
+
+}
+
 export function initQueueList({ user, queue, item }) {
     return (dispatch, getState) => {
         const username = user && user || selectors.currentUser(getState()).username
@@ -69,6 +73,9 @@ export function play() {
             url += `/item/${item.id}`
         }
         dispatch(push(url))
+        // if (selectors.getPlaylistGroupedByContext(getState()).length < 3) {
+        //     dispatch(fillQueueList())
+        // }
     }
 }
 

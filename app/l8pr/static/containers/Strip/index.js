@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { PlayQueue } from '../../components'
 import { StripHeader,  Controller } from '../index'
+import * as selectors from '../../selectors'
 import * as player from '../../actions/player'
 import './style.scss'
 
@@ -18,7 +19,7 @@ class Strip extends React.Component {
             <div className="Strip">
                 <StripHeader/>
                 { stripOpened &&
-                    <PlayQueue items={playlist} onItemPlayClick={onItemPlayClick}/>
+                    <PlayQueue contexts={playlist} onItemPlayClick={onItemPlayClick}/>
                 }
                 <Controller/>
             </div>
@@ -28,7 +29,7 @@ class Strip extends React.Component {
 
 const mapStateToProps = (state) => ({
     stripOpened: state.browser.stripOpened,
-    playlist: [state.player.current, ...state.player.playQueue],
+    playlist: selectors.getPlaylistGroupedByContext(state),
 })
 const mapDispatchToProps = (dispatch) => ({
     onItemPlayClick: (item) => (dispatch(player.playItem(item))),

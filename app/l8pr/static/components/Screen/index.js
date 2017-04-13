@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import ReactPlayer from 'react-player'
-import './style.scss';
+import './style.scss'
 
 export default class Screen extends React.Component {
 

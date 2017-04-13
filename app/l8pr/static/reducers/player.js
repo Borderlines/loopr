@@ -8,6 +8,10 @@ export default function (state = {
     current: null,
     playQueue: [],
     history: [],
+    collections: {
+        natural: [],
+        suggestions: [],
+    },
     muted: false,
     playing: false,
 }, action = null) {
