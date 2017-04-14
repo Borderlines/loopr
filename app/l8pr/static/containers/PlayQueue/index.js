@@ -25,7 +25,7 @@ class PlayQueue extends React.Component {
                                 </div>
                                 <div className="context__illustrations">
                                     {c.items.slice(0, 15).map((i, idx)=> (
-                                        <img src={i.thumbnail} key={idx}/>
+                                        <img src={i.thumbnail} key={idx} onClick={onItemPlayClick.bind(null, i)}/>
                                     ))}
                                 </div>
                             </div>
