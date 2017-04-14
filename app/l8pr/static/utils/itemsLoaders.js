@@ -4,7 +4,7 @@ import { checkHttpStatus, parseJSON } from './index'
 
 function fetchLastItems({ username, count=10 }) {
     let url = `${SERVER_URL}/api/items/?limit=${count}&ordering=-added`
-    if (username) url += `&users=${username}`
+    if (username) url += `&users__username=${username}`
     return fetch(url, {
         // credentials: 'include',
         headers: {

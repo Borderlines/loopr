@@ -28,8 +28,8 @@ export function fillQueueList() {
 
 export function initQueueList() {
     return (dispatch, getState) => {
-        const inUrl = selectors.getLocation(getState())
-        const username = inUrl.user || selectors.currentUser(getState()).username
+        const location = selectors.getLocation(getState())
+        const username = location.user || selectors.currentUser(getState()).username
         return Promise.all([
             // LAST USER ITEMS
             contextLoaders.lastUserItems({ username }),
