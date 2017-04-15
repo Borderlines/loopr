@@ -19,9 +19,11 @@ const history = syncHistoryWithStore(browserHistory, store)
 const map = {
     toggleStrip: 'c',
     playPause: 'space',
+    toggleMute: 'm',
 }
 const handlers = {
     toggleStrip: () => store.dispatch(browser.toggleStrip()),
+    toggleMute: () => store.dispatch(player.toggleMute()),
     playPause: () => store.dispatch(player.togglePlay()),
 }
 const node = (

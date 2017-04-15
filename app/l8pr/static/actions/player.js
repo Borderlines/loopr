@@ -82,6 +82,16 @@ export function togglePlay() {
     }
 }
 
+export function toggleMute() {
+    return (dispatch, getState) => {
+        if (getState().player.muted) {
+            dispatch(unmute())
+        } else {
+            dispatch(mute())
+        }
+    }
+}
+
 export function previousContext() {
     return { type: c.PREVIOUS_CONTEXT }
 }
