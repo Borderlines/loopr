@@ -8,18 +8,19 @@ class Strip extends React.Component {
     static propTypes = {
         stripOpened: React.PropTypes.bool,
         progress: React.PropTypes.number,
+        loaded: React.PropTypes.number,
         onSeekTo: React.PropTypes.func,
     }
 
     render() {
-        const { stripOpened, progress, onSeekTo } = this.props
+        const { stripOpened, progress, loaded, onSeekTo } = this.props
         return (
             <div className="Strip">
                 <StripHeader/>
                 { stripOpened &&
                     <PlayQueue/>
                 }
-                <Progressbar value={progress} onClick={onSeekTo}/>
+                <Progressbar progress={progress} loaded={loaded} onClick={onSeekTo}/>
                 <Controller/>
             </div>
         )

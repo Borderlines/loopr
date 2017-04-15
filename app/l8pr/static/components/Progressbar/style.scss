@@ -1,4 +1,14 @@
-.Progressbar__progress {
+.Progressbar, .Progressbar__progress, .Progressbar__loaded {
     height: 10px;
+}
+.Progressbar {
+    position: relative;
+}
+.Progressbar__progress {
     background-color: blue;
+    position: absolute;
+    top: 0;
+}
+.Progressbar__loaded {
+    background-color: green;
 }

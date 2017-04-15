@@ -20,7 +20,10 @@ class HomeView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { progress: 0 }
+        this.state = {
+            progress: 0,
+            loaded: 0,
+        }
     }
 
     onSeekTo = (value) => {
@@ -39,13 +42,22 @@ class HomeView extends React.Component {
                         playing={this.props.playing}
                         volume={this.props.volume}
                         onEnded={this.props.onEnd}
+                        onError={this.props.onEnd}
                         onPlay={this.props.onPlay}
                         onPause={this.props.onPause}
-                        onProgress={(p)=>(this.setState({ progress: p.played }))}
-                        onReady={()=>(this.setState({ progress: 0 }))}
-                        onError={this.props.onEnd}/>
+                        onProgress={(p)=>(this.setState({
+                            progress: p.played,
+                            loaded: p.loaded,
+                        }))}
+                        onReady={()=>(this.setState({
+                            progress: 0,
+                            loaded: 0,
+                        }))}/>
                 }
-                <Strip progress={this.state.progress} onSeekTo={this.onSeekTo}/>
+                <Strip
+                    progress={this.state.progress}
+                    loaded={this.state.loaded}
+                    onSeekTo={this.onSeekTo}/>
             </div>
         )
     }
