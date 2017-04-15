@@ -19,7 +19,7 @@ export function appendToPlaylist(items) {
 
 export function fillQueueList() {
     return (dispatch, getState) => (
-        contextLoaders.lastItemsInLoopr({ excludeIds: selectors.history(getState()).map((i) => i.id) })
+        contextLoaders.lastItemsInLoopr()
         .then((items) => (
             dispatch(appendToPlaylist(items))
         ))

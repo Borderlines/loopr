@@ -12,10 +12,19 @@ class HomeView extends React.Component {
     static propTypes = {
         media: React.PropTypes.object,
         playing: React.PropTypes.bool,
-        nextItem: React.PropTypes.func,
-        play: React.PropTypes.func,
-        pause: React.PropTypes.func,
+        onEnd: React.PropTypes.func,
+        onPlay: React.PropTypes.func,
+        onPause: React.PropTypes.func,
         volume: React.PropTypes.number,
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = { progress: 0 }
+    }
+
+    onSeekTo = (value) => {
+        this.refs.player.seekTo(value)
     }
 
     render() {
@@ -26,14 +35,17 @@ class HomeView extends React.Component {
                     <Screen
                         url={this.props.media.url}
                         soundcloudConfig={{ clientId: SOUNDCLOUD_API }}
+                        ref="player"
                         playing={this.props.playing}
                         volume={this.props.volume}
-                        onEnded={this.props.nextItem}
-                        onPlay={this.props.play}
-                        onPause={this.props.pause}
-                        onError={this.props.nextItem}/>
+                        onEnded={this.props.onEnd}
+                        onPlay={this.props.onPlay}
+                        onPause={this.props.onPause}
+                        onProgress={(p)=>(this.setState({ progress: p.played }))}
+                        onReady={()=>(this.setState({ progress: 0 }))}
+                        onError={this.props.onEnd}/>
                 }
-                <Strip/>
+                <Strip progress={this.state.progress} onSeekTo={this.onSeekTo}/>
             </div>
         )
     }
@@ -46,9 +58,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    nextItem: () => (dispatch(next())),
-    play: (args) => (dispatch(play(args))),
-    pause: (args) => (dispatch(pause(args))),
+    onEnd: () => (dispatch(next())),
+    onPlay: (args) => (dispatch(play(args))),
+    onPause: (args) => (dispatch(pause(args))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeView)
