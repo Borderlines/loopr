@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Progressbar } from '../../components'
-import { StripHeader,  Controller, PlayQueue } from '../index'
+import { StripHeader,  NavPlayer, PlayQueue } from '../index'
 import './style.scss'
 
 class Strip extends React.Component {
@@ -21,7 +21,7 @@ class Strip extends React.Component {
                     <PlayQueue/>
                 }
                 <Progressbar progress={progress} loaded={loaded} onClick={onSeekTo}/>
-                <Controller/>
+                <NavPlayer/>
             </div>
         )
     }

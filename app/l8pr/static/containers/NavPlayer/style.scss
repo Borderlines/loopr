@@ -1,0 +1,33 @@
+.NavPlayer {
+    background-color: $colorPlaying;
+    padding: 10px;
+    color: white;
+}
+
+.NavPlayer a {
+    color: white;
+}
+
+.NavPlayer__controllers {
+    min-width: 180px;
+    white-space: nowrap;
+}
+
+.NavPlayer__item, .NavPlayer__show {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    font-weight: 500;
+    width: 100%;
+}
+
+.NavPlayer__item {
+    font-family: $primaryFont;
+    font-size: 2em;
+}
+
+.NavPlayer__show {
+    font-family: $secondaryFont;
+    font-size: 1em;
+}

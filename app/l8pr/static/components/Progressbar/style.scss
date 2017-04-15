@@ -3,6 +3,7 @@
 }
 .Progressbar {
     position: relative;
+    background-color: rgba(255, 255, 255, .6);
 }
 .Progressbar__progress {
     background-color: blue;
@@ -10,5 +11,5 @@
     top: 0;
 }
 .Progressbar__loaded {
-    background-color: green;
+    background-color: lighten(blue, 20%);
 }

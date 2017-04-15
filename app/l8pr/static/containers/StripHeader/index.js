@@ -6,12 +6,10 @@ import { showModal } from '../../actions/modal'
 import { get } from 'lodash'
 import './style.scss'
 
-function StripHeaderComponent({ trackTitle, stripOpened, toggleStrip, showTitle, onLogin }) {
+function StripHeaderComponent({ stripOpened, toggleStrip, onLogin }) {
     return (
         <div className="StripHeader row">
-            <div className="StripHeader__playingNow col-xs-10">
-                <div className="StripHeader__playingNow__item">{trackTitle}</div><br/>
-                <div className="StripHeader__playingNow__show">{showTitle}</div>
+            <div className="col-xs-10">
             </div>
             <div className="col-xs-2 text-right">
                 <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
@@ -25,8 +23,6 @@ function StripHeaderComponent({ trackTitle, stripOpened, toggleStrip, showTitle,
 }
 
 const mapStateToProps = (state) => ({
-    trackTitle: get(selectors.currentTrack(state), 'title'),
-    showTitle: get(selectors.currentShow(state), 'title'),
     stripOpened: state.browser.stripOpened,
 })
 

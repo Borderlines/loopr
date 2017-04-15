@@ -2,25 +2,3 @@
     background-color: white;
     padding: 10px;
 }
-.StripHeader__playingNow {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: normal;
-    padding-top: 18px;
-    font-weight: 500;
-    text-align: left;
-}
-
-.StripHeader__playingNow__item {
-    color: $colorPlaying;
-    font-family: $primaryFont;
-    font-size: 2em;
-    display: inline-block;
-}
-
-.StripHeader__playingNow__show {
-    font-family: $secondaryFont;
-    font-size: 1em;
-    display: inline-block;
-}
