@@ -1,15 +1,21 @@
 .Progressbar, .Progressbar__progress, .Progressbar__loaded {
+    height: 5px;
+}
+
+.Progressbar:hover, .Progressbar__progress:hover,
+.Progressbar__loaded:hover {
     height: 10px;
 }
+
 .Progressbar {
     position: relative;
-    background-color: rgba(255, 255, 255, .6);
+    background-color: rgba(255, 255, 255, .2);
 }
 .Progressbar__progress {
-    background-color: blue;
+    background-color: $colorPlaying;
     position: absolute;
     top: 0;
 }
 .Progressbar__loaded {
-    background-color: lighten(blue, 20%);
+    background-color: lighten($colorPlaying, 10%);
 }

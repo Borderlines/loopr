@@ -1,4 +1,14 @@
 .StripHeader {
-    background-color: white;
+    background-color: $colorPlaying;
     padding: 10px;
+    color: white;
+}
+
+.StripHeader a {
+    color: white;
+    opacity: 90%;
+}
+
+.StripHeader a:hover {
+    color: white;
 }

@@ -1,15 +1,15 @@
 .NavPlayer {
-    background-color: $colorPlaying;
+    background-color: white;
     padding: 10px;
-    color: white;
+    color: $colorPlaying;
 }
 
-.NavPlayer a {
-    color: white;
+.NavPlayer a:hover {
+    color: $colorPlaying;
 }
 
 .NavPlayer__controllers {
-    min-width: 180px;
+    //min-width: 180px;
     white-space: nowrap;
 }
 
@@ -24,10 +24,12 @@
 
 .NavPlayer__item {
     font-family: $primaryFont;
+}
+
+.NavPlayer__item:hover {
     font-size: 2em;
 }
 
 .NavPlayer__show {
     font-family: $secondaryFont;
-    font-size: 1em;
 }

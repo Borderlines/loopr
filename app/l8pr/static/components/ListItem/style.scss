@@ -2,8 +2,17 @@
     font-family: $primaryFont;
     background-color: white;
     border-bottom: 1px solid $colorItem;
-    padding: 5px 25px;
+    padding: 10px 25px;
     color: $colorItem;
+    cursor: pointer;
+}
+
+.ListItem:hover {
+    font-weight: bold;
+}
+
+.ListItem .material-icons {
+    font-size: 12px;
 }
 
 .ListItem__title {
@@ -13,4 +22,9 @@
 
 .ListItem__details {
     display: inline-block;
+}
+
+.ListItem__source {
+    display: inline-block;
+    margin-left: 10px;
 }
