@@ -8,7 +8,7 @@
     "mocha": "mocha --require tests/require --recursive --compilers js:babel-core/register tests/js",
     "mocha:watch": "npm run mocha -- --watch tests/js",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --require tests/require --recursive --compilers js:babel-core/register --colors --reporter dot tests/js/",
-    "lintjs": "eslint -c .eslintrc src/static tests/js || true",
+    "lintjs": "eslint -c .eslintrc.js app/l8pr/static || true",
     "lintscss": "sass-lint --verbose --no-exit || true"
   },
   "repository": {

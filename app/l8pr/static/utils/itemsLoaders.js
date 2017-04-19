@@ -72,7 +72,7 @@ export const lastUserItems = ({ username }) => {
             ...i,
             context: {
                 title: 'Last Items',
-                id: `${username}_last_item`,
+                id: 'last_item',
             },
         }))
     ))
