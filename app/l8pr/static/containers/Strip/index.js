@@ -16,7 +16,7 @@ class Strip extends React.Component {
         const { stripOpened, progress, loaded, onSeekTo } = this.props
         return (
             <div className="Strip">
-                {stripOpened && <Browser/>}
+                <Browser open={stripOpened}/>
                 <Progressbar progress={progress} loaded={loaded} onClick={onSeekTo}/>
                 <NavPlayer/>
             </div>

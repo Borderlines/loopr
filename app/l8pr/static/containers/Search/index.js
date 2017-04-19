@@ -10,7 +10,7 @@ class Search extends React.Component {
     }
     render() {
         return (
-            <div className="Search row">
+            <div className="Search">
                 SEACRCH
             </div>
         )

@@ -1,0 +1,10 @@
+.Browser {
+    transition-duration: 1s;
+    transition-property: height;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+}
+.Browser--open {
+    height: 55vh;
+}

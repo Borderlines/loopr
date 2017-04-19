@@ -5,7 +5,7 @@ import './style.scss'
 
 export default function ContextsList({ contexts, onItemPlayClick, currentItem }) {
     return (
-        <div className="ContextsList row">
+        <div className="ContextsList">
             <ul>
                 {contexts.map((c) => (
                     <li className="context" key={c.context.id}>
@@ -41,7 +41,7 @@ export default function ContextsList({ contexts, onItemPlayClick, currentItem })
 ContextsList.propTypes = {
     contexts: React.PropTypes.array.isRequired,
     onItemPlayClick: React.PropTypes.func.isRequired,
-    currentItem: React.PropTypes.object.isRequired,
+    currentItem: React.PropTypes.object,
 }
 
 function getDuration(items) {

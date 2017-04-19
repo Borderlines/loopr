@@ -13,7 +13,7 @@ class PlayQueue extends React.Component {
     render() {
         const { contexts, onItemPlayClick, currentItem } = this.props
         return (
-            <div className="PlayQueue row">
+            <div className="PlayQueue">
                 <StripHeader/>
                 <ContextsList
                     contexts={contexts}
@@ -27,7 +27,7 @@ class PlayQueue extends React.Component {
 PlayQueue.propTypes = {
     contexts: React.PropTypes.array.isRequired,
     onItemPlayClick: React.PropTypes.func.isRequired,
-    currentItem: React.PropTypes.object.isRequired,
+    currentItem: React.PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({

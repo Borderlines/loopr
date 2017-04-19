@@ -1,43 +1,5 @@
 .PlayQueue {
-    max-height: 55vh;
-    overflow: auto;
-}
-
-.context {
-    border-bottom: 10px solid $colorShow;
-}
-.context__cover {
-    vertical-align: top;
-    display: inline-block;
-    padding: 15px 25px;
-    background-color: white;
-    color: $colorShow;
+    height: 100%;
     display: flex;
-}
-
-.context__illustrations {
-    padding-left: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    max-height: 100px;
-    flex-shrink: 3;
-    text-align: right;
-    img {
-        background-size: cover;
-        height: 100%;
-    }
-}
-
-.context__title {
-    font-family: $secondaryFont;
-    font-size: 2em;
-    flex-grow: 1;
-    width: auto;
-}
-
-.context__details {
-    font-family: $primaryFont;
-    font-size: 0.5em;
-    white-space: nowrap;
-
+    flex-direction: column;
 }

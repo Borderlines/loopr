@@ -1,6 +1,7 @@
 .ContextsList {
-    max-height: 55vh;
     overflow: auto;
+    background-color: white;
+    flex-grow: 1;
 }
 
 .context {
