@@ -7,11 +7,11 @@ import './style.scss'
 function StripHeaderComponent({ onLogin, onSearch, browserType }) {
     return (
         <div className="StripHeader row">
-            <div className="col-xs-10">
+            <div className="col-xs-9">
                 {browserType === 'SEARCH' && 'Search'}
                 {browserType === 'PLAYQUEUE' && 'Play queue'}
             </div>
-            <div className="col-xs-2 text-right">
+            <div className="col-xs-3 text-right">
                 <i className="material-icons" onClick={onSearch}>search</i>
                 <i className="material-icons" onClick={onLogin}>account_circle</i>
             </div>

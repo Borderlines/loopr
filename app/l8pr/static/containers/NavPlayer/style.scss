@@ -1,7 +1,11 @@
 .NavPlayer {
     background-color: white;
-    padding: 10px;
+    padding: 15px 10px;
     color: $colorPlaying;
+}
+
+.NavPlayer a {
+    color: black;
 }
 
 .NavPlayer a:hover {
@@ -18,18 +22,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: normal;
-    font-weight: 500;
     width: 100%;
 }
 
 .NavPlayer__item {
     font-family: $primaryFont;
-}
-
-.NavPlayer__item:hover {
-    font-size: 2em;
+    font-weight: 500;
+    font-size: 1.2em;
 }
 
 .NavPlayer__show {
     font-family: $secondaryFont;
+    font-weight: 300;
 }

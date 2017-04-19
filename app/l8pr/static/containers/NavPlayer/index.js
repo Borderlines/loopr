@@ -60,8 +60,8 @@ function NavPlayer({
                     </a>
                 }
                 <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
-                    {!stripOpened && 'keyboard_arrow_up'}
-                    {stripOpened && 'keyboard_arrow_down'}
+                    {!stripOpened && 'list'}
+                    {stripOpened && 'list'}
                 </i>
             </div>
         </div>
