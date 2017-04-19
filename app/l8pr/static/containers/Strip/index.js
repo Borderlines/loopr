@@ -24,8 +24,6 @@ class Strip extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    stripOpened: state.browser.stripOpened,
-})
+const mapStateToProps = (state) => ({ stripOpened: state.browser.stripOpened })
 
 export default connect(mapStateToProps)(Strip)

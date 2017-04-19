@@ -1,25 +1,25 @@
-import { createReducer } from '../utils';
+import { createReducer } from '../utils'
 import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
-    AUTH_LOGOUT_USER
-} from '../constants';
+    AUTH_LOGOUT_USER,
+} from '../constants'
 
 
 const initialState = {
     token: null,
     isAuthenticated: false,
     isAuthenticating: false,
-    statusText: null
-};
+    statusText: null,
+}
 
 export default createReducer(initialState, {
     [AUTH_LOGIN_USER_REQUEST]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticating: true,
-            statusText: null
-        });
+            statusText: null,
+        })
     },
     [AUTH_LOGIN_USER_SUCCESS]: (state, payload) => {
         return Object.assign({}, state, {
@@ -27,22 +27,22 @@ export default createReducer(initialState, {
             isAuthenticated: true,
             token: payload.token,
             user: payload.user,
-            statusText: 'You have been successfully logged in.'
-        });
+            statusText: 'You have been successfully logged in.',
+        })
     },
     [AUTH_LOGIN_USER_FAILURE]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticating: false,
             isAuthenticated: false,
             token: null,
-            statusText: `Authentication Error: ${payload.status} - ${payload.statusText}`
-        });
+            statusText: `Authentication Error: ${payload.status} - ${payload.statusText}`,
+        })
     },
     [AUTH_LOGOUT_USER]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticated: false,
             token: null,
-            statusText: 'You have been successfully logged out.'
-        });
-    }
-});
+            statusText: 'You have been successfully logged out.',
+        })
+    },
+})

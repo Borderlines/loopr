@@ -21,8 +21,6 @@ Browser.propTypes = {
     open: React.PropTypes.bool,
 }
 
-const mapStateToProps = (state) => ({
-    browserType: state.browser.browserType,
-})
+const mapStateToProps = (state) => ({ browserType: state.browser.browserType })
 
 export default connect(mapStateToProps)(Browser)

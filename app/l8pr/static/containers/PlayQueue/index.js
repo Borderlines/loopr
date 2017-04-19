@@ -34,7 +34,5 @@ const mapStateToProps = (state) => ({
     contexts: selectors.getPlaylistGroupedByContext(state),
     currentItem: selectors.currentTrack(state),
 })
-const mapDispatchToProps = (dispatch) => ({
-    onItemPlayClick: (item) => (dispatch(player.playItem(item))),
-})
+const mapDispatchToProps = (dispatch) => ({ onItemPlayClick: (item) => (dispatch(player.playItem(item))) })
 export default connect(mapStateToProps, mapDispatchToProps)(PlayQueue)

@@ -24,9 +24,7 @@ StripHeaderComponent.propTypes = {
     browserType: React.PropTypes.string.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-    browserType: state.browser.browserType,
-})
+const mapStateToProps = (state) => ({ browserType: state.browser.browserType })
 
 const mapDispatchToProps = (dispatch) => ({
     onSearch: () => (dispatch(browse('SEARCH'))),

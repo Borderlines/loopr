@@ -1,15 +1,15 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { Router } from 'react-router'
 
-import routes from '../../routes';
-import DevTools from './DevTools';
+import routes from '../../routes'
+import DevTools from './DevTools'
 
 export default class Root extends React.Component {
 
     static propTypes = {
         store: React.PropTypes.shape().isRequired,
-        history: React.PropTypes.shape().isRequired
+        history: React.PropTypes.shape().isRequired,
     };
 
     render() {
@@ -24,6 +24,6 @@ export default class Root extends React.Component {
                     </div>
                 </Provider>
             </div>
-        );
+        )
     }
 }

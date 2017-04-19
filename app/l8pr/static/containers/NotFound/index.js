@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default class NotFoundView extends React.Component {
 
@@ -7,7 +7,7 @@ export default class NotFoundView extends React.Component {
             <div>
                 <h1>NOT FOUND</h1>
             </div>
-        );
+        )
     }
 
 }
