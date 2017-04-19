@@ -1,8 +1,9 @@
-import { RECEIVE_LOOP, SET_STRIP_STATE } from '../constants'
+import { BROWSE, SET_STRIP_STATE } from '../constants'
 
 export default function (state = {
-    loop: [],
     stripOpened: false,
+    browserType: 'PLAYQUEUE',
+    browserProps: undefined,
 }, action = null) {
     switch (action.type) {
         case SET_STRIP_STATE:
@@ -10,10 +11,11 @@ export default function (state = {
                 ...state,
                 stripOpened: action.payload === true,
             }
-        case RECEIVE_LOOP:
+        case BROWSE:
             return {
                 ...state,
-                loop: action.payload,
+                browserType: action.browserType,
+                browserProps: action.browserProps,
             }
         default:
             return state

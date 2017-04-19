@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as browser from '../../actions/browser'
 import * as player from '../../actions/player'
 import * as selectors from '../../selectors'
 import { get } from 'lodash'
@@ -18,6 +19,8 @@ function NavPlayer({
     playing,
     currentItem,
     currentShow,
+    stripOpened,
+    toggleStrip,
 }) {
     return (
         <div className="NavPlayer row">
@@ -56,6 +59,10 @@ function NavPlayer({
                         <i className="material-icons">volume_up</i>
                     </a>
                 }
+                <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
+                    {!stripOpened && 'keyboard_arrow_up'}
+                    {stripOpened && 'keyboard_arrow_down'}
+                </i>
             </div>
         </div>
     )
@@ -72,8 +79,10 @@ NavPlayer.propTypes = {
     onUnmute: React.PropTypes.func,
     playing: React.PropTypes.bool,
     muted: React.PropTypes.bool,
-    currentItem: React.PropTypes.string,
-    currentShow: React.PropTypes.string,
+    currentItem: React.PropTypes.object,
+    currentShow: React.PropTypes.object,
+    stripOpened: React.PropTypes.bool,
+    toggleStrip: React.PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -81,6 +90,7 @@ const mapStateToProps = (state) => ({
     muted: state.player.muted,
     currentItem: selectors.currentTrack(state),
     currentShow: selectors.currentShow(state),
+    stripOpened: state.browser.stripOpened,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -92,5 +102,7 @@ const mapDispatchToProps = (dispatch) => ({
     onPreviousContext: () => (dispatch(player.previousContext())),
     onMute: () => (dispatch(player.mute())),
     onUnmute: () => (dispatch(player.unmute())),
+    toggleStrip: () => (dispatch(browser.toggleStrip())),
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(NavPlayer)

@@ -1,33 +1,36 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as selectors from '../../selectors'
-import { toggleStrip } from '../../actions/browser'
+import { browse } from '../../actions/browser'
 import { showModal } from '../../actions/modal'
-import { get } from 'lodash'
 import './style.scss'
 
-function StripHeaderComponent({ stripOpened, toggleStrip, onLogin }) {
+function StripHeaderComponent({ onLogin, onSearch, browserType }) {
     return (
         <div className="StripHeader row">
             <div className="col-xs-10">
+                {browserType === 'SEARCH' && 'Search'}
+                {browserType === 'PLAYQUEUE' && 'Play queue'}
             </div>
             <div className="col-xs-2 text-right">
-                <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
-                    {!stripOpened && 'keyboard_arrow_up'}
-                    {stripOpened && 'keyboard_arrow_down'}
-                </i>
+                <i className="material-icons" onClick={onSearch}>search</i>
                 <i className="material-icons" onClick={onLogin}>account_circle</i>
             </div>
         </div>
     )
 }
 
+StripHeaderComponent.propTypes = {
+    onSearch: React.PropTypes.func.isRequired,
+    browserType: React.PropTypes.string.isRequired,
+}
+
 const mapStateToProps = (state) => ({
-    stripOpened: state.browser.stripOpened,
+    browserType: state.browser.browserType,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleStrip: () => (dispatch(toggleStrip())),
+    onSearch: () => (dispatch(browse('SEARCH'))),
     onLogin: () => (dispatch(showModal({ modalType: 'LOGIN' }))),
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(StripHeaderComponent)

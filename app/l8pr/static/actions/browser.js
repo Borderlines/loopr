@@ -1,18 +1,12 @@
-import fetch from 'isomorphic-fetch';
-import { push } from 'react-router-redux';
+import * as c from '../constants'
 
-import { SERVER_URL } from '../utils/config';
-import { checkHttpStatus, parseJSON } from '../utils';
-import * as c from '../constants';
-import { authLoginUserFailure } from './auth';
-
-export function openStrip(){
+export function openStrip() {
     return {
         type: c.SET_STRIP_STATE,
         payload: true,
     }
 }
-export function closeStrip(){
+export function closeStrip() {
     return {
         type: c.SET_STRIP_STATE,
         payload: false,
@@ -27,28 +21,10 @@ export function toggleStrip() {
         }
     }
 }
-function receiveLoop(loop) {
+export function browse(browserType, browserProps) {
     return {
-        type: c.RECEIVE_LOOP,
-        payload: loop,
+        type: c.BROWSE,
+        browserType,
+        browserProps,
     }
-}
-
-export function fetchShows(userId=2) {
-    return (dispatch) => (
-        fetch(`${SERVER_URL}/api/loops/${userId}/`, {
-            // credentials: 'include',
-            headers: {
-                Accept: 'application/json',
-                // Authorization: `Token ${token}`
-            }
-        })
-        .then(checkHttpStatus)
-        .then(parseJSON)
-        .then((response) => {
-            const loop = response.shows_list
-            dispatch(receiveLoop(loop))
-            return loop
-        })
-    )
 }
