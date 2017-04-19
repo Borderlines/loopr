@@ -14,6 +14,7 @@ export default function (state = {
         case BROWSE:
             return {
                 ...state,
+                stripOpened: true,
                 browserType: action.browserType,
                 browserProps: action.browserProps,
             }

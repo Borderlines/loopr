@@ -21,6 +21,7 @@ function NavPlayer({
     currentShow,
     stripOpened,
     toggleStrip,
+    showQueuelist,
 }) {
     return (
         <div className="NavPlayer row">
@@ -63,6 +64,9 @@ function NavPlayer({
                     {!stripOpened && 'list'}
                     {stripOpened && 'list'}
                 </i>
+                <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
+                    playlist_play
+                </i>
             </div>
         </div>
     )
@@ -83,6 +87,7 @@ NavPlayer.propTypes = {
     currentShow: React.PropTypes.object,
     stripOpened: React.PropTypes.bool,
     toggleStrip: React.PropTypes.func,
+    showQueuelist: React.PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -103,6 +108,7 @@ const mapDispatchToProps = (dispatch) => ({
     onMute: () => (dispatch(player.mute())),
     onUnmute: () => (dispatch(player.unmute())),
     toggleStrip: () => (dispatch(browser.toggleStrip())),
+    showQueuelist: () => (dispatch(browser.browse('PLAYQUEUE'))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavPlayer)

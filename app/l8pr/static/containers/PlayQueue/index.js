@@ -14,7 +14,7 @@ class PlayQueue extends React.Component {
         const { contexts, onItemPlayClick, currentItem } = this.props
         return (
             <div className="PlayQueue">
-                <StripHeader/>
+                <StripHeader>Queue List</StripHeader>
                 <ContextsList
                     contexts={contexts}
                     onItemPlayClick={onItemPlayClick}
