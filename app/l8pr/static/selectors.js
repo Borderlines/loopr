@@ -8,7 +8,8 @@ export const playQueue = (state) => state.player.playQueue
 export const getPathname = (state) => state.routing.locationBeforeTransitions.pathname
 export const currentUser = (state) => get(state.auth, 'user')
 export const currentUserId = createSelector(currentUser, (user) => get(user, 'id'))
-
+export const getSearchTerms = (state) => state.search.terms
+export const getSearchResults = (state) => state.search.results
 export const playlist = createSelector(
     [currentTrack, playQueue],
     (currentTrack, playQueue) => ([currentTrack, ...playQueue].filter(i => i !== null))
@@ -39,7 +40,7 @@ function groupByContext(items) {
     }]
     const getLastContext = () => contexts[contexts.length - 1]
     items.forEach((i) => {
-        if (i.context.id !== get(getLastContext(), 'context.id')) {
+        if (i.context && i.context.id !== get(getLastContext(), 'context.id')) {
             contexts.push({
                 context: null,
                 items: [],
@@ -52,3 +53,4 @@ function groupByContext(items) {
 }
 
 export const getPlaylistGroupedByContext = createSelector(playlist, (p) => groupByContext(p))
+export const getResultsGroupedByContext = createSelector(getSearchResults, (p) => groupByContext(p))

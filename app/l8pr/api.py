@@ -5,9 +5,9 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from drf_haystack.serializers import HaystackSerializer
+from drf_haystack.serializers import HaystackSerializerMixin, HaystackSerializer
 from drf_haystack.viewsets import HaystackViewSet
-from .search_indexes import ItemIndex, ShowIndex
+from .search_indexes import ItemIndex, ShowIndex, UserIndex
 from .youtube import youtube_search
 from django.utils import timezone
 
@@ -183,29 +183,41 @@ class ItemViewSet(viewsets.ModelViewSet):
     filter_fields = ('url', 'users', 'users__username')
 
 
-class ItemSearchSerializer(HaystackSerializer):
-    id = serializers.CharField()
+class ItemSearchSerializer(HaystackSerializerMixin, ItemSerializer):
+    class Meta(ItemSerializer.Meta):
+        search_fields = ('text', 'title',)
+        field_aliases = {}
+        exclude = []
 
+
+class ShowSearchSerializer(HaystackSerializerMixin, ShowSerializer):
+    class Meta(ShowSerializer.Meta):
+        search_fields = ('text', 'title',)
+        field_aliases = {}
+        exclude = []
+
+
+class UserSearchSerializer(HaystackSerializerMixin, UserSerializer):
+    class Meta(UserSerializer.Meta):
+        search_fields = ('text', 'username',)
+        field_aliases = {}
+        exclude = []
+
+
+class AggregateSearchSerializer(HaystackSerializer):
     class Meta:
-        # The `index_classes` attribute is a list of which search indexes
-        # we want to include in the search.
-        index_classes = [ItemIndex, ShowIndex]
-        # The `fields` contains all the fields we want to include.
-        # NOTE: Make sure you don't confuse these with model attributes. These
-        # fields belong to the search index!
-        fields = [
-            'title', 'author_name', 'autocomplete', 'thumbnail', 'id', 'url', 'provider_name'
-        ]
+        serializers = {
+            ItemIndex: ItemSearchSerializer,
+            ShowIndex: ShowSearchSerializer,
+            UserIndex: UserSearchSerializer,
+        }
 
 
 class ItemSearchView(HaystackViewSet):
-
-    # `index_models` is an optional list of which models you would like to include
-    # in the search result. You might have several models indexed, and this provides
-    # a way to filter out those of no interest for this particular view.
-    # (Translates to `SearchQuerySet().models(*index_models)` behind the scenes.
-    index_models = [Item, Show]
-    serializer_class = ItemSearchSerializer
+    permission_classes = []
+    serializer_class = AggregateSearchSerializer
+    # to remove in order to have more than Items in results
+    index_models = [Item]
 
 
 class SearchYoutubeView(views.APIView):

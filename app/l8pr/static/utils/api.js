@@ -77,3 +77,12 @@ export const lastUserItems = ({ username }) => {
         }))
     ))
 }
+
+export const search = (searchTerms) => {
+    const terms = searchTerms.map((v) => v.value).join('+')
+    return fetch(`${SERVER_URL}/api/search/?text=${terms}`, {
+        headers: { Accept: 'application/json' },
+    })
+    .then(checkHttpStatus)
+    .then(parseJSON)
+}

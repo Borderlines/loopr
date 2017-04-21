@@ -5,6 +5,7 @@ import dataReducer from './data'
 import playerReducer from './player'
 import browserReducer from './browser'
 import modalReducer from './modal'
+import searchReducer from './search'
 
 export default combineReducers({
     auth: authReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     player: playerReducer,
     browser: browserReducer,
     modal: modalReducer,
+    search: searchReducer,
 })

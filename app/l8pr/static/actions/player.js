@@ -1,7 +1,7 @@
 import * as c from '../constants'
 import * as selectors from '../selectors'
 import { push } from 'react-router-redux'
-import * as contextLoaders from '../utils/itemsLoaders'
+import * as contextLoaders from '../utils/api'
 
 export function setPlaylist(playlist) {
     return {
@@ -13,6 +13,13 @@ export function setPlaylist(playlist) {
 export function appendToPlaylist(items) {
     return {
         type: c.APPEND_TO_PLAYLIST,
+        payload: items,
+    }
+}
+
+export function insertToPlaylist(items) {
+    return {
+        type: c.INSERT_TO_PLAYLIST,
         payload: items,
     }
 }

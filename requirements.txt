@@ -1,8 +1,8 @@
-Django==1.10.5
+Django==1.10.7
 django-appconf==1.0.1
 django-compressor==2.0
 django-filter==1.0.1
-djangorestframework==3.5.4
+djangorestframework==3.6.2
 Markdown==2.6.5
 rcssmin==1.0.6
 rjsmin==1.0.12
@@ -12,10 +12,10 @@ google-api-python-client==1.5.0
 soundcloud==0.5.0
 # django-rest-framework-social-oauth2==1.0.5
 whitenoise==2.0.6
-git+https://github.com/django-haystack/django-haystack.git@cc0974d53de637c16468b6779d486794ac9caaf5
+django-haystack==2.6.0
 elasticsearch==2.3.0
 djoser==0.5.0
-drf-haystack==1.5.6
+drf-haystack==1.6.1
 twython==3.4.0
 django-rest-knox==2.2.0
 # PROD
