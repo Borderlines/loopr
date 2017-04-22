@@ -8,7 +8,7 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     url = indexes.CharField(model_attr='url')
     provider_name = indexes.CharField(model_attr='provider_name', null=True)
-    title = indexes.CharField(model_attr='title')
+    title = indexes.CharField(model_attr='title', null=True)
     author_name = indexes.CharField(model_attr='author_name', null=True)
     thumbnail = indexes.CharField(model_attr='thumbnail', null=True)
 
