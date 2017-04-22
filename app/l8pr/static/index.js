@@ -8,6 +8,7 @@ import configureStore from './store/configureStore'
 import { authLoginUserSuccess } from './actions/auth'
 import * as browser from './actions/browser'
 import * as player from './actions/player'
+import screenfull from 'screenfull'
 
 const initialState = {}
 const target = document.getElementById('root')
@@ -19,6 +20,7 @@ const map = {
     toggleStrip: 'c',
     playPause: 'space',
     toggleMute: 'm',
+    fullscreen: 'f',
     search: 'ctrl+shift+f',
 }
 const handlers = {
@@ -26,6 +28,7 @@ const handlers = {
     toggleMute: () => store.dispatch(player.toggleMute()),
     playPause: () => store.dispatch(player.togglePlay()),
     search: () => store.dispatch(browser.browse('SEARCH')),
+    fullscreen: () => screenfull.toggle(),
 }
 const node = (
     <HotKeys handlers={handlers} keyMap={map} focused={true} attach={window}>
