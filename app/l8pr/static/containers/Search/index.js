@@ -4,11 +4,11 @@ import * as selectors from '../../selectors'
 import './style.scss'
 import * as search from '../../actions/search'
 import * as player from '../../actions/player'
-import { StripHeader } from '../index'
+import { StripHeader, Suggestions } from '../index'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import { ListItem } from '../../components'
-import { AutoSizer, Column, Table, List } from 'react-virtualized'
+import { AutoSizer, List } from 'react-virtualized'
 import 'react-virtualized/styles.css'
 
 class Search extends React.Component {
@@ -49,19 +49,23 @@ class Search extends React.Component {
                     />
                 </StripHeader>
                 <div className="Search__list">
-                    {isLoading && <div>Loading ...</div>
+                    {isLoading &&
+                        <div>Loading ...</div>
                     ||
-                        <AutoSizer>
-                            {({ width, height }) => (
-                                <List
-                                    width={width}
-                                    height={height}
-                                    rowCount={searchResults.length}
-                                    rowHeight={100}
-                                    rowRenderer={this._rowRenderer.bind(this)}
-                                />
-                            )}
-                        </AutoSizer>
+                        searchResults.length === 0 &&
+                            <Suggestions/>
+                        ||
+                            <AutoSizer>
+                                {({ width, height }) => (
+                                    <List
+                                        width={width}
+                                        height={height}
+                                        rowCount={searchResults.length}
+                                        rowHeight={100}
+                                        rowRenderer={this._rowRenderer.bind(this)}
+                                    />
+                                )}
+                            </AutoSizer>
                     }
                 </div>
             </div>
