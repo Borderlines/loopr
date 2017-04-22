@@ -3,7 +3,7 @@ import { ListItem } from '../../components'
 import moment from 'moment'
 import './style.scss'
 
-export default function ContextsList({ contexts, onItemPlayClick, currentItem }) {
+export default function ContextsList({ contexts, onItemPlayClick, currentItem, onPlayShowClick }) {
     return (
         <div className="ContextsList">
             <ul>
@@ -27,6 +27,7 @@ export default function ContextsList({ contexts, onItemPlayClick, currentItem })
                                     <ListItem
                                         item={i}
                                         onPlayClick={onItemPlayClick}
+                                        onPlayShowClick={onPlayShowClick}
                                         isPlaying={currentItem === i}/>
                                 </li>
                             ))}
@@ -41,6 +42,7 @@ export default function ContextsList({ contexts, onItemPlayClick, currentItem })
 ContextsList.propTypes = {
     contexts: React.PropTypes.array.isRequired,
     onItemPlayClick: React.PropTypes.func.isRequired,
+    onPlayShowClick: React.PropTypes.func,
     currentItem: React.PropTypes.object,
 }
 

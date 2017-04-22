@@ -16,19 +16,27 @@ class Search extends React.Component {
         super(props)
     }
     _rowRenderer({ index, key, style }) {
+        const { onPlayClick, onPlayShowClick, currentTrack, currentShow  } = this.props
         const item = this.props.searchResults[index]
         return (
-            <ListItem key={key} item={item} onPlayClick={this.props.onPlayClick} style={style}/>
+            <ListItem
+                key={key}
+                item={item}
+                onPlayClick={onPlayClick}
+                onPlayShowClick={onPlayShowClick}
+                currentTrack={currentTrack}
+                isPlaying={currentTrack.id === item.id || currentShow.id === item.id}
+                style={style}
+            />
         )
     }
 
     cellRenderer({ cellData }) {
-        console.log(cellData)
         return (<img src={cellData}/>)
     }
 
     render() {
-        const { searchTerms, search, searchResults, onPlayClick, isLoading } = this.props
+        const { searchTerms, search, searchResults, isLoading } = this.props
         return (
             <div className="Search">
                 <StripHeader>
@@ -66,16 +74,27 @@ Search.propTypes = {
     searchResults: React.PropTypes.array,
     search: React.PropTypes.func,
     onPlayClick: React.PropTypes.func,
+    onPlayShowClick: React.PropTypes.func,
     isLoading: React.PropTypes.bool,
+    currentShow: React.PropTypes.object,
+    currentTrack: React.PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
     searchTerms: selectors.getSearchTerms(state),
     searchResults: selectors.getSearchResults(state),
     isLoading: state.search.loading,
+    currentShow: selectors.currentShow(state),
+    currentTrack: selectors.currentTrack(state),
 })
 const mapDispatchToProps = (dispatch) => ({
     search: (searchTerms) => dispatch(search.search(searchTerms)),
+    onPlayShowClick: (show) => dispatch(player.playItems(
+        show.items.map((item) => ({
+            ...item,
+            context: show,
+        }))
+    )),
     onPlayClick: (item) => dispatch(player.playItem({
         ...item,
         context: {

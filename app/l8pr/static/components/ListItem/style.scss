@@ -6,19 +6,27 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
     color: $colorItem;
     cursor: pointer;
     display: flex;
+    position: relative;
+}
+.ListItem--isPlaying {
+    background-color: #345873;
+    color: white;
+    &:before {
+        content: 'play_arrow';
+        font-family: 'Material Icons';
+        font-size: 4em;
+        align-self: center;
+    }
 }
 
 .ListItem__body {
     flex-grow: 1;
-    padding: 10px 25px;
+    align-self: center;
+    margin: 0 20px;
 }
 
 .ListItem:hover {
     font-weight: bold;
-}
-
-.ListItem .material-icons {
-    font-size: 12px;
 }
 
 .ListItem__title {
@@ -38,5 +46,5 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
     background-size: contain;
 }
 .ListItem__source {
-    margin-left: 10px;
+    margin-right: 10px;
 }

@@ -19,12 +19,16 @@ function getItemType(item) {
 
 export default function ListItem(props) {
     const SpecificItem = getItemType(props.item)
-    return (<SpecificItem {...props}/>)
+    const classNames = [
+        'ListItem',
+        props.isPlaying ? 'ListItem--isPlaying': null,
+    ].join(' ')
+    return (<SpecificItem className={classNames} {...props}/>)
 }
 
-function Show({ item, onPlayClick, isPlaying, style }) {
+function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowClick }) {
     return (
-        <div className="ListItem ListItem--Show" style={style}>
+        <div className={className + ' ListItem--Show'} style={style} onClick={() => (onPlayShowClick(item))}>
             <div className="ListItem__body">
                 <div className="ListItem__title">{item.title} by {item.user.username}</div>
                 <span className="ListItem__details">{item.items.length} tracks / </span>
@@ -37,18 +41,15 @@ function Show({ item, onPlayClick, isPlaying, style }) {
     )
 }
 
-function Track({ item, onPlayClick, isPlaying, style }) {
+function Track({ item, className='', onPlayClick, isPlaying, style }) {
     return (
-        <div className="ListItem ListItem--Track" onClick={onPlayClick.bind(null, item)} style={style}>
-            {isPlaying && <i className="material-icons">pause</i>}
+        <div className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
             <div className="ListItem__body">
-                <div className="ListItem__title">{item.title}</div>
-                <span className="ListItem__details">&nbsp;{getDuration(item)}</span>
-                {item.provider_name &&
-                    <span className="ListItem__source">
-                        <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
-                    </span>
-                }
+                <span className="ListItem__source">
+                <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
+                </span>
+                <span className="ListItem__title">{item.title}</span>
+                <div className="ListItem__details">{getDuration(item)}</div>
             </div>
             <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
         </div>
@@ -61,6 +62,8 @@ ListItem.propTypes = {
     isPlaying: React.PropTypes.bool,
     style: React.PropTypes.object,
 }
+Track.propTypes = ListItem.propTypes
+Show.propTypes = ListItem.propTypes
 
 function getDuration(items) {
     let duration

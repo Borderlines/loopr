@@ -65,9 +65,13 @@ export function initQueueList() {
 }
 
 export function playItem(item) {
-    return {
-        type: c.SET_CURRENT,
-        payload: item,
+    return playItems([item])
+}
+
+export function playItems(items) {
+    return (dispatch) => {
+        dispatch(insertToPlaylist(items))
+        dispatch(next())
     }
 }
 
