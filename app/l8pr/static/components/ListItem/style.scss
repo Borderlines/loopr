@@ -1,10 +1,16 @@
+$ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
 .ListItem {
     font-family: $primaryFont;
     background-color: white;
     border-bottom: 1px solid $colorItem;
-    padding: 10px 25px;
     color: $colorItem;
     cursor: pointer;
+    display: flex;
+}
+
+.ListItem__body {
+    flex-grow: 1;
+    padding: 10px 25px;
 }
 
 .ListItem:hover {
@@ -16,15 +22,21 @@
 }
 
 .ListItem__title {
-    display: inline-block;
-
 }
 
 .ListItem__details {
-    display: inline-block;
 }
 
+.ListItem__highlight img {
+    height: $ITEM_HEIGHT;
+}
+.ListItem__illustration {
+    width: 50%;
+    height: $ITEM_HEIGHT;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+}
 .ListItem__source {
-    display: inline-block;
     margin-left: 10px;
 }

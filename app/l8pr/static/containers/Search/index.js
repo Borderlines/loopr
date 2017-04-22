@@ -8,13 +8,27 @@ import { StripHeader } from '../index'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import { ListItem } from '../../components'
+import { AutoSizer, Column, Table, List } from 'react-virtualized'
+import 'react-virtualized/styles.css'
 
 class Search extends React.Component {
     constructor(props) {
         super(props)
     }
+    _rowRenderer({ index, key, style }) {
+        const item = this.props.searchResults[index]
+        return (
+            <ListItem key={key} item={item} onPlayClick={this.props.onPlayClick} style={style}/>
+        )
+    }
+
+    cellRenderer({ cellData }) {
+        console.log(cellData)
+        return (<img src={cellData}/>)
+    }
+
     render() {
-        const { searchTerms, search, searchResults, onPlayClick } = this.props
+        const { searchTerms, search, searchResults, onPlayClick, isLoading } = this.props
         return (
             <div className="Search">
                 <StripHeader>
@@ -26,13 +40,22 @@ class Search extends React.Component {
                         value={searchTerms}
                     />
                 </StripHeader>
-                <ul className="Search__list">
-                    {searchResults.map((r) => (
-                        <li>
-                            <ListItem item={r} onPlayClick={onPlayClick}/>
-                        </li>
-                    ))}
-                </ul>
+                <div className="Search__list">
+                    {isLoading && <div>Loading ...</div>
+                    ||
+                        <AutoSizer>
+                            {({ width, height }) => (
+                                <List
+                                    width={width}
+                                    height={height}
+                                    rowCount={searchResults.length}
+                                    rowHeight={100}
+                                    rowRenderer={this._rowRenderer.bind(this)}
+                                />
+                            )}
+                        </AutoSizer>
+                    }
+                </div>
             </div>
         )
     }
@@ -43,11 +66,13 @@ Search.propTypes = {
     searchResults: React.PropTypes.array,
     search: React.PropTypes.func,
     onPlayClick: React.PropTypes.func,
+    isLoading: React.PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
     searchTerms: selectors.getSearchTerms(state),
     searchResults: selectors.getSearchResults(state),
+    isLoading: state.search.loading,
 })
 const mapDispatchToProps = (dispatch) => ({
     search: (searchTerms) => dispatch(search.search(searchTerms)),

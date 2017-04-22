@@ -217,7 +217,7 @@ class ItemSearchView(HaystackViewSet):
     permission_classes = []
     serializer_class = AggregateSearchSerializer
     # to remove in order to have more than Items in results
-    index_models = [Item]
+    index_models = [Item, Show]
 
 
 class SearchYoutubeView(views.APIView):

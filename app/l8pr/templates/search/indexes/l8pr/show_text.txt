@@ -1,6 +1,3 @@
 {{ object.title }}
 {{ object.description }}
 {{ object.user.username }}
-{% for user in object.users.all %}
-{{ user.username }}
-{% endfor %}
