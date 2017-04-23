@@ -11,8 +11,10 @@
     color: white;
     cursor: pointer;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
     & > div { flex-grow: 1; }
-    &:hover:after { background-color: rgba(0, 0, 0, 0); }
+    &:hover:after { opacity: 0 }
     &:after {
         content: '';
         position: absolute;
