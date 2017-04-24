@@ -86,3 +86,11 @@ export const search = (searchTerms) => {
     .then(checkHttpStatus)
     .then(parseJSON)
 }
+
+export const metadata = (url) => {
+    return fetch(`${SERVER_URL}/api/metadata/?url=${url}`, {
+        headers: { Accept: 'application/json' },
+    })
+    .then(checkHttpStatus)
+    .then(parseJSON)
+}

@@ -21,6 +21,8 @@ services:
             dockerfile: ./docker/django/Dockerfile
         volumes:
             - .:/django
+        environment:
+            - IFRAMELY_API_KEY
     web:
         restart: always
         build:

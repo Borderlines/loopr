@@ -236,7 +236,6 @@ TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
 TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 IFRAMELY_API_KEY = os.environ.get('IFRAMELY_API_KEY')
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
