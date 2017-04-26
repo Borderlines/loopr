@@ -30,6 +30,18 @@ function NavPlayer({
                 <div className="NavPlayer__show">{get(currentShow, 'title')}</div>
             </div>
             <div className="NavPlayer__controllers col-xs-4 text-right">
+                {muted &&
+                    <a onClick={onUnmute} title="Mute on/off">
+                        <i className="material-icons">volume_off</i>
+                    </a>
+                ||
+                    <a onClick={onMute} title="Mute on/off">
+                        <i className="material-icons">volume_up</i>
+                    </a>
+                }
+                <a onClick={onPreviousContext} title="Visual">
+                    <i className="material-icons">photo_size_select_actual</i>
+                </a>
                 <a onClick={onPreviousContext} title="Previous Show">
                     <i className="material-icons">first_page</i>
                 </a>
@@ -51,21 +63,21 @@ function NavPlayer({
                 <a onClick={onNextContext} title="Next Show">
                     <i className="material-icons">last_page</i>
                 </a>
-                {muted &&
-                    <a onClick={onUnmute} title="Mute on/off">
-                        <i className="material-icons">volume_mute</i>
-                    </a>
-                ||
-                    <a onClick={onMute} title="Mute on/off">
-                        <i className="material-icons">volume_up</i>
-                    </a>
-                }
+                <a onClick={onPreviousContext} title="More">
+                    <i className="material-icons">more_vert</i>
+                </a>
                 <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
                     {!stripOpened && 'list'}
                     {stripOpened && 'list'}
                 </i>
                 <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
                     playlist_play
+                </i>
+                <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
+                    search
+                </i>
+                <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
+                    account_circle
                 </i>
             </div>
         </div>

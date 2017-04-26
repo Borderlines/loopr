@@ -7,10 +7,10 @@ $bootstrap-sass-asset-helper: false !default;
 // Variables
 // --------------------------------------------------
 
-$colorPlaying: magenta;
-$colorItem: blue;
-$colorShow: rgba(0,250,150,1);
-$colorFeed: yellow;
+$colorPlaying:  rgba(240,35,120,1);
+$colorItem:     rgba(60,0,255,1);
+$colorShow:     rgba(0,255,155,1);
+$colorFeed:     rgba(255,215,10,1);
 
 $primaryFont: 'Source Code Pro';
 $secondaryFont: 'Montserrat';
@@ -31,7 +31,7 @@ $gray:                   lighten($gray-base, 33.5%); // #555
 $gray-light:             lighten($gray-base, 46.7%); // #777
 $gray-lighter:           lighten($gray-base, 93.5%); // #eee
 
-$brand-primary:         purple; // #337ab7
+$brand-primary:         $colorPlaying;
 $brand-success:         #5cb85c;
 $brand-info:            #5bc0de;
 $brand-warning:         #f0ad4e;
@@ -62,7 +62,7 @@ $link-hover-decoration: underline !default;
 $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-monospace:   "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $font-family-base:        $font-family-sans-serif !default;
 
 $font-size-base:          10px !default;
