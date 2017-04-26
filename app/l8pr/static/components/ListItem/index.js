@@ -22,11 +22,12 @@ export default function ListItem(props) {
     const classNames = [
         'ListItem',
         props.isPlaying ? 'ListItem--isPlaying': null,
+        props.isSelected ? 'ListItem--isSelected': null,
     ].join(' ')
     return (<SpecificItem className={classNames} {...props}/>)
 }
 
-function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowClick }) {
+function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowClick, showImages=true }) {
     return (
         <div className={className + ' ListItem--Show'} style={style} onClick={() => (onPlayShowClick(item))}>
             <div className="ListItem__body">
@@ -34,14 +35,16 @@ function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowCli
                 <span className="ListItem__details">{item.items.length} tracks / </span>
                 <span className="ListItem__details">{getDuration(item.items)}</span>
             </div>
-            <div className="ListItem__highlight">{item.items.slice(0, 3).map((i, idx) => (
-                <img src={i.thumbnail} key={idx} onClick={onPlayClick.bind(null, i)}/>
-            ))}</div>
+            {showImages &&
+                <div className="ListItem__highlight">{item.items.slice(0, 3).map((i, idx) => (
+                    <img src={i.thumbnail} key={idx} onClick={() => onPlayClick(i)}/>
+                ))}</div>
+            }
         </div>
     )
 }
 
-function Track({ item, className='', onPlayClick, isPlaying, style }) {
+function Track({ item, className='', onPlayClick, isPlaying, style, onAddClick }) {
     return (
         <div className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
             <div className="ListItem__body">
@@ -51,6 +54,9 @@ function Track({ item, className='', onPlayClick, isPlaying, style }) {
                 <span className="ListItem__title">{item.title}</span>
                 <div className="ListItem__details">{getDuration(item)}</div>
             </div>
+            <div className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
+                <i className="material-icons">playlist_add</i>
+            </div>
             <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
         </div>
     )
@@ -59,7 +65,9 @@ function Track({ item, className='', onPlayClick, isPlaying, style }) {
 ListItem.propTypes = {
     item: React.PropTypes.object.isRequired,
     onPlayClick: React.PropTypes.func.isRequired,
+    onAddClick: React.PropTypes.func,
     isPlaying: React.PropTypes.bool,
+    isSelected: React.PropTypes.bool,
     style: React.PropTypes.object,
 }
 Track.propTypes = ListItem.propTypes

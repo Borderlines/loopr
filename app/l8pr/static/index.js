@@ -52,5 +52,4 @@ if (token !== null) {
 // init playqueue from url
 store.dispatch(player.initQueueList())
 
-
 ReactDOM.render(node, target)

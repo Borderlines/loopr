@@ -12,9 +12,29 @@ const initialState = {
     isAuthenticated: false,
     isAuthenticating: false,
     statusText: null,
+    loop: null,
 }
 
 export default createReducer(initialState, {
+    ['AUTH_SET_LOOP']: (state, payload) => {
+        return {
+            ...state,
+            loop: payload,
+        }
+    },
+    ['AUTH_UPDATE_SHOW']: (state, payload) => {
+        const loop = [...state.loop]
+        const existingShowIndex = state.loop.findIndex((s) => s.id === payload.id)
+        if (existingShowIndex > -1) {
+            loop[existingShowIndex] = payload
+        } else {
+            loop.unshift(payload)
+        }
+        return {
+            ...state,
+            loop,
+        }
+    },
     [AUTH_LOGIN_USER_REQUEST]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticating: true,

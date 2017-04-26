@@ -7,6 +7,11 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
     cursor: pointer;
     display: flex;
     position: relative;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.ListItem--isSelected {
+    background-color: orange;
 }
 .ListItem--isPlaying {
     background-color: #345873;
@@ -35,8 +40,11 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
 .ListItem__details {
 }
 
-.ListItem__highlight img {
-    height: $ITEM_HEIGHT;
+.ListItem__highlight {
+    flex-shrink: 0;
+    img {
+        height: $ITEM_HEIGHT;
+    }
 }
 .ListItem__illustration {
     width: 50%;

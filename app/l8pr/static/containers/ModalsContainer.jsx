@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { hideModal } from '../actions/modal'
+import AddItemModal from './AddItemModal/index'
 import { LoginModal } from '../components'
 
 const modals = {
     LOGIN: LoginModal,
+    ADD_ITEM: AddItemModal,
 }
 
 export function Modals({ modalType, modalProps, handleHide }) {

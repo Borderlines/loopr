@@ -10,6 +10,7 @@ export const currentUser = (state) => get(state.auth, 'user')
 export const currentUserId = createSelector(currentUser, (user) => get(user, 'id'))
 export const getSearchTerms = (state) => state.search.terms
 export const getSearchResults = (state) => state.search.results
+export const myShows = (state) => state.auth.loop
 export const playlist = createSelector(
     [currentTrack, playQueue],
     (currentTrack, playQueue) => ([currentTrack, ...playQueue].filter(i => i !== null))

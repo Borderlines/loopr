@@ -1,0 +1,23 @@
+.QuickAddShow {
+    display: flex;
+    align-items: center;
+    background-color: #bb2c2c;
+    form {
+        flex-grow: 1;
+        input {
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            font-size: 1.2em;
+            background-color: transparent;
+            color: white;
+            border: 0;
+            border-bottom: 1px solid white;
+            margin-bottom: 5px;
+            &:focus {
+                outline: none;
+            }
+        }
+
+    }
+}

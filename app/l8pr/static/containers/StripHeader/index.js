@@ -34,7 +34,7 @@ const mapStateToProps = (state) => ({ browserType: state.browser.browserType })
 
 const mapDispatchToProps = (dispatch) => ({
     onSearch: () => (dispatch(browse('SEARCH'))),
-    onLogin: () => (dispatch(showModal({ modalType: 'LOGIN' }))),
+    onLogin: () => (dispatch(showModal('LOGIN'))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StripHeaderComponent)

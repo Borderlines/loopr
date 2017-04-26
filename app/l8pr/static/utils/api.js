@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { SERVER_URL } from '../utils/config'
+import { isNil, trim } from 'lodash'
 import { checkHttpStatus, parseJSON } from './index'
 
 function fetchLastItems({ username, count=10 }) {
@@ -17,7 +18,7 @@ function fetchLastItems({ username, count=10 }) {
     .then((data) => data.results)
 }
 
-function fetchUserShows({ username }) {
+export function fetchUserShows({ username }) {
     return fetch(`${SERVER_URL}/api/loops/?username=${username}`, {
         // credentials: 'include',
         headers: {
@@ -76,6 +77,59 @@ export const lastUserItems = ({ username }) => {
             },
         }))
     ))
+}
+
+function getCookie(name) {
+    var cookieValue = null
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';')
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = trim(cookies[i])
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+                break
+            }
+        }
+    }
+    return cookieValue
+}
+
+export const saveItem = (item, token) => {
+    if (!isNil(item.id)) {
+        return Promise.resolve(item)
+    }
+    item.id = undefined
+    return fetch(`${SERVER_URL}/api/items/`, {
+        credentials: 'include',
+        method: 'post',
+        headers: {
+            // 'X-CSRFToken': getCookie('csrftoken'),
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify(item),
+    })
+    .then(checkHttpStatus)
+    .then(parseJSON)
+}
+
+export const saveShow = (show, token) => {
+    const method = isNil(show.id) ? 'post' : 'put'
+    const url = isNil(show.id) ? `${SERVER_URL}/api/shows/` : `${SERVER_URL}/api/shows/${show.id}/`
+    return fetch(url, {
+        credentials: 'include',
+        method: method,
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify(show),
+    })
+    .then(checkHttpStatus)
+    .then(parseJSON)
 }
 
 export const search = (searchTerms) => {

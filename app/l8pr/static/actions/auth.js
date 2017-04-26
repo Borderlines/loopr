@@ -1,7 +1,9 @@
 import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
+import * as api from '../utils/api'
 import { hideModal } from '../actions/modal'
 import { SERVER_URL } from '../utils/config'
+import { orderBy, cloneDeep } from 'lodash'
 import { checkHttpStatus, parseJSON } from '../utils'
 import {
     AUTH_LOGIN_USER_REQUEST,
@@ -11,14 +13,69 @@ import {
 } from '../constants'
 
 export function authLoginUserSuccess(token, user) {
-    localStorage.setItem('token', token)
-    localStorage.setItem('user', JSON.stringify(user))
+    return (dispatch) => {
+        // get user's shows
+        api.fetchUserShows({ username: user.username })
+        .then((loop) => {
+            dispatch({
+                type: 'AUTH_SET_LOOP',
+                payload: orderBy(loop, ['updated'], ['desc']),
+            })
+        })
+        localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify(user))
+        return dispatch({
+            type: AUTH_LOGIN_USER_SUCCESS,
+            payload: {
+                token,
+                user,
+            },
+        })
+    }
+}
+
+export function saveItem(item) {
+    return (dispatch, getState) => (
+        api.saveItem({ ...item }, getState().auth.token)
+    )
+}
+
+export function saveShow(show) {
+    return (dispatch, getState) => (
+        Promise.all(show.items.map((item) => dispatch(saveItem(item))))
+        .then(items => ({
+            ...show,
+            items,
+        }))
+        .then(show => (
+            api.saveShow(show, getState().auth.token)
+            // update show
+            .then((show) => dispatch(updateShow(show)))
+        ))
+    )
+}
+
+export function toggleItemToShow(item, show) {
+    return (dispatch) => (
+        // save item
+        dispatch(saveItem(item))
+        // save or remove the item in the show
+        .then((item) => {
+            const newShow = cloneDeep(show)
+            if (newShow.items.find(i => i.id === item.id)) {
+                newShow.items = newShow.items.filter((i) => (i.id !== item.id))
+            } else {
+                newShow.items = [item, ...newShow.items]
+            }
+            return dispatch(saveShow(newShow))
+        })
+    )
+}
+
+export function updateShow(show) {
     return {
-        type: AUTH_LOGIN_USER_SUCCESS,
-        payload: {
-            token,
-            user,
-        },
+        type: 'AUTH_UPDATE_SHOW',
+        payload: show,
     }
 }
 
