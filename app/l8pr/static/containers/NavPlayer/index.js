@@ -42,7 +42,7 @@ function NavPlayer({
                         <i className="material-icons">volume_up</i>
                     </a>
                 }
-                <a onClick={onPreviousContext} title="Visual">
+                <a title="Visual">
                     <i className="material-icons">photo_size_select_actual</i>
                 </a>
                 <a onClick={onPreviousContext} title="Previous Show">
@@ -66,7 +66,7 @@ function NavPlayer({
                 <a onClick={onNextContext} title="Next Show">
                     <i className="material-icons">last_page</i>
                 </a>
-                <a onClick={onPreviousContext} title="More">
+                <a title="More">
                     <i className="material-icons">more_vert</i>
                 </a>
                 <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}
