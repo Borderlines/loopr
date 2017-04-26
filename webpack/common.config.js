@@ -22,8 +22,11 @@ const VENDOR = [
     'react-mixin',
     'classnames',
     'redux',
+    'redux-thunk',
     'react-router-redux',
-    // 'jquery',
+    'moment',
+    'isomorphic-fetch',
+    'lodash',
     'bootstrap-loader',
     'font-awesome-webpack!./styles/font-awesome.config.prod.js'
 ];
@@ -31,6 +34,7 @@ const VENDOR = [
 const basePath = path.resolve(__dirname, '../app/l8pr/static/');
 
 const common = {
+    cache: true,
     context: basePath,
     entry: {
         vendor: VENDOR,
@@ -42,11 +46,6 @@ const common = {
         publicPath: '/static'
     },
     plugins: [
-        // extract all common modules to vendor so we can load multiple apps in one page
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor',
-        //     filename: 'vendor.[hash].js'
-        // }),
         new webpack.optimize.CommonsChunkPlugin({
             children: true,
             async: true,
@@ -104,7 +103,10 @@ const common = {
             {
                 test: /\.js$/,
                 use: [
-                    { loader: 'babel-loader' }
+                    { loader: 'babel-loader?cacheDirectory' }
+                ],
+                include: [
+                    basePath, //important for performance!
                 ],
                 exclude: /node_modules/
             },
