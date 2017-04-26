@@ -12,12 +12,23 @@ export function closeStrip() {
         payload: false,
     }
 }
-export function toggleStrip() {
+export function toggleStrip(browserType, browserProps) {
     return (dispatch, getState) => {
-        if (getState().browser.stripOpened) {
-            dispatch(closeStrip())
+        function toggle() {
+            if (getState().browser.stripOpened) {
+                dispatch(closeStrip())
+            } else {
+                dispatch(openStrip())
+            }
+        }
+        if (!browserType) {
+            toggle()
         } else {
-            dispatch(openStrip())
+            if (browserType === getState().browser.browserType) {
+                toggle()
+            } else {
+                dispatch(browse(browserType, browserProps))
+            }
         }
     }
 }

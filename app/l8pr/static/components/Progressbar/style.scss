@@ -2,9 +2,10 @@
     height: 5px;
 }
 
-.Progressbar:hover, .Progressbar__progress:hover,
-.Progressbar__loaded:hover {
-    height: 10px;
+.Progressbar:hover {
+    &, .Progressbar__loaded, .Progressbar__progress {
+        height: 10px;
+    }
 }
 
 .Progressbar {

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as browser from '../../actions/browser'
 import * as player from '../../actions/player'
+import * as modal from '../../actions/modal'
 import * as selectors from '../../selectors'
 import { get } from 'lodash'
 import './style.scss'
@@ -20,8 +21,10 @@ function NavPlayer({
     currentItem,
     currentShow,
     stripOpened,
-    toggleStrip,
     showQueuelist,
+    handleSearch,
+    handleLogin,
+    browserType,
 }) {
     return (
         <div className="NavPlayer row">
@@ -66,17 +69,17 @@ function NavPlayer({
                 <a onClick={onPreviousContext} title="More">
                     <i className="material-icons">more_vert</i>
                 </a>
-                <i className="material-icons" title="Toggle Navigation" onClick={toggleStrip}>
-                    {!stripOpened && 'list'}
-                    {stripOpened && 'list'}
-                </i>
-                <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
+                <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}
+                    title="Queue List"
+                    onClick={showQueuelist}>
                     playlist_play
                 </i>
-                <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
+                <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}
+                    title="Search"
+                    onClick={handleSearch}>
                     search
                 </i>
-                <i className="material-icons" title="Show queuelist" onClick={showQueuelist}>
+                <i className="material-icons" title="Login" onClick={handleLogin}>
                     account_circle
                 </i>
             </div>
@@ -98,8 +101,10 @@ NavPlayer.propTypes = {
     currentItem: React.PropTypes.object,
     currentShow: React.PropTypes.object,
     stripOpened: React.PropTypes.bool,
-    toggleStrip: React.PropTypes.func,
     showQueuelist: React.PropTypes.func,
+    handleSearch: React.PropTypes.func.isRequired,
+    handleLogin: React.PropTypes.func.isRequired,
+    browserType: React.PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
@@ -108,6 +113,7 @@ const mapStateToProps = (state) => ({
     currentItem: selectors.currentTrack(state),
     currentShow: selectors.currentShow(state),
     stripOpened: state.browser.stripOpened,
+    browserType: state.browser.browserType,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -119,8 +125,9 @@ const mapDispatchToProps = (dispatch) => ({
     onPreviousContext: () => (dispatch(player.previousContext())),
     onMute: () => (dispatch(player.mute())),
     onUnmute: () => (dispatch(player.unmute())),
-    toggleStrip: () => (dispatch(browser.toggleStrip())),
-    showQueuelist: () => (dispatch(browser.browse('PLAYQUEUE'))),
+    showQueuelist: () => (dispatch(browser.toggleStrip('PLAYQUEUE'))),
+    handleSearch: () => (dispatch(browser.toggleStrip('SEARCH'))),
+    handleLogin: () => (dispatch(modal.showModal('LOGIN'))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavPlayer)

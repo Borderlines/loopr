@@ -1,7 +1,6 @@
 .NavPlayer {
     background-color: white;
     padding: 15px 10px;
-    color: $colorPlaying;
 }
 
 .NavPlayer a {
@@ -9,6 +8,10 @@
 }
 
 .NavPlayer a:hover {
+    color: $colorPlaying;
+}
+
+.NavPlayer .material-icons.active {
     color: $colorPlaying;
 }
 
@@ -23,6 +26,7 @@
     text-overflow: ellipsis;
     line-height: normal;
     width: 100%;
+    color: $colorPlaying;
 }
 
 .NavPlayer__item {
