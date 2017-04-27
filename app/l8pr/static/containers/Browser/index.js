@@ -1,19 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { PlayQueue, Search } from '../index'
+import classNames from 'classnames'
 import './style.scss'
+
 
 function Browser({ browserType, open }) {
     const types = {
-        'SEARCH': <Search/>,
-        'PLAYQUEUE': <PlayQueue/>,
+        'SEARCH': Search,
+        'PLAYQUEUE': PlayQueue,
     }
-    const classes = [
+    const classes = classNames(
         'Browser',
-        open ? 'Browser--open': null,
         'row',
-    ].join(' ')
-    return <div className={classes}>{types[browserType]}</div>
+        { 'Browser--open': open },
+    )
+    const BrowserElement = types[browserType]
+    return <BrowserElement className={classes}/>
 }
 
 Browser.propTypes = {

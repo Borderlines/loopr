@@ -4,6 +4,8 @@
     height: 0;
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .Browser--open {
     height: 55vh;

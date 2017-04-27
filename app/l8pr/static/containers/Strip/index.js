@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Progressbar } from '../../components'
-import { StripHeader,  NavPlayer, Browser } from '../index'
+import { NavPlayer, Browser } from '../index'
 import './style.scss'
 
 class Strip extends React.Component {

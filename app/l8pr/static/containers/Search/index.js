@@ -5,11 +5,12 @@ import './style.scss'
 import * as search from '../../actions/search'
 import * as player from '../../actions/player'
 import * as modal from '../../actions/modal'
-import { StripHeader, Suggestions } from '../index'
+import { Suggestions } from '../index'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
-import { ListItem } from '../../components'
+import { ListItem, StripHeader } from '../../components'
 import { AutoSizer, List } from 'react-virtualized'
+import classNames from 'classnames'
 import 'react-virtualized/styles.css'
 
 class Search extends React.Component {
@@ -38,10 +39,10 @@ class Search extends React.Component {
     }
 
     render() {
-        const { searchTerms, search, searchResults, isLoading } = this.props
+        const { searchTerms, search, searchResults, isLoading, className } = this.props
         return (
-            <div className="Search">
-                <StripHeader>
+            <div className={classNames('Search', className)}>
+                <div>
                     <Select.Creatable
                         promptTextCreator={(label) => `Search ${label}`}
                         multi={true}
@@ -49,7 +50,7 @@ class Search extends React.Component {
                         onChange={search}
                         value={searchTerms}
                     />
-                </StripHeader>
+                </div>
                 <div className="Search__list">
                     {isLoading &&
                         <div>Loading ...</div>
@@ -70,6 +71,7 @@ class Search extends React.Component {
                             </AutoSizer>
                     }
                 </div>
+                <StripHeader>Search</StripHeader>
             </div>
         )
     }

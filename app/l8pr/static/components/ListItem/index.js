@@ -52,10 +52,10 @@ function Track({ item, className='', onPlayClick, isPlaying, style, onAddClick }
                 <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
                 </span>
                 <span className="ListItem__title">{item.title}</span>
+                <span className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
+                    <i className="material-icons">playlist_add</i>
+                </span>
                 <div className="ListItem__details">{getDuration(item)}</div>
-            </div>
-            <div className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
-                <i className="material-icons">playlist_add</i>
             </div>
             <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
         </div>

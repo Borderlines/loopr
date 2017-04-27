@@ -34,7 +34,7 @@
     "body-parser": "1.15.2",
     "bootstrap-loader": "2.0.0-beta.16",
     "bootstrap-sass": "3.3.7",
-    "classnames": "2.2.5",
+    "classnames": "^2.2.5",
     "css-loader": "0.26.1",
     "dotenv": "2.0.0",
     "errorhandler": "1.5.0",
