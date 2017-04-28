@@ -51,7 +51,6 @@ export function initQueueList() {
         .then(() => dispatch(next()))
         // play the first occurence of the asked item
         .then(() => {
-            console.log(location)
             if (location.item) {
                 const item = selectors.playlist(getState()).find((i) => (i.id.toString() === location.item.toString()))
                 if (item) {

@@ -22,8 +22,9 @@ function Suggestions({ onSearch }) {
     ].join(' ')
     return (
         <div className={classes}>
-            {suggestions.map((s) => (
+            {suggestions.map((s, i) => (
                 <div
+                    key={i}
                     onClick={() => (onSearch(s.keywords))}
                     className="Suggestions__item"
                     style={{ backgroundImage: `url(${s.background})` }}

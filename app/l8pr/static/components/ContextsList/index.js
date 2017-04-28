@@ -1,13 +1,55 @@
 import React from 'react'
 import { ListItem } from '../../components'
 import moment from 'moment'
+import { AutoSizer, List } from 'react-virtualized'
 import './style.scss'
 
+
 export default function ContextsList({ contexts, onItemPlayClick, currentItem, onPlayShowClick, onAddClick }) {
+    function getContextHeight({ index }) {
+        return contexts[index].items.length * 100
+    }
+    function _rowRenderer({ index, key, style }) {
+        const c = contexts[index]
+        return (
+            <div key={key} style={style} className="ContextsList__context">
+                <div
+                    className="ContextsList__cover"
+                    style={{ backgroundImage: `url(${c.items[0].thumbnail})` }}
+                >
+                    <div className="context__title">{c.context.title}</div>
+                    <span className="context__details">{c.items.length} items / </span>
+                    <span className="context__details">{moment.duration(getDuration(c.items), 's').humanize()}</span>
+                </div>
+                <div className="ContextsList__items">
+                    {c.items.map((item, itemIndex) => (
+                        <ListItem
+                            item={item}
+                            onPlayClick={onItemPlayClick}
+                            onAddClick={onAddClick}
+                            onPlayShowClick={onPlayShowClick}
+                            isPlaying={index === 0 && itemIndex === 0}/>
+                    ))}
+                </div>
+            </div>
+        )
+    }
     return (
         <div className="ContextsList">
+            <AutoSizer>
+                {({ width, height }) => (
+                    <List
+                        className="ContextsList__list"
+                        width={width}
+                        height={height}
+                        rowCount={contexts.length}
+                        rowHeight={getContextHeight}
+                        rowRenderer={_rowRenderer}
+                    />
+                )}
+            </AutoSizer>
             <ul>
-                {contexts.map((c) => (
+                {false && contexts.map((c) => (
                     <li className="context" key={c.context.id}>
                         <div className="context__cover">
                             <div className="context__title">

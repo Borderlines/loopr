@@ -1,7 +1,7 @@
 import { BROWSE, SET_STRIP_STATE } from '../constants'
 
 export default function (state = {
-    stripOpened: false,
+    stripOpened: true,
     browserType: 'PLAYQUEUE',
     browserProps: undefined,
 }, action = null) {

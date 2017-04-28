@@ -3,43 +3,35 @@
     background-color: white;
     flex-grow: 1;
 }
-
-.context {
-    border-bottom: 10px solid $colorShow;
-}
-.context__cover {
-    vertical-align: top;
-    display: inline-block;
-    padding: 15px 25px;
-    background-color: white;
-    color: white;
+.ContextsList__context {
     display: flex;
-    background-color: $colorShow;
-}
-
-.context__illustrations {
-    padding-left: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    max-height: 100px;
-    flex-shrink: 3;
-    text-align: right;
-    img {
-        background-size: cover;
-        height: 100%;
+    border-color: 1px border $colorShow;
+    border-top: 2px solid #00ff9b;
+    .ContextsList__cover {
+        width: 14rem;
+        padding: 20px;
+        color: white;
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-shadow: inset 0 0 0 1000px rgba($colorShow, .3);
+        background-size: auto 100%;
+    }
+    .ContextsList__items {
+        flex-grow: 1;
     }
 }
-
 .context__title {
     font-family: $secondaryFont;
-    font-size: 2em;
+    font-size: 2rem;
     flex-grow: 1;
     width: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-
 .context__details {
     font-family: $primaryFont;
-    font-size: 0.5em;
+    font-size: 1rem;
     white-space: nowrap;
 
 }
