@@ -9,13 +9,19 @@ export default class Screen extends React.Component {
     }
 
     render() {
+        const { SCIllu, ...props } = this.props
         return (
-            <ReactPlayer
-                className="Screen"
-                ref="reactPlayer"
-                {...this.props}
-                width="100%"
-                height="100%"/>
+            <div>
+                <ReactPlayer
+                    className="Screen"
+                    ref="reactPlayer"
+                    {...props}
+                    width="100%"
+                    height="100%"/>
+                {SCIllu &&
+                    <div className="Screen__SCIllu" style={{ backgroundImage: `url(${SCIllu})` }}/>
+                }
+            </div>
         )
     }
 }

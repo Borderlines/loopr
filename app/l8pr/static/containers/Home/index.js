@@ -31,20 +31,29 @@ class HomeView extends React.Component {
     }
 
     render() {
+        const {
+            media,
+            playing,
+            volume,
+            onEnd,
+            onPlay,
+            onPause,
+        } = this.props
         return (
             <div className="Home">
                 <ModalsContainer/>
                 {this.props.media &&
                     <Screen
-                        url={this.props.media.url}
+                        url={media.url}
+                        SCIllu={media.provider_name === 'SoundCloud' && media.thumbnail}
                         soundcloudConfig={{ clientId: SOUNDCLOUD_API }}
                         ref="player"
-                        playing={this.props.playing}
-                        volume={this.props.volume}
-                        onEnded={this.props.onEnd}
-                        onError={this.props.onEnd}
-                        onPlay={this.props.onPlay}
-                        onPause={this.props.onPause}
+                        playing={playing}
+                        volume={volume}
+                        onEnded={onEnd}
+                        onError={onEnd}
+                        onPlay={onPlay}
+                        onPause={onPause}
                         onProgress={(p)=>(this.setState({
                             progress: p.played,
                             loaded: p.loaded,
