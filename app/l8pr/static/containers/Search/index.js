@@ -42,7 +42,7 @@ class Search extends React.Component {
         const { searchTerms, search, searchResults, isLoading, className } = this.props
         return (
             <div className={classNames('Search', className)}>
-                <div>
+                <StripHeader title="Search">
                     <Select.Creatable
                         promptTextCreator={(label) => `Search ${label}`}
                         multi={true}
@@ -50,7 +50,7 @@ class Search extends React.Component {
                         onChange={search}
                         value={searchTerms}
                     />
-                </div>
+                </StripHeader>
                 <div className="Search__list">
                     {isLoading &&
                         <div>Loading ...</div>
@@ -71,7 +71,6 @@ class Search extends React.Component {
                             </AutoSizer>
                     }
                 </div>
-                <StripHeader>Search</StripHeader>
             </div>
         )
     }

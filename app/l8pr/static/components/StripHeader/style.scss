@@ -1,6 +1,11 @@
 .StripHeader {
-    background-color: $colorPlaying;
+    background-color: white;
     padding: 10px 25px;
-    color: white;
-    text-align: right;
+    color: $colorPlaying;
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+}
+.StripHeader__title {
+    margin-right: 20px;
 }

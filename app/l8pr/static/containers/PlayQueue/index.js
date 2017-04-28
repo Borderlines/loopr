@@ -15,12 +15,12 @@ class PlayQueue extends React.Component {
         const { contexts, onItemPlayClick, currentItem, className, handleAddClick } = this.props
         return (
             <div className={classNames('PlayQueue', className)}>
+                <StripHeader title="Queue List"/>
                 <ContextsList
                     contexts={contexts}
                     onAddClick={handleAddClick}
                     onItemPlayClick={onItemPlayClick}
                     currentItem={currentItem}/>
-                <StripHeader>Queue List</StripHeader>
             </div>
         )
     }
