@@ -16,7 +16,7 @@ export default function (state = {
     playing: false,
 }, action = null) {
     switch (action.type) {
-        case c.SET_CURRENT:
+        case c.JUMP_TO_ITEM:
             return {
                 ...state,
                 current: action.payload,

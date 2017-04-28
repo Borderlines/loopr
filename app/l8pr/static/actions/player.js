@@ -63,6 +63,13 @@ export function initQueueList() {
     }
 }
 
+export function jumpToItem(item) {
+    return {
+        type: c.JUMP_TO_ITEM,
+        payload: item,
+    }
+}
+
 export function playItem(item) {
     return playItems([item])
 }

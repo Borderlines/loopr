@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
     currentItem: selectors.currentTrack(state),
 })
 const mapDispatchToProps = (dispatch) => ({
-    onItemPlayClick: (item) => (dispatch(player.playItem(item))),
+    onItemPlayClick: (item) => (dispatch(player.jumpToItem(item))),
     handleAddClick: (item) => dispatch(modal.showModal('ADD_ITEM', { item })),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(PlayQueue)
