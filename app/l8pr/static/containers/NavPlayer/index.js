@@ -69,19 +69,21 @@ function NavPlayer({
                 <a title="More">
                     <i className="material-icons">more_vert</i>
                 </a>
-                <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}
-                    title="Queue List"
-                    onClick={showQueuelist}>
-                    playlist_play
-                </i>
-                <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}
-                    title="Search"
-                    onClick={handleSearch}>
-                    search
-                </i>
-                <i className="material-icons" title="Login" onClick={handleLogin}>
-                    account_circle
-                </i>
+                <a title="Queue List" onClick={showQueuelist}>
+                    <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
+                        playlist_play
+                    </i>
+                </a>
+                <a title="Search" onClick={handleSearch}>
+                    <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
+                        search
+                    </i>
+                </a>
+                <a title="Login" onClick={handleLogin}>
+                    <i className="material-icons" title="Login">
+                        account_circle
+                    </i>
+                </a>
             </div>
         </div>
     )
