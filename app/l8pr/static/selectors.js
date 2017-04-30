@@ -8,6 +8,7 @@ export const playQueue = (state) => state.player.playQueue
 export const getPathname = (state) => state.routing.locationBeforeTransitions.pathname
 export const currentUser = (state) => get(state.auth, 'user')
 export const currentUserId = createSelector(currentUser, (user) => get(user, 'id'))
+export const currentUsername = createSelector(currentUser, (user) => get(user, 'username'))
 export const getSearchTerms = (state) => state.search.terms
 export const getSearchResults = (state) => state.search.results
 export const myShows = (state) => state.auth.loop

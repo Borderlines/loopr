@@ -6,7 +6,7 @@ var lastSearch = undefined
 export function search(searchTerms) {
     const timestamp = Date.now()
     lastSearch = timestamp
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch({ type: 'SEARCH_STARTING' })
         dispatch(setTerms([...searchTerms]))
         if (searchTerms.length) {
@@ -16,8 +16,8 @@ export function search(searchTerms) {
             ))
             // remove them from ES search request
             urls.forEach(u => searchTerms.splice(searchTerms.indexOf(u), 1))
-            const urlsMeta = Promise.all(urls.map((u) => (api.metadata(u.value))))
-            const termsResults = searchTerms.length && api.search(searchTerms)
+            const urlsMeta = Promise.all(urls.map((u) => (api.metadata(getState(), u.value))))
+            const termsResults = searchTerms.length && api.search(getState(), searchTerms)
             Promise.all([urlsMeta, termsResults].map(p => (Promise.resolve(p))))
             .then(([urlsMeta, termsResults]) => {
                 if (timestamp === lastSearch) {

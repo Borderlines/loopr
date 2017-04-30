@@ -3,36 +3,53 @@ import { SERVER_URL } from '../utils/config'
 import { isNil, trim } from 'lodash'
 import { checkHttpStatus, parseJSON } from './index'
 
-function fetchLastItems({ username, count=10 }) {
-    let url = `${SERVER_URL}/api/items/?limit=${count}&ordering=-added`
-    if (username) url += `&users__username=${username}`
-    return fetch(url, {
-        // credentials: 'include',
-        headers: {
-            Accept: 'application/json',
-            // Authorization: `Token ${token}`
-        },
+export default function api(state) {
+    const getCommonOptions = (optionsToMerge) => {
+        const opts = {
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        }
+        if (state.auth.token) {
+            opts.headers.Authorization = `Token ${state.auth.token}`
+        }
+        return {
+            ...opts,
+            ...optionsToMerge,
+        }
+    }
+    const _fetch = (url, opt) => fetch(url, opt)
+        .then(checkHttpStatus)
+        .then(parseJSON)
+    return ({
+        get: (url) => _fetch(`${SERVER_URL}/${url}`, getCommonOptions()),
+        post: (url, body) => _fetch(`${SERVER_URL}/${url}`, getCommonOptions({
+            method: 'post',
+            body: JSON.stringify(body),
+        })),
+        put: (url, body) => _fetch(`${SERVER_URL}/${url}`, getCommonOptions({
+            method: 'put',
+            body: JSON.stringify(body),
+        })),
     })
-    .then(checkHttpStatus)
-    .then(parseJSON)
+}
+
+function fetchLastItems(state, { username, count=10 }) {
+    let url = `api/items/?limit=${count}&ordering=-added`
+    if (username) url += `&users__username=${username}`
+    return api(state).get(url)
     .then((data) => data.results)
 }
 
-export function fetchUserShows({ username }) {
-    return fetch(`${SERVER_URL}/api/loops/?username=${username}`, {
-        // credentials: 'include',
-        headers: {
-            Accept: 'application/json',
-            // Authorization: `Token ${token}`
-        },
-    })
-    .then(checkHttpStatus)
-    .then(parseJSON)
+export function fetchUserShows(state, { username }) {
+    return api(state).get(`api/loops/?username=${username}`)
     .then((items) => items[0].shows_list)
 }
 
-export const lastItemsInLoopr = () => (
-    fetchLastItems({ count: 10 })
+export const lastItemsInLoopr = (state) => (
+    fetchLastItems(state, { count: 10 })
     // set a context
     .then((items) => (
         items.map((i) => (
@@ -47,8 +64,8 @@ export const lastItemsInLoopr = () => (
     ))
 )
 
-export const shows = ({ username }) => (
-    fetchUserShows({ username })
+export const shows = (state, { username }) => (
+    fetchUserShows(state, { username })
     .then((shows) => (
         shows.map((show) => (
             // set context
@@ -65,8 +82,8 @@ export const shows = ({ username }) => (
     .then((showsItems) => ([].concat.apply([], showsItems)))
 )
 
-export const lastUserItems = ({ username }) => {
-    return fetchLastItems({ username })
+export const lastUserItems = (state, { username }) => {
+    return fetchLastItems(state, { username })
     // set context
     .then((items) => (
         items.map((i) => ({
@@ -95,56 +112,25 @@ function getCookie(name) {
     return cookieValue
 }
 
-export const saveItem = (item, token) => {
+export const saveItem = (state, item) => {
     if (!isNil(item.id)) {
         return Promise.resolve(item)
     }
     item.id = undefined
-    return fetch(`${SERVER_URL}/api/items/`, {
-        credentials: 'include',
-        method: 'post',
-        headers: {
-            // 'X-CSRFToken': getCookie('csrftoken'),
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token}`,
-        },
-        body: JSON.stringify(item),
-    })
-    .then(checkHttpStatus)
-    .then(parseJSON)
+    api(state).post('api/items/', item)
 }
 
-export const saveShow = (show, token) => {
+export const saveShow = (state, show) => {
     const method = isNil(show.id) ? 'post' : 'put'
-    const url = isNil(show.id) ? `${SERVER_URL}/api/shows/` : `${SERVER_URL}/api/shows/${show.id}/`
-    return fetch(url, {
-        credentials: 'include',
-        method: method,
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token}`,
-        },
-        body: JSON.stringify(show),
-    })
-    .then(checkHttpStatus)
-    .then(parseJSON)
+    const url = isNil(show.id) ? 'api/shows/' : `api/shows/${show.id}/`
+    return api(state)[method](url, show)
 }
 
-export const search = (searchTerms) => {
+export const search = (state, searchTerms) => {
     const terms = searchTerms.map((v) => v.value).join('+')
-    return fetch(`${SERVER_URL}/api/search/?text=${terms}`, {
-        headers: { Accept: 'application/json' },
-    })
-    .then(checkHttpStatus)
-    .then(parseJSON)
+    return api(state).get(`api/search/?text=${terms}`)
 }
 
-export const metadata = (url) => {
-    return fetch(`${SERVER_URL}/api/metadata/?url=${url}`, {
-        headers: { Accept: 'application/json' },
-    })
-    .then(checkHttpStatus)
-    .then(parseJSON)
+export const metadata = (state, url) => {
+    return api(state).get(`api/metadata/?url=${url}`)
 }

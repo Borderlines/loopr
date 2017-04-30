@@ -26,7 +26,7 @@ export function insertToPlaylist(items) {
 
 export function fillQueueList() {
     return (dispatch, getState) => (
-        contextLoaders.lastItemsInLoopr()
+        contextLoaders.lastItemsInLoopr(getState())
         .then((items) => (
             dispatch(appendToPlaylist(items))
         ))
@@ -36,12 +36,12 @@ export function fillQueueList() {
 export function initQueueList() {
     return (dispatch, getState) => {
         const location = selectors.getLocation(getState())
-        const username = location.user || selectors.currentUser(getState()).username
+        const username = location.user || selectors.currentUsername(getState()) || 'discover'
         return Promise.all([
             // LAST USER ITEMS
-            contextLoaders.lastUserItems({ username }),
+            contextLoaders.lastUserItems(getState(), { username }),
             // SHOWS
-            contextLoaders.shows({ username }),
+            contextLoaders.shows(getState(), { username }),
         ])
         // flatten
         .then((results) => ([].concat.apply([], results)))

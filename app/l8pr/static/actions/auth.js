@@ -13,30 +13,30 @@ import {
 } from '../constants'
 
 export function authLoginUserSuccess(token, user) {
-    return (dispatch) => {
-        // get user's shows
-        api.fetchUserShows({ username: user.username })
-        .then((loop) => {
-            dispatch({
-                type: 'AUTH_SET_LOOP',
-                payload: orderBy(loop, ['updated'], ['desc']),
-            })
-        })
+    return (dispatch, getState) => {
         localStorage.setItem('token', token)
         localStorage.setItem('user', JSON.stringify(user))
-        return dispatch({
+        dispatch({
             type: AUTH_LOGIN_USER_SUCCESS,
             payload: {
                 token,
                 user,
             },
         })
+        // get user's shows
+        api.fetchUserShows(getState(), { username: user.username })
+        .then((loop) => {
+            dispatch({
+                type: 'AUTH_SET_LOOP',
+                payload: orderBy(loop, ['updated'], ['desc']),
+            })
+        })
     }
 }
 
 export function saveItem(item) {
     return (dispatch, getState) => (
-        api.saveItem({ ...item }, getState().auth.token)
+        api.saveItem(getState(), { ...item })
     )
 }
 
@@ -48,7 +48,7 @@ export function saveShow(show) {
             items,
         }))
         .then(show => (
-            api.saveShow(show, getState().auth.token)
+            api.saveShow(getState(), show)
             // update show
             .then((show) => dispatch(updateShow(show)))
         ))
