@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import * as api from '../utils/api'
 import { hideModal } from '../actions/modal'
-import { SERVER_URL } from '../utils/config'
 import { orderBy, cloneDeep } from 'lodash'
 import { checkHttpStatus, parseJSON } from '../utils'
 import {
@@ -114,7 +113,7 @@ export function authLoginUser(email, password, redirect = '/') {
         var formData = new FormData()
         formData.append('password', password)
         formData.append('username', email)
-        return fetch(`${SERVER_URL}/auth/login/`, {
+        return fetch('auth/login/', {
             method: 'post',
             body: formData,
             headers: { Accept: 'application/json' },
@@ -122,7 +121,7 @@ export function authLoginUser(email, password, redirect = '/') {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => (
-                fetch(`${SERVER_URL}/auth/me/`, {
+                fetch('auth/me/', {
                     method: 'get',
                     headers: { Authorization: `Token ${response.auth_token}` },
                 })

@@ -24,12 +24,12 @@ export default function api(state) {
         .then(checkHttpStatus)
         .then(parseJSON)
     return ({
-        get: (url) => _fetch(`${SERVER_URL}/${url}`, getCommonOptions()),
-        post: (url, body) => _fetch(`${SERVER_URL}/${url}`, getCommonOptions({
+        get: (url) => _fetch(url, getCommonOptions()),
+        post: (url, body) => _fetch(url, getCommonOptions({
             method: 'post',
             body: JSON.stringify(body),
         })),
-        put: (url, body) => _fetch(`${SERVER_URL}/${url}`, getCommonOptions({
+        put: (url, body) => _fetch(url, getCommonOptions({
             method: 'put',
             body: JSON.stringify(body),
         })),
