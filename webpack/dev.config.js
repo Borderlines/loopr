@@ -5,6 +5,7 @@ const extractCSS = new ExtractTextPlugin('styles/[name].css');
 
 module.exports = {
     devtool: 'source-map', // 'cheap-module-eval-source-map'
+
     module: {
         rules: [{
             test: /\.css$/,
@@ -23,6 +24,7 @@ module.exports = {
             ]
         }],
     },
+
     plugins: [
         extractCSS
     ]

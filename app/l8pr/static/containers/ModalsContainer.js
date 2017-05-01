@@ -9,7 +9,7 @@ const modals = {
     ADD_ITEM: AddItemModal,
 }
 
-export function Modals({ modalType, modalProps, handleHide }) {
+function Modals({ modalType, modalProps, handleHide }) {
     if (modalType) {
         return React.createElement(modals[modalType], {
             handleHide,

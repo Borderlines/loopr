@@ -103,12 +103,15 @@ const common = {
             {
                 test: /\.js$/,
                 use: [
-                    { loader: 'babel-loader?cacheDirectory' }
+                    {
+                        loader: 'babel-loader',
+                        options: { cacheDirectory: true },
+                    },
                 ],
                 include: [
                     basePath, //important for performance!
                 ],
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             {
                 test: /\.jpe?g$|\.gif$|\.png$/,
