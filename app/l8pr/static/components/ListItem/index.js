@@ -47,17 +47,19 @@ function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowCli
 function Track({ item, className='', onPlayClick, isPlaying, style, onAddClick }) {
     return (
         <div className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
+            <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
             <div className="ListItem__body">
+                <span className="ListItem__title">{item.title}</span>
+                <span className="ListItem__details">{getDuration(item)}</span>
                 <span className="ListItem__source">
                 <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
                 </span>
-                <span className="ListItem__title">{item.title}</span>
+                <span><i className="material-icons">info_outline</i></span>
                 <span className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
-                    <i className="material-icons">playlist_add</i>
+                    <i className="material-icons">add</i>
                 </span>
-                <div className="ListItem__details">{getDuration(item)}</div>
+                <span><i className="material-icons">share</i></span>
             </div>
-            <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
         </div>
     )
 }

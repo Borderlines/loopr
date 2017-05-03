@@ -8,7 +8,7 @@ import './style.scss'
 export default class ContextsList extends React.Component {
     getContextHeight({ index }) {
         const { contexts } = this.props
-        return contexts[index].items.length * 100
+        return contexts[index].items.length * 50
     }
     _rowRenderer({ index, key, style }) {
         const { contexts, onItemPlayClick, onPlayShowClick, onAddClick } = this.props

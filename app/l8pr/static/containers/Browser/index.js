@@ -12,7 +12,6 @@ function Browser({ browserType, open }) {
     }
     const classes = classNames(
         'Browser',
-        'row',
         { 'Browser--open': open },
     )
     const BrowserElement = types[browserType]

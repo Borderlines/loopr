@@ -11,7 +11,7 @@ export default class Progressbar extends React.Component {
     render() {
         const { progress, loaded } = this.props
         return (
-            <div className="Progressbar row" ref="progressbar" onClick={this.onClick}>
+            <div className="Progressbar" ref="progressbar" onClick={this.onClick}>
                 <div className="Progressbar__loaded" style={{ width: `${loaded * 100}%` }}/>
                 <div className="Progressbar__progress" style={{ width: `${progress * 100}%` }}/>
             </div>

@@ -1,41 +1,50 @@
 .NavPlayer {
-    background-color: white;
-    padding: 15px 10px;
+    background-color: $colorPlaying;
+    padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .NavPlayer a {
-    color: black;
+    color: blue;
+
 }
 
 .NavPlayer a:hover {
-    color: $colorPlaying;
+    color: white;
 }
 
 .NavPlayer .material-icons.active {
-    color: $colorPlaying;
+    color: white;
 }
 
+.NavPlayer__banner {
+
+}
 .NavPlayer__controllers {
     //min-width: 180px;
     white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (min-width: $screen-sm) {
+  .NavPlayer__controllers {
+      width: auto;
+  }
 }
 
 .NavPlayer__item, .NavPlayer__show {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: normal;
-    width: 100%;
-    color: $colorPlaying;
+    color: white;
 }
 
 .NavPlayer__item {
     font-family: $primaryFont;
-    font-weight: 500;
-    font-size: 1.2em;
 }
 
 .NavPlayer__show {
     font-family: $secondaryFont;
-    font-weight: 300;
 }
