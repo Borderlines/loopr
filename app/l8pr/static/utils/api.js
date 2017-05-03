@@ -38,7 +38,7 @@ export default function api(state) {
 
 function fetchLastItems(state, { username, count=10 }) {
     let url = `api/items/?limit=${count}&ordering=-added`
-    if (username) url += `&users__username=${username}`
+    if (username) url += `&shows__user__username=${username}`
     return api(state).get(url)
     .then((data) => data.results)
 }
@@ -117,7 +117,7 @@ export const saveItem = (state, item) => {
         return Promise.resolve(item)
     }
     item.id = undefined
-    api(state).post('api/items/', item)
+    return api(state).post('api/items/', item)
 }
 
 export const saveShow = (state, show) => {

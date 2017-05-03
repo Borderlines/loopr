@@ -178,9 +178,9 @@ class ShowViewSet(viewsets.ModelViewSet):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Item.objects.distinct()
     serializer_class = ItemSerializer
-    filter_fields = ('url', 'users', 'users__username')
+    filter_fields = ('url', 'shows__user__username')
 
 
 class ItemSearchSerializer(HaystackSerializerMixin, ItemSerializer):

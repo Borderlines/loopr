@@ -8,7 +8,6 @@ from django.db import migrations
 def link_items_to_users(apps, schema_editor):
     Show = apps.get_model('l8pr', 'Show')
     ItemsUsersRelationship = apps.get_model('l8pr', 'ItemsUsersRelationship')
-    from app.l8pr.models import Show, ItemsUsersRelationship
     for s in Show.objects.all():
         for i in s.items.all():
             if s.user not in i.users.all():

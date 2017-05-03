@@ -103,25 +103,14 @@ class ItemsRelationship(models.Model):
     item = models.ForeignKey('Item')
     show = models.ForeignKey('Show')
     order = models.PositiveIntegerField()
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-order',)
 
     def __str__(self):
         return '%s > %s' % (self.item, self.show)
-
-
-class ItemsUsersRelationship(models.Model):
-    item = models.ForeignKey('Item')
-    user = models.ForeignKey(User)
-    added = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ('-added',)
-
-    def __str__(self):
-        return '%s > %s' % (self.item, self.user)
 
 
 class Item(models.Model):
@@ -131,8 +120,8 @@ class Item(models.Model):
         ('WebTorrent', 'WebTorrent'),
         ('Vimeo', 'Vimeo'),
     )
-    users = models.ManyToManyField(User, through='ItemsUsersRelationship', related_name='ItemsUsersRelationship')
     title = models.CharField(max_length=255, null=True, blank=True)
+    shows = models.ManyToManyField('SHow', through='ItemsRelationship', related_name='ItemsRelationship')
     description = models.TextField(null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
     thumbnail = models.URLField(max_length=200, null=True, blank=True)

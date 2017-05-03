@@ -1,6 +1,6 @@
-import datetime
+from django.db import models
 from haystack import indexes
-from .models import Item, Show
+from .models import Item, Show, ItemsRelationship
 from django.contrib.auth.models import User
 
 
@@ -30,3 +30,11 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return User
+
+
+def reindex_mymodel(sender, **kwargs):
+    ItemIndex().update_object(kwargs['instance'].item)
+    ShowIndex().update_object(kwargs['instance'].show)
+
+
+models.signals.post_save.connect(reindex_mymodel, sender=ItemsRelationship)
