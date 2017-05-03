@@ -107,6 +107,23 @@ export function authLogoutAndRedirect() {
     }
 }
 
+export function checkToken(token) {
+    return (dispatch) => {
+        if (!token) {
+            return false
+        }
+        return fetch('auth/me/', {
+            method: 'get',
+            headers: { Authorization: `Token ${token}` },
+        })
+        .then(checkHttpStatus)
+        .then(parseJSON)
+        .then((user) => (
+            dispatch(authLoginUserSuccess(token, user))
+        ))
+    }
+}
+
 export function authLoginUser(email, password, redirect = '/') {
     return (dispatch) => {
         dispatch(authLoginUserRequest())

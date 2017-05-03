@@ -5,7 +5,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import { HotKeys } from 'react-hotkeys'
 import Root from './containers/Root/Root'
 import configureStore from './store/configureStore'
-import { authLoginUserSuccess } from './actions/auth'
+import { checkToken } from './actions/auth'
 import * as browser from './actions/browser'
 import * as player from './actions/player'
 import screenfull from 'screenfull'
@@ -37,19 +37,13 @@ const node = (
 )
 
 const token = localStorage.getItem('token')
-let currentUser = {}
-try {
-    currentUser = JSON.parse(localStorage.getItem('user'))
-} catch (e) {
-    // Failed to parse
-}
-
 // login from localstorage
-if (token !== null) {
-    store.dispatch(authLoginUserSuccess(token, currentUser))
-}
+store.dispatch(checkToken(token))
+.then(() => (
+    // init playqueue from url
+    store.dispatch(player.initQueueList())
+))
 
-// init playqueue from url
-store.dispatch(player.initQueueList())
+
 
 ReactDOM.render(node, target)
