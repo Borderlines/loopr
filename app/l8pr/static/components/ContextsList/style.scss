@@ -4,26 +4,35 @@
 }
 .ContextsList__context {
     display: flex;
-    border-color: 1px border $colorShow;
-    border-top: 2px solid #00ff9b;
+    border-bottom: 5px solid $colorShow;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
     .ContextsList__cover {
-        width: 14rem;
+        //width: 14rem;
+        min-width: 20%;
+        min-height: 3vh;
         padding: 20px;
         color: white;
         font-weight: 700;
-        overflow: hidden;
+        //overflow: hidden;
         text-overflow: ellipsis;
         box-shadow: inset 0 0 0 1000px rgba($colorShow, .3);
-        background-size: auto 100%;
+        background-size: cover;
     }
     .ContextsList__items {
-        flex-grow: 1;
+        // flex-grow: 1;
     }
+}
+
+@media (min-width: $screen-sm) {
+  .ListItem__illustration {
+      min-width: 10rem;
+  }
 }
 .context__title {
     font-family: $secondaryFont;
     font-size: 2rem;
-    flex-grow: 1;
+    //flex-grow: 1;
     width: auto;
     text-overflow: ellipsis;
     overflow: hidden;

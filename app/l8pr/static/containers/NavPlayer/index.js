@@ -27,12 +27,13 @@ function NavPlayer({
     browserType,
 }) {
     return (
-        <div className="NavPlayer row">
-            <div className="col-xs-8">
+        <div className="NavPlayer">
+            <div className="NavPlayer__banner">
                 <div className="NavPlayer__item">{get(currentItem, 'title')}</div>
                 <div className="NavPlayer__show">{get(currentShow, 'title')}</div>
             </div>
-            <div className="NavPlayer__controllers col-xs-4 text-right">
+            <div className="NavPlayer__controllers">
+            <div>
                 {muted &&
                     <a onClick={onUnmute} title="Mute on/off">
                         <i className="material-icons">volume_off</i>
@@ -69,6 +70,7 @@ function NavPlayer({
                 <a title="More">
                     <i className="material-icons">more_vert</i>
                 </a>
+                </div><div>
                 <a title="Queue List" onClick={showQueuelist}>
                     <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
                         playlist_play
@@ -84,6 +86,7 @@ function NavPlayer({
                         account_circle
                     </i>
                 </a>
+                </div>
             </div>
         </div>
     )

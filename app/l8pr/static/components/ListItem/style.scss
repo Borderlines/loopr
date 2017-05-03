@@ -1,4 +1,4 @@
-$ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
+$ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem {
     font-family: $primaryFont;
     border-bottom: 1px dashed $colorItem;
@@ -6,9 +6,17 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
     cursor: pointer;
     display: flex;
     position: relative;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     overflow: hidden;
 }
+
+@media (min-width: $screen-sm) {
+  .ListItem {
+      flex-wrap: nowrap;
+  }
+}
+
+
 .ListItem--isSelected {
     background-color: orange;
 }
@@ -18,7 +26,7 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
     &:before {
         content: 'play_arrow';
         font-family: 'Material Icons';
-        font-size: 4em;
+        font-size: 2em;
         align-self: center;
     }
 }
@@ -26,7 +34,7 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
 .ListItem__body {
     flex-grow: 1;
     align-self: center;
-    margin: 0 20px;
+    padding: 10px 25px;
 }
 
 .ListItem:hover {
@@ -46,11 +54,31 @@ $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
     }
 }
 .ListItem__illustration {
-    width: 50%;
-    height: $ITEM_HEIGHT;
+    // height: $ITEM_HEIGHT;
+    // width: 20%;
+    // background-repeat: no-repeat;
+    // background-position: left center;
+    // background-size: contain;
+
+    background-position: center center;
     background-repeat: no-repeat;
-    background-position: right center;
-    background-size: contain;
+    background-size: cover;
+    background-blend-mode: multiply;
+    background-color: rgba(0,0,255,0.1);
+    padding: 20px 25px;
+    color: rgba(255,255,255,1);
+    cursor: pointer;
+    display: flex;
+    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+}
+
+@media (min-width: $screen-sm) {
+  .ListItem__illustration {
+      min-width: 14rem;
+  }
 }
 .ListItem__source {
     margin-right: 10px;

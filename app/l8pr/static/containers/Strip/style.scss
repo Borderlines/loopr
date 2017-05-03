@@ -1,6 +1,15 @@
 .Strip {
     position: absolute;
-    bottom: 60px;
-    left: 60px;
-    right: 60px;
+    bottom: $stripMargin;
+    left:   $stripMargin;
+    right:  $stripMargin;
+}
+
+
+@media (min-width: $screen-sm) {
+  .Strip {
+      bottom: $stripMargin--Desktop;
+      left:   $stripMargin--Desktop;
+      right:  $stripMargin--Desktop;
+  }
 }
