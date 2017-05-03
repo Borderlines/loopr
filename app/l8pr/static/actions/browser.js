@@ -39,3 +39,7 @@ export function browse(browserType, browserProps) {
         browserProps,
     }
 }
+
+export function goBack() {
+    return { type: 'BROWSER_GO_BACK' }
+}

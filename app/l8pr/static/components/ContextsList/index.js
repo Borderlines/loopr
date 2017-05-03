@@ -1,5 +1,6 @@
 import React from 'react'
 import { ListItem } from '../../components'
+import { getDuration } from '../../utils'
 import moment from 'moment'
 import { AutoSizer, List } from 'react-virtualized'
 import './style.scss'
@@ -97,8 +98,4 @@ ContextsList.propTypes = {
     onPlayShowClick: React.PropTypes.func,
     onAddClick: React.PropTypes.func,
     currentItem: React.PropTypes.object,
-}
-
-function getDuration(items) {
-    return items.reduce((r, i) => (r + i.duration), 0)
 }

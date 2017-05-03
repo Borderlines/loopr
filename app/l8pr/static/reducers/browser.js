@@ -1,10 +1,11 @@
 import { BROWSE, SET_STRIP_STATE } from '../constants'
-
-export default function (state = {
+const initialState = {
     stripOpened: true,
     browserType: 'PLAYQUEUE',
     browserProps: undefined,
-}, action = null) {
+}
+
+export default function (state = initialState, action = null) {
     switch (action.type) {
         case SET_STRIP_STATE:
             return {
@@ -17,7 +18,10 @@ export default function (state = {
                 stripOpened: true,
                 browserType: action.browserType,
                 browserProps: action.browserProps,
+                previousState: state,
             }
+        case 'BROWSER_GO_BACK':
+            return state.previousState || initialState
         default:
             return state
     }

@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export function createReducer(initialState, reducerMap) {
     return (state = initialState, action) => {
         const reducer = reducerMap[action.type]
@@ -17,4 +19,14 @@ export function checkHttpStatus(response) {
 
 export function parseJSON(response) {
     return response.json()
+}
+
+export function getDuration(items) {
+    let duration
+    if (Array.isArray(items)) {
+        duration = items.reduce((r, i) => (r + i.duration), 0)
+    } else {
+        duration = items.duration
+    }
+    return moment.duration(duration, 's').humanize()
 }

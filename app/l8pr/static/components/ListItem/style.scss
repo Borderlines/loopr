@@ -1,7 +1,6 @@
 $ITEM_HEIGHT: 100px; // do not change before changing the height value in JS
 .ListItem {
     font-family: $primaryFont;
-    background-color: white;
     border-bottom: 1px dashed $colorItem;
     color: $colorItem;
     cursor: pointer;

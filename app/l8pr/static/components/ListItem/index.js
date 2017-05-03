@@ -1,6 +1,6 @@
 import React from 'react'
-import moment from 'moment'
 import './style.scss'
+import { getDuration } from '../../utils'
 
 const sourceIcones = {
     youtube: 'youtube-play',
@@ -27,11 +27,19 @@ export default function ListItem(props) {
     return (<SpecificItem className={classNames} {...props}/>)
 }
 
-function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowClick, showImages=true }) {
+function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowClick, onShowClick, showImages=true }) {
     return (
-        <div className={className + ' ListItem--Show'} style={style} onClick={() => (onPlayShowClick(item))}>
+        <div
+            className={className + ' ListItem--Show'}
+            style={style}
+            onClick={() => (onShowClick(item))}>
             <div className="ListItem__body">
-                <div className="ListItem__title">{item.title} by {item.user.username}</div>
+                <div className="ListItem__title">
+                    {item.title} by {item.user.username}
+                    <a onClick={() => (onPlayShowClick(item))}>
+                        <i className="material-icons">playlist_play</i>
+                    </a>
+                </div>
                 <span className="ListItem__details">{item.items.length} tracks / </span>
                 <span className="ListItem__details">{getDuration(item.items)}</span>
             </div>
@@ -72,13 +80,3 @@ ListItem.propTypes = {
 }
 Track.propTypes = ListItem.propTypes
 Show.propTypes = ListItem.propTypes
-
-function getDuration(items) {
-    let duration
-    if (Array.isArray(items)) {
-        duration = items.reduce((r, i) => (r + i.duration), 0)
-    } else {
-        duration = items.duration
-    }
-    return moment.duration(duration, 's').humanize()
-}

@@ -42,7 +42,7 @@ store.dispatch(checkToken(token))
 .then(() => (
     // init playqueue from url
     store.dispatch(player.initQueueList())
-))
+), () => store.dispatch(player.initQueueList()))
 
 
 

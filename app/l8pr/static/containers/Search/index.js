@@ -5,6 +5,7 @@ import './style.scss'
 import * as search from '../../actions/search'
 import * as player from '../../actions/player'
 import * as modal from '../../actions/modal'
+import * as browser from '../../actions/browser'
 import { Suggestions } from '../index'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
@@ -18,13 +19,21 @@ class Search extends React.Component {
         super(props)
     }
     _rowRenderer({ index, key, style }) {
-        const { onPlayClick, onPlayShowClick, currentTrack, currentShow, onAddClick } = this.props
+        const {
+            onPlayClick,
+            onPlayShowClick,
+            currentTrack,
+            currentShow,
+            onAddClick,
+            onShowClick,
+        } = this.props
         const item = this.props.searchResults[index]
         return (
             <ListItem
                 key={key}
                 item={item}
                 onPlayClick={onPlayClick}
+                onShowClick={onShowClick}
                 onPlayShowClick={onPlayShowClick}
                 onAddClick={onAddClick}
                 currentTrack={currentTrack}
@@ -81,7 +90,8 @@ Search.propTypes = {
     searchResults: React.PropTypes.array,
     search: React.PropTypes.func,
     onPlayClick: React.PropTypes.func,
-    onPlayShowClick: React.PropTypes.func,
+    onShowClick: React.PropTypes.func.isRequired,
+    onPlayShowClick: React.PropTypes.func.isRequired,
     onAddClick: React.PropTypes.func,
     isLoading: React.PropTypes.bool,
     currentShow: React.PropTypes.object,
@@ -98,6 +108,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     search: (searchTerms) => dispatch(search.search(searchTerms)),
     onAddClick: (item) => dispatch(modal.showModal('ADD_ITEM', { item })),
+    onShowClick: (show) => dispatch(browser.browse('SHOW', { show })),
     onPlayShowClick: (show) => dispatch(player.playItems(
         show.items.map((item) => ({
             ...item,

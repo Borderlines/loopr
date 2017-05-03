@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { PlayQueue, Search } from '../index'
+import { PlayQueue, Search, Show } from '../index'
 import classNames from 'classnames'
 import './style.scss'
 
@@ -9,6 +9,7 @@ function Browser({ browserType, open }) {
     const types = {
         'SEARCH': Search,
         'PLAYQUEUE': PlayQueue,
+        'SHOW': Show,
     }
     const classes = classNames(
         'Browser',
