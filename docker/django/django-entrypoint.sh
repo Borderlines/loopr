@@ -5,7 +5,7 @@ do
     echo "Waiting for django volume..."
 done
 
-until python ../manage.py migrate
+until python ../manage.py migrate --noinput
 do
     echo "Waiting for postgres ready..."
     sleep 2
