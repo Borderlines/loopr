@@ -20,7 +20,13 @@ module.exports = {
                 extractCSS.extract('style'),
                 'css-loader?localIdentName=[path][name]--[local]',
                 'postcss-loader',
-                'sass-loader',
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        data: `@import "${__dirname}/../app/l8pr/static/styles/config/_variables.scss";`,
+                        context: '/',
+                    },
+                },
             ]
         }],
     },
