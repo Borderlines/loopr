@@ -8,6 +8,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     position: relative;
     flex-wrap: wrap;
     overflow: hidden;
+    height: $ITEM_HEIGHT;
 }
 
 @media (min-width: $screen-sm) {

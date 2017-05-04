@@ -1,5 +1,4 @@
 .ContextsList {
-    overflow: auto;
     flex-grow: 1;
 }
 .ContextsList__context {
@@ -8,19 +7,18 @@
     justify-content: flex-start;
     flex-wrap: nowrap;
     .ContextsList__cover {
-        //width: 14rem;
-        min-width: 20%;
+        min-width: 15rem;
+        max-width: 35rem;
         min-height: 3vh;
-        padding: 20px;
+        padding: .4rem;
         color: white;
         font-weight: 700;
-        //overflow: hidden;
         text-overflow: ellipsis;
         box-shadow: inset 0 0 0 1000px rgba($colorShow, .3);
         background-size: cover;
     }
     .ContextsList__items {
-        // flex-grow: 1;
+        flex-grow: 1;
     }
 }
 
@@ -32,7 +30,6 @@
 .context__title {
     font-family: $secondaryFont;
     font-size: 2rem;
-    //flex-grow: 1;
     width: auto;
     text-overflow: ellipsis;
     overflow: hidden;
