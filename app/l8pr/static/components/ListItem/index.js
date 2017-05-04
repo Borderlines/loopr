@@ -27,12 +27,13 @@ export default function ListItem(props) {
     return (<SpecificItem className={classNames} {...props}/>)
 }
 
-function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowClick, onShowClick, showImages=true }) {
+function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlayShowClick, onShowClick, showImages=true }) {
     return (
         <div
+            key={key}
             className={className + ' ListItem--Show'}
             style={style}
-            onClick={() => (onShowClick(item))}>
+            onClick={() => (onShowClick && onShowClick(item))}>
             <div className="ListItem__body">
                 <div className="ListItem__title">
                     {item.title} by {item.user.username}
@@ -52,9 +53,9 @@ function Show({ item, className='', onPlayClick, isPlaying, style, onPlayShowCli
     )
 }
 
-function Track({ item, className='', onPlayClick, isPlaying, style, onAddClick }) {
+function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddClick }) {
     return (
-        <div className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
+        <div key={key} className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
             <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
             <div className="ListItem__body">
                 <span className="ListItem__title">{item.title}</span>
@@ -74,7 +75,7 @@ function Track({ item, className='', onPlayClick, isPlaying, style, onAddClick }
 
 ListItem.propTypes = {
     item: React.PropTypes.object.isRequired,
-    onPlayClick: React.PropTypes.func.isRequired,
+    onPlayClick: React.PropTypes.func,
     onAddClick: React.PropTypes.func,
     isPlaying: React.PropTypes.bool,
     isSelected: React.PropTypes.bool,

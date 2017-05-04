@@ -3,13 +3,25 @@ import * as c from '../constants'
 export function openStrip() {
     return {
         type: c.SET_STRIP_STATE,
-        payload: true,
+        payload: { stripOpened: true },
     }
 }
 export function closeStrip() {
     return {
         type: c.SET_STRIP_STATE,
-        payload: false,
+        payload: { stripOpened: false },
+    }
+}
+export function hideStrip() {
+    return {
+        type: c.SET_STRIP_STATE,
+        payload: { stripHidden: true },
+    }
+}
+export function showStrip() {
+    return {
+        type: c.SET_STRIP_STATE,
+        payload: { stripHidden: false },
     }
 }
 export function toggleStrip(browserType, browserProps) {

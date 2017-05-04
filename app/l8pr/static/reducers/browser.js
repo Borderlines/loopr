@@ -1,6 +1,7 @@
 import { BROWSE, SET_STRIP_STATE } from '../constants'
 const initialState = {
     stripOpened: true,
+    stripHidden: false,
     browserType: 'PLAYQUEUE',
     browserProps: undefined,
 }
@@ -10,7 +11,7 @@ export default function (state = initialState, action = null) {
         case SET_STRIP_STATE:
             return {
                 ...state,
-                stripOpened: action.payload === true,
+                ...action.payload,
             }
         case BROWSE:
             return {

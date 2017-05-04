@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Progressbar } from '../../components'
 import { NavPlayer, Browser } from '../index'
 import './style.scss'
+import classNames from 'classnames'
 
 class Strip extends React.Component {
     static propTypes = {
@@ -13,9 +14,13 @@ class Strip extends React.Component {
     }
 
     render() {
-        const { stripOpened, progress, loaded, onSeekTo } = this.props
+        const { stripOpened, progress, loaded, onSeekTo, hidden } = this.props
+        const classes = classNames(
+            'Strip',
+            { 'Strip--hidden': hidden }
+        )
         return (
-            <div className="Strip">
+            <div className={classes}>
                 <Browser open={stripOpened}/>
                 <NavPlayer/>
                 <Progressbar progress={progress} loaded={loaded} onClick={onSeekTo}/>
@@ -24,6 +29,9 @@ class Strip extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({ stripOpened: state.browser.stripOpened })
+const mapStateToProps = (state) => ({
+    stripOpened: state.browser.stripOpened,
+    hidden: state.browser.stripHidden,
+})
 
 export default connect(mapStateToProps)(Strip)

@@ -1,4 +1,5 @@
 import * as c from '../constants'
+import * as browser from './browser'
 import * as selectors from '../selectors'
 import { push } from 'react-router-redux'
 import * as contextLoaders from '../utils/api'

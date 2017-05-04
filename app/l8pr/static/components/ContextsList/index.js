@@ -1,7 +1,6 @@
 import React from 'react'
 import { ListItem } from '../../components'
 import { getDuration } from '../../utils'
-import moment from 'moment'
 import { AutoSizer, List } from 'react-virtualized'
 import './style.scss'
 
@@ -22,7 +21,7 @@ export default class ContextsList extends React.Component {
                 >
                     <div className="context__title">{c.context.title}</div>
                     <span className="context__details">{c.items.length} items / </span>
-                    <span className="context__details">{moment.duration(getDuration(c.items), 's').humanize()}</span>
+                    <span className="context__details">{getDuration(c.items)}</span>
                 </div>
                 <div className="ContextsList__items">
                     {c.items.map((item, itemIndex) => (
@@ -64,7 +63,7 @@ export default class ContextsList extends React.Component {
                                 <div className="context__title">
                                     {c.context.title}<br/>
                                     <span className="context__details">{c.items.length} items / </span>
-                                    <span className="context__details">{moment.duration(getDuration(c.items), 's').humanize()}</span>
+                                    <span className="context__details">{getDuration(c.items)}</span>
                                 </div>
                                 <div className="context__illustrations">
                                     {c.items.slice(0, 15).map((i, idx)=> (

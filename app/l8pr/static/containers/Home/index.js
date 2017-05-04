@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Screen } from '../../components'
 import { Strip, ModalsContainer } from '../index'
+import * as browser from '../../actions/browser'
 import { play, pause, next } from '../../actions/player'
 import { SOUNDCLOUD_API } from '../../utils/config'
 import * as selectors from '../../selectors'
@@ -38,9 +39,13 @@ class HomeView extends React.Component {
             onEnd,
             onPlay,
             onPause,
+            showStrip,
         } = this.props
+        const onMouseMove = () => {
+            showStrip()
+        }
         return (
-            <div className="Home">
+            <div className="Home" onMouseMove={onMouseMove}>
                 <ModalsContainer/>
                 {this.props.media &&
                     <Screen
@@ -82,6 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
     onEnd: () => (dispatch(next())),
     onPlay: (args) => (dispatch(play(args))),
     onPause: (args) => (dispatch(pause(args))),
+    showStrip: () => (dispatch(browser.showStrip())),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeView)

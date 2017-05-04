@@ -20,7 +20,7 @@ function AddItemModal({ handleHide, shows, item, toggleItemToShow, saveItemAndCr
                 {shows.map((show) => (
                     <ListItem
                         key={show._id}
-                        onPlayShowClick={(show) => toggleItemToShow(item, show)}
+                        onShowClick={(show) => toggleItemToShow(item, show)}
                         showImages={false}
                         isSelected={!!show.items.find(i => (i.id === item.id))}
                         item={show}
