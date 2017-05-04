@@ -110,7 +110,7 @@ export function authLogoutAndRedirect() {
 export function checkToken(token) {
     return (dispatch) => {
         if (!token) {
-            return false
+            return Promise.resolve(false)
         }
         return fetch('auth/me/', {
             method: 'get',
