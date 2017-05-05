@@ -113,8 +113,8 @@ NavPlayer.propTypes = {
     handleSearch: React.PropTypes.func.isRequired,
     handleLogin: React.PropTypes.func.isRequired,
     browserType: React.PropTypes.string,
-    toggleFixedStrip: React.PropTypes.bool,
-    stripFixed: React.PropTypes.func,
+    toggleFixedStrip: React.PropTypes.func,
+    stripFixed: React.PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
