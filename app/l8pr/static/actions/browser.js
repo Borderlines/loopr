@@ -3,7 +3,10 @@ import * as c from '../constants'
 export function openStrip() {
     return {
         type: c.SET_STRIP_STATE,
-        payload: { stripOpened: true },
+        payload: {
+            stripOpened: true,
+            stripHidden: false,
+        },
     }
 }
 export function closeStrip() {
@@ -12,18 +15,16 @@ export function closeStrip() {
         payload: { stripOpened: false },
     }
 }
-export function hideStrip() {
-    return {
-        type: c.SET_STRIP_STATE,
-        payload: { stripHidden: true },
+
+export function toggleFixedStrip() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: c.SET_STRIP_STATE,
+            payload: { stripFixed: !getState().browser.stripFixed },
+        })
     }
 }
-export function showStrip() {
-    return {
-        type: c.SET_STRIP_STATE,
-        payload: { stripHidden: false },
-    }
-}
+
 export function toggleStrip(browserType, browserProps) {
     return (dispatch, getState) => {
         function toggle() {

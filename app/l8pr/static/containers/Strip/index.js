@@ -8,15 +8,18 @@ import classNames from 'classnames'
 class Strip extends React.Component {
     static propTypes = {
         stripOpened: React.PropTypes.bool,
+        hidden: React.PropTypes.bool,
+        stripFixed: React.PropTypes.bool,
         progress: React.PropTypes.number,
         loaded: React.PropTypes.number,
         onSeekTo: React.PropTypes.func,
     }
 
     render() {
-        const { stripOpened, progress, loaded, onSeekTo, hidden } = this.props
+        const { stripOpened, progress, loaded, onSeekTo, hidden, stripFixed } = this.props
         const classes = classNames(
             'Strip',
+            { 'Strip--fixed': stripFixed },
             { 'Strip--hidden': hidden }
         )
         return (
@@ -32,6 +35,7 @@ class Strip extends React.Component {
 const mapStateToProps = (state) => ({
     stripOpened: state.browser.stripOpened,
     hidden: state.browser.stripHidden,
+    stripFixed: state.browser.stripFixed,
 })
 
 export default connect(mapStateToProps)(Strip)

@@ -2,11 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Screen } from '../../components'
 import { Strip, ModalsContainer } from '../index'
-import * as browser from '../../actions/browser'
 import { play, pause, next } from '../../actions/player'
 import { SOUNDCLOUD_API } from '../../utils/config'
 import * as selectors from '../../selectors'
+import _IdleMonitor from 'react-simple-idle-monitor'
 import './style.scss'
+
+const IdleMonitor = connect()(_IdleMonitor)
 
 class HomeView extends React.Component {
 
@@ -39,40 +41,40 @@ class HomeView extends React.Component {
             onEnd,
             onPlay,
             onPause,
-            showStrip,
         } = this.props
-        const onMouseMove = () => {
-            showStrip()
-        }
         return (
-            <div className="Home" onMouseMove={onMouseMove}>
-                <ModalsContainer/>
-                {this.props.media &&
-                    <Screen
-                        url={media.url}
-                        SCIllu={media.provider_name === 'SoundCloud' && media.thumbnail}
-                        soundcloudConfig={{ clientId: SOUNDCLOUD_API }}
-                        ref="player"
-                        playing={playing}
-                        volume={volume}
-                        onEnded={onEnd}
-                        onError={onEnd}
-                        onPlay={onPlay}
-                        onPause={onPause}
-                        onProgress={(p)=>(this.setState({
-                            progress: p.played,
-                            loaded: p.loaded,
-                        }))}
-                        onReady={()=>(this.setState({
-                            progress: 0,
-                            loaded: 0,
-                        }))}/>
-                }
-                <Strip
-                    progress={this.state.progress}
-                    loaded={this.state.loaded}
-                    onSeekTo={this.onSeekTo}/>
-            </div>
+            <IdleMonitor
+                reduxActionPrefix="IdleMonitor"
+                timeout={5000}>
+                <div className="Home">
+                    <ModalsContainer/>
+                    {this.props.media &&
+                        <Screen
+                            url={media.url}
+                            SCIllu={media.provider_name === 'SoundCloud' && media.thumbnail}
+                            soundcloudConfig={{ clientId: SOUNDCLOUD_API }}
+                            ref="player"
+                            playing={playing}
+                            volume={volume}
+                            onEnded={onEnd}
+                            onError={onEnd}
+                            onPlay={onPlay}
+                            onPause={onPause}
+                            onProgress={(p)=>(this.setState({
+                                progress: p.played,
+                                loaded: p.loaded,
+                            }))}
+                            onReady={()=>(this.setState({
+                                progress: 0,
+                                loaded: 0,
+                            }))}/>
+                    }
+                    <Strip
+                        progress={this.state.progress}
+                        loaded={this.state.loaded}
+                        onSeekTo={this.onSeekTo}/>
+                </div>
+            </IdleMonitor>
         )
     }
 }
@@ -87,7 +89,6 @@ const mapDispatchToProps = (dispatch) => ({
     onEnd: () => (dispatch(next())),
     onPlay: (args) => (dispatch(play(args))),
     onPause: (args) => (dispatch(pause(args))),
-    showStrip: () => (dispatch(browser.showStrip())),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeView)

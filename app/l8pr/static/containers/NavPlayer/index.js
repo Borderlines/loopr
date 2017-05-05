@@ -25,6 +25,8 @@ function NavPlayer({
     handleSearch,
     handleLogin,
     browserType,
+    toggleFixedStrip,
+    stripFixed,
 }) {
     return (
         <div className="NavPlayer">
@@ -67,10 +69,11 @@ function NavPlayer({
                 <a onClick={onNextContext} title="Next Show">
                     <i className="material-icons">last_page</i>
                 </a>
-                <a title="More">
-                    <i className="material-icons">more_vert</i>
+                <a onClick={toggleFixedStrip} title="Always Keep Strip">
+                    <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
+                        call_to_action
+                    </i>
                 </a>
-                </div><div>
                 <a title="Queue List" onClick={showQueuelist}>
                     <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
                         playlist_play
@@ -110,6 +113,8 @@ NavPlayer.propTypes = {
     handleSearch: React.PropTypes.func.isRequired,
     handleLogin: React.PropTypes.func.isRequired,
     browserType: React.PropTypes.string,
+    toggleFixedStrip: React.PropTypes.bool,
+    stripFixed: React.PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -119,6 +124,7 @@ const mapStateToProps = (state) => ({
     currentShow: selectors.currentShow(state),
     stripOpened: state.browser.stripOpened,
     browserType: state.browser.browserType,
+    stripFixed: state.browser.stripFixed,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -132,6 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
     onUnmute: () => (dispatch(player.unmute())),
     showQueuelist: () => (dispatch(browser.toggleStrip('PLAYQUEUE'))),
     handleSearch: () => (dispatch(browser.toggleStrip('SEARCH'))),
+    toggleFixedStrip: () => (dispatch(browser.toggleFixedStrip())),
     handleLogin: () => (dispatch(modal.showModal('LOGIN'))),
 })
 

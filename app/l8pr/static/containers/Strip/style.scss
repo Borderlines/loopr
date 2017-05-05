@@ -3,16 +3,26 @@
     bottom: $stripMargin;
     left:   $stripMargin;
     right:  $stripMargin;
-    opacity: 1;
     transition: opacity .25s 0s ease;
+    opacity: 1;
     @media (min-width: $screen-sm) {
         bottom: $stripMargin--Desktop;
         left:   $stripMargin--Desktop;
         right:  $stripMargin--Desktop;
     }
+    .Browser {
+        opacity: 1;
+        transition: opacity .25s 0s ease;
+    }
 }
 
+.Strip--fixed {
+    opacity: 1 !important;
+}
 .Strip--hidden {
-    transition: opacity 2s 1s ease;
     opacity: 0;
+    .Browser {
+        transition: opacity 2s 1s ease;
+        opacity: 0;
+    }
 }

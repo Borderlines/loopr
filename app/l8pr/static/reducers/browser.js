@@ -2,12 +2,23 @@ import { BROWSE, SET_STRIP_STATE } from '../constants'
 const initialState = {
     stripOpened: true,
     stripHidden: false,
+    stripFixed: true,
     browserType: 'PLAYQUEUE',
     browserProps: undefined,
 }
 
 export default function (state = initialState, action = null) {
     switch (action.type) {
+        case 'IdleMonitor_active':
+            return {
+                ...state,
+                stripHidden: false,
+            }
+        case 'IdleMonitor_idle':
+            return {
+                ...state,
+                stripHidden: true,
+            }
         case SET_STRIP_STATE:
             return {
                 ...state,
