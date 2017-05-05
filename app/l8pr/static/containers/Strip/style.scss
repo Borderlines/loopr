@@ -3,7 +3,7 @@
     bottom: $stripMargin;
     left:   $stripMargin;
     right:  $stripMargin;
-    transition: opacity .25s 0s ease;
+    transition: opacity .2s ease;
     opacity: 1;
     @media (min-width: $screen-sm) {
         bottom: $stripMargin--Desktop;
@@ -12,7 +12,7 @@
     }
     .Browser {
         opacity: 1;
-        transition: opacity .25s 0s ease;
+        transition: all 1s ease;
     }
 }
 
@@ -22,7 +22,7 @@
 .Strip--hidden {
     opacity: 0;
     .Browser {
-        transition: opacity 2s 1s ease;
+        transition: all 2s ease;
         opacity: 0;
     }
 }
