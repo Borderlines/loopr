@@ -40,7 +40,7 @@ export default class ContextsList extends React.Component {
         this.refs.AutoSizer.refs.List.recomputeRowHeights()
     }
     render() {
-        const { contexts, onItemPlayClick, currentItem, onPlayShowClick, onAddClick } = this.props
+        const { contexts } = this.props
         return (
             <div className="ContextsList">
                 <AutoSizer ref="AutoSizer">
@@ -56,36 +56,6 @@ export default class ContextsList extends React.Component {
                         />
                     )}
                 </AutoSizer>
-                <ul>
-                    {false && contexts.map((c) => (
-                        <li className="context" key={c.context.id}>
-                            <div className="context__cover">
-                                <div className="context__title">
-                                    {c.context.title}<br/>
-                                    <span className="context__details">{c.items.length} items / </span>
-                                    <span className="context__details">{getDuration(c.items)}</span>
-                                </div>
-                                <div className="context__illustrations">
-                                    {c.items.slice(0, 15).map((i, idx)=> (
-                                        <img src={i.thumbnail} key={idx} onClick={onItemPlayClick.bind(null, i)}/>
-                                    ))}
-                                </div>
-                            </div>
-                            <ol>
-                                {c.items.map(i => (
-                                    <li key={i.id}>
-                                        <ListItem
-                                            item={i}
-                                            onPlayClick={onItemPlayClick}
-                                            onAddClick={onAddClick}
-                                            onPlayShowClick={onPlayShowClick}
-                                            isPlaying={currentItem === i}/>
-                                    </li>
-                                ))}
-                            </ol>
-                        </li>
-                    ))}
-                </ul>
             </div>
         )
     }
@@ -96,5 +66,4 @@ ContextsList.propTypes = {
     onItemPlayClick: React.PropTypes.func.isRequired,
     onPlayShowClick: React.PropTypes.func,
     onAddClick: React.PropTypes.func,
-    currentItem: React.PropTypes.object,
 }
