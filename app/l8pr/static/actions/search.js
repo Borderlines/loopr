@@ -18,11 +18,16 @@ export function search(searchTerms) {
             urls.forEach(u => searchTerms.splice(searchTerms.indexOf(u), 1))
             const urlsMeta = Promise.all(urls.map((u) => (api.metadata(getState(), u.value))))
             const termsResults = searchTerms.length && api.search(getState(), searchTerms)
-            Promise.all([urlsMeta, termsResults].map(p => (Promise.resolve(p))))
-            .then(([urlsMeta, termsResults]) => {
+            const youtubeResult = searchTerms.length && api.youtube(getState(), searchTerms)
+            Promise.all([urlsMeta, termsResults, youtubeResult].map(p => (Promise.resolve(p))))
+            .then(([urlsMeta, termsResults, youtubeResult]) => {
                 if (timestamp === lastSearch) {
                     dispatch(setList(
-                        [...urlsMeta, ...termsResults].filter(i => (i))
+                        [
+                            ...urlsMeta,
+                            ...termsResults,
+                            ...youtubeResult,
+                        ].filter(i => (i))
                     ))
                 }
             })

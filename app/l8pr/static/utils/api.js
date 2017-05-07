@@ -134,3 +134,8 @@ export const search = (state, searchTerms) => {
 export const metadata = (state, url) => {
     return api(state).get(`api/metadata/?url=${url}`)
 }
+
+export const youtube = (state, searchTerms) => {
+    const terms = searchTerms.map((v) => v.value).join('+')
+    return api(state).get(`api/youtube/?q=${terms}`)
+}

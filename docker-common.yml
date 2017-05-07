@@ -24,6 +24,7 @@ services:
         environment:
             - DJANGO_SETTINGS_MODULE=app.settings_docker
             - IFRAMELY_API_KEY
+            - GOOGLE_API_KEY
     web:
         restart: always
         build:
