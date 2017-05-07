@@ -26,6 +26,7 @@ export default class ContextsList extends React.Component {
                 <div className="ContextsList__items">
                     {c.items.map((item, itemIndex) => (
                         <ListItem
+                            key={itemIndex}
                             item={item}
                             onPlayClick={onItemPlayClick}
                             onAddClick={onAddClick}

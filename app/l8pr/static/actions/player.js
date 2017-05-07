@@ -81,11 +81,24 @@ export function playItems(items) {
     }
 }
 
+function addTrackAsPlayed(track) {
+    return () => {
+        // update history in localstorage
+        const playedTracks = JSON.parse(localStorage.getItem('playedTracks')) || []
+        if (playedTracks.indexOf(track.id) === -1) {
+            playedTracks.push(track.id)
+            localStorage.setItem('playedTracks', JSON.stringify(playedTracks))
+        }
+    }
+}
 export function play() {
     return (dispatch, getState) => {
         dispatch({ type: c.PLAY })
         const show = selectors.currentShow(getState())
         const item = selectors.currentTrack(getState())
+        // update already played tracks
+        dispatch(addTrackAsPlayed(item))
+        // update url
         let url = ''
         if (show) {
             url += `/show/${show.id}`
