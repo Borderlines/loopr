@@ -1,8 +1,9 @@
 .StripHeader {
     background-color: white;
-    padding: 10px 25px;
+    padding: 5px 20px;
     color: $colorPlaying;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 .StripHeader__title {

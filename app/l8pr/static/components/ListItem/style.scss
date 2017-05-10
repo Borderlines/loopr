@@ -1,9 +1,9 @@
 $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem {
-    background-color: white;
+    background-color: $body-bg;
     display: flex;
     width: 100%;
-    border-bottom: 1px dotted blue;
+    border-bottom: 1px dotted $colorItem;
     /*flex-wrap: wrap; /* FOR MOBILES */
     align-items: center;
     height: $ITEM_HEIGHT;
@@ -33,14 +33,14 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 
 .ListItem--Track
     .ListItem__title {
-    color: blue;
+    color: $colorItem;
 }
 
 
 .ListItem--Show
     .ListItem__title {
     font-family: 'Montserrat';
-    color: mediumspringgreen;
+    color: $colorShow;
     font-size: 1.2rem; /* MEDIUM LARGE SCREENS */
     margin-bottom: .25rem;
 }
@@ -48,7 +48,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 
 .ListItem--User
     .ListItem__title {
-    color: purple;
+    color: $brand-primary;
     font-size: 1.4rem;  /* MEDIUM LARGE SCREENS */
     margin-bottom: .25rem;
 
@@ -112,8 +112,8 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 }
 
 .ListItem--isSelected {
-    background-color: purple;
-    color: white;
+    background-color: $brand-primary;
+    color: $text-color-bright;
 }
 
 // .ListItem--isPlaying {
@@ -130,13 +130,13 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     height: 20vh;
 }
 .ListItem--isPlaying .ListItem__illu {
-    background-color: red !important;
+    background-color: $colorPlaying !important;
 }
 
 
 .ListItem--isPlaying
     .ListItem__title {
-        color: deeppink;
+        color: $colorPlaying;
         font-size: 1.4rem;
         padding: 50px 0px;
         &:before {

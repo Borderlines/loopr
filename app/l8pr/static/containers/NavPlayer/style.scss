@@ -1,5 +1,5 @@
 .NavPlayer {
-    background-color: deeppink;
+    background-color: $colorPlaying;
     padding: 10px 25px;
     display: flex; /* 3 next lines, mobile or not*/
     align-items: center;
@@ -8,7 +8,7 @@
 
 .NavPlayer__banner {
     padding: 5px 0px;
-    color: white;
+    color: $text-color-bright;
 }
 
 .NavPlayer__item {
@@ -34,12 +34,12 @@
 }
 
 .NavPlayer__buttons a:hover {
-    color: white;
+    color: $text-color-bright;
 }
 
 
 .NavPlayer__buttons--active {
-    color: white;
+    color: $text-color-bright;
 }
 
 .NavPlayer__buttons:first-child {
