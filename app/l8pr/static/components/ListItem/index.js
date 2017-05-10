@@ -39,7 +39,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
             <div className="ListItem__body">
                 <div className="ListItem__title">
                     {item.title} by {item.user.username}
-                    <a onClick={() => (onPlayShowClick(item))}>
+                    <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
                         <i className="material-icons">playlist_play</i>
                     </a>
                 </div>
@@ -48,7 +48,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
             </div>
             {showImages &&
                 <div className="ListItem__highlight">{item.items.slice(0, 3).map((i, idx) => (
-                    <img src={i.thumbnail} key={idx} onClick={() => onPlayClick(i)}/>
+                    <img src={i.thumbnail} key={idx} onClick={(e) => {e.stopPropagation(); onPlayClick(i)}}/>
                 ))}</div>
             }
         </div>
