@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { get } from 'lodash'
 
 export function createReducer(initialState, reducerMap) {
     return (state = initialState, action) => {
@@ -24,9 +25,12 @@ export function parseJSON(response) {
 export function getDuration(items) {
     let duration
     if (Array.isArray(items)) {
-        duration = items.reduce((r, i) => (r + i.duration), 0)
+        duration = items.reduce((r, i) => (r + get(i, 'duration', 0)), 0)
     } else {
         duration = items.duration
+    }
+    if (duration === 0) {
+        return null
     }
     return moment.duration(duration, 's').humanize()
 }

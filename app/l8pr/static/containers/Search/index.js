@@ -9,10 +9,18 @@ import * as browser from '../../actions/browser'
 import { Suggestions } from '../index'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
-import { ListItem, StripHeader, ResultsCounter } from '../../components'
+import { ListItem, StripHeader, ResultsCounter, Loader } from '../../components'
 import { AutoSizer, List } from 'react-virtualized'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
+
+
+const options = [
+    {
+        value: '#my-last-tracks',
+        label: '#my-last-tracks',
+    },
+]
 
 class Search extends React.Component {
     constructor(props) {
@@ -55,18 +63,19 @@ class Search extends React.Component {
                         promptTextCreator={(label) => `Search ${label}`}
                         multi={true}
                         autofocus={true}
+                        options={options}
                         onChange={search}
                         value={searchTerms}
                     />
                 </StripHeader>
                 <div className="Search__list">
-                    <ResultsCounter results={searchResults}/>
                     {isLoading &&
-                        <div>Loading ...</div>
+                        <Loader/>
                     ||
                         searchResults.length === 0 &&
                             <Suggestions/>
-                        ||
+                        || [
+                            <ResultsCounter results={searchResults}/>,
                             <AutoSizer>
                                 {({ width, height }) => (
                                     <List
@@ -77,7 +86,8 @@ class Search extends React.Component {
                                         rowRenderer={this._rowRenderer.bind(this)}
                                     />
                                 )}
-                            </AutoSizer>
+                            </AutoSizer>,
+                        ]
                     }
                 </div>
             </div>

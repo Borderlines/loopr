@@ -52,7 +52,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
                     <span>{getDuration(item.items)}</span>
                 </div>
                 <div className="ListItem__actions">
-                    <a onClick={() => (onPlayShowClick(item))}>
+                    <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
                         <i className="material-icons">playlist_play</i>
                     </a>
                 </div>
