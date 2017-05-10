@@ -1,50 +1,41 @@
 .NavPlayer {
-    background-color: $colorPlaying;
+    background-color: deeppink;
     padding: 10px 25px;
-    display: flex;
+    display: flex; /* 3 next lines, mobile or not*/
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.NavPlayer a {
-    color: blue;
-
-}
-
-.NavPlayer a:hover {
-    color: white;
-}
-
-.NavPlayer .material-icons.active {
-    color: white;
 }
 
 .NavPlayer__banner {
-
-}
-.NavPlayer__controllers {
-    //min-width: 180px;
-    white-space: nowrap;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-@media (min-width: $screen-sm) {
-  .NavPlayer__controllers {
-      width: auto;
-  }
-}
-
-.NavPlayer__item, .NavPlayer__show {
-    color: white;
+    font-size: 1.1em;
+    padding: 5px 0px;
+    flex-grow: 1;
 }
 
 .NavPlayer__item {
-    font-family: $primaryFont;
+    color: white;
+    margin-bottom: 5px;
 }
-
 .NavPlayer__show {
     font-family: $secondaryFont;
+    font-size: .9em;
+}
+
+.NavPlayer__controllers {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    letter-spacing: -0.1em;
+}
+
+.NavPlayer__buttons {
+    margin-left: 25px;
+}
+
+.NavPlayer__buttons--active {
+    color: white;
+}
+
+.NavPlayer__buttons:first-child {
+    margin-left: 0px;
 }

@@ -20,8 +20,15 @@ export default class ContextsList extends React.Component {
                     style={{ backgroundImage: `url(${c.items[0].thumbnail})` }}
                 >
                     <div className="context__title">{c.context.title}</div>
-                    <span className="context__details">{c.items.length} items / </span>
-                    <span className="context__details">{getDuration(c.items)}</span>
+                    <div className="context__details">
+                        <span>User</span>
+                        <span>{c.items.length} items</span>
+                        <span>{getDuration(c.items)}</span>
+                    </div>
+                    <div className="context__actions">
+                        <span className="context__share"><i className="material-icons">share</i></span>
+                        <span className="context__more"><i className="material-icons">more_horiz</i></span>
+                    </div>
                 </div>
                 <div className="ContextsList__items">
                     {c.items.map((item, itemIndex) => (

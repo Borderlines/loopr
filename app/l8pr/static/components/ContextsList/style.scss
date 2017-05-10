@@ -1,42 +1,45 @@
+.ContextsList__items {
+    // flex-grow: 1;
+    // display: flex;
+}
+
 .ContextsList {
     flex-grow: 1;
 }
+
 .ContextsList__context {
-    display: flex;
-    border-bottom: 5px solid $colorShow;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    .ContextsList__cover {
-        min-width: 15rem;
-        max-width: 35rem;
-        min-height: 3vh;
-        padding: .4rem;
-        color: white;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        box-shadow: inset 0 0 0 1000px rgba($colorShow, .3);
-        background-size: cover;
-    }
-    .ContextsList__items {
-        flex-grow: 1;
-    }
+    /*display: flex;
+    /*flex-wrap: wrap;*/
 }
 
-@media (min-width: $screen-sm) {
-  .ListItem__illustration {
-      min-width: 10rem;
-  }
+.ContextsList__cover {
+    padding: 20px;
+    background-color: mediumspringgreen;
+
+}
+
+.ContextsList__filter {
+    padding: 20px;
+    background-color: purple;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.ContextsList__filter .context__actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ContextsList__filter .context__actions div {
+    margin-right: 25px;
+}
+
+.ContextsList__filter .context__actions i {
+    margin-left: .5rem;
 }
 .context__title {
-    font-family: $secondaryFont;
-    font-size: 2rem;
-    width: auto;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    font-weight: 600;
 }
 .context__details {
-    font-family: $primaryFont;
-    font-size: 1rem;
-    white-space: nowrap;
 
 }

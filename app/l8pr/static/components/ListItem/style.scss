@@ -1,86 +1,126 @@
 $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem {
-    font-family: $primaryFont;
-    border-bottom: 1px dashed $colorItem;
-    color: $colorItem;
-    cursor: pointer;
+    background-color: white;
     display: flex;
-    position: relative;
-    flex-wrap: wrap;
-    overflow: hidden;
-    height: $ITEM_HEIGHT;
+    width: 100%;
+    border-bottom: 1px dotted blue;
+    /*flex-wrap: wrap; /* FOR MOBILES */
+    align-items: center;
 }
 
-@media (min-width: $screen-sm) {
-  .ListItem {
-      flex-wrap: nowrap;
-  }
+.ListItem--User {
+    background-position: right center;
+    background-repeat: repeat-y;
+    // background-image: url('https://media1.giphy.com/media/mqd0IiCu4iBVK/giphy.gif');
 }
 
 
-.ListItem--isSelected {
-    background-color: orange;
-}
-.ListItem--isPlaying {
-    background-color: #345873;
-    color: white;
-    &:before {
-        content: 'play_arrow';
-        font-family: 'Material Icons';
-        font-size: 2em;
-        align-self: center;
-    }
+.ListItem .material-icons {
+    font-size: 1em !important;
 }
 
-.ListItem__body {
-    flex-grow: 1;
-    align-self: center;
-    padding: 10px 25px;
-}
-
-.ListItem:hover {
-    font-weight: bold;
-}
+/* ListItem__title */
 
 .ListItem__title {
+    margin-right: 10px;
+
 }
 
 .ListItem__details {
+    margin-right: 10px;
 }
 
-.ListItem__highlight {
-    flex-shrink: 0;
-    img {
-        height: $ITEM_HEIGHT;
-    }
+.ListItem--Track
+    .ListItem__title {
+    color: blue;
 }
-.ListItem__illustration {
-    // height: $ITEM_HEIGHT;
-    // width: 20%;
-    // background-repeat: no-repeat;
-    // background-position: left center;
-    // background-size: contain;
 
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-blend-mode: multiply;
-    background-color: rgba(0,0,255,0.1);
-    padding: 20px 25px;
-    color: rgba(255,255,255,1);
-    cursor: pointer;
+.ListItem--playing
+    .ListItem__title {
+        color: deeppink;
+        font-size: 1.4rem;
+        padding: 50px 0px;
+}
+
+.ListItem--playing .ListItem__illuBox {
+    width: 400px !important;
+}
+
+.ListItem--playing .ListItem__illu {
+    width: 400px !important;
+
+
+}
+.ListItem--Show
+    .ListItem__title {
+    font-family: 'Montserrat';
+    color: mediumspringgreen;
+    font-size: 1.2rem; /* MEDIUM LARGE SCREENS */
+    margin-bottom: .25rem;
+}
+.ListItem--Show
+.ListItem__illu {
+}
+.ListItem--User
+    .ListItem__title {
+    color: purple;
+    font-size: 1.4rem;  /* MEDIUM LARGE SCREENS */
+    margin-bottom: .25rem;
+
+}
+
+
+.ListItem__illuBox {
     display: flex;
+    flex-wrap: nowrap;
     align-self: stretch;
+    background-color: yellow;
+    padding: 0px;
+    transition-property: all;
+    transition-duration: .1s;
+    width: 150px;
+    overflow: hidden;
+}
+
+.ListItem--Show .ListItem__illuBox:hover {
+    width: auto;
+}
+
+.ListItem--User .ListItem__illuBox {
+    height: 100px !important;
+    width: 100px !important;
+    margin: 20px 25px;
+    background-color: transparent;
+    box-shadow: 0px 0px 10px rgba(0,0,0,.2);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+
+.ListItem__illu {
+    background-image: url('https://i.giphy.com/XdBVUzXff2t1e.gif');
+    background-size: cover;
+    background-position: center center;
+    width: 100px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 100%;
+    color: rgba(255,255,255,1);
+    transition-property: all;
+    transition-duration: .1s;
+    transition-delay: .1s;
+    padding: 10px 25px; /* works well to set height of ListItem */
 }
 
-@media (min-width: $screen-sm) {
-  .ListItem__illustration {
-      min-width: 14rem;
-  }
+.ListItem--User .ListItem__illu {
+    background-image: url('https://i.giphy.com/ADr35Z4TvATIc.gif');
 }
-.ListItem__source {
-    margin-right: 10px;
+
+.ListItem__body {
+    padding: 15px 25px;
+}
+
+.ListItem--Track .ListItem__body {
+    display: flex;
+    flex-wrap: wrap;
 }

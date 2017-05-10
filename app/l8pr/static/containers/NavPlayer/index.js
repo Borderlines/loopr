@@ -35,60 +35,64 @@ function NavPlayer({
                 <div className="NavPlayer__show">{get(currentShow, 'title')}</div>
             </div>
             <div className="NavPlayer__controllers">
-            <div>
-                {muted &&
-                    <a onClick={onUnmute} title="Mute on/off">
-                        <i className="material-icons">volume_off</i>
+                <div className="NavPlayer__buttons">
+                    {muted &&
+                        <a onClick={onUnmute} title="Mute on/off">
+                            <i className="material-icons">volume_off</i>
+                        </a>
+                    ||
+                        <a onClick={onMute} title="Mute on/off">
+                            <i className="material-icons">volume_up</i>
+                        </a>
+                    }
+                    <a title="Visual">
+                        <i className="material-icons">photo_size_select_actual</i>
                     </a>
-                ||
-                    <a onClick={onMute} title="Mute on/off">
-                        <i className="material-icons">volume_up</i>
+                    <a onClick={onPreviousContext} title="Previous Show">
+                        <i className="material-icons">first_page</i>
                     </a>
-                }
-                <a title="Visual">
-                    <i className="material-icons">photo_size_select_actual</i>
-                </a>
-                <a onClick={onPreviousContext} title="Previous Show">
-                    <i className="material-icons">first_page</i>
-                </a>
-                <a onClick={onPreviousItem} title="Previous Item">
-                    <i className="material-icons">chevron_left</i>
-                </a>
-                {playing &&
-                    <a onClick={onPause} title="Play/Pause">
-                        <i className="material-icons">pause</i>
+                    <a onClick={onPreviousItem} title="Previous Item">
+                        <i className="material-icons">chevron_left</i>
                     </a>
-                ||
-                    <a onClick={onPlay} title="Play/Pause">
-                        <i className="material-icons">play_arrow</i>
+                    {playing &&
+                        <a onClick={onPause} title="Play/Pause">
+                            <i className="material-icons">pause</i>
+                        </a>
+                    ||
+                        <a onClick={onPlay} title="Play/Pause">
+                            <i className="material-icons">play_arrow</i>
+                        </a>
+                    }
+                    <a onClick={onNextItem} title="Next Item">
+                        <i className="material-icons">chevron_right</i>
                     </a>
-                }
-                <a onClick={onNextItem} title="Next Item">
-                    <i className="material-icons">chevron_right</i>
-                </a>
-                <a onClick={onNextContext} title="Next Show">
-                    <i className="material-icons">last_page</i>
-                </a>
-                <a onClick={toggleFixedStrip} title="Always Keep Strip">
-                    <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
-                        call_to_action
-                    </i>
-                </a>
-                <a title="Queue List" onClick={showQueuelist}>
-                    <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
-                        playlist_play
-                    </i>
-                </a>
-                <a title="Search" onClick={handleSearch}>
-                    <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
-                        search
-                    </i>
-                </a>
-                <a title="Login" onClick={handleLogin}>
-                    <i className="material-icons" title="Login">
-                        account_circle
-                    </i>
-                </a>
+                    <a onClick={onNextContext} title="Next Show">
+                        <i className="material-icons">last_page</i>
+                    </a>
+                </div>
+                <div class="NavPlayer__buttons">
+                    <a onClick={toggleFixedStrip} title="Always Keep Strip">
+                        <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
+                            call_to_action
+                        </i>
+                    </a>
+                </div>
+                <div class="NavPlayer__buttons">
+                    <a title="Queue List" onClick={showQueuelist}>
+                        <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
+                            playlist_play
+                        </i>
+                    </a>
+                    <a title="Search" onClick={handleSearch}>
+                        <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
+                            search
+                        </i>
+                    </a>
+                    <a title="Login" onClick={handleLogin}>
+                        <i className="material-icons" title="Login">
+                            account_circle
+                        </i>
+                    </a>
                 </div>
             </div>
         </div>

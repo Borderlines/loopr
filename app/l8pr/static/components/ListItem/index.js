@@ -36,21 +36,27 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
             className={className + ' ListItem--Show'}
             style={style}
             onClick={() => (onShowClick && onShowClick(item))}>
+            <div className="ListItem__illuBox">
+                {showImages &&
+                    <div className="ListItem__highlight">{item.items.slice(0, 3).map((i, idx) => (
+                        <img src={i.thumbnail} key={idx} onClick={() => onPlayClick(i)}/>
+                    ))}</div>
+                }
+                <div className="ListItem__illu"><i className="material-icons">play_arrow</i></div>
+            </div>
             <div className="ListItem__body">
-                <div className="ListItem__title">
-                    {item.title} by {item.user.username}
+                <div className="ListItem__title">{item.title}</div>
+                <div className="ListItem__details">
+                    <span>{item.user.username}</span>
+                    <span>{item.items.length} tracks</span>
+                    <span>{getDuration(item.items)}</span>
+                </div>
+                <div className="ListItem__actions">
                     <a onClick={() => (onPlayShowClick(item))}>
                         <i className="material-icons">playlist_play</i>
                     </a>
                 </div>
-                <span className="ListItem__details">{item.items.length} tracks / </span>
-                <span className="ListItem__details">{getDuration(item.items)}</span>
             </div>
-            {showImages &&
-                <div className="ListItem__highlight">{item.items.slice(0, 3).map((i, idx) => (
-                    <img src={i.thumbnail} key={idx} onClick={() => onPlayClick(i)}/>
-                ))}</div>
-            }
         </div>
     )
 }
@@ -58,18 +64,25 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
 function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddClick }) {
     return (
         <div key={key} className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
-            <div className="ListItem__illustration" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
+            <div className="ListItem__illuBox">
+                <div className="ListItem__illu" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
+                    <i className="material-icons">play_arrow</i>
+                </div>
             <div className="ListItem__body">
-                <span className="ListItem__title">{item.title}</span>
-                <span className="ListItem__details">{getDuration(item)}</span>
-                <span className="ListItem__source">
-                <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
-                </span>
-                <span><i className="material-icons">info_outline</i></span>
-                <span className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
-                    <i className="material-icons">add</i>
-                </span>
-                <span><i className="material-icons">share</i></span>
+                <div className="ListItem__title">{item.title}</div>
+                <div className="ListItem__details">{getDuration(item)}</div>
+                <div className="ListItem__actions">
+                    <span className="ListItem__source">
+                        <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
+                    </span>
+                    <span>
+                        <i className="material-icons">info_outline</i>
+                    </span>
+                    <span className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
+                        <i className="material-icons">add</i>
+                    </span>
+                    <span><i className="material-icons">share</i></span>
+                </div>
             </div>
         </div>
     )
