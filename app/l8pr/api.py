@@ -58,15 +58,11 @@ class ShowSerializer(serializers.ModelSerializer):
     items = ItemsField()
     settings = ShowSettingsSerializer(required=False)
     user = UserSerializer(required=False, read_only=True)
-    username = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Show
         fields = ('id', 'added', 'updated', 'show_type', 'title', 'description',
-                  'items', 'user', 'settings', 'username')
-
-    def get_username(self, obj):
-        return obj.user.username
+                  'items', 'user', 'settings')
 
     def create(self, validated_data):
         validated_data.pop('settings', {})

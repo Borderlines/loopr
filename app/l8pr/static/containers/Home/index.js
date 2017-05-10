@@ -45,7 +45,7 @@ class HomeView extends React.Component {
         return (
             <IdleMonitor
                 reduxActionPrefix="IdleMonitor"
-                timeout={5000}>
+                timeout={60000}>
                 <div className="Home">
                     <ModalsContainer/>
                     {this.props.media &&

@@ -1,0 +1,10 @@
+.ResultsCounter {
+    display: flex;
+    background-color: $colorSearch;
+    padding: 20px;
+    color: white;
+    font-size: 1.2rem;
+}
+.ResultsCounter__counter {
+    margin-right: 20px;
+}

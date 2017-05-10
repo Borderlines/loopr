@@ -9,7 +9,7 @@ import * as browser from '../../actions/browser'
 import { Suggestions } from '../index'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
-import { ListItem, StripHeader } from '../../components'
+import { ListItem, StripHeader, ResultsCounter } from '../../components'
 import { AutoSizer, List } from 'react-virtualized'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
@@ -60,6 +60,7 @@ class Search extends React.Component {
                     />
                 </StripHeader>
                 <div className="Search__list">
+                    <ResultsCounter results={searchResults}/>
                     {isLoading &&
                         <div>Loading ...</div>
                     ||
