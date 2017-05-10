@@ -8,6 +8,7 @@ import {
 
 
 const initialState = {
+    user: null,
     token: null,
     isAuthenticated: false,
     isAuthenticating: false,
@@ -54,6 +55,7 @@ export default createReducer(initialState, {
         return Object.assign({}, state, {
             isAuthenticating: false,
             isAuthenticated: false,
+            user: null,
             token: null,
             statusText: `Authentication Error: ${payload.status} - ${payload.statusText}`,
         })
@@ -61,6 +63,7 @@ export default createReducer(initialState, {
     [AUTH_LOGOUT_USER]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticated: false,
+            user: null,
             token: null,
             statusText: 'You have been successfully logged out.',
         })

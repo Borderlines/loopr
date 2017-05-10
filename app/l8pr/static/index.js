@@ -36,13 +36,11 @@ const node = (
     </HotKeys>
 )
 
-const token = localStorage.getItem('token')
+const token = store.getState().auth.token
 // login from localstorage
 store.dispatch(checkToken(token))
-.then(() => (
-    // init playqueue from url
-    store.dispatch(player.initQueueList())
-), () => store.dispatch(player.initQueueList()))
+    .catch((e) => e)
+    .then(() => store.dispatch(player.initQueueList()))
 
 
 

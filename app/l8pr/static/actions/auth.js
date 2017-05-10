@@ -13,8 +13,6 @@ import {
 
 export function authLoginUserSuccess(token, user) {
     return (dispatch, getState) => {
-        localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(user))
         dispatch({
             type: AUTH_LOGIN_USER_SUCCESS,
             payload: {
@@ -79,7 +77,6 @@ export function updateShow(show) {
 }
 
 export function authLoginUserFailure(error, message) {
-    localStorage.removeItem('token')
     return {
         type: AUTH_LOGIN_USER_FAILURE,
         payload: {
@@ -94,8 +91,6 @@ export function authLoginUserRequest() {
 }
 
 export function authLogout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
     return { type: AUTH_LOGOUT_USER }
 }
 

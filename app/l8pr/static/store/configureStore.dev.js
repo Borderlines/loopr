@@ -7,6 +7,7 @@ import { routerMiddleware } from 'react-router-redux'
 
 import rootReducer from '../reducers'
 import DevTools from '../containers/Root/DevTools'
+import persistState from 'redux-localstorage'
 
 export default function configureStore(initialState, history) {
     const logger = createLogger()
@@ -18,6 +19,9 @@ export default function configureStore(initialState, history) {
 
     const createStoreWithMiddleware = compose(
         middleware,
+        persistState([
+            'auth',
+        ]),
         DevTools.instrument()
     )
 
