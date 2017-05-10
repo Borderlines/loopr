@@ -70,14 +70,14 @@ function NavPlayer({
                         <i className="material-icons">last_page</i>
                     </a>
                 </div>
-                <div class="NavPlayer__buttons">
+                <div className="NavPlayer__buttons">
                     <a onClick={toggleFixedStrip} title="Always Keep Strip">
                         <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
                             call_to_action
                         </i>
                     </a>
                 </div>
-                <div class="NavPlayer__buttons">
+                <div className="NavPlayer__buttons">
                     <a title="Queue List" onClick={showQueuelist}>
                         <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
                             playlist_play
