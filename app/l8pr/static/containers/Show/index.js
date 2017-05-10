@@ -5,18 +5,17 @@ import './style.scss'
 import * as player from '../../actions/player'
 import * as modal from '../../actions/modal'
 import 'react-select/dist/react-select.css'
-import { ListItem, StripHeader } from '../../components'
+import { ListItem, StripHeader, ResultsCounter } from '../../components'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
-import { getDuration } from '../../utils'
 
 class Show extends React.Component {
     render() {
         const { className, show, onPlayClick, onAddClick, currentTrack } = this.props
-        const title = `Show: ${show.title} ${show.items.length} items / ${getDuration(show.items)}`
         return (
             <div className={classNames('Show', className)}>
-                <StripHeader title={title} back={true}/>
+                <StripHeader title={show.title} back={true}/>
+                <ResultsCounter results={show.items}/>
                 <div className="Show__body">
                     {show.items.map((item) => (
                         <ListItem

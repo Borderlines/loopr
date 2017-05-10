@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import './style.scss'
+import { getDuration } from '../../utils'
 
 function ResultsCounter({ results, className }) {
     const counters = {
@@ -31,6 +32,7 @@ function ResultsCounter({ results, className }) {
                     {counters.tracks > 1 && 's'}
                 </div>
             }
+            {getDuration(results)}
         </div>
     )
 }
