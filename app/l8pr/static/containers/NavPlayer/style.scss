@@ -7,30 +7,36 @@
 }
 
 .NavPlayer__banner {
-    font-size: 1.1em;
     padding: 5px 0px;
-    flex-grow: 1;
+    color: white;
 }
 
 .NavPlayer__item {
-    color: white;
-    margin-bottom: 5px;
 }
 .NavPlayer__show {
     font-family: $secondaryFont;
-    font-size: .9em;
 }
 
 .NavPlayer__controllers {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    letter-spacing: -0.1em;
+    letter-spacing: 0.5rem;
 }
 
 .NavPlayer__buttons {
     margin-left: 25px;
 }
+
+.NavPlayer__buttons a, .NavPlayer__buttons a:active {
+    color: purple;
+    padding-left: 5px;
+}
+
+.NavPlayer__buttons a:hover {
+    color: white;
+}
+
 
 .NavPlayer__buttons--active {
     color: white;

@@ -15,10 +15,7 @@ export default class ContextsList extends React.Component {
         const c = contexts[index]
         return (
             <div key={key} style={style} className="ContextsList__context">
-                <div
-                    className="ContextsList__cover"
-                    style={{ backgroundImage: `url(${c.items[0].thumbnail})` }}
-                >
+                <div className="ContextsList__cover">
                     <div className="context__title">{c.context.title}</div>
                     <div className="context__details">
                         <span>User</span>

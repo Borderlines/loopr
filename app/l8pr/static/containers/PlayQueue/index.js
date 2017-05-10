@@ -15,7 +15,7 @@ class PlayQueue extends React.Component {
         const { contexts, onItemPlayClick, currentItem, className, handleAddClick } = this.props
         return (
             <div className={classNames('PlayQueue', className)}>
-                <StripHeader title="Queue List"/>
+                <StripHeader title="playing now"/>
                 <ContextsList
                     contexts={contexts}
                     onAddClick={handleAddClick}

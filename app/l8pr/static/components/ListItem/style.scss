@@ -6,6 +6,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     border-bottom: 1px dotted blue;
     /*flex-wrap: wrap; /* FOR MOBILES */
     align-items: center;
+    height: $ITEM_HEIGHT;
 }
 
 .ListItem--User {
@@ -35,22 +36,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     color: blue;
 }
 
-.ListItem--playing
-    .ListItem__title {
-        color: deeppink;
-        font-size: 1.4rem;
-        padding: 50px 0px;
-}
 
-.ListItem--playing .ListItem__illuBox {
-    width: 400px !important;
-}
-
-.ListItem--playing .ListItem__illu {
-    width: 400px !important;
-
-
-}
 .ListItem--Show
     .ListItem__title {
     font-family: 'Montserrat';
@@ -58,9 +44,8 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     font-size: 1.2rem; /* MEDIUM LARGE SCREENS */
     margin-bottom: .25rem;
 }
-.ListItem--Show
-.ListItem__illu {
-}
+.ListItem--Show {}
+
 .ListItem--User
     .ListItem__title {
     color: purple;
@@ -83,7 +68,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 }
 
 .ListItem--Show .ListItem__illuBox:hover {
-    width: auto;
+    // width: auto;
 }
 
 .ListItem--User .ListItem__illuBox {
@@ -98,10 +83,10 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 
 
 .ListItem__illu {
-    background-image: url('https://i.giphy.com/XdBVUzXff2t1e.gif');
+    // background-image: url('https://i.giphy.com/XdBVUzXff2t1e.gif');
     background-size: cover;
     background-position: center center;
-    width: 100px;
+    width: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,7 +98,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 }
 
 .ListItem--User .ListItem__illu {
-    background-image: url('https://i.giphy.com/ADr35Z4TvATIc.gif');
+    // background-image: url('https://i.giphy.com/ADr35Z4TvATIc.gif');
 }
 
 .ListItem__body {
@@ -123,4 +108,49 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem--Track .ListItem__body {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+.ListItem--isSelected {
+    background-color: purple;
+    color: white;
+}
+
+// .ListItem--isPlaying {
+//     background-color: $colorPlaying;
+//     color: white;
+//     &:before {
+//         content: 'play_arrow';
+//         font-family: 'Material Icons';
+//         font-size: 2em;
+//         align-self: center;
+//     }
+// }
+.ListItem--isPlaying {
+    height: 20vh;
+}
+.ListItem--isPlaying .ListItem__illu {
+    background-color: red !important;
+}
+
+
+.ListItem--isPlaying
+    .ListItem__title {
+        color: deeppink;
+        font-size: 1.4rem;
+        padding: 50px 0px;
+        &:before {
+                content: 'play_arrow';
+                font-family: 'Material Icons';
+                align-self: center;
+            }
+}
+
+.ListItem--isPlaying .ListItem__illuBox {
+    width: 400px !important;
+}
+
+.ListItem--isPlaying .ListItem__illu {
+    width: 400px !important;
+
 }
