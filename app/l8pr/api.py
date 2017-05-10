@@ -12,26 +12,6 @@ from .youtube import youtube_search
 from django.utils import timezone
 
 
-class ItemSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
-
-    class Meta:
-        fields = '__all__'
-        model = Item
-
-
-class ShowSettingsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ShowSettings
-        fields = ('shuffle', 'dj_layout', 'giphy', 'force_giphy', 'giphy_tags', 'hide_strip')
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = Profile
-
-
 class ItemsField(serializers.Field):
     def get_attribute(self, obj):
         # We pass the object instance onto `to_representation`,
@@ -48,12 +28,30 @@ class ItemsField(serializers.Field):
         return serializer.validated_data
 
 
+class ShowSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShowSettings
+        fields = ('shuffle', 'dj_layout', 'giphy', 'force_giphy', 'giphy_tags', 'hide_strip')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Profile
+
+
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
 
     class Meta:
         model = User
         fields = ('id', 'username', 'loops', 'profile')
+
+
+class ShowNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Show
+        fields = ('id', 'title')
 
 
 class ShowSerializer(serializers.ModelSerializer):
@@ -116,6 +114,15 @@ class ShowSerializer(serializers.ModelSerializer):
             order -= 1
         instance.save()
         return instance
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    shows = ShowNameSerializer(many=True)
+
+    class Meta:
+        fields = '__all__'
+        model = Item
 
 
 class LoopSerializer(serializers.ModelSerializer):

@@ -36,8 +36,7 @@ class Search extends React.Component {
                 onShowClick={onShowClick}
                 onPlayShowClick={onPlayShowClick}
                 onAddClick={onAddClick}
-                currentTrack={currentTrack}
-                isPlaying={currentTrack.id === item.id || currentShow.id === item.id}
+                isPlaying={currentTrack.url === item.url || currentShow.id === item.id}
                 style={style}
             />
         )
