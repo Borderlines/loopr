@@ -14,6 +14,14 @@ import { AutoSizer, List } from 'react-virtualized'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
 
+
+const options = [
+    {
+        value: '#my-last-tracks',
+        label: '#my-last-tracks',
+    },
+]
+
 class Search extends React.Component {
     constructor(props) {
         super(props)
@@ -55,6 +63,7 @@ class Search extends React.Component {
                         promptTextCreator={(label) => `Search ${label}`}
                         multi={true}
                         autofocus={true}
+                        options={options}
                         onChange={search}
                         value={searchTerms}
                     />
