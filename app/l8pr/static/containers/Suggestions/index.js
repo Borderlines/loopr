@@ -5,12 +5,17 @@ import { search } from '../../actions/search'
 
 const suggestions = [
     {
-        title: '#ben',
-        keywords: ['ben'],
+        title: '@ben',
+        keywords: ['@ben'],
         background: 'https://ca.slack-edge.com/T0NQSEWNA-U0NQKUMV2-gf3867293040-512',
     },
     {
-        title: '#docu',
+        title: 'My Last Tracks',
+        keywords: ['#last-tracks'],
+        background: '',
+    },
+    {
+        title: 'docu',
         keywords: ['docu'],
         background: 'http://i.huffpost.com/gen/2019992/images/o-JOURNALIST-facebook.jpg',
     },

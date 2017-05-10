@@ -10,24 +10,36 @@ export function search(searchTerms) {
         dispatch({ type: 'SEARCH_STARTING' })
         dispatch(setTerms([...searchTerms]))
         if (searchTerms.length) {
-            // find urls
-            const urls = searchTerms.filter(s => (
-                s.value.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)
-            ))
-            // remove them from ES search request
-            urls.forEach(u => searchTerms.splice(searchTerms.indexOf(u), 1))
+            const urls = []
+            const users = []
+            const keywords = []
+            searchTerms.forEach((s) => {
+                // find urls
+                if (s.value.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)) {
+                    urls.push(s)
+                } else if (s.value.startsWith('@')) {
+                    users.push(s.value.slice(1))
+                } else {
+                    keywords.push(s)
+                }
+            })
             const urlsMeta = Promise.all(urls.map((u) => (api.metadata(getState(), u.value))))
-            const termsResults = searchTerms.length && api.search(getState(), searchTerms)
-            const youtubeResult = searchTerms.length && api.youtube(getState(), searchTerms)
-            Promise.all([urlsMeta, termsResults, youtubeResult].map(p => (Promise.resolve(p))))
-            .then(([urlsMeta, termsResults, youtubeResult]) => {
+            const usersShowsResults = Promise.all(users.map(username => (api.fetchUserShows(getState(), { username }))))
+                .then((usersShows) => ([].concat.apply([], usersShows)))
+            const termsResults = keywords.length && api.search(getState(), keywords)
+            const youtubeResult = keywords.length && api.youtube(getState(), keywords)
+            Promise.all([
+                urlsMeta,
+                usersShowsResults,
+                termsResults,
+                youtubeResult,
+            ].map(p => (Promise.resolve(p))))
+            .then((results) => {
                 if (timestamp === lastSearch) {
                     dispatch(setList(
-                        [
-                            ...urlsMeta,
-                            ...termsResults,
-                            ...youtubeResult,
-                        ].filter(i => (i))
+                        results
+                            .reduce((a, b) => (a.concat(b)), [])
+                            .filter(i => (i))
                     ))
                 }
             })

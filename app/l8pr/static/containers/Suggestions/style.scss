@@ -4,7 +4,7 @@
 }
 .Suggestions__item {
     flex-grow: 1;
-    font-size: 12vw;
+    font-size: 7vw;
     display: flex;
     align-items: center;
     text-align: center;
@@ -14,8 +14,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     & > div { flex-grow: 1; }
-    &:hover:after { opacity: 0 }
-    &:after {
+    &:hover:before { opacity: 0 }
+    &:before {
         content: '';
         position: absolute;
         top: 0;
