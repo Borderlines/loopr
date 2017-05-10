@@ -1,5 +1,6 @@
 import * as api from '../utils/api'
 import * as c from '../constants'
+import * as selectors from  '../selectors'
 
 var lastSearch = undefined
 
@@ -10,6 +11,7 @@ export function search(searchTerms) {
         dispatch({ type: 'SEARCH_STARTING' })
         dispatch(setTerms([...searchTerms]))
         if (searchTerms.length) {
+            const preSearch = []
             const urls = []
             const users = []
             const keywords = []
@@ -17,6 +19,8 @@ export function search(searchTerms) {
                 // find urls
                 if (s.value.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)) {
                     urls.push(s)
+                } else if (s.value === '#my-last-tracks') {
+                    preSearch.push(api.lastUserItems(getState(), { username: selectors.currentUsername(getState()) }))
                 } else if (s.value.startsWith('@')) {
                     users.push(s.value.slice(1))
                 } else {
@@ -29,6 +33,7 @@ export function search(searchTerms) {
             const termsResults = keywords.length && api.search(getState(), keywords)
             const youtubeResult = keywords.length && api.youtube(getState(), keywords)
             Promise.all([
+                ...preSearch,
                 urlsMeta,
                 usersShowsResults,
                 termsResults,

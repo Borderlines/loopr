@@ -60,13 +60,13 @@ class Search extends React.Component {
                     />
                 </StripHeader>
                 <div className="Search__list">
-                    <ResultsCounter results={searchResults}/>
                     {isLoading &&
                         <div>Loading ...</div>
                     ||
                         searchResults.length === 0 &&
                             <Suggestions/>
-                        ||
+                        || [
+                            <ResultsCounter results={searchResults}/>,
                             <AutoSizer>
                                 {({ width, height }) => (
                                     <List
@@ -77,7 +77,8 @@ class Search extends React.Component {
                                         rowRenderer={this._rowRenderer.bind(this)}
                                     />
                                 )}
-                            </AutoSizer>
+                            </AutoSizer>,
+                        ]
                     }
                 </div>
             </div>
