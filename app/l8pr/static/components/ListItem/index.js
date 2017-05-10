@@ -14,6 +14,8 @@ function getItemType(item) {
         return Track
     } else if (item.items) {
         return Show
+    } else if (item.username) {
+        return User
     }
 }
 
@@ -68,6 +70,16 @@ function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddCl
                     <i className="material-icons">add</i>
                 </span>
                 <span><i className="material-icons">share</i></span>
+            </div>
+        </div>
+    )
+}
+
+function User({ key, item, className='', onPlayClick, isPlaying, style, onAddClick }) {
+    return (
+        <div key={key} className={className + ' ListItem--User'} style={style}>
+            <div className="ListItem__body">
+                <span className="ListItem__title">{item.username}</span>
             </div>
         </div>
     )
