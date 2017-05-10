@@ -118,7 +118,8 @@ class ShowSerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
-    shows = ShowNameSerializer(many=True)
+    # doesn't work with Youtube search view yet
+    # shows = ShowNameSerializer(many=True, required=False)
 
     class Meta:
         fields = '__all__'
