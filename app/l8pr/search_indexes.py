@@ -19,7 +19,6 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
 class ShowIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, model_attr='title')
     title = indexes.CharField(model_attr='title')
-    user = indexes.CharField(model_attr='user.username')
 
     def get_model(self):
         return Show
