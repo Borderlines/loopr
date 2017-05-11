@@ -38,7 +38,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
             onClick={() => (onShowClick && onShowClick(item))}>
             <div className="ListItem__illuBox">
                 {showImages &&
-                    <div className="ListItem__highlight">{item.items.slice(0, 3).map((i, idx) => (
+                    <div className="ListItem__illu">{item.items.slice(0, 3).map((i, idx) => (
                         <img src={i.thumbnail} key={idx} onClick={() => onPlayClick(i)}/>
                     ))}</div>
                 }

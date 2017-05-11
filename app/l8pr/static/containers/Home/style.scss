@@ -4,6 +4,12 @@
     right: 0;
     top: 0;
     bottom: 0;
-    font-family: 'Montserrat', 'Trebuchet Ms', sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: $primaryFont;
     overflow: hidden;
+    font-size: 13px;
+}
+
+.material-icons {
+    font-size: 16px !important;
+    vertical-align: middle;
 }

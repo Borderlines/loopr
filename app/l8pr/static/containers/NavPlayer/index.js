@@ -48,6 +48,8 @@ function NavPlayer({
                     <a title="Visual">
                         <i className="material-icons">photo_size_select_actual</i>
                     </a>
+                </div>
+                <div className="NavPlayer__buttons">
                     <a onClick={onPreviousContext} title="Previous Show">
                         <i className="material-icons">first_page</i>
                     </a>
@@ -75,6 +77,9 @@ function NavPlayer({
                         <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
                             call_to_action
                         </i>
+                    </a>
+                    <a href="" title="more control">
+                        <i className="material-icons">more_vert</i>
                     </a>
                 </div>
                 <div className="NavPlayer__buttons">

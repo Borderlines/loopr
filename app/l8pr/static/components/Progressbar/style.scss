@@ -16,7 +16,9 @@
     background-color: $colorPlaying;
     position: absolute;
     top: 0;
+    opacity: 0.7;
 }
 .Progressbar__loaded {
     background-color: lighten($colorPlaying, 10%);
+    opacity: .3;
 }
