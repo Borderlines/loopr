@@ -5,27 +5,14 @@ import './style.scss'
 
 function Loader() {
     return (
-        <div className='loader loader4'>
-            <div>
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                <div>
-                                    <div>
-                                        <div>
-                                            <div>
-                                                <div/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <box>
+            <bar className="Loader">
+                <bar id="bar4"/>
+                <bar id="bar3"/>
+                <bar id="bar2"/>
+                <bar id="bar1"/>
+            </bar>
+        </box>
     )
 }
 

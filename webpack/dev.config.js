@@ -21,7 +21,7 @@ module.exports = {
                     loader: 'css-loader',
                     options: {
                         localIdentName: '[path][name]--[local]',
-                        sourceMap: true,
+                        sourceMap: false,
                         context: '/',
                     },
                 },
@@ -29,7 +29,7 @@ module.exports = {
                 {
                     loader: 'sass-loader',
                     options: {
-                        sourceMap: true,
+                        sourceMap: false,
                         data: `@import "${__dirname}/../app/l8pr/static/styles/config/_variables.scss";`,
                         context: '/',
                     },
