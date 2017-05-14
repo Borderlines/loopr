@@ -17,14 +17,22 @@ const store = configureStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store)
 
 const map = {
-    toggleStrip: 'c',
+    previousShow: 'c',
+    previousTrack: 'v',
+    toggleStrip: 'b',
+    nextTrack: 'n',
+    nextShow: 'm',
     playPause: 'space',
-    toggleMute: 'm',
+    toggleMute: 's',
     fullscreen: 'f',
     search: 'ctrl+shift+f',
 }
 const handlers = {
+    previousShow: () => store.dispatch(player.previousContext()),
+    previousTrack: () => store.dispatch(player.previous()),
     toggleStrip: () => store.dispatch(browser.toggleStrip()),
+    nextTrack: () => store.dispatch(player.next()),
+    nextShow: () => store.dispatch(player.nextContext()),
     toggleMute: () => store.dispatch(player.toggleMute()),
     playPause: () => store.dispatch(player.togglePlay()),
     search: () => store.dispatch(browser.browse('SEARCH')),
