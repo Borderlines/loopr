@@ -11,7 +11,7 @@ do
     sleep 2
 done
 
-until python ../manage.py rebuild_index --noinput
+until python ../manage.py update_index --noinput
 do
     echo "Waiting for elasticsearch ready..."
     sleep 2
