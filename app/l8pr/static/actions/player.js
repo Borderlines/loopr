@@ -1,7 +1,7 @@
 import * as c from '../constants'
 import * as selectors from '../selectors'
 import { push } from 'react-router-redux'
-import * as contextLoaders from '../utils/api'
+import * as data from '../actions/data'
 
 export function setPlaylist(playlist) {
     return {
@@ -25,8 +25,8 @@ export function insertToPlaylist(items) {
 }
 
 export function fillQueueList() {
-    return (dispatch, getState) => (
-        contextLoaders.lastItemsInLoopr(getState())
+    return (dispatch) => (
+        dispatch(data.lastItemsInLoopr())
         .then((items) => (
             dispatch(appendToPlaylist(items))
         ))
@@ -39,9 +39,9 @@ export function initQueueList() {
         const username = location.user || selectors.currentUsername(getState()) || 'discover'
         return Promise.all([
             // LAST USER ITEMS
-            contextLoaders.lastUserItems(getState(), { username }),
+            dispatch(data.lastUserItems({ username })),
             // SHOWS
-            contextLoaders.shows(getState(), { username }),
+            dispatch(data.shows({ username })),
         ])
         // flatten
         .then((results) => ([].concat.apply([], results)))

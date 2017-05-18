@@ -3,7 +3,7 @@ const initialState = {
     stripOpened: true,
     stripHidden: false,
     stripFixed: true,
-    browserType: 'PLAYQUEUE',
+    browserType: 'SEARCH',
     browserProps: undefined,
 }
 

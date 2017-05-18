@@ -1,4 +1,6 @@
 import * as c from '../constants'
+import * as api from '../utils/api'
+import * as data from '../actions/data'
 
 export function openStrip() {
     return {
@@ -51,6 +53,21 @@ export function browse(browserType, browserProps) {
         browserType,
         browserProps,
     }
+}
+
+export function browseShow(showId) {
+    return (dispatch, getState) => {
+        if (getState().data.shows[showId]) {
+            return dispatch(browse('SHOW', { show: getState().data.shows[showId] }))
+        } else {
+            return api.show(getState(), { id: showId })
+            .then(show => {
+                dispatch(data.addShows([show]))
+                dispatch(browse('SHOW', { show }))
+            })
+        }
+    }
+
 }
 
 export function goBack() {

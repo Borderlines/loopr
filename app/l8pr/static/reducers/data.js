@@ -1,19 +1,16 @@
 import { createReducer } from '../utils'
-import { DATA_RECEIVE_PROTECTED_DATA, DATA_FETCH_PROTECTED_DATA_REQUEST } from '../constants'
 
-const initialState = {
-    data: null,
-    isFetching: false,
-}
+const initialState = { shows: {} }
 
 export default createReducer(initialState, {
-    [DATA_RECEIVE_PROTECTED_DATA]: (state, payload) => {
-        return Object.assign({}, state, {
-            data: payload.data,
-            isFetching: false,
+    'ADD_SHOWS': (state, payload) => {
+        const shows = { ...state.shows }
+        payload.forEach((s) => {
+            shows[s.id] = s
         })
-    },
-    [DATA_FETCH_PROTECTED_DATA_REQUEST]: (state, payload) => {
-        return Object.assign({}, state, { isFetching: true })
+        return {
+            ...state,
+            shows,
+        }
     },
 })

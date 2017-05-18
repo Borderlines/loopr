@@ -27,12 +27,21 @@ function NavPlayer({
     browserType,
     toggleFixedStrip,
     stripFixed,
+    openShow,
 }) {
     return (
         <div className="NavPlayer">
             <div className="NavPlayer__banner">
-                <div className="NavPlayer__item">{get(currentItem, 'title')}</div>
-                <div className="NavPlayer__show">{get(currentShow, 'title')}</div>
+                <div className="NavPlayer__item">
+                    <a onClick={() => {openShow(currentShow)}}>
+                        {get(currentItem, 'title')}
+                    </a>
+                </div>
+                <div className="NavPlayer__show">
+                    <a onClick={() => {openShow(currentShow)}}>
+                        {get(currentShow, 'title')}
+                    </a>
+                </div>
             </div>
             <div className="NavPlayer__controllers">
                 <div className="NavPlayer__buttons">
@@ -124,6 +133,7 @@ NavPlayer.propTypes = {
     browserType: React.PropTypes.string,
     toggleFixedStrip: React.PropTypes.func,
     stripFixed: React.PropTypes.bool,
+    openShow: React.PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -149,6 +159,7 @@ const mapDispatchToProps = (dispatch) => ({
     handleSearch: () => (dispatch(browser.toggleStrip('SEARCH'))),
     toggleFixedStrip: () => (dispatch(browser.toggleFixedStrip())),
     handleLogin: () => (dispatch(modal.showModal('LOGIN'))),
+    openShow: (show) => (dispatch(browser.browseShow(show.id))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavPlayer)

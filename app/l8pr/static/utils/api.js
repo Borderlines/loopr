@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch'
-import { SERVER_URL } from '../utils/config'
 import { isNil, trim } from 'lodash'
 import { checkHttpStatus, parseJSON } from './index'
 
@@ -48,52 +47,16 @@ export function fetchUserShows(state, { username }) {
     .then((items) => items[0].shows_list)
 }
 
-export const lastItemsInLoopr = (state) => (
-    fetchLastItems(state, { count: 10 })
-    // set a context
-    .then((items) => (
-        items.map((i) => (
-            {
-                ...i,
-                context: {
-                    title: 'Last items in loopr',
-                    id: 'last_items_in_loopr',
-                },
-            }
-        ))
-    ))
-)
+export const lastItemsInLoopr = (state) => {
+    return fetchLastItems(state, { count: 10 })
+}
 
-export const shows = (state, { username }) => (
-    fetchUserShows(state, { username })
-    .then((shows) => (
-        shows.map((show) => (
-            // set context
-            show.items.map((i) => ({
-                ...i,
-                context: {
-                    ...show,
-                    items: null,
-                },
-            }))
-        ))
-    ))
-    // flatten items
-    .then((showsItems) => ([].concat.apply([], showsItems)))
+export const show = (state, { id }) => (
+    api(state).get(`api/shows/${id}/`)
 )
 
 export const lastUserItems = (state, { username }) => {
     return fetchLastItems(state, { username })
-    // set context
-    .then((items) => (
-        items.map((i) => ({
-            ...i,
-            context: {
-                title: 'Last Items',
-                id: 'last_item',
-            },
-        }))
-    ))
 }
 
 function getCookie(name) {
