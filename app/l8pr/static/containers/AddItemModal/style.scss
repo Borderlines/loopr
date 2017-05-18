@@ -5,6 +5,12 @@
     cursor: pointer;
     margin: 5px 0px;
 }
+
+.AddItemModal__item:hover {
+    background-color: purple;
+    color: white;
+}
+
 .AddItemModal__item--contains-item {
     background-color: purple;
     color: white;
