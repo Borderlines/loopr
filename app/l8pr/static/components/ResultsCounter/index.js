@@ -13,22 +13,19 @@ function ResultsCounter({ results, className }) {
         <div className={classNames('ResultsCounter', className)}>
             {counters.users > 0 &&
                 <div className="ResultsCounter__counter">
-                    {counters.users}&nbsp;
-                    user
+                    {counters.users}&nbsp;user
                     {counters.users > 1 && 's'}
                 </div>
             }
             {counters.shows > 0 &&
                 <div className="ResultsCounter__counter">
-                    {counters.shows}&nbsp;
-                    show
+                    {counters.shows}&nbsp;show
                     {counters.shows > 1 && 's'}
                 </div>
             }
             {counters.tracks > 0 &&
                 <div className="ResultsCounter__counter">
-                    {counters.tracks}&nbsp;
-                    track
+                    {counters.tracks}&nbsp;track
                     {counters.tracks > 1 && 's'}
                 </div>
             }
