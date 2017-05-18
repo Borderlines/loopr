@@ -82,7 +82,7 @@ function NavPlayer({
                         <i className="material-icons">more_vert</i>
                     </a>
                 </div>
-                <div className="NavPlayer__buttons">
+                <div className="NavPlayer__buttons NavPlayer__mainNav">
                     <a title="Queue List" onClick={showQueuelist}>
                         <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
                             playlist_play
