@@ -1,16 +1,36 @@
 .Suggestions {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
 }
 .Suggestions__item {
     flex-grow: 1;
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     cursor: pointer;
     position: relative;
-    & > a {
-            flex-grow: 1;
-            font-size: 7vw;
+    background-image: url('https://media1.giphy.com/media/mqd0IiCu4iBVK/giphy.gif');
+    background-position: center center;
+    background-size: cover;
+    background-blend-mode: multiply;
+    background-color: rgba(0,0,255,1);
+    padding: 50px;
+    transition-property: all;
+    transition-duration: 0.3s;
+
+    & > a, a:active {
+            font-size: 2rem;
+            color: white;
+            border-bottom: 1px dotted rgba(255,255,255,0);
         }
+    & > a:hover{
+            color: white;
+            border-bottom: 1px dotted rgba(255,255,255,1);
+            text-decoration: none;
+        }
+}
+
+.Suggestions__item:hover {
+    background-color: rgba(0,0,255,0);
 }
