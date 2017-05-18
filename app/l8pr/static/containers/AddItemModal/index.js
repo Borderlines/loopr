@@ -26,7 +26,7 @@ function AddItemModal({ handleHide, shows, item, toggleItemToShow, saveItemAndCr
                         { 'AddItemModal__item--contains-item': !!show.items.find((i) => i.id === item.id) }
                     )
                     return (
-                        <div key={show._id} className={classes} onClick={() => toggleItemToShow(item, show)}>
+                        <div key={show.id} className={classes} onClick={() => toggleItemToShow(item, show)}>
                             <div className="AddItemModal__title">{show.title}</div>
                             <div className="AddItemModal__details">
                                 <span>{show.items.length} tracks</span>
