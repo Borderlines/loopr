@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { get, zipObject } from 'lodash'
+import { get, zipObject, isNil } from 'lodash'
 
 export const currentTrack = (state) => state.player.current
 export const history = (state) => state.player.history
@@ -14,7 +14,7 @@ export const getSearchResults = (state) => state.search.results
 export const myShows = (state) => state.auth.loop
 export const playlist = createSelector(
     [currentTrack, playQueue],
-    (currentTrack, playQueue) => ([currentTrack, ...playQueue].filter(i => i !== null))
+    (currentTrack, playQueue) => ([currentTrack, ...playQueue].filter(i => (!isNil(i))))
 )
 
 export const getLocation = createSelector(

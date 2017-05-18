@@ -4,7 +4,6 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     display: flex;
     width: 100%;
     border-bottom: 1px dotted $colorItem;
-    /*flex-wrap: wrap; /* FOR MOBILES */
     align-items: center;
     height: $ITEM_HEIGHT;
 }
@@ -12,15 +11,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem--User {
     background-position: right center;
     background-repeat: repeat-y;
-    // background-image: url('https://media1.giphy.com/media/mqd0IiCu4iBVK/giphy.gif');
 }
-
-
-.ListItem .material-icons {
-    font-size: 1em !important;
-}
-
-/* ListItem__title */
 
 .ListItem__title {
     margin-right: 10px;
@@ -54,21 +45,39 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 
 }
 
-
-.ListItem__illuBox {
-    display: flex;
-    flex-wrap: nowrap;
+.ListItem__preview {
     align-self: stretch;
-    background-color: yellow;
-    padding: 0px;
-    transition-property: all;
-    transition-duration: .1s;
-    width: 150px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: center;
+    position: relative;
+    width: 7rem;
+    background-position: center;
+    background-size: cover;
+    i {
+        color: white;
+        text-align: center;
+        z-index: 1;
+        font-size: 2rem;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
 }
-
-.ListItem--Show .ListItem__illuBox:hover {
-    // width: auto;
+.ListItem--Show .ListItem__preview:after {
+    background-color: rgba($colorShow, .3);
+}
+.ListItem--Track .ListItem__preview:after {
+    background-color: rgba($colorItem, .3);
+}
+.ListItem--isPlaying .ListItem__preview:after {
+    background-color: rgba($colorPlaying, .3);
 }
 
 .ListItem--User .ListItem__illuBox {
@@ -79,26 +88,6 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     box-shadow: 0px 0px 10px rgba(0,0,0,.2);
     border-radius: 50%;
     flex-shrink: 0;
-}
-
-
-.ListItem__illu {
-    // background-image: url('https://i.giphy.com/XdBVUzXff2t1e.gif');
-    background-size: cover;
-    background-position: center center;
-    width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgba(255,255,255,1);
-    transition-property: all;
-    transition-duration: .1s;
-    transition-delay: .1s;
-    padding: 10px 25px; /* works well to set height of ListItem */
-}
-
-.ListItem--User .ListItem__illu {
-    // background-image: url('https://i.giphy.com/ADr35Z4TvATIc.gif');
 }
 
 .ListItem__body {
@@ -116,41 +105,14 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     color: $text-color-bright;
 }
 
-// .ListItem--isPlaying {
-//     background-color: $colorPlaying;
-//     color: white;
-//     &:before {
-//         content: 'play_arrow';
-//         font-family: 'Material Icons';
-//         font-size: 2em;
-//         align-self: center;
-//     }
-// }
-.ListItem--isPlaying {
-    height: 20vh;
-}
-.ListItem--isPlaying .ListItem__illu {
-    background-color: $colorPlaying !important;
-}
-
-
-.ListItem--isPlaying
-    .ListItem__title {
-        color: $colorPlaying;
-        font-size: 1.4rem;
-        padding: 50px 0px;
-        &:before {
-                content: 'play_arrow';
-                font-family: 'Material Icons';
-                align-self: center;
-            }
-}
-
-.ListItem--isPlaying .ListItem__illuBox {
-    width: 400px !important;
-}
-
-.ListItem--isPlaying .ListItem__illu {
-    width: 400px !important;
-
+.ListItem--isPlaying .ListItem__title {
+    color: $colorPlaying;
+    font-size: 1.4rem;
+    padding: 50px 0px;
+    &:before {
+            content: 'play_arrow';
+            font-family: 'Material Icons';
+            vertical-align: middle;
+            align-self: center;
+        }
 }

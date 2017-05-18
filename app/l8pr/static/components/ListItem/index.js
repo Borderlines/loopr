@@ -1,6 +1,7 @@
 import React from 'react'
 import './style.scss'
 import { getDuration } from '../../utils'
+import Preview from './Preview'
 
 const sourceIcones = {
     youtube: 'youtube-play',
@@ -36,14 +37,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
             className={className + ' ListItem--Show'}
             style={style}
             onClick={() => (onShowClick && onShowClick(item))}>
-            <div className="ListItem__illuBox">
-                {showImages &&
-                    <div className="ListItem__illu">{item.items.slice(0, 3).map((i, idx) => (
-                        <img src={i.thumbnail} key={idx} onClick={() => onPlayClick(i)}/>
-                    ))}</div>
-                }
-                <div className="ListItem__illu"><i className="material-icons">play_arrow</i></div>
-            </div>
+            <Preview image={item.items[0].thumbnail}/>
             <div className="ListItem__body">
                 <div className="ListItem__title">{item.title}</div>
                 <div className="ListItem__details">
@@ -64,10 +58,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
 function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddClick }) {
     return (
         <div key={key} className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
-            <div className="ListItem__illuBox">
-                <div className="ListItem__illu" style={{ backgroundImage: `url(${item.thumbnail})` }}/>
-                    <i className="material-icons">play_arrow</i>
-                </div>
+            <Preview image={item.thumbnail}/>
             <div className="ListItem__body">
                 <div className="ListItem__title">{item.title}</div>
                 <div className="ListItem__details">{getDuration(item)}</div>
