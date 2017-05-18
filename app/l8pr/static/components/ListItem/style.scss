@@ -22,6 +22,10 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     margin-right: 10px;
 }
 
+.ListItem__actions span {
+    margin-right: 5px;
+}
+
 .ListItem--Track
     .ListItem__title {
     color: $colorItem;
