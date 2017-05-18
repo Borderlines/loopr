@@ -1,45 +1,41 @@
 import React from 'react'
 import { ListItem } from '../../components'
-import { getDuration } from '../../utils'
 import { AutoSizer, List } from 'react-virtualized'
 import './style.scss'
 
 
 export default class ContextsList extends React.Component {
-    getContextHeight({ index }) {
-        const { contexts } = this.props
-        return contexts[index].items.length * 50 + 58
-    }
     _rowRenderer({ index, key, style }) {
         const { contexts, onItemPlayClick, onPlayShowClick, onAddClick } = this.props
-        const c = contexts[index]
-        return (
-            <div key={key} style={style} className="ContextsList__context">
-                <div className="ContextsList__cover">
-                    <div className="context__title">{c.context.title}</div>
-                    <div className="context__details">
-                        <span>User</span>
-                        <span>{c.items.length} items</span>
-                        <span>{getDuration(c.items)}</span>
-                    </div>
-                    <div className="context__actions">
-                        <span className="context__share"><i className="material-icons">share</i></span>
-                        <span className="context__more"><i className="material-icons">more_horiz</i></span>
+        const item = contexts[index]
+        if (item.type === 'context') {
+            return (
+                <div key={key} style={style} className="ContextsList__context">
+                    <div className="ContextsList__cover">
+                        <div className="context__title">{item.title}</div>
+                        <div className="context__details">
+                            <span>{item.size} items</span>
+                            <span>{item.duration}</span>
+                        </div>
+                        <div className="context__actions">
+                            <span className="context__share"><i className="material-icons">share</i></span>
+                            <span className="context__more"><i className="material-icons">more_horiz</i></span>
+                        </div>
                     </div>
                 </div>
-                <div className="ContextsList__items">
-                    {c.items.map((item, itemIndex) => (
-                        <ListItem
-                            key={itemIndex}
-                            item={item}
-                            onPlayClick={onItemPlayClick}
-                            onAddClick={onAddClick}
-                            onPlayShowClick={onPlayShowClick}
-                            isPlaying={index === 0 && itemIndex === 0}/>
-                    ))}
+            )
+        } else {
+            return (
+                <div key={key} style={style} className="ContextsList__context">
+                    <ListItem
+                        item={item}
+                        onPlayClick={onItemPlayClick}
+                        onAddClick={onAddClick}
+                        onPlayShowClick={onPlayShowClick}
+                        isPlaying={false}/>
                 </div>
-            </div>
-        )
+            )
+        }
     }
     componentDidUpdate() {
         this.refs.AutoSizer.refs.List.recomputeRowHeights()
@@ -56,7 +52,7 @@ export default class ContextsList extends React.Component {
                             width={width}
                             height={height}
                             rowCount={contexts.length}
-                            rowHeight={this.getContextHeight.bind(this)}
+                            rowHeight={50}
                             rowRenderer={this._rowRenderer.bind(this)}
                         />
                     )}

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { get, zipObject, isNil } from 'lodash'
+import { getDuration } from './utils'
 
 export const currentTrack = (state) => state.player.current
 export const history = (state) => state.player.history
@@ -36,23 +37,25 @@ function groupByContext(items) {
     if (items.length < 1) {
         return []
     }
-    const contexts = [{
-        context: items[0].context,
-        items: [],
-    }]
-    const getLastContext = () => contexts[contexts.length - 1]
-    items.forEach((i) => {
-        if (i.context && i.context.id !== get(getLastContext(), 'context.id')) {
-            contexts.push({
-                context: null,
-                items: [],
-            })
+    const itemsList = []
+    let lastContext = null
+    items.forEach(item => {
+        if (!itemsList.find(i => i.id === item.context.id)) {
+            if (lastContext) {
+                let lastIndex = itemsList.lastIndexOf(lastContext)
+                lastContext.duration = getDuration(itemsList.slice(lastIndex))
+            }
+            lastContext = {
+                ...item.context,
+                type: 'context',
+                size: 0,
+            }
+            itemsList.push(lastContext)
         }
-        if (getLastContext().context === null) getLastContext().context = i.context
-        getLastContext().items.push(i)
+        lastContext.size += 1
+        itemsList.push(item)
     })
-    return contexts
+    return itemsList
 }
 
 export const getPlaylistGroupedByContext = createSelector(playlist, (p) => groupByContext(p))
-export const getResultsGroupedByContext = createSelector(getSearchResults, (p) => groupByContext(p))
