@@ -10,6 +10,7 @@
     padding: 5px 0px;
     color: $text-color-bright;
     font-size: 1rem;
+    min-width: 0;
 }
 
 .NavPlayer__banner a {
@@ -24,7 +25,9 @@
 
 .NavPlayer__item {
     font-size: 1rem;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .NavPlayer__show a {
     font-size: .8rem;
@@ -36,8 +39,8 @@
 .NavPlayer__controllers {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
     letter-spacing: 0.5rem;
+    white-space: nowrap;
 }
 
 .NavPlayer__buttons {

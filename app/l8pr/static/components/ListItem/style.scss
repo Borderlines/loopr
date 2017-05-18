@@ -15,15 +15,20 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 
 .ListItem__title {
     margin-right: 10px;
-
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .ListItem__details {
     margin-right: 10px;
 }
 
-.ListItem__actions span {
-    margin-right: 5px;
+.ListItem__actions {
+    white-space: nowrap;
+    span {
+        margin-right: 5px;
+    }
 }
 
 .ListItem--Track
@@ -96,11 +101,11 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 
 .ListItem__body {
     padding: 15px 25px;
+    min-width: 0;
 }
 
 .ListItem--Track .ListItem__body {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 

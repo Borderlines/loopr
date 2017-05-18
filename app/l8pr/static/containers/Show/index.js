@@ -17,7 +17,6 @@ class Show extends React.Component {
             <div className={classNames('Show', className)}>
                 <div className="cover">
                     <StripHeader back={true}/>
-
                     <div className="ListItem--Show ListItem__body">
                         <div className="ListItem__title">{show.title}</div>
                         <div className="ListItem__details">

@@ -32,5 +32,5 @@ export function getDuration(items) {
     if (duration === 0) {
         return null
     }
-    return moment.duration(duration, 's').humanize()
+    return moment.duration(duration, 's').humanize().replace(/ /g, '\u00a0')
 }
