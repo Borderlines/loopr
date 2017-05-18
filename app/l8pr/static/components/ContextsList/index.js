@@ -26,7 +26,7 @@ export default class ContextsList extends React.Component {
             )
         } else {
             return (
-                <div key={key} style={style} className="ContextsList__context">
+                <div key={key} style={style} className="ContextsList__item">
                     <ListItem
                         item={item}
                         onPlayClick={onItemPlayClick}
