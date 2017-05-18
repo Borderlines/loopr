@@ -1,0 +1,9 @@
+.AddItemModal__item {
+    display: flex;
+}
+.AddItemModal__item--contains-item {
+    color: green;
+}
+.AddItemModal__title, .AddItemModal__details > * {
+    margin-right: 1rem;
+}

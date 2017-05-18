@@ -30,7 +30,7 @@ export default function ListItem(props) {
     return (<SpecificItem className={classNames} {...props}/>)
 }
 
-function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlayShowClick, onShowClick, showImages=true }) {
+function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlayShowClick, onShowClick }) {
     return (
         <div
             key={key}

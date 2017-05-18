@@ -1,10 +1,13 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { ListItem, QuickAddShow } from '../../components'
+import { QuickAddShow } from '../../components'
 import { connect } from 'react-redux'
 import * as auth from '../../actions/auth'
 import * as modal from '../../actions/modal'
 import * as selectors from '../../selectors'
+import { getDuration } from '../../utils'
+import classNames from 'classnames'
+import './style.scss'
 
 function AddItemModal({ handleHide, shows, item, toggleItemToShow, saveItemAndCreateShow }) {
     return (
@@ -17,15 +20,21 @@ function AddItemModal({ handleHide, shows, item, toggleItemToShow, saveItemAndCr
             </Modal.Header>
             <Modal.Body>
                 <QuickAddShow onSubmit={(title) => saveItemAndCreateShow({ title }, item )} />
-                {shows.map((show) => (
-                    <ListItem
-                        key={show._id}
-                        onShowClick={(show) => toggleItemToShow(item, show)}
-                        showImages={false}
-                        isSelected={!!show.items.find(i => (i.id === item.id))}
-                        item={show}
-                    />
-                ))}
+                {shows.map((show) => {
+                    let classes = classNames(
+                        'AddItemModal__item',
+                        { 'AddItemModal__item--contains-item': !!show.items.find((i) => i.id === item.id) }
+                    )
+                    return (
+                        <div key={show._id} className={classes} onClick={() => toggleItemToShow(item, show)}>
+                            <div className="AddItemModal__title">{show.title}</div>
+                            <div className="AddItemModal__details">
+                                <span>{show.items.length} tracks</span>
+                                <span>{getDuration(show.items)}</span>
+                            </div>
+                        </div>
+                    )
+                })}
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={handleHide}>Close</Button>
@@ -52,9 +61,7 @@ export const saveItemAndUpdateState = (dispatch, item) => (
     })
 )
 const mapDispatchToProps = (dispatch) => ({
-    toggleItemToShow: (item, show) => (
-        dispatch(auth.toggleItemToShow(item, show))
-    ),
+    toggleItemToShow: (item, show) => (dispatch(auth.toggleItemToShow(item, show))),
     saveItemAndCreateShow: (show, item) => {
         saveItemAndUpdateState(dispatch, item)
         .then(item => (
