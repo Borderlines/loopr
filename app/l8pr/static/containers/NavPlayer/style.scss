@@ -9,13 +9,29 @@
 .NavPlayer__banner {
     padding: 5px 0px;
     color: $text-color-bright;
+    font-size: 1rem;
+}
+
+.NavPlayer__banner a {
+    color: $text-color-bright;
+}
+
+.NavPlayer__banner a:hover {
+    color: $text-color-bright;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255,255,255,.5);
 }
 
 .NavPlayer__item {
+    font-size: 1rem;
+
 }
-.NavPlayer__show {
+.NavPlayer__show a {
+    font-size: .8rem;
     font-family: $secondaryFont;
+    letter-spacing: 0.05rem;
 }
+
 
 .NavPlayer__controllers {
     display: flex;

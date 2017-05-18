@@ -112,7 +112,6 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem--isPlaying .ListItem__title {
     color: $colorPlaying;
     font-size: 1.4rem;
-    padding: 50px 0px;
     &:before {
             content: 'play_arrow';
             font-family: 'Material Icons';
