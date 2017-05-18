@@ -69,25 +69,27 @@ class Search extends React.Component {
                         value={searchTerms}
                     />
                 </StripHeader>
-                <div className="Search__list">
+                <div className="Search__body">
                     {isLoading &&
                         <Loader/>
                     ||
                         searchResults.length === 0 &&
                             <Suggestions/>
                         || [
-                            <ResultsCounter results={searchResults}/>,
-                            <AutoSizer>
-                                {({ width, height }) => (
-                                    <List
-                                        width={width}
-                                        height={height}
-                                        rowCount={searchResults.length}
-                                        rowHeight={100}
-                                        rowRenderer={this._rowRenderer.bind(this)}
-                                    />
-                                )}
-                            </AutoSizer>,
+                            <ResultsCounter results={searchResults} key={1}/>,
+                            <div style={{ flex: '1 1 auto' }} key={2}>
+                                <AutoSizer>
+                                    {({ width, height }) => (
+                                        <List
+                                            width={width}
+                                            height={height}
+                                            rowCount={searchResults.length}
+                                            rowHeight={100}
+                                            rowRenderer={this._rowRenderer.bind(this)}
+                                        />
+                                    )}
+                                </AutoSizer>
+                            </div>,
                         ]
                     }
                 </div>
