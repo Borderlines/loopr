@@ -27,7 +27,7 @@ function AddItemModal({ handleHide, shows, item, toggleItemToShow, saveItemAndCr
                     )
                     return (
                         <div key={show.id} className={classes} onClick={() => toggleItemToShow(item, show)}>
-                            <div className="AddItemModal__title">{show.title}</div>
+                            <div className="AddItemModal__title"><strong>{show.title}</strong></div>
                             <div className="AddItemModal__details">
                                 <span>{show.items.length} tracks</span>
                                 <span>{getDuration(show.items)}</span>

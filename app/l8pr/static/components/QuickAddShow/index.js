@@ -33,7 +33,7 @@ export default class QuickAddShow extends React.Component {
                         type="text"
                         autoFocus={true}
                         className="line-input"
-                        placeholder="Add"
+                        placeholder="Create a new Show"
                         value={value}
                         onChange={(e) => this.handleChange(e)}/>
                 </form>

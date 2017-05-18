@@ -1,8 +1,13 @@
 .AddItemModal__item {
     display: flex;
+    font-family: $primaryFont;
+    padding: 5px;
+    cursor: pointer;
+    margin: 5px 0px;
 }
 .AddItemModal__item--contains-item {
-    color: green;
+    background-color: purple;
+    color: white;
 }
 .AddItemModal__title, .AddItemModal__details > * {
     margin-right: 1rem;
