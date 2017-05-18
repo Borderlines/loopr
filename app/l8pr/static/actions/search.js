@@ -1,5 +1,6 @@
 import * as api from '../utils/api'
 import * as c from '../constants'
+import * as data from '../actions/data'
 import * as selectors from  '../selectors'
 
 var lastSearch = undefined
@@ -20,7 +21,7 @@ export function search(searchTerms) {
                 if (s.value.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)) {
                     urls.push(s)
                 } else if (s.value === '#my-last-tracks') {
-                    preSearch.push(api.lastUserItems(getState(), { username: selectors.currentUsername(getState()) }))
+                    preSearch.push(dispatch(data.lastUserItems({ username: selectors.currentUsername(getState()) })))
                 } else if (s.value.startsWith('@')) {
                     users.push(s.value.slice(1))
                 } else {

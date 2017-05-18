@@ -12,6 +12,7 @@ import 'react-select/dist/react-select.css'
 import { ListItem, StripHeader, ResultsCounter, Loader } from '../../components'
 import { AutoSizer, List } from 'react-virtualized'
 import classNames from 'classnames'
+import { get } from 'lodash'
 import 'react-virtualized/styles.css'
 
 
@@ -44,7 +45,7 @@ class Search extends React.Component {
                 onShowClick={onShowClick}
                 onPlayShowClick={onPlayShowClick}
                 onAddClick={onAddClick}
-                isPlaying={currentTrack.url === item.url || currentShow.id === item.id}
+                isPlaying={currentTrack.url === item.url || get(currentShow, 'id') === item.id}
                 style={style}
             />
         )
@@ -125,12 +126,6 @@ const mapDispatchToProps = (dispatch) => ({
             context: show,
         }))
     )),
-    onPlayClick: (item) => dispatch(player.playItem({
-        ...item,
-        context: {
-            title: 'Search',
-            id: 'search',
-        },
-    })),
+    onPlayClick: (item) => dispatch(player.playItem(item)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Search)
