@@ -64,15 +64,15 @@ function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddCl
                 <div className="ListItem__details">{getDuration(item)}</div>
                 <div className="ListItem__actions">
                     <span className="ListItem__source">
-                        <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
+                        <a href={item.url} target="_blank" onClick={(e) => {e.stopPropagation()}}>
+                            <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
+                        </a>
                     </span>
-                    <span>
-                        <i className="material-icons">info_outline</i>
+                    <span className="ListItem__add">
+                        <a onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
+                            <i className="material-icons">add</i>
+                        </a>
                     </span>
-                    <span className="ListItem__add" onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
-                        <i className="material-icons">add</i>
-                    </span>
-                    <span><i className="material-icons">share</i></span>
                 </div>
             </div>
         </div>

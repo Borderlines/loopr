@@ -25,10 +25,8 @@ function Suggestions({ onSearch }) {
     return (
         <div className={classes}>
             {suggestions.map((s, i) => (
-                <div key={i} className="Suggestions__item">
-                    <a onClick={() => (onSearch(s.keywords))}>
-                        {s.title}
-                    </a>
+                <div key={i} className="Suggestions__item" onClick={() => (onSearch(s.keywords))}>
+                    <a>{s.title}</a>
                 </div>
             ))}
         </div>
