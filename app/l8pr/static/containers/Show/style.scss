@@ -1,3 +1,21 @@
+.Show {
+    display: flex;
+}
+
 .Show__body {
     overflow: auto;
+}
+
+.Show .StripHeader {
+    padding: 10px 10px 0px 10px;
+    flex-direction: row-reverse;
+}
+
+
+.cover .ListItem__body {
+    padding: 0px 25px 10px 25px;
+}
+
+.cover .ListItem__title {
+    font-size: 1.5rem;
 }

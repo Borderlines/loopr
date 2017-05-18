@@ -9,12 +9,28 @@ import { ListItem, StripHeader, ResultsCounter } from '../../components'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
 
+
 class Show extends React.Component {
     render() {
         const { className, show, onPlayClick, onAddClick, currentTrack } = this.props
         return (
             <div className={classNames('Show', className)}>
-                <StripHeader title={show.title} back={true}/>
+                <div className="cover">
+                    <StripHeader back={true}/>
+
+                    <div className="ListItem--Show ListItem__body">
+                        <div className="ListItem__title">{show.title}</div>
+                        <div className="ListItem__details">
+                            <span>by User</span>
+                        </div>
+                        <div className="ListItem__actions">
+                            <a href="">
+                                <i className="material-icons">playlist_play</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <ResultsCounter results={show.items}/>
                 <div className="Show__body">
                     {show.items.map((item) => (
