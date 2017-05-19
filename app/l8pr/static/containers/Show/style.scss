@@ -7,15 +7,22 @@
 }
 
 .Show .StripHeader {
-    padding: 10px 10px 0px 10px;
-    flex-direction: row-reverse;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
 }
 
+.cover .StripHeader {
+    display: block;
+    padding: 0px;
+}
 
 .cover .ListItem__body {
-    padding: 0px 25px 10px 25px;
+    padding: 20px;
 }
 
 .cover .ListItem__title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    cursor: default;
 }

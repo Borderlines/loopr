@@ -20,10 +20,8 @@ class Show extends React.Component {
                     <div className="ListItem--Show ListItem__body">
                         <div className="ListItem__title">{show.title}</div>
                         <div className="ListItem__details">
-                            <span>by User</span>
-                        </div>
-                        <div className="ListItem__actions">
-                            <a href="">
+                            <span>Vied12</span>
+                            <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
                                 <i className="material-icons">playlist_play</i>
                             </a>
                         </div>

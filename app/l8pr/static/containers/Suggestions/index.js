@@ -9,11 +9,11 @@ const suggestions = [
         keywords: ['@ben'],
     },
     {
-        title: 'My Last Tracks',
+        title: 'the 10 last Media you added',
         keywords: ['#my-last-tracks'],
     },
     {
-        title: 'docu',
+        title: '#docu',
         keywords: ['docu'],
     },
 ]
@@ -26,7 +26,7 @@ function Suggestions({ onSearch }) {
         <div className={classes}>
             {suggestions.map((s, i) => (
                 <div key={i} className="Suggestions__item" onClick={() => (onSearch(s.keywords))}>
-                    <a>{s.title}</a>
+                    <a><i className="material-icons">face</i><br/>{s.title}</a>
                 </div>
             ))}
         </div>

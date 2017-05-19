@@ -6,7 +6,23 @@
     bottom: 0;
     font-family: $primaryFont;
     overflow: hidden;
+    transition-property: all;
+    transition-duration: .2s;
     font-size: 13px;
+    background-blend-mode: multiply;
+    background-color: rgba(11,11,11,0);
+    background-size: cover, 50%, 30%;
+    background-position: center center, center center, center right;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-image: url('https://media.giphy.com/media/DoTWimiFQMbba/giphy.gif'),
+    url('https://media.giphy.com/media/3otPomMPcv4SWRb3fq/giphy.gif'), //loop 01
+    url('https://media.giphy.com/media/8GPF36Gc9UKuQ/giphy.gif'); // cool
+
+    // url('https://media.giphy.com/media/nP7KzbIynMPVS/giphy.gif'), //loop 02
+    // url('https://media.giphy.com/media/H5oYjMd1uqvm0/giphy.gif'), //loop 03
+    // url('https://media.giphy.com/media/l46CA5eAtDMx4wiS4/giphy.gif'), //vortex
+    // url('https://media.giphy.com/media/IQjbS7v9eYivm/giphy.gif'), // dwi 01
+    // url('https://media.giphy.com/media/H7F0zSaC9ZHZC/giphy.gif'), // rainbow
 }
 
 .material-icons {
@@ -16,4 +32,65 @@
 
 i, a {
     cursor: pointer;
+}
+
+
+// Select in search
+//
+
+.Select-control {
+    background-color: white !important;
+    border-color: transparent !important;
+    border-radius: 25px !important;
+    border: 0px !important;
+    height: auto !important;
+    transition-property: all !important;
+    transition-duration: 0.5s !important;
+    padding: 0px 5px !important;
+    box-shadow: 0px 0px 0px rgba(0,0,0,0) !important;
+    border: none !important;
+}
+
+.Select .Select-arrow {
+    border-color: $colorSearch transparent transparent !important;
+}
+
+
+
+.Search .Select-menu-outer {
+    background-color: rgba(255,255,255,.95) !important;
+    border-radius: 0px !important;
+    border: none !important;
+    margin-top: 5px !important;
+    box-shadow: 5px 5px 0px rgba(148,0,211,.1) !important;
+    border-top: 0px !important;
+}
+
+.Search .Select-value {
+    font-size: 1em !important;
+    margin: 0 !important;
+    color: white !important;
+    border: 0px !important;
+    border-radius: 25px !important;
+    padding: 2px 8px !important;
+    background-color: $colorSearch !important;
+    vertical-align: middle !important;
+    margin-right: 5px !important;
+    box-shadow: 0px 0px 0px rgba(0,0,0,.5);
+}
+
+
+.Select-value-icon {
+    border: 0px !important;
+    padding: 0px !important;
+    opacity: .8 !important;
+    cursor: pointer;
+}
+
+.Select-value-icon:hover {
+    opacity: 1 !important;
+}
+
+.Select-clear-zone, .Select-arrow-zone {
+    color: dimgray !important
 }

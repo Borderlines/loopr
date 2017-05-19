@@ -33,9 +33,14 @@ function NavPlayer({
         <div className="NavPlayer">
             <div className="NavPlayer__banner">
                 <div className="NavPlayer__item">
+                    <div className="NavPlayer__title">
                     <a onClick={() => {openShow(currentShow)}}>
                         {get(currentItem, 'title')}
                     </a>
+                    </div>
+                    <div className="ListItem__actions">
+                            <a><i className="material-icons">add</i></a>
+                    </div>
                 </div>
                 <div className="NavPlayer__show">
                     <a onClick={() => {openShow(currentShow)}}>

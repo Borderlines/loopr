@@ -2,6 +2,11 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
+    font-family: $secondaryFont;
+    @media (min-width: $screen-sm) {
+        flex-wrap: nowrap;
+    }
 }
 .Suggestions__item {
     flex-grow: 1;
@@ -9,15 +14,22 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    position: relative;
-    background-image: url('https://media1.giphy.com/media/mqd0IiCu4iBVK/giphy.gif');
-    background-position: center center;
-    background-size: cover;
+    padding: 25px 50px;
+    height: auto;
+    text-align: center;
     background-blend-mode: multiply;
-    background-color: rgba(0,0,255,1);
-    padding: 50px;
+    background-image: url('https://media.giphy.com/media/dNCZp9aaDHPi0/giphy.gif'),
+    url('https://media.giphy.com/media/l0HlFvKI2icLus7w4/giphy.gif'),
+    linear-gradient(to right, rgba($colorSearch,.5), white);
+    background-position: center center, center center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover, contain;
+    background-color: rgba($colorSearch,.5);
     transition-property: all;
-    transition-duration: 0.3s;
+    transition-duration: 0.8s;
+    @media (min-width: $screen-md) {
+        padding: 20vh 50px;
+    }
 
     & > a, a:active {
             font-size: 2rem;
@@ -26,11 +38,18 @@
         }
     & > a:hover{
             color: white;
-            border-bottom: 1px dotted rgba(255,255,255,1);
             text-decoration: none;
         }
 }
 
 .Suggestions__item:hover {
-    background-color: rgba(0,0,255,0);
+    background-color: rgba(0,0,255,1);
+    transition-property: all;
+    transition-duration: 0.4s;
+}
+
+
+.Suggestions__item .material-icons {
+    font-size: 1em;
+    margin-bottom: 5px;
 }

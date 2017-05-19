@@ -3,9 +3,10 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     background-color: $body-bg;
     display: flex;
     width: 100%;
-    border-bottom: 1px dotted $colorItem;
+    //border-bottom: 1px dotted $colorItem;
     align-items: center;
     height: $ITEM_HEIGHT;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.1);
 }
 
 .ListItem--User {
@@ -36,6 +37,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem--Track
     .ListItem__title {
     color: $colorItem;
+    cursor: default;
 }
 
 
@@ -45,6 +47,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     color: $colorShow;
     font-size: 1.2rem; /* MEDIUM LARGE SCREENS */
     margin-bottom: .25rem;
+    cursor: ne-resize;
 }
 .ListItem--Show {}
 
@@ -59,18 +62,25 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem__preview {
     align-self: stretch;
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
     flex-shrink: 0;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     position: relative;
     width: 7rem;
-    background-position: center;
+    background-position: center center;
     background-size: cover;
+    transition-property: all;
+    transition-duration: .1s;
+    transition-timing-function: ease-in-out;
+    padding: 0px 20px;
+
+
     i {
         color: white;
         text-align: center;
         z-index: 1;
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
     &:after {
         content: '';
@@ -81,14 +91,21 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
         left: 0;
     }
 }
+.ListItem__preview:hover {
+    width: 11rem;
+    transition-property: all;
+    transition-duration: .1s;
+    transition-timing-function: ease-in-out;
+}
+
 .ListItem--Show .ListItem__preview:after {
-    background-color: rgba($colorShow, .3);
+    background-color: rgba(black,.1 );
 }
 .ListItem--Track .ListItem__preview:after {
-    background-color: rgba($colorItem, .3);
+    background-color: rgba(black,.1 );
 }
 .ListItem--isPlaying .ListItem__preview:after {
-    background-color: rgba($colorPlaying, .3);
+    background-color: rgba($colorPlaying, .2);
 }
 
 .ListItem--User .ListItem__illuBox {
@@ -119,10 +136,18 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem--isPlaying .ListItem__title {
     color: $colorPlaying;
     font-size: 1.4rem;
+}
+
+.ListItem--isPlaying .ListItem__preview {
+
     &:before {
-            content: 'play_arrow';
+            content: 'pause';
             font-family: 'Material Icons';
             vertical-align: middle;
             align-self: center;
         }
+}
+
+.ListItem--isPlaying .ListItem__preview {
+    width: 12rem;
 }

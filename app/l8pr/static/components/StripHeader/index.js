@@ -7,7 +7,7 @@ function StripHeader({ children, title, back, handleBack }) {
     return (
         <div className="StripHeader">
             {back &&
-                <i onClick={handleBack} className="material-icons">close</i>
+                    <i onClick={handleBack} className="material-icons">call_received</i>
             }
             <div className="StripHeader__title">{title}</div>
             {children}

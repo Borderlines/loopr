@@ -4,6 +4,11 @@
     display: flex; /* 3 next lines, mobile or not*/
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    @media (min-width: $screen-md) {
+        flex-wrap: nowrap;
+
+    }
 }
 
 .NavPlayer__banner {
@@ -24,11 +29,30 @@
 }
 
 .NavPlayer__item {
-    font-size: 1rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: flex;
+    margin-right: 10px;
 }
+
+.NavPlayer__title {
+    font-size: 1rem;
+    margin-right: 10px;
+    @media (min-width: $screen-sm) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.NavPlayer .ListItem__actions a {
+    text-decoration: none;
+}
+
+.NavPlayer .ListItem__actions a:hover {
+    text-decoration: none;
+    color: black;
+    border: 0px;
+}
+
 .NavPlayer__show a {
     font-size: .8rem;
     font-family: $secondaryFont;
@@ -38,10 +62,17 @@
 
 .NavPlayer__controllers {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     letter-spacing: 0.5rem;
     white-space: nowrap;
+    flex-grow: 1;
+    @media (max-width: $screen-sm) {
+        padding: 15px 0px;
+        justify-content: space-between;
+    }
 }
+
+
 
 .NavPlayer__buttons {
     margin-left: 25px;
@@ -51,9 +82,12 @@
     margin-left: 50px;
 }
 
+
+
 .NavPlayer__buttons a, .NavPlayer__buttons a:active {
     color: purple;
     padding-left: 5px;
+
 }
 
 .NavPlayer__buttons a:hover {
