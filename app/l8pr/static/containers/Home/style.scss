@@ -7,6 +7,9 @@
     font-family: $primaryFont;
     overflow: hidden;
     font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .material-icons {

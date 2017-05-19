@@ -11,9 +11,9 @@ export default class Screen extends React.Component {
     render() {
         const { SCIllu, ...props } = this.props
         return (
-            <div>
+            <div className="Screen">
                 <ReactPlayer
-                    className="Screen"
+                    className="ReactPlayer"
                     ref="reactPlayer"
                     {...props}
                     width="100%"
