@@ -15,14 +15,11 @@
     background-position: center center, center center, center right;
     background-repeat: no-repeat, no-repeat, no-repeat;
     background-image: url('https://media.giphy.com/media/DoTWimiFQMbba/giphy.gif'),
-    url('https://media.giphy.com/media/3otPomMPcv4SWRb3fq/giphy.gif'), //loop 01
-    url('https://media.giphy.com/media/8GPF36Gc9UKuQ/giphy.gif'); // cool
-
-    // url('https://media.giphy.com/media/nP7KzbIynMPVS/giphy.gif'), //loop 02
-    // url('https://media.giphy.com/media/H5oYjMd1uqvm0/giphy.gif'), //loop 03
-    // url('https://media.giphy.com/media/l46CA5eAtDMx4wiS4/giphy.gif'), //vortex
-    // url('https://media.giphy.com/media/IQjbS7v9eYivm/giphy.gif'), // dwi 01
-    // url('https://media.giphy.com/media/H7F0zSaC9ZHZC/giphy.gif'), // rainbow
+    url('https://media.giphy.com/media/3otPomMPcv4SWRb3fq/giphy.gif'),
+    url('https://media.giphy.com/media/8GPF36Gc9UKuQ/giphy.gif'); 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .material-icons {

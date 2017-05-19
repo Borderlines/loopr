@@ -1,11 +1,8 @@
 .Strip {
-    position: absolute;
-    bottom: $stripMargin;
-    left:   $stripMargin;
-    right:  $stripMargin;
     transition: opacity .2s ease;
     opacity: 1;
-    @media (min-width: $screen-sm) {
+    @media (min-width: $screen-md) {
+        position: absolute;
         bottom: $stripMargin--Desktop;
         left:   $stripMargin--Desktop;
         right:  $stripMargin--Desktop;
