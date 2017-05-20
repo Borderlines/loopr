@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Progressbar } from '../../components'
+import { Progressbar } from '../index'
 import { NavPlayer, Browser } from '../index'
 import './style.scss'
 import classNames from 'classnames'

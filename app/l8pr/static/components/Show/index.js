@@ -5,7 +5,7 @@ import './style.scss'
 import * as player from '../../actions/player'
 import * as modal from '../../actions/modal'
 import 'react-select/dist/react-select.css'
-import { ListItem, StripHeader, ResultsCounter } from '../../components'
+import { ListItem, StripHeader, ResultsCounter } from '../index'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
 

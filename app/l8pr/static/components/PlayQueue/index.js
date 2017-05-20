@@ -1,5 +1,5 @@
 import React from 'react'
-import { ContextsList, StripHeader } from '../../components'
+import { ContextsList, StripHeader } from '../index'
 import { connect } from 'react-redux'
 import * as selectors from '../../selectors'
 import './style.scss'

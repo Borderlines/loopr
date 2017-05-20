@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Screen } from '../../components'
+import { Screen } from '../index'
 import { Strip, ModalsContainer } from '../index'
 import { play, pause, next } from '../../actions/player'
 import { SOUNDCLOUD_API } from '../../utils/config'

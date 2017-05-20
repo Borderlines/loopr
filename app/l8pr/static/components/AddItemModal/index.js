@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { QuickAddShow } from '../../components'
+import { QuickAddShow } from '../QuickAddShow'
 import { connect } from 'react-redux'
 import * as auth from '../../actions/auth'
 import * as modal from '../../actions/modal'

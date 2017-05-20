@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListItem } from '../../components'
+import { ListItem } from '../index'
 import { AutoSizer, List } from 'react-virtualized'
 import './style.scss'
 

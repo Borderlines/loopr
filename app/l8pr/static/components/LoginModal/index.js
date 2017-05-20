@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { LoginView } from '../../containers'
+import { LoginView } from '../index'
 
 function LoginModal({ handleHide }) {
     var form = null

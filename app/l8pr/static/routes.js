@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import App from './app'
-import { HomeView, LoginView, NotFoundView } from './containers'
+import { HomeView, LoginView, NotFoundView } from './components'
 import requireAuthentication from './utils/requireAuthentication'
 
 export default(
