@@ -46,13 +46,8 @@ class Search extends React.Component {
                 onPlayShowClick={onPlayShowClick}
                 onAddClick={onAddClick}
                 isPlaying={currentTrack.url === item.url || get(currentShow, 'id') === item.id}
-                style={style}
-            />
+                style={style} />
         )
-    }
-
-    cellRenderer({ cellData }) {
-        return (<img src={cellData}/>)
     }
 
     render() {
