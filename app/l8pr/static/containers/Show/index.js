@@ -21,7 +21,7 @@ class Show extends React.Component {
                         <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
                             <i className="material-icons">playlist_play</i>
                         </a>
-                        <i className="material-icons">play_arrow</i>
+                        <a><i className="material-icons">play_arrow</i></a>
                     </div>
                     <div className="ListItem--Show ListItem__body">
                         <div className="ListItem__title">{show.title}</div>

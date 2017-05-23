@@ -24,11 +24,16 @@
     color: white;
 }
 
+.Show .ResultsCounter {
+    padding: 0px;
+    background-color: transparent;
+    font-weight: 100;
+    color: black;
+}
 
 .cover .ListItem__title {
     font-size: 1rem;
     cursor: default;
-    color: $colorShow;
     @media (min-width: $screen-sm) {
         font-size: 1.4rem;
     }
@@ -51,20 +56,21 @@
 }
 
 .cover .ListItem__preview--show  {
-    background-blend-mode: darken;
-    background-image: url('https://media.giphy.com/media/O39iJzAeBfuNi/giphy.gif');
-    background-size: cover;
-    background-color: $colorShow;
     display: flex;
-    color: white;
     align-items: center;
     justify-content: flex-start;
     align-self: stretch;
-    padding: 0px 20px;
-    @media (min-width: $screen-md) {
-        font-size: 3rem;
-    }
+    padding: 0px 0px 0px 20px;
 }
+
+.cover .ListItem__preview--show a {
+    color: black;
+}
+
+.cover .ListItem__preview--show a:hover {
+    color: $colorPlaying;
+}
+
 
 
 .cover .ListItem__body {
