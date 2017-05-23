@@ -2,9 +2,9 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    font-family: $secondaryFont;
-    @media (min-width: $screen-sm) {
-        flex-wrap: nowrap;
+    overflow: scroll;
+    @media (min-width: $screen-md) {
+        flex-wrap: wrap;
     }
 }
 .Suggestions__item {
@@ -13,42 +13,97 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: 25px 50px;
-    height: auto;
     text-align: center;
     background-blend-mode: multiply;
-    background-image: url('https://media.giphy.com/media/dNCZp9aaDHPi0/giphy.gif'),
-    url('https://media.giphy.com/media/l0HlFvKI2icLus7w4/giphy.gif'),
-    linear-gradient(to right, rgba($colorSearch,.5), white);
     background-position: center center, center center;
     background-repeat: no-repeat, no-repeat;
     background-size: cover, contain;
-    background-color: rgba($colorSearch,.5);
+    color: $colorSearch;
     transition-property: all;
     transition-duration: 0.8s;
+    padding: 5vh 10vh;
     @media (min-width: $screen-md) {
-        padding: 20vh 50px;
+        padding: 5vh 10vh;
     }
 
-    & > a, a:active {
-            font-size: 2rem;
-            color: white;
-            border-bottom: 1px dotted rgba(255,255,255,0);
-        }
-    & > a:hover{
-            color: white;
-            text-decoration: none;
-        }
 }
+.Suggestions__item .material-icons {
+    font-size: 2em;
+
+}
+.Suggestions--user {
+    background-image: url('https://media.giphy.com/media/dNCZp9aaDHPi0/giphy.gif');
+    background-color: rgba($colorItem,1);
+    background-size: cover;
+    color: $colorItem;
+    padding: 10vh 15vh 10vh 5vh;
+    text-align: left;
+}
+.Suggestions--inbox {
+    background-color: rgba($colorItem,1);
+    background-image: url('https://media.giphy.com/media/l0Hluv3yV9QRirYc0/giphy.gif'),
+    url('https://media.giphy.com/media/5p0gqZaNK0Oac/giphy.gif');
+    color: $colorItem;
+
+}
+
+.Suggestions--favUsers {
+    background-color: rgba($colorItem,1);
+    background-image: url('https://media.giphy.com/media/3otPomMPcv4SWRb3fq/giphy.gif'),
+    url('https://media.giphy.com/media/l0IyibjK3TeTzpa5q/giphy.gif');
+    background-position: center center, bottom center;
+    color: $colorItem;
+
+}
+
+.Suggestions--selectaDocu {
+    background-color: rgba($colorSearch,.5);
+    background-image: url('https://media.giphy.com/media/xiYsBnEYwhhy8/giphy.gif'),
+    url('https://media.giphy.com/media/l41Ys8cBPbB6xANu8/giphy.gif');
+    flex-shrink: 1;
+
+}
+
+.Suggestions--selectaHiphop {
+    background-color: rgba($colorSearch,.5);
+    background-image: url('https://media.giphy.com/media/O39iJzAeBfuNi/giphy.gif'),
+    url('https://media.giphy.com/media/AFDqPWkMgLSvu/giphy.gif');
+    flex-shrink: 1;
+
+}
+
 
 .Suggestions__item:hover {
-    background-color: rgba(0,0,255,1);
-    transition-property: all;
-    transition-duration: 0.4s;
+    color: white;
+    background-color: rgba($colorSearch,1);
 }
 
+.suggestion__title {
+    margin: 5px 0px;
+    & > a, a:active {
+            letter-spacing: .05em;
+            line-height: 1.2em;
+            color: white;
+        }
 
-.Suggestions__item .material-icons {
-    font-size: 1em;
-    margin-bottom: 5px;
+    & > a:hover {
+            color: white;
+            text-decoration: none;
+            font-weight: bolder;
+        }
+}
+
+.Suggestions--user .suggestion__title,
+.Suggestions--favUsers .suggestion__title,
+.Suggestions--inbox .suggestion__title {
+    & > a, a:active, a:hover {
+        font-size: 1.8rem;
+        }
+}
+
+.Suggestions--user .suggestion__title {
+    & > a, a:active, a:hover {
+        font-size: 2.4rem;
+        font-family: $secondaryFont;
+    }
 }

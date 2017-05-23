@@ -1,5 +1,8 @@
 .Progressbar, .Progressbar__progress, .Progressbar__loaded {
     height: 5px;
+    transition-property: all;
+    transition-duration: .1s;
+    transition-delay: .2s;
 }
 
 .Progressbar:hover {
