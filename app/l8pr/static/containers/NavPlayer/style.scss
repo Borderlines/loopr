@@ -35,12 +35,16 @@
 
 .NavPlayer__title {
     font-size: 1rem;
-    margin-right: 10px;
+    margin-right: 20px;
     @media (min-width: $screen-sm) {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+}
+
+.NavPlayer .ListItem__actions {
+    display: flex;
 }
 
 .NavPlayer .ListItem__actions a {
@@ -65,9 +69,9 @@
     justify-content: flex-end;
     letter-spacing: 0.5rem;
     white-space: nowrap;
-    flex-grow: 1;
-    @media (max-width: $screen-sm) {
-        padding: 15px 0px;
+    @media (max-width: $screen-md) {
+        flex-grow: 1;
+        padding: 30px 0px 40px 0px;
         justify-content: space-between;
     }
 }
@@ -75,19 +79,29 @@
 
 
 .NavPlayer__buttons {
-    margin-left: 25px;
+    margin-left: 40px;
+    display: flex;
+    align-items: flex-start;
 }
 
-.NavPlayer__mainNav {
-    margin-left: 50px;
+.NavPlayer__buttons:first-child {
+    margin-left: 0px;
+    @media (min-width: $screen-sm) {
+        margin-left: 40px;
+    }
 }
 
-
+.NavPlayer__buttons .gapAfter {
+    padding-right: 15px;
+}
 
 .NavPlayer__buttons a, .NavPlayer__buttons a:active {
     color: purple;
     padding-left: 5px;
+}
 
+.NavPlayer__buttons a:first-child , .NavPlayer__buttons a:active:first-child {
+    padding-left: 0px;
 }
 
 .NavPlayer__buttons a:hover {
@@ -95,10 +109,15 @@
 }
 
 
-.NavPlayer__buttons .active {
-    color: $text-color-bright;
+.NavPlayer__mainNav .button {
+    margin-left: 10px;
 }
 
-.NavPlayer__buttons:first-child {
-    margin-left: 0px;
+
+.NavPlayer__mainNav .active {
+    text-shadow: 0px 0px 15px rgba(purple,.8);
+}
+
+.NavPlayer__buttons .active {
+    color: $text-color-bright;
 }

@@ -39,7 +39,12 @@ function NavPlayer({
                     </a>
                     </div>
                     <div className="ListItem__actions">
+                        <div className="button">
+                            <a><i className="fa fa-youtube-play" aria-hidden="true"/></a>
+                        </div>
+                        <div className="button">
                             <a><i className="material-icons">add</i></a>
+                        </div>
                     </div>
                 </div>
                 <div className="NavPlayer__show">
@@ -50,6 +55,27 @@ function NavPlayer({
             </div>
             <div className="NavPlayer__controllers">
                 <div className="NavPlayer__buttons">
+                    <a onClick={onPreviousContext} title="Previous Show">
+                        <i className="material-icons">first_page</i>
+                    </a>
+                    <a onClick={onPreviousItem} title="Previous Item">
+                        <i className="material-icons">chevron_left</i>
+                    </a>
+                    {playing &&
+                        <a className="active" onClick={onPause} title="Play/Pause">
+                            <i className="material-icons">pause</i>
+                        </a>
+                    ||
+                        <a className="active" onClick={onPlay} title="Play/Pause">
+                            <i className="material-icons">play_arrow</i>
+                        </a>
+                    }
+                    <a onClick={onNextItem} title="Next Item">
+                        <i className="material-icons">chevron_right</i>
+                    </a>
+                    <a className="gapAfter" onClick={onNextContext} title="Next Show">
+                        <i className="material-icons">last_page</i>
+                    </a>
                     {muted &&
                         <a onClick={onUnmute} title="Mute on/off">
                             <i className="material-icons">volume_off</i>
@@ -60,32 +86,10 @@ function NavPlayer({
                         </a>
                     }
                     <a title="Visual">
-                        <i className="material-icons">photo_size_select_actual</i>
+                        <i className="material-icons">burst_mode</i>
                     </a>
                 </div>
-                <div className="NavPlayer__buttons">
-                    <a onClick={onPreviousContext} title="Previous Show">
-                        <i className="material-icons">first_page</i>
-                    </a>
-                    <a onClick={onPreviousItem} title="Previous Item">
-                        <i className="material-icons">chevron_left</i>
-                    </a>
-                    {playing &&
-                        <a onClick={onPause} title="Play/Pause">
-                            <i className="material-icons">pause</i>
-                        </a>
-                    ||
-                        <a onClick={onPlay} title="Play/Pause">
-                            <i className="material-icons">play_arrow</i>
-                        </a>
-                    }
-                    <a onClick={onNextItem} title="Next Item">
-                        <i className="material-icons">chevron_right</i>
-                    </a>
-                    <a onClick={onNextContext} title="Next Show">
-                        <i className="material-icons">last_page</i>
-                    </a>
-                </div>
+
                 <div className="NavPlayer__buttons">
                     <a onClick={toggleFixedStrip} title="Always Keep Strip">
                         <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
@@ -96,22 +100,28 @@ function NavPlayer({
                         <i className="material-icons">more_vert</i>
                     </a>
                 </div>
-                <div className="NavPlayer__buttons NavPlayer__mainNav">
-                    <a title="Queue List" onClick={showQueuelist}>
-                        <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
-                            playlist_play
-                        </i>
-                    </a>
-                    <a title="Search" onClick={handleSearch}>
-                        <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
-                            search
-                        </i>
-                    </a>
-                    <a title="Login" onClick={handleLogin}>
-                        <i className="material-icons" title="Login">
-                            account_circle
-                        </i>
-                    </a>
+                <div className="NavPlayer__buttons NavPlayer__mainNav ">
+                    <div className="button">
+                        <a title="Queue List" onClick={showQueuelist}>
+                            <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
+                                playlist_play
+                            </i>
+                        </a>
+                    </div>
+                    <div className="button">
+                        <a title="Search" onClick={handleSearch}>
+                            <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
+                                search
+                            </i>
+                        </a>
+                    </div>
+                    <div className="button">
+                        <a title="Login" onClick={handleLogin}>
+                            <i className="material-icons" title="Login">
+                                account_circle
+                            </i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
