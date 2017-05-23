@@ -7,10 +7,10 @@
 }
 .Show .StripHeader {
     background-color: rgba(white,0);
-    padding: 10px;
+    padding: 12px 5px;
     //color: white;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     cursor: pointer;
     align-items: center;
 }
@@ -51,8 +51,11 @@
     box-shadow: 0px 0px 50px rgba(black,.2);
     z-index: 999;
     display: flex;
-    min-height: 16vh;
-    align-items: flex-start;
+    min-height: 12vh;
+    align-items: center;
+    @media (min-width: $screen-sm) {
+        min-height: 14vh;
+    }
 }
 
 .cover .ListItem__preview--show  {
@@ -75,5 +78,8 @@
 
 .cover .ListItem__body {
     flex-grow: 1;
-    padding: 30px;
+    padding: 5px 20px;
+    @media (min-width: $screen-sm) {
+        padding: 15px 20px;
+    }
 }
