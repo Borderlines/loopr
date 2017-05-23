@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    overflow: scroll;
+    overflow-y: scroll;
     @media (min-width: $screen-md) {
         flex-wrap: wrap;
     }

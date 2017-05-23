@@ -7,35 +7,35 @@ const suggestions = [
     {
         title: 'ben',
         keywords: ['@ben'],
-        type: 'your collection',
+        description: 'your collection',
         style: "Suggestions__item Suggestions--user",
         icon: '',
     },
     {
         title: 'your inbox',
         keywords: ['#my-last-tracks'],
-        type: '10 latest Media',
+        description: '10 latest Media',
         style: "Suggestions__item Suggestions--inbox",
         icon: 'move_to_inbox',
     },
     {
         title: 'your favorites',
         keywords: ['@vied12','@hejorama','@Lukas'],
-        type: 'users you follow',
+        description: 'users you follow',
         style: "Suggestions__item Suggestions--favUsers",
         icon: 'bookmark_border',
     },
     {
         title: 'all your Hip Hop',
         keywords: ['@ben hip hop'],
-        type: 'Thema Selecta',
+        description: 'Thema Selecta',
         style: "Suggestions__item Suggestions--selectaHiphop",
         icon: 'mic',
     },
     {
         title: 'documentaries',
         keywords: ['#docu'],
-        type: 'Thema Selecta',
+        description: 'Thema Selecta',
         style: "Suggestions__item Suggestions--selectaDocu",
         icon: 'pets',
     },
@@ -52,7 +52,7 @@ function Suggestions({ onSearch }) {
                 <div>
                     <div><i className="material-icons">{s.icon}</i></div>
                     <div className="suggestion__title"><a>{s.title}</a></div>
-                    <div>{s.type}</div>
+                    <div>{s.description}</div>
                     </div>
                 </div>
             ))}
