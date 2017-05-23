@@ -1,28 +1,73 @@
 .Show {
-    display: flex;
+    //display: flex;
 }
 
 .Show__body {
     overflow: auto;
 }
-
 .Show .StripHeader {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    text-align: right;
+    background-color: rgba(white,0);
+    padding: 20px 10px;
+    //color: white;
+    display: flex;
+    justify-content: flex-start;
+    cursor: pointer;
+    align-items: center;
 }
 
-.cover .StripHeader {
-    display: block;
-    padding: 0px;
+.Show .StripHeader .title {
+    margin: 0px;
 }
 
-.cover .ListItem__body {
-    padding: 20px;
+.Show .StripHeader:hover {
+    background-color: $colorSearch;
+    color: white;
 }
+
 
 .cover .ListItem__title {
-    font-size: 1.4rem;
+    font-size: 1rem;
     cursor: default;
+    color: $colorShow;
+    @media (min-width: $screen-sm) {
+        font-size: 1.4rem;
+    }
+}
+
+.cover .ListItem__details {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.cover .ListItem__details div {
+    margin-right: 10px;
+}
+
+.cover {
+    box-shadow: 0px 0px 50px rgba(black,.2);
+    z-index: 999;
+    display: flex;
+    min-height: 16vh;
+    align-items: flex-start;
+}
+
+.cover .ListItem__preview--show  {
+    background-blend-mode: darken;
+    background-image: url('https://media.giphy.com/media/O39iJzAeBfuNi/giphy.gif');
+    background-size: cover;
+    background-color: $colorShow;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    padding: 0px 20px;
+    @media (min-width: $screen-md) {
+        font-size: 3rem;
+    }
+}
+
+
+.cover .ListItem__body {
+    flex-grow: 1;
+    padding: 30px;
 }
