@@ -15,7 +15,7 @@ class Show extends React.Component {
         const { className, show, onPlayClick, onAddClick, currentTrack } = this.props
         return (
             <div className={classNames('Show', className)}>
-                <StripHeader title="back" className="StripHeader" back={true}/>
+                <StripHeader back={true}/>
                 <div className="cover">
                     <div className="ListItem__preview--show">
                         <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>

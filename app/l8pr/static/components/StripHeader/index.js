@@ -11,6 +11,7 @@ function StripHeader({ children, title, back, handleBack }) {
             }
             <div className="StripHeader__title">{title}</div>
             {children}
+            {back && <div>back</div>}
         </div>
     )
 }
