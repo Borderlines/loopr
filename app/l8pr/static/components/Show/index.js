@@ -15,20 +15,25 @@ class Show extends React.Component {
         const { className, show, onPlayClick, onAddClick, currentTrack } = this.props
         return (
             <div className={classNames('Show', className)}>
+                <StripHeader title="back" className="StripHeader" back={true}/>
                 <div className="cover">
-                    <StripHeader back={true}/>
+                    <div className="ListItem__preview--show">
+                        <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
+                            <i className="material-icons">playlist_play</i>
+                        </a>
+                        <a><i className="material-icons">play_arrow</i></a>
+                    </div>
                     <div className="ListItem--Show ListItem__body">
                         <div className="ListItem__title">{show.title}</div>
                         <div className="ListItem__details">
-                            <span>Vied12</span>
-                            <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
-                                <i className="material-icons">playlist_play</i>
-                            </a>
+                            <div>Vied12</div>
+                            <ResultsCounter results={show.items}/>
+                            <div><i className="material-icons">bookmark_outline</i></div>
+                            <div><i className="material-icons">share</i></div>
                         </div>
                     </div>
                 </div>
 
-                <ResultsCounter results={show.items}/>
                 <div className="Show__body">
                     {show.items.map((item) => (
                         <ListItem

@@ -27,7 +27,7 @@ const suggestions = [
     },
     {
         title: 'all your Hip Hop',
-        keywords: ['@ben hip hop'],
+        keywords: ['@ben','hip hop'],
         description: 'Thema Selecta',
         style: "Suggestions__item Suggestions--selectaHiphop",
         icon: 'mic',

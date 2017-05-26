@@ -1,11 +1,10 @@
 .ResultsCounter {
     display: flex;
-    flex-shrink: 0;
     background-color: $colorSearch;
     padding: 10px 20px;
     color: white;
     font-weight: 100;
 }
 .ResultsCounter__counter {
-    margin-right: 1rem;
+    margin-right: 10px;
 }

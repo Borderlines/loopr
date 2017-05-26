@@ -25,7 +25,7 @@
 .NavPlayer__banner a:hover {
     color: $text-color-bright;
     text-decoration: none;
-    border-bottom: 1px dotted rgba(255,255,255,.5);
+    font-weight: bolder;
 }
 
 .NavPlayer__item {
@@ -71,7 +71,7 @@
     white-space: nowrap;
     @media (max-width: $screen-md) {
         flex-grow: 1;
-        padding: 30px 0px 40px 0px;
+        padding: 10px 0px 20px 0px;
         justify-content: space-between;
     }
 }

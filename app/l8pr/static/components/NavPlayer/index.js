@@ -40,9 +40,6 @@ function NavPlayer({
                     </div>
                     <div className="ListItem__actions">
                         <div className="button">
-                            <a><i className="fa fa-youtube-play" aria-hidden="true"/></a>
-                        </div>
-                        <div className="button">
                             <a><i className="material-icons">add</i></a>
                         </div>
                     </div>

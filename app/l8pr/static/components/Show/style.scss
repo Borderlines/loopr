@@ -1,28 +1,85 @@
 .Show {
-    display: flex;
+    //display: flex;
 }
 
 .Show__body {
     overflow: auto;
 }
-
 .Show .StripHeader {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    text-align: right;
+    background-color: rgba(white,0);
+    padding: 12px 5px;
+    //color: white;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    align-items: center;
 }
 
-.cover .StripHeader {
-    display: block;
+.Show .StripHeader .title {
+    margin: 0px;
+}
+
+.Show .StripHeader:hover {
+    background-color: $colorSearch;
+    color: white;
+}
+
+.Show .ResultsCounter {
     padding: 0px;
-}
-
-.cover .ListItem__body {
-    padding: 20px;
+    background-color: transparent;
+    font-weight: 100;
+    color: black;
 }
 
 .cover .ListItem__title {
-    font-size: 1.4rem;
+    font-size: 1rem;
     cursor: default;
+    @media (min-width: $screen-sm) {
+        font-size: 1.4rem;
+    }
+}
+
+.cover .ListItem__details {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.cover .ListItem__details div {
+    margin-right: 10px;
+}
+
+.cover {
+    box-shadow: 0px 0px 50px rgba(black,.2);
+    z-index: 999;
+    display: flex;
+    min-height: 12vh;
+    align-items: center;
+    @media (min-width: $screen-sm) {
+        min-height: 14vh;
+    }
+}
+
+.cover .ListItem__preview--show  {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    padding: 0px 0px 0px 20px;
+}
+
+.cover .ListItem__preview--show a {
+    color: black;
+}
+
+.cover .ListItem__preview--show a:hover {
+    color: $colorPlaying;
+}
+
+
+
+.cover .ListItem__body {
+    flex-grow: 1;
+    padding: 5px 20px;
+    @media (min-width: $screen-sm) {
+        padding: 15px 20px;
+    }
 }
