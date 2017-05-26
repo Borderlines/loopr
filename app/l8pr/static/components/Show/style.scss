@@ -1,14 +1,9 @@
-.Show {
-    //display: flex;
-}
-
 .Show__body {
     overflow: auto;
 }
 .Show .StripHeader {
     background-color: rgba(white,0);
     padding: 12px 5px;
-    //color: white;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
@@ -31,7 +26,7 @@
     color: black;
 }
 
-.cover .ListItem__title {
+.Show .cover .ListItem__title {
     font-size: 1rem;
     cursor: default;
     @media (min-width: $screen-sm) {
@@ -39,15 +34,15 @@
     }
 }
 
-.cover .ListItem__details {
+.Show .cover .ListItem__details {
     display: flex;
     flex-wrap: nowrap;
 }
-.cover .ListItem__details div {
+.Show .cover .ListItem__details div {
     margin-right: 10px;
 }
 
-.cover {
+.Show .cover {
     box-shadow: 0px 0px 50px rgba(black,.2);
     z-index: 999;
     display: flex;
@@ -58,7 +53,7 @@
     }
 }
 
-.cover .ListItem__preview--show  {
+.Show .cover .ListItem__preview--show  {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -66,17 +61,17 @@
     padding: 0px 0px 0px 20px;
 }
 
-.cover .ListItem__preview--show a {
+.Show .cover .ListItem__preview--show a {
     color: black;
 }
 
-.cover .ListItem__preview--show a:hover {
+.Show .cover .ListItem__preview--show a:hover {
     color: $colorPlaying;
 }
 
 
 
-.cover .ListItem__body {
+.Show .cover .ListItem__body {
     flex-grow: 1;
     padding: 5px 20px;
     @media (min-width: $screen-sm) {
