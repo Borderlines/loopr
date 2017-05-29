@@ -42,6 +42,10 @@ export default createReducer(initialState, {
             statusText: null,
         })
     },
+    'AUTH_UPDATE_USER': (state, payload) => ({
+        ...state,
+        user: payload,
+    }),
     [AUTH_LOGIN_USER_SUCCESS]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticating: false,

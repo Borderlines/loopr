@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship, get_metadata, ShowsRelationship
 from rest_framework import serializers, viewsets, views
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -10,6 +10,7 @@ from drf_haystack.viewsets import HaystackViewSet
 from .search_indexes import ItemIndex, ShowIndex, UserIndex
 from .youtube import youtube_search
 from django.utils import timezone
+from .permissions import IsOwnerOrReadOnly
 
 
 class ItemsField(serializers.Field):
@@ -34,7 +35,19 @@ class ShowSettingsSerializer(serializers.ModelSerializer):
         fields = ('shuffle', 'dj_layout', 'giphy', 'force_giphy', 'giphy_tags', 'hide_strip')
 
 
+class SimpleUserProfileSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='user.id', required=True)
+    username = serializers.CharField(source='user.username', required=True)
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'username',)
+
+
 class ProfileSerializer(serializers.ModelSerializer):
+    follows = SimpleUserProfileSerializer(many=True, required=False, read_only=True)
+    followers = SimpleUserProfileSerializer(many=True, required=False, read_only=True)
+
     class Meta:
         fields = '__all__'
         model = Profile
@@ -124,6 +137,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class LoopSerializer(serializers.ModelSerializer):
     shows_list = serializers.SerializerMethodField()
+    user = UserSerializer()
 
     def get_current_user(self):
         user = None
@@ -157,7 +171,19 @@ class UserViewSet(viewsets.ModelViewSet):
     @list_route(methods=['get'], url_path='me')
     def me(self, request):
         if (request.user.is_anonymous()):
-            return Response('nope', status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
+
+    @detail_route(methods=['post'], permission_classes=[IsOwnerOrReadOnly])
+    def follow(self, request, pk=None):
+        profile = get_object_or_404(Profile, user=pk)
+        request.user.profile.follows.add(profile)
+        return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
+
+    @detail_route(methods=['post'], permission_classes=[IsOwnerOrReadOnly])
+    def unfollow(self, request, pk=None):
+        profile = get_object_or_404(Profile, user=pk)
+        request.user.profile.follows.remove(profile)
         return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
 
 

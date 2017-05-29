@@ -11,6 +11,29 @@ import {
     AUTH_LOGOUT_USER,
 } from '../constants'
 
+
+export function updateUser(user) {
+    return {
+        type: 'AUTH_UPDATE_USER',
+        payload: user,
+    }
+}
+export function follow(userId) {
+    return (dispatch, getState) => {
+        api.follow(getState(), userId)
+        .then((user) => {
+            dispatch(updateUser(user))
+        })
+    }
+}
+export function unfollow(userId) {
+    return (dispatch, getState) => {
+        api.unfollow(getState(), userId)
+        .then((user) => {
+            dispatch(updateUser(user))
+        })
+    }
+}
 export function authLoginUserSuccess(token, user) {
     return (dispatch, getState) => {
         dispatch({
@@ -107,11 +130,14 @@ export function checkToken(token) {
         if (!token) {
             return Promise.resolve(false)
         }
-        return fetch('auth/me/', {
+        return fetch('api/users/me/', {
             method: 'get',
             headers: { Authorization: `Token ${token}` },
         })
         .then(checkHttpStatus)
+        .catch(() => {
+            dispatch(authLogout())
+        })
         .then(parseJSON)
         .then((user) => (
             dispatch(authLoginUserSuccess(token, user))
@@ -133,7 +159,7 @@ export function authLoginUser(email, password, redirect = '/') {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => (
-                fetch('auth/me/', {
+                fetch('api/users/me/', {
                     method: 'get',
                     headers: { Authorization: `Token ${response.auth_token}` },
                 })

@@ -55,6 +55,14 @@ export const show = (state, { id }) => (
     api(state).get(`api/shows/${id}/`)
 )
 
+export const follow = (state, id) => (
+    api(state).post(`api/users/${id}/follow/`)
+)
+
+export const unfollow = (state, id) => (
+    api(state).post(`api/users/${id}/unfollow/`)
+)
+
 export const lastUserItems = (state, { username }) => {
     return fetchLastItems(state, { username })
 }

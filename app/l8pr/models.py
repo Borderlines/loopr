@@ -20,6 +20,10 @@ twitter = Twython(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRE
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     avatar = models.URLField(max_length=500, null=True, blank=True)
+    follows = models.ManyToManyField('Profile', related_name='followers', blank=True)
+
+    def __str__(self):
+        return '%s profile' % self.user.__str__()
 
 
 class Loop(models.Model):
@@ -237,12 +241,14 @@ def completeItem(sender, instance, created, **kwargs):
         if instance.duration:
             instance.save()
 
+
 signals.post_save.connect(completeItem, sender=Item)
 
 
 def create_show_settings(sender, instance, created, **kwargs):
     if created and not getattr(instance, 'settings', None):
         ShowSettings.objects.create(show=instance)
+
 
 signals.post_save.connect(create_show_settings, sender=Show)
 
