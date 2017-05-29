@@ -2,7 +2,14 @@
     flex-grow: 1;
     flex-shrink: 0;
     position: relative;
-
+    background-blend-mode: multiply;
+    background-color: rgba(11,11,11,0);
+    background-size: cover, 20%, 40%;
+    background-position: center center, bottom center, center center;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-image: url('https://media.giphy.com/media/DoTWimiFQMbba/giphy.gif'),
+    url('https://media.giphy.com/media/3otPomMPcv4SWRb3fq/giphy.gif'),
+    url('https://media.giphy.com/media/xUA7b0MuMJxsIiMRr2/giphy.gif');
 }
 .ReactPlayer {
     position: absolute;

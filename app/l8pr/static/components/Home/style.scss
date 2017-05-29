@@ -12,20 +12,6 @@
     justify-content: flex-end;
 }
 
-.Home {
-    // FIXME: we don't need this here in Home.
-    // This overload the app when there is a Screen over it.
-    background-blend-mode: multiply;
-    background-color: rgba(11,11,11,0);
-    background-size: cover, 20%, 40%;
-    background-position: center center, bottom center, center center;
-    background-repeat: no-repeat, no-repeat, no-repeat;
-    background-image: url('https://media.giphy.com/media/DoTWimiFQMbba/giphy.gif'),
-    url('https://media.giphy.com/media/3otPomMPcv4SWRb3fq/giphy.gif'),
-    url('https://media.giphy.com/media/xUA7b0MuMJxsIiMRr2/giphy.gif');
-    //url('https://media.giphy.com/media/8GPF36Gc9UKuQ/giphy.gif');
-}
-
 .material-icons {
     font-size: 16px;
     vertical-align: middle;
