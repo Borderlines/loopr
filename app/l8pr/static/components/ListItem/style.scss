@@ -24,16 +24,19 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem__details {
     margin-right: 10px;
 }
-
 .ListItem__actions {
     white-space: nowrap;
     span {
         margin-right: 5px;
     }
 }
-
-
-
+.ListItem {
+    transition: all .25s;
+    &:hover {
+        .ListItem__actions { opacity: 1}
+    }
+    .ListItem__actions {opacity: 0}
+}
 .ListItem--Track
     .ListItem__title {
     color: $colorItem;
@@ -49,7 +52,6 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     margin-bottom: .25rem;
     cursor: ne-resize;
 }
-.ListItem--Show {}
 
 .ListItem--User
     .ListItem__title {

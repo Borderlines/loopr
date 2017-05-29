@@ -21,6 +21,10 @@ const options = [
         value: '#my-last-tracks',
         label: '#my-last-tracks',
     },
+    {
+        value: '#feed',
+        label: '#feed',
+    },
 ]
 
 class Search extends React.Component {

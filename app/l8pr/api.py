@@ -213,6 +213,22 @@ class ItemViewSet(viewsets.ModelViewSet):
     filter_fields = ('url', 'shows__user__username')
 
 
+class FeedView(viewsets.ReadOnlyModelViewSet):
+    queryset = Item.objects.distinct()
+    serializer_class = ItemSerializer
+    filter_fields = ('__all__')
+
+    def list(self, request):
+        following = [p.user.id for p in request.user.profile.follows.all()]
+        items = Item.objects.filter(shows__user__in=following).order_by('-ItemsRelationship__added')
+        page = self.paginate_queryset(items)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(items, many=True)
+        return Response(serializer.data)
+
+
 class ItemSearchSerializer(HaystackSerializerMixin, ItemSerializer):
     class Meta(ItemSerializer.Meta):
         search_fields = ('text', 'title',)

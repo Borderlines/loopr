@@ -20,6 +20,8 @@ export function search(searchTerms) {
                 // find urls
                 if (s.value.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)) {
                     urls.push(s)
+                } else if (s.value === '#feed') {
+                    preSearch.push(dispatch(data.feed()))
                 } else if (s.value === '#my-last-tracks') {
                     preSearch.push(dispatch(data.lastUserItems({ username: selectors.currentUsername(getState()) })))
                 } else if (s.value.startsWith('@')) {

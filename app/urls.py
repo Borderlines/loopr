@@ -17,19 +17,27 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from .l8pr.api import (UserViewSet, LoopViewSet, ShowViewSet, ItemViewSet, ItemSearchView,
-SearchYoutubeView, MetadataView)
+from .l8pr.api import (
+    UserViewSet,
+    LoopViewSet,
+    ShowViewSet,
+    FeedView,
+    ItemViewSet,
+    ItemSearchView,
+    SearchYoutubeView,
+    MetadataView,
+)
 from .l8pr.views import HomePageView, IndexView
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth import views as auth_views
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'loops', LoopViewSet)
+router.register(r'feed', FeedView)
 router.register(r'shows', ShowViewSet)
 router.register(r'search', ItemSearchView, base_name='item-search')
 router.register(r'items', ItemViewSet)

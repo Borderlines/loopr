@@ -44,6 +44,8 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
                     <span>{item.user.username}</span>
                     <span>{item.items.length} tracks</span>
                     <span>{getDuration(item.items)}</span>
+                </div>
+                <div className="ListItem__actions">
                     <a onClick={(e) => {e.stopPropagation(); onPlayShowClick(item)}}>
                         <i className="material-icons">play_arrow</i>
                     </a>

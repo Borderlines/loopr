@@ -63,6 +63,11 @@ export const unfollow = (state, id) => (
     api(state).post(`api/users/${id}/unfollow/`)
 )
 
+export const feed = (state) => (
+    api(state).get('api/feed/?limit=50')
+    .then((data) => data.results)
+)
+
 export const lastUserItems = (state, { username }) => {
     return fetchLastItems(state, { username })
 }

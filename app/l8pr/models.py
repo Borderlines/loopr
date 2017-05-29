@@ -125,7 +125,7 @@ class Item(models.Model):
         ('Vimeo', 'Vimeo'),
     )
     title = models.CharField(max_length=255, null=True, blank=True)
-    shows = models.ManyToManyField('SHow', through='ItemsRelationship', related_name='ItemsRelationship')
+    shows = models.ManyToManyField('Show', through='ItemsRelationship', related_name='ItemsRelationship')
     description = models.TextField(null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
     thumbnail = models.URLField(max_length=200, null=True, blank=True)

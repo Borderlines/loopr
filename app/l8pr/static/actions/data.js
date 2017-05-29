@@ -5,6 +5,24 @@ export const addShows = (shows) => ({
     payload:shows,
 })
 
+export const feed = () => {
+    const show = {
+        id: 'feed',
+        title: 'feed',
+    }
+    return (dispatch, getState) => (
+        api.feed(getState())
+        .then((items) => {
+            return items.map((i) => (
+                {
+                    ...i,
+                    context: show,
+                }
+            ))
+        })
+    )
+}
+
 export const lastItemsInLoopr = () => {
     return (dispatch, getState) => (
         api.lastItemsInLoopr(getState())
