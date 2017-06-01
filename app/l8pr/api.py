@@ -38,10 +38,11 @@ class ShowSettingsSerializer(serializers.ModelSerializer):
 class SimpleUserProfileSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='user.id', required=True)
     username = serializers.CharField(source='user.username', required=True)
+    loops = serializers.PrimaryKeyRelatedField(source='user.loops', many=True, read_only=True)
 
     class Meta:
         model = Profile
-        fields = ('id', 'username',)
+        fields = ('id', 'username', 'loops')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -53,6 +54,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
 
 
+class SimpleUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
+
+
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
 
@@ -62,9 +69,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ShowNameSerializer(serializers.ModelSerializer):
+    user = SimpleUserSerializer()
+
     class Meta:
         model = Show
-        fields = ('id', 'title')
+        fields = ('id', 'title', 'user', 'show_type')
 
 
 class ShowSerializer(serializers.ModelSerializer):
@@ -128,7 +137,7 @@ class ShowSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     # doesn't work with Youtube search view yet
-    # shows = ShowNameSerializer(many=True, required=False)
+    shows = ShowNameSerializer(many=True, required=False)
 
     class Meta:
         fields = '__all__'
@@ -220,7 +229,9 @@ class FeedView(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request):
         following = [p.user.id for p in request.user.profile.follows.all()]
-        items = Item.objects.filter(shows__user__in=following).order_by('-ItemsRelationship__added')
+        items = Item.objects \
+            .filter(shows__user__in=following, shows__show_type='normal') \
+            .order_by('-ItemsRelationship__updated')
         page = self.paginate_queryset(items)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

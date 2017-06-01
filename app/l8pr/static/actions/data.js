@@ -6,17 +6,16 @@ export const addShows = (shows) => ({
 })
 
 export const feed = () => {
-    const show = {
-        id: 'feed',
-        title: 'feed',
-    }
     return (dispatch, getState) => (
         api.feed(getState())
         .then((items) => {
             return items.map((i) => (
                 {
                     ...i,
-                    context: show,
+                    context: {
+                        id: 'feed',
+                        title: 'feed',
+                    },
                 }
             ))
         })

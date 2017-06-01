@@ -55,12 +55,15 @@ export function browse(browserType, browserProps) {
     }
 }
 
-export function browseShow(showId) {
+export function browseShow(showIdOrObject) {
     return (dispatch, getState) => {
-        if (getState().data.shows[showId]) {
-            return dispatch(browse('SHOW', { show: getState().data.shows[showId] }))
+        if (typeof showIdOrObject === 'object') {
+            return dispatch(browse('SHOW', { show: showIdOrObject }))
+        }
+        if (getState().data.shows[showIdOrObject]) {
+            return dispatch(browse('SHOW', { show: getState().data.shows[showIdOrObject] }))
         } else {
-            return api.show(getState(), { id: showId })
+            return api.show(getState(), { id: showIdOrObject })
             .then(show => {
                 dispatch(data.addShows([show]))
                 dispatch(browse('SHOW', { show }))

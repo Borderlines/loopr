@@ -51,7 +51,7 @@ admin.site.register(ShowsRelationship, ShowsRelationshipAdmin)
 
 
 class ItemsRelationshipAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['item__title', 'show__title', 'item__id', 'show__id']
 
 
 admin.site.register(ItemsRelationship, ItemsRelationshipAdmin)

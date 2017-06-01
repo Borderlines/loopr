@@ -9,7 +9,7 @@ import 'react-select/dist/react-select.css'
 import { ListItem, StripHeader, ResultsCounter } from '../index'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
-
+import { get } from 'lodash'
 
 class Show extends React.Component {
     render() {
@@ -86,8 +86,8 @@ const mapStateToProps = (state) => ({
     show: state.browser.browserProps.show,
     currentTrack: selectors.currentTrack(state),
     isFollowingAuthor: !!selectors.currentUser(state).profile.follows.find(
-        (u) => (u.id === state.browser.browserProps.show.user.id)
-    )
+        (u) => (u.id === get(state, 'browser.browserProps.show.user.id'))
+    ),
 })
 const mapDispatchToProps = (dispatch) => ({
     onAddClick: (item) => dispatch(modal.showModal('ADD_ITEM', { item })),

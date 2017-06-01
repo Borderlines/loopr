@@ -50,6 +50,7 @@ class Search extends React.Component {
                 onPlayShowClick={onPlayShowClick}
                 onAddClick={onAddClick}
                 isPlaying={currentTrack.url === item.url || get(currentShow, 'id') === item.id}
+                displayShows={true}
                 style={style} />
         )
     }
@@ -120,7 +121,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     search: (searchTerms) => dispatch(search.search(searchTerms)),
     onAddClick: (item) => dispatch(modal.showModal('ADD_ITEM', { item })),
-    onShowClick: (show) => dispatch(browser.browse('SHOW', { show })),
+    onShowClick: (show) => dispatch(browser.browseShow(show)),
     onPlayShowClick: (show) => dispatch(player.playItems(
         show.items.map((item) => ({
             ...item,

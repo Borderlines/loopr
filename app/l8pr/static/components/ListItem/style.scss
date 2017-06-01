@@ -125,7 +125,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     min-width: 0;
 }
 
-.ListItem--Track .ListItem__body {
+.ListItem--Track .ListItem__row {
     display: flex;
     align-items: center;
 }

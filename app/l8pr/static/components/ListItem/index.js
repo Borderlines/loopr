@@ -41,8 +41,8 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
             <div className="ListItem__body">
                 <div className="ListItem__title">{item.title}</div>
                 <div className="ListItem__details">
-                    <span>{item.user.username}</span>
-                    <span>{item.items.length} tracks</span>
+                    <span>{item.user.username}</span>&nbsp;
+                    <span>{item.items.length}&nbsp;tracks</span>&nbsp;
                     <span>{getDuration(item.items)}</span>
                 </div>
                 <div className="ListItem__actions">
@@ -55,25 +55,41 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
     )
 }
 
-function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddClick }) {
+function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddClick, onShowClick, displayShows=false }) {
     return (
         <div key={key} className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
             <Preview image={item.thumbnail}/>
             <div className="ListItem__body">
-                <div className="ListItem__title">{item.title}</div>
-                <div className="ListItem__details">{getDuration(item)}</div>
-                <div className="ListItem__actions">
-                    <span className="ListItem__source">
-                        <a href={item.url} target="_blank" onClick={(e) => {e.stopPropagation()}}>
-                            <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
-                        </a>
-                    </span>
-                    <span className="ListItem__add">
-                        <a onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
-                            <i className="material-icons">add</i>
-                        </a>
-                    </span>
+                <div className="ListItem__row">
+                    <div className="ListItem__title">{item.title}</div>
+                    <div className="ListItem__details">{getDuration(item)}</div>
+                    <div className="ListItem__actions">
+                        <span className="ListItem__source">
+                            <a href={item.url} target="_blank" onClick={(e) => {e.stopPropagation()}}>
+                                <i className={`fa fa-${sourceIcones[item.provider_name.toLowerCase()]}`} aria-hidden="true"/>
+                            </a>
+                        </span>
+                        <span className="ListItem__add">
+                            <a onClick={(e) => {e.stopPropagation(); onAddClick(item)}}>
+                                <i className="material-icons">add</i>
+                            </a>
+                        </span>
+                    </div>
                 </div>
+                {displayShows &&
+                    <div className="ListItem__row">
+                        <div className="ListItem__details">
+                            {item.shows.map((s, index, array) => (
+                                <span key={index}>
+                                    <a onClick={() => onShowClick(s.id)} title={s.user.username}>
+                                        {s.title}
+                                    </a>
+                                    {index < array.length - 1 && ', '}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     )
