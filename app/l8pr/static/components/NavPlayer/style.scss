@@ -1,123 +1,42 @@
 .NavPlayer {
-    background-color: $colorPlaying;
-    padding: 10px 25px;
-    display: flex; /* 3 next lines, mobile or not*/
-    align-items: center;
+    display: flex;
     justify-content: space-between;
+    align-items: stretch;
     flex-wrap: wrap;
-    @media (min-width: $screen-md) {
-        flex-wrap: nowrap;
-
-    }
+    max-height: 10vh;
+    overflow: hidden;
+    transition-property: all;
+    transition-duration: .6s;
+    color: dimgray;
 }
 
-.NavPlayer__banner {
-    padding: 5px 0px;
-    color: $text-color-bright;
-    font-size: 1rem;
-    min-width: 0;
-}
+.NavPlayer .spaceAfter { padding-right: 40px; }
 
-.NavPlayer__banner a {
-    color: $text-color-bright;
-}
+.NavPlayer .active { color: deeppink; }
 
-.NavPlayer__banner a:hover {
-    color: $text-color-bright;
-    text-decoration: none;
-    font-weight: bolder;
-}
-
-.NavPlayer__item {
+.NavPlayer__control {
+    align-items: center;
     display: flex;
-    margin-right: 10px;
+    background-image: linear-gradient(rgba(37,37,37,.8),rgba(37,37,37,1),rgba(37,37,37,1));
+    flex-grow: 1;
+    padding: 10px 20px;
+    justify-content: space-between;
 }
-
-.NavPlayer__title {
-    font-size: 1rem;
-    margin-right: 20px;
-    @media (min-width: $screen-sm) {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-}
-
-.NavPlayer .ListItem__actions {
-    display: flex;
-}
-
-.NavPlayer .ListItem__actions a {
-    text-decoration: none;
-}
-
-.NavPlayer .ListItem__actions a:hover {
-    text-decoration: none;
-    color: black;
-    border: 0px;
-}
-
-.NavPlayer__show a {
-    font-size: .8rem;
-    font-family: $secondaryFont;
-    letter-spacing: 0.05rem;
-}
-
-
-.NavPlayer__controllers {
-    display: flex;
-    justify-content: flex-end;
-    letter-spacing: 0.5rem;
-    white-space: nowrap;
-    @media (max-width: $screen-md) {
-        flex-grow: 1;
-        padding: 10px 0px 20px 0px;
-        justify-content: space-between;
-    }
-}
-
-
 
 .NavPlayer__buttons {
-    margin-left: 40px;
+    align-items: center;
+}
+
+.NavPlayer i {
+    margin-right: .5vw;
+}
+.NavPlayer i:last-child {
+    margin-right: 0px;
+}
+
+.NavPlayer__menu {
     display: flex;
-    align-items: flex-start;
-}
-
-.NavPlayer__buttons:first-child {
-    margin-left: 0px;
-    @media (min-width: $screen-sm) {
-        margin-left: 40px;
-    }
-}
-
-.NavPlayer__buttons .gapAfter {
-    padding-right: 15px;
-}
-
-.NavPlayer__buttons a, .NavPlayer__buttons a:active {
-    color: purple;
-    padding-left: 5px;
-}
-
-.NavPlayer__buttons a:first-child , .NavPlayer__buttons a:active:first-child {
-    padding-left: 0px;
-}
-
-.NavPlayer__buttons a:hover {
-    color: $text-color-bright;
-}
-
-
-.NavPlayer__mainNav .button {
-    margin-left: 10px;
-}
-
-
-.NavPlayer__mainNav .active {
-    text-shadow: 0px 0px 15px rgba(purple,.8);
-}
-
-.NavPlayer__buttons .active {
-    color: $text-color-bright;
+    align-items: center;
+    background-image: linear-gradient(rgba(13,13,13,.8),rgba(13,13,13,1),rgba(13,13,13,1));
+    padding: 10px 20px;
 }

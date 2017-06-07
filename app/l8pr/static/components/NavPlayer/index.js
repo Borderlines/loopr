@@ -5,6 +5,7 @@ import * as player from '../../actions/player'
 import * as modal from '../../actions/modal'
 import * as selectors from '../../selectors'
 import { get } from 'lodash'
+import screenfull from 'screenfull'
 import './style.scss'
 
 function NavPlayer({
@@ -31,26 +32,7 @@ function NavPlayer({
 }) {
     return (
         <div className="NavPlayer">
-            <div className="NavPlayer__banner">
-                <div className="NavPlayer__item">
-                    <div className="NavPlayer__title">
-                    <a onClick={() => {openShow(currentShow)}}>
-                        {get(currentItem, 'title')}
-                    </a>
-                    </div>
-                    <div className="ListItem__actions">
-                        <div className="button">
-                            <a><i className="material-icons">add</i></a>
-                        </div>
-                    </div>
-                </div>
-                <div className="NavPlayer__show">
-                    <a onClick={() => {openShow(currentShow)}}>
-                        {get(currentShow, 'title')}
-                    </a>
-                </div>
-            </div>
-            <div className="NavPlayer__controllers">
+            <div className="NavPlayer__control">
                 <div className="NavPlayer__buttons">
                     <a onClick={onPreviousContext} title="Previous Show">
                         <i className="material-icons">first_page</i>
@@ -70,7 +52,7 @@ function NavPlayer({
                     <a onClick={onNextItem} title="Next Item">
                         <i className="material-icons">chevron_right</i>
                     </a>
-                    <a className="gapAfter" onClick={onNextContext} title="Next Show">
+                    <a onClick={onNextContext} title="Next Show" className="spaceAfter">
                         <i className="material-icons">last_page</i>
                     </a>
                     {muted &&
@@ -82,44 +64,32 @@ function NavPlayer({
                             <i className="material-icons">volume_up</i>
                         </a>
                     }
-                    <a title="Visual">
-                        <i className="material-icons">burst_mode</i>
-                    </a>
                 </div>
-
                 <div className="NavPlayer__buttons">
                     <a onClick={toggleFixedStrip} title="Always Keep Strip">
                         <i className={'material-icons ' + (stripFixed ? 'active' : '')}>
                             call_to_action
                         </i>
                     </a>
-                    <a href="" title="more control">
-                        <i className="material-icons">more_vert</i>
+                    <a onClick={() => {screenfull.toggle()}} title="Toggle Fullscreen">
+                        <i className="material-icons">fullscreen</i>
                     </a>
                 </div>
-                <div className="NavPlayer__buttons NavPlayer__mainNav ">
-                    <div className="button">
-                        <a title="Queue List" onClick={showQueuelist}>
-                            <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
-                                playlist_play
-                            </i>
-                        </a>
-                    </div>
-                    <div className="button">
-                        <a title="Search" onClick={handleSearch}>
-                            <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
-                                search
-                            </i>
-                        </a>
-                    </div>
-                    <div className="button">
-                        <a title="Login" onClick={handleLogin}>
-                            <i className="material-icons" title="Login">
-                                account_circle
-                            </i>
-                        </a>
-                    </div>
-                </div>
+            </div>
+            <div className="NavPlayer__menu">
+                <a title="Queue List" onClick={showQueuelist}>
+                    <i className={'material-icons ' + (stripOpened && browserType === 'PLAYQUEUE' ? 'active' : '')}>
+                        playlist_play
+                    </i>
+                </a>
+                <a title="Search" onClick={handleSearch}>
+                    <i className={'material-icons ' + (stripOpened && browserType === 'SEARCH' ? 'active' : '')}>
+                        search
+                    </i>
+                </a>
+                <a title="Login" onClick={handleLogin}>
+                    <i className="material-icons">account_circle</i>
+                </a>
             </div>
         </div>
     )
