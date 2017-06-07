@@ -58,7 +58,7 @@ function Show({ key, item, className='', onPlayClick, isPlaying, style, onPlaySh
 function Track({ key, item, className='', onPlayClick, isPlaying, style, onAddClick, onShowClick, displayShows=false }) {
     return (
         <div key={key} className={className + ' ListItem--Track'} onClick={() => (onPlayClick(item))} style={style}>
-            <Preview image={item.thumbnail}/>
+            {!isPlaying && <Preview image={item.thumbnail}/>}
             <div className="ListItem__body">
                 <div className="ListItem__row">
                     <div className="ListItem__title">{item.title}</div>

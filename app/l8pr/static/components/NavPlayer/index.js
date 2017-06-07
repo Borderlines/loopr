@@ -6,6 +6,7 @@ import * as modal from '../../actions/modal'
 import * as selectors from '../../selectors'
 import { get } from 'lodash'
 import screenfull from 'screenfull'
+import classNames from 'classnames'
 import './style.scss'
 
 function NavPlayer({
@@ -30,8 +31,12 @@ function NavPlayer({
     stripFixed,
     openShow,
 }) {
+    const classes = classNames(
+        'NavPlayer',
+        { 'NavPlayer--hide': !stripOpened }
+    )
     return (
-        <div className="NavPlayer">
+        <div className={classes}>
             <div className="NavPlayer__control">
                 <div className="NavPlayer__buttons">
                     <a onClick={onPreviousContext} title="Previous Show">

@@ -1,7 +1,7 @@
 
 .PlayQueue2 {
     display: flex;
-    height: 50vh;
+    max-height: 50vh;
     overflow: hidden;
 }
 .PlayQueue2__current-context, .PlayQueue2__next-context {
@@ -9,6 +9,7 @@
     overflow: auto;
 }
 .PlayQueue2__current-context {
+    flex-grow: 1;
     min-width: 50%;
     .Context {
         width: 100%;
@@ -21,3 +22,23 @@
         align-items: stretch;
     }
 }
+
+.PlayQueue2--banner {
+    .PlayQueue2__next-context{
+        max-width: 0;
+        height: 0;
+    }
+    .PlayQueue2__current-context {
+        .Context__list { max-height: 0; }
+        .Context__cover {
+            background-image: none !important;
+            background-color: $colorPlaying;
+        }
+        .Context__details{
+            opacity: 0;
+            max-height: 0;
+        }
+}
+// init transitions
+.PlayQueue2__next-context{transition: all 1s;}
+.PlayQueue2__current-context .Context__list{transition: all 1s;}

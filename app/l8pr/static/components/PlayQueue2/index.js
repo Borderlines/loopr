@@ -9,11 +9,14 @@ import './style.scss'
 
 class PlayQueue2 extends React.Component {
     render() {
-        const { contexts, className, openedContext } = this.props
+        const { contexts, className, openedContext, bannerMode } = this.props
         const currentContext = contexts && contexts[0]
-
+        const classes = classNames(
+            'PlayQueue2',
+            { 'PlayQueue2--banner': bannerMode },
+            className)
         return (
-            <div className={classNames('PlayQueue2', className)}>
+            <div className={classes}>
                 <div className="PlayQueue2__current-context">
                     {currentContext &&
                         <Context
@@ -43,6 +46,7 @@ PlayQueue2.propTypes = {
     // currentItem: React.PropTypes.object,
     // currentShow: React.PropTypes.object,
     className: React.PropTypes.string,
+    bannerMode: React.PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
@@ -50,6 +54,7 @@ const mapStateToProps = (state) => ({
     currentItem: selectors.currentTrack(state),
     currentShow: selectors.currentShow(state),
     openedContext: state.browser.openedContext,
+    bannerMode: !state.browser.stripOpened,
 })
 const mapDispatchToProps = (dispatch) => ({
     onItemPlayClick: (item) => (dispatch(player.jumpToItem(item))),
