@@ -37,25 +37,22 @@ function groupByContext(items) {
     if (items.length < 1) {
         return []
     }
-    const itemsList = []
-    let lastContext = null
-    items.forEach(item => {
-        if (!itemsList.find(i => i.id === item.context.id)) {
-            if (lastContext) {
-                let lastIndex = itemsList.lastIndexOf(lastContext)
-                lastContext.duration = getDuration(itemsList.slice(lastIndex))
-            }
-            lastContext = {
-                ...item.context,
-                type: 'context',
-                size: 0,
-            }
-            itemsList.push(lastContext)
+    const contexts = [{
+        context: items[0].context,
+        items: [],
+    }]
+    const getLastContext = () => contexts[contexts.length - 1]
+    items.forEach((i) => {
+        if (i.context && i.context.id !== get(getLastContext(), 'context.id')) {
+            contexts.push({
+                context: null,
+                items: [],
+            })
         }
-        lastContext.size += 1
-        itemsList.push(item)
+        if (getLastContext().context === null) getLastContext().context = i.context
+        getLastContext().items.push(i)
     })
-    return itemsList
+    return contexts
 }
 
 export const getPlaylistGroupedByContext = createSelector(playlist, (p) => groupByContext(p))

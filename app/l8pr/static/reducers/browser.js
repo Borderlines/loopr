@@ -5,6 +5,7 @@ const initialState = {
     stripFixed: true,
     browserType: 'SEARCH',
     browserProps: undefined,
+    openedContext: undefined,
 }
 
 export default function (state = initialState, action = null) {
@@ -18,6 +19,11 @@ export default function (state = initialState, action = null) {
             return {
                 ...state,
                 stripHidden: true,
+            }
+        case 'BROWSER_OPEN_CONTEXT':
+            return {
+                ...state,
+                openedContext: action.payload,
             }
         case SET_STRIP_STATE:
             return {

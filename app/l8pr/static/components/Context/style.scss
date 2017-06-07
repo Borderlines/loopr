@@ -1,0 +1,35 @@
+.Context {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.Context__cover {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .Context__title {
+        font-family: 'Montserrat';
+        padding: 5px 10px;
+        flex-grow: 1;
+    }
+    .Context__actions {
+        align-self: center;
+        flex-grow: 1;
+        align-content: center;
+    }
+}
+.Context__list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 0vh;
+    transition: all .25s;
+}
+.Context--opened {
+    .Context__list { max-height: 20vh }
+}

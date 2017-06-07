@@ -1,13 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Progressbar } from '../index'
-import { NavPlayer, Browser } from '../index'
+import { NavPlayer, PlayQueue2 } from '../index'
 import './style.scss'
 import classNames from 'classnames'
 
 class Strip extends React.Component {
     static propTypes = {
-        stripOpened: React.PropTypes.bool,
         hidden: React.PropTypes.bool,
         stripFixed: React.PropTypes.bool,
         progress: React.PropTypes.number,
@@ -16,7 +15,7 @@ class Strip extends React.Component {
     }
 
     render() {
-        const { stripOpened, progress, loaded, onSeekTo, hidden, stripFixed } = this.props
+        const { progress, loaded, onSeekTo, hidden, stripFixed } = this.props
         const classes = classNames(
             'Strip',
             { 'Strip--fixed': stripFixed },
@@ -24,7 +23,7 @@ class Strip extends React.Component {
         )
         return (
             <div className={classes}>
-                <Browser open={stripOpened}/>
+                <PlayQueue2/>
                 <NavPlayer/>
                 <Progressbar progress={progress} loaded={loaded} onClick={onSeekTo}/>
             </div>

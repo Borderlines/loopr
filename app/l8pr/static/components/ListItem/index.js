@@ -4,7 +4,7 @@ import { getDuration } from '../../utils'
 import Preview from './Preview'
 
 const sourceIcones = {
-    youtube: 'youtube-play',
+    youtube: 'youtube',
     soundcloud: 'soundcloud',
     vimeo: 'vimeo',
 }

@@ -5,7 +5,7 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
     width: 100%;
     //border-bottom: 1px dotted $colorItem;
     align-items: center;
-    height: $ITEM_HEIGHT;
+    min-height: $ITEM_HEIGHT;
     box-shadow: 0px 0px 50px rgba(0,0,0,.1);
 }
 
@@ -33,9 +33,11 @@ $ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
 .ListItem {
     transition: all .25s;
     &:hover {
-        .ListItem__actions { opacity: 1}
+        .ListItem__details {display: block}
+        .ListItem__actions {display: block}
     }
-    .ListItem__actions {opacity: 0}
+    .ListItem__details {display: none}
+    .ListItem__actions {display: none}
 }
 .ListItem--Track
     .ListItem__title {

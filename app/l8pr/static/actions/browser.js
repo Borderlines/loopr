@@ -2,6 +2,13 @@ import * as c from '../constants'
 import * as api from '../utils/api'
 import * as data from '../actions/data'
 
+export function openContext(contextId) {
+    return {
+        type: 'BROWSER_OPEN_CONTEXT',
+        payload: contextId,
+    }
+}
+
 export function openStrip() {
     return {
         type: c.SET_STRIP_STATE,
