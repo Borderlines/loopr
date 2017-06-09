@@ -5,8 +5,9 @@ import './style.scss'
 import * as player from '../../actions/player'
 import * as browser from '../../actions/browser'
 import * as auth from '../../actions/auth'
+import * as modal from '../../actions/modal'
 import 'react-select/dist/react-select.css'
-import { ListItem, StripHeader, ResultsCounter } from '../index'
+import { ListItem, ResultsCounter } from '../index'
 import classNames from 'classnames'
 import 'react-virtualized/styles.css'
 import { get } from 'lodash'
@@ -64,7 +65,11 @@ class Context extends React.Component {
                         <ResultsCounter results={items}/>
                     </div>
                     {highlight &&
-                        <ListItem item={highlight} isPlaying={true}/>
+                        <ListItem
+                            item={highlight}
+                            isPlaying={true}
+                            onAddClick={onAddClick}
+                        />
                     }
                 </div>
                 <div className="Context__list">
@@ -105,7 +110,7 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
     playItem: (item) => dispatch(player.jumpToItem(item)),
-    // onAddClick: (item) => dispatch(modal.showModal('ADD_ITEM', { item })),
+    onAddClick: (item) => dispatch(modal.showModal('ADD_ITEM', { item })),
     // onPlayClick: (show, item) => {
     //     const items = show.items.slice(show.items.indexOf(item)).map(i => ({
     //         ...i,

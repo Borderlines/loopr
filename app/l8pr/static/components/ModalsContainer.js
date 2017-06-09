@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { hideModal } from '../actions/modal'
 import AddItemModal from './AddItemModal/index'
-import LoginModal from './LoginModal'
+import LoginModal from './LoginModal/index'
 const modals = {
     LOGIN: LoginModal,
     ADD_ITEM: AddItemModal,
@@ -10,10 +10,8 @@ const modals = {
 
 function Modals({ modalType, modalProps, handleHide }) {
     if (modalType) {
-        return React.createElement(modals[modalType], {
-            handleHide,
-            modalProps,
-        })
+        const Modal = modals[modalType]
+        return (<Modal handleHide={handleHide} modalProps={modalProps}/>)
     } else {
         return null
     }

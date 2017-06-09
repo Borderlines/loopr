@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { QuickAddShow } from '../QuickAddShow'
+import QuickAddShow from '../QuickAddShow'
 import { connect } from 'react-redux'
 import * as auth from '../../actions/auth'
 import * as modal from '../../actions/modal'
@@ -19,22 +19,24 @@ function AddItemModal({ handleHide, shows, item, toggleItemToShow, saveItemAndCr
                 <h3>Add the track to a show</h3>
             </Modal.Header>
             <Modal.Body>
-                <QuickAddShow onSubmit={(title) => saveItemAndCreateShow({ title }, item )} />
-                {shows.map((show) => {
-                    let classes = classNames(
-                        'AddItemModal__item',
-                        { 'AddItemModal__item--contains-item': !!show.items.find((i) => i.id === item.id) }
-                    )
-                    return (
-                        <div key={show.id} className={classes} onClick={() => toggleItemToShow(item, show)}>
-                            <div className="AddItemModal__title"><strong>{show.title}</strong></div>
-                            <div className="AddItemModal__details">
-                                <span>{show.items.length} tracks</span>
-                                <span>{getDuration(show.items)}</span>
+                <div>
+                    <QuickAddShow onSubmit={(title) => saveItemAndCreateShow({ title }, item )} />
+                    {shows.map((show) => {
+                        let classes = classNames(
+                            'AddItemModal__item',
+                            { 'AddItemModal__item--contains-item': !!show.items.find((i) => i.id === item.id) }
+                        )
+                        return (
+                            <div key={show.id} className={classes} onClick={() => toggleItemToShow(item, show)}>
+                                <div className="AddItemModal__title"><strong>{show.title}</strong></div>
+                                <div className="AddItemModal__details">
+                                    <span>{show.items.length} tracks</span>
+                                    <span>{getDuration(show.items)}</span>
+                                </div>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={handleHide}>Close</Button>

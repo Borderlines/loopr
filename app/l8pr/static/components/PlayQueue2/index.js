@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as selectors from '../../selectors'
-import { Show, Context } from '../index'
+import { Context } from '../index'
 import * as player from '../../actions/player'
 import * as modal from '../../actions/modal'
 import classNames from 'classnames'
@@ -41,20 +41,14 @@ class PlayQueue2 extends React.Component {
 
 PlayQueue2.propTypes = {
     contexts: React.PropTypes.array.isRequired,
-    // onItemPlayClick: React.PropTypes.func.isRequired,
-    // handleAddClick: React.PropTypes.func.isRequired,
-    // currentItem: React.PropTypes.object,
-    // currentShow: React.PropTypes.object,
     className: React.PropTypes.string,
+    openedContext: React.PropTypes.string,
     bannerMode: React.PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
     contexts: selectors.getPlaylistGroupedByContext(state),
-    currentItem: selectors.currentTrack(state),
-    currentShow: selectors.currentShow(state),
     openedContext: state.browser.openedContext,
-    bannerMode: !state.browser.stripOpened,
 })
 const mapDispatchToProps = (dispatch) => ({
     onItemPlayClick: (item) => (dispatch(player.jumpToItem(item))),
