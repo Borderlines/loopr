@@ -34,7 +34,7 @@ class Context extends React.Component {
         if (highlightFirstItem) {
             highlight = context.items[0]
             items = context.items.slice(1)
-            contextBackground = highlight.thumbnail
+            contextBackground = null
         } else {
             items = context.items
             contextBackground = items[0].thumbnail
@@ -43,6 +43,7 @@ class Context extends React.Component {
         const classes = classNames(
             'Context',
             className,
+            { 'Context--highlightFirstItem': highlightFirstItem },
             { 'Context--opened': open }
         )
         return (
@@ -50,7 +51,7 @@ class Context extends React.Component {
                 <div
                     className="Context__cover"
                     onClick={() => onOpenClick(contextObj)}
-                    style={{ backgroundImage: `url(${contextBackground})` }}
+                    style={{ backgroundImage: contextBackground && `url(${contextBackground})` }}
                 >
                     <div className="Context__title">{contextObj.title}</div>
                     {!highlight &&

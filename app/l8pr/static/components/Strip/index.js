@@ -56,8 +56,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    openStrip: () => dispatch(browser.openStrip()),
-    closeStrip: () => dispatch(browser.closeStrip()),
+    openStrip: () => false && dispatch(browser.openStrip()),
+    closeStrip: () => false && dispatch(browser.closeStrip()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Strip)

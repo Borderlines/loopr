@@ -29,6 +29,9 @@
     max-height: 0vh;
     transition: all .25s;
 }
+.Context--highlightFirstItem {
+    .Context__cover { background-color: $colorShow; }
+}
 .Context--opened {
     .Context__list { max-height: 20vh }
 }
