@@ -33,10 +33,8 @@ export function fillQueueList() {
     )
 }
 
-export function initQueueList() {
+export function initQueueList({ username, show, item }) {
     return (dispatch, getState) => {
-        const location = selectors.getLocation(getState())
-        const username = location.user || selectors.currentUsername(getState()) || 'discover'
         return Promise.all([
             // LAST USER ITEMS
             dispatch(data.lastUserItems({ username })),
@@ -51,10 +49,12 @@ export function initQueueList() {
         .then(() => dispatch(next()))
         // play the first occurence of the asked item
         .then(() => {
-            if (location.item) {
-                const item = selectors.playlist(getState()).find((i) => (i.id.toString() === location.item.toString()))
-                if (item) {
-                    dispatch(playItem(item))
+            if (item) {
+                const itemToPlay = selectors.playlist(getState()).find(
+                    (i) => (i.id.toString() === item.toString())
+                )
+                if (itemToPlay) {
+                    dispatch(playItem(itemToPlay))
                 }
             }
         })

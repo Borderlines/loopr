@@ -9,6 +9,7 @@ import { checkToken } from './actions/auth'
 import * as browser from './actions/browser'
 import * as player from './actions/player'
 import screenfull from 'screenfull'
+import * as selectors from './selectors'
 
 const initialState = {}
 const target = document.getElementById('root')
@@ -48,7 +49,14 @@ const token = store.getState().auth.token
 // login from localstorage
 store.dispatch(checkToken(token))
     .catch((e) => e)
-    .then(() => store.dispatch(player.initQueueList()))
+    .then(() => {
+        const location = selectors.getLocation(store.getState())
+        const username = location.user || selectors.currentUsername(store.getState()) || 'discover'
+        store.dispatch(player.initQueueList({
+            username,
+            item: location.item,
+        }))
+    })
 
 
 

@@ -38,7 +38,7 @@ class Strip extends React.Component {
         )
         return (
             <div className={classes} onMouseEnter={openStrip} onMouseLeave={closeStrip}>
-                {search && <Search/>}
+                {search && !bannerMode && <Search/>}
                 <PlayQueue2 bannerMode={bannerMode || search}/>
                 <NavPlayer/>
                 <Progressbar progress={progress} loaded={loaded} onClick={onSeekTo}/>

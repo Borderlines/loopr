@@ -7,11 +7,11 @@
 .PlayQueue2__current-context, .PlayQueue2__next-context {
     display: flex;
     overflow: auto;
-}
-.PlayQueue2__current-context {
     flex-grow: 1;
     max-width: 50%;
     min-width: 50%;
+}
+.PlayQueue2__current-context {
     .Context {
         width: 100%;
     }
@@ -19,6 +19,7 @@
 .PlayQueue2__next-context {
     align-items: stretch;
     .Context {
+        flex-grow: 1;
         max-width: 300px;
         align-items: stretch;
     }
