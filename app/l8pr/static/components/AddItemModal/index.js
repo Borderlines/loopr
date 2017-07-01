@@ -55,17 +55,20 @@ const mapStateToProps = (state) => ({
     shows: selectors.myShows(state),
     item: state.modal.modalProps.item,
 })
-export const saveItemAndUpdateState = (dispatch, item) => (
-    dispatch(auth.saveItem(item))
-    .then((item) => {
-        dispatch(modal.showModal('ADD_ITEM', { item }))
-        return item
-    })
-)
+
 const mapDispatchToProps = (dispatch) => ({
-    toggleItemToShow: (item, show) => (dispatch(auth.toggleItemToShow(item, show))),
+    toggleItemToShow: (item, show) => (
+        dispatch(auth.toggleItemToShow(item, show))
+        .then((item) => (
+            dispatch(modal.showModal('ADD_ITEM', { item }))
+        ))
+    ),
     saveItemAndCreateShow: (show, item) => {
-        saveItemAndUpdateState(dispatch, item)
+        dispatch(auth.saveItem(item))
+        .then((item) => {
+            dispatch(modal.showModal('ADD_ITEM', { item }))
+            return item
+        })
         .then(item => (
             dispatch(auth.saveShow({
                 ...show,

@@ -88,6 +88,7 @@ export function toggleItemToShow(item, show) {
                 newShow.items = [item, ...newShow.items]
             }
             return dispatch(saveShow(newShow))
+            .then(() => (item))
         })
     )
 }

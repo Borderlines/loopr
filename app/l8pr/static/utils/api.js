@@ -87,18 +87,24 @@ function getCookie(name) {
     }
     return cookieValue
 }
+const cleanItem = (item) => {
+    delete item.context
+    delete item.shows
+}
 
 export const saveItem = (state, item) => {
     if (!isNil(item.id)) {
         return Promise.resolve(item)
     }
     item.id = undefined
+    cleanItem(item)
     return api(state).post('api/items/', item)
 }
 
 export const saveShow = (state, show) => {
     const method = isNil(show.id) ? 'post' : 'put'
     const url = isNil(show.id) ? 'api/shows/' : `api/shows/${show.id}/`
+    show.items.forEach(cleanItem)
     return api(state)[method](url, show)
 }
 

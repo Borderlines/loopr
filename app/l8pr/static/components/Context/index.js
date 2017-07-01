@@ -77,6 +77,7 @@ class Context extends React.Component {
                     {open && items.map((item) => (
                         <ListItem
                             item={item}
+                            onAddClick={onAddClick}
                             onPlayClick={() => playItem(item)}/>
                     ))}
                 </div>
@@ -105,7 +106,7 @@ Context.propTypes = {
 const mapStateToProps = (state) => ({
     // show: state.browser.browserProps.show,
     currentTrack: selectors.currentTrack(state),
-    isFollowingAuthor: !!selectors.currentUser(state).profile.follows.find(
+    isFollowingAuthor: selectors.currentUser(state) && !!selectors.currentUser(state).profile.follows.find(
         (u) => (u.id === get(state, 'browser.browserProps.show.user.id'))
     ),
 })

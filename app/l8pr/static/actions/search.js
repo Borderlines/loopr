@@ -35,6 +35,13 @@ export function search(searchTerms) {
                 .then((usersShows) => ([].concat.apply([], usersShows)))
             const termsResults = keywords.length && api.search(getState(), keywords)
             const youtubeResult = keywords.length && api.youtube(getState(), keywords)
+                .then((results) => (results.map((r) => ({
+                    ...r,
+                    context: {
+                        title: 'youtube search',
+                        id: 'youtube_search',
+                    }
+                }))))
             Promise.all([
                 ...preSearch,
                 urlsMeta,

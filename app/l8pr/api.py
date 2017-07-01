@@ -134,14 +134,16 @@ class ShowSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ItemSerializer(serializers.ModelSerializer):
+class BaseItemSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
-    # doesn't work with Youtube search view yet
-    shows = ShowNameSerializer(many=True, required=False)
 
     class Meta:
         fields = '__all__'
         model = Item
+
+
+class ItemSerializer(BaseItemSerializer):
+    shows = ShowNameSerializer(many=True, required=False)
 
 
 class LoopSerializer(serializers.ModelSerializer):
@@ -282,7 +284,7 @@ class SearchYoutubeView(views.APIView):
 
     def get(self, request, *args, **kw):
         result = youtube_search({'q': request.GET.get('q')})
-        return Response(ItemSerializer(result, many=True).data, status=status.HTTP_200_OK)
+        return Response(BaseItemSerializer(result, many=True).data, status=status.HTTP_200_OK)
 
 
 class MetadataView(views.APIView):
@@ -293,4 +295,4 @@ class MetadataView(views.APIView):
         result = Item.objects.filter(url=url).first()
         if not result:
             result = get_metadata(url)
-        return Response(ItemSerializer(result, many=False).data, status=status.HTTP_200_OK)
+        return Response(BaseItemSerializer(result, many=False).data, status=status.HTTP_200_OK)
