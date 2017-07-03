@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import { isNil, trim } from 'lodash'
 import { checkHttpStatus, parseJSON } from './index'
+import SERVER_URL from './config'
 
 export default function api(state) {
     const getCommonOptions = (optionsToMerge) => {
@@ -19,7 +20,7 @@ export default function api(state) {
             ...optionsToMerge,
         }
     }
-    const _fetch = (url, opt) => fetch(url, opt)
+    const _fetch = (url, opt) => fetch(`${SERVER_URL}/${url}`, opt)
         .then(checkHttpStatus)
         .then(parseJSON)
     return ({
