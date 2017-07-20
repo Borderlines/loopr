@@ -4,6 +4,7 @@ import * as api from '../utils/api'
 import { hideModal } from '../actions/modal'
 import { orderBy, cloneDeep } from 'lodash'
 import { checkHttpStatus, parseJSON } from '../utils'
+import SERVER_URL from '../utils/config'
 import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_FAILURE,
@@ -131,7 +132,7 @@ export function checkToken(token) {
         if (!token) {
             return Promise.resolve(false)
         }
-        return fetch('api/users/me/', {
+        return fetch(`${SERVER_URL}/api/users/me/`, {
             method: 'get',
             headers: { Authorization: `Token ${token}` },
         })
@@ -152,7 +153,7 @@ export function authLoginUser(email, password, redirect = '/') {
         var formData = new FormData()
         formData.append('password', password)
         formData.append('username', email)
-        return fetch('auth/login/', {
+        return fetch(`${SERVER_URL}/auth/login/`, {
             method: 'post',
             body: formData,
             headers: { Accept: 'application/json' },
@@ -160,7 +161,7 @@ export function authLoginUser(email, password, redirect = '/') {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => (
-                fetch('api/users/me/', {
+                fetch(`${SERVER_URL}/api/users/me/`, {
                     method: 'get',
                     headers: { Authorization: `Token ${response.auth_token}` },
                 })

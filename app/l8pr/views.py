@@ -1,7 +1,6 @@
 from django.views.generic.base import TemplateView
 import os
 from django.conf import settings
-from django.utils.text import normalize_newlines
 from django.contrib.auth.models import User
 from . import models
 from django.core.exceptions import ObjectDoesNotExist

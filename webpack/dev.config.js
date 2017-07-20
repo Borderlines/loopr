@@ -1,10 +1,15 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const extractCSS = new ExtractTextPlugin('styles/[name].css');
 
 module.exports = {
-    devtool: 'source-map', // 'cheap-module-eval-source-map'
-
+    devServer: {
+        contentBase: path.join(__dirname, '../static_dist'),
+        historyApiFallback: true,
+        compress: true,
+        port: 8080,
+    },
     module: {
         rules: [{
             test: /\.css$/,

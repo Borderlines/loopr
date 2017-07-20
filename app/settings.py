@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'djoser',
     'haystack',
     'drf_haystack',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -236,6 +238,8 @@ TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
 TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 IFRAMELY_API_KEY = os.environ.get('IFRAMELY_API_KEY')
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
