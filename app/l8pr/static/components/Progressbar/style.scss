@@ -1,0 +1,27 @@
+.Progressbar, .Progressbar__progress, .Progressbar__loaded {
+    height: 5px;
+    transition-property: all;
+    transition-duration: .1s;
+    transition-delay: .2s;
+}
+
+.Progressbar:hover {
+    &, .Progressbar__loaded, .Progressbar__progress {
+        height: 10px;
+    }
+}
+
+.Progressbar {
+    position: relative;
+    background-color: rgba(255, 255, 255, .2);
+}
+.Progressbar__progress {
+    background-color: $colorPlaying;
+    position: absolute;
+    top: 0;
+    opacity: 0.7;
+}
+.Progressbar__loaded {
+    background-color: lighten($colorPlaying, 10%);
+    opacity: .3;
+}

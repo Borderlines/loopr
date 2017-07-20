@@ -1,0 +1,116 @@
+// setting color
+$cbar1 : $colorPlaying;
+$cbar2 : $colorShow;
+$cbar3 : $colorItem;
+$cbar4 : $colorSearch;
+
+// setting width box & bar
+$wbar : 450px;
+
+// setting fast
+$secs : 1.5s;
+
+//total bar
+$d: 4;
+// animation
+$frame : floor((100/$d)*1.1);
+$keyframe: "#{$frame}%";
+$delay : ($secs*(((100/$d)) /100));
+
+.Loader {
+
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    opacity: 0.8;
+    background: #555;
+    overflow: hidden;
+
+  > bar {
+    position: inherit;
+    left: 50%;
+    display: block;
+    width: 1%;
+    height: 5px;
+    z-index:5;
+  }
+
+}
+
+$anim :bar $secs ease-in-out infinite;
+
+  #bar1 {
+    -webkit-animation:$anim;
+    -moz-animation:$anim;
+    animation:$anim;
+    background: $cbar1;
+
+  }
+
+  #bar2 {
+    -webkit-animation:$anim;
+    -moz-animation:$anim;
+    animation:$anim;
+    background: $cbar2;
+    // delay  * (n-1)
+     -moz-animation-delay: ($delay*1);
+     -webkit-animation-delay: ($delay*1);
+    animation-delay: ($delay*1);
+
+  }
+
+  #bar3 {
+    -webkit-animation:$anim;
+    -moz-animation:$anim;
+    animation:$anim;
+    background: $cbar3;
+    // delay  * (n-1)
+    -moz-animation-delay: ($delay*2);
+    -webkit-animation-delay: ($delay*2);
+    animation-delay: ($delay*2);
+
+  }
+
+  #bar4 {
+    -webkit-animation:$anim;
+    -moz-animation:$anim;
+    animation:$anim;
+    background: $cbar4;
+    // delay  * (n-1)
+    -moz-animation-delay: ($delay*3);
+    -webkit-animation-delay: ($delay*3);
+    animation-delay: ($delay*3);
+  }
+
+
+@-webkit-keyframes bar{
+        0% {
+            width: 1%;
+            z-index:10;
+        }
+        #{$keyframe}  {
+            width: 100%;
+            left: 0;
+        }
+        100% {
+            width: 100%;
+            left: 0;
+            z-index:1;
+        }
+}
+@keyframes bar {
+         0% {
+            width: 1%;
+            z-index:10;
+        }
+        #{$keyframe}{
+            width: 100%;
+            left: 0;
+        }
+        100% {
+            width: 100%;
+            left: 0;
+            z-index:1;
+        }
+}

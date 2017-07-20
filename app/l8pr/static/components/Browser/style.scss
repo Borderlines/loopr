@@ -1,0 +1,15 @@
+.Browser {
+    transition-duration: 1s;
+    transition-property: all;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    opacity: 0;
+}
+.Browser--open {
+    opacity: 1;
+    height: 55vh;
+}

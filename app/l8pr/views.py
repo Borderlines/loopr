@@ -1,25 +1,23 @@
 from django.views.generic.base import TemplateView
 import os
 from django.conf import settings
-from django.utils.text import normalize_newlines
 from django.contrib.auth.models import User
 from . import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
+from django.views.generic import View
+from django.http import HttpResponse
 
 
-def angular_templates():
-    partials_dir = settings.STATICFILES_DIRS[0]
-    exclude = ('bower_components',)
-    for (root, dirs, files) in os.walk(partials_dir, topdown=True):
-        dirs[:] = [d for d in dirs if d not in exclude]
-        for file_name in files:
-            if file_name.endswith('.html'):
-                file_path = os.path.join(root, file_name)
-                with open(file_path, 'rb') as fh:
-                    file_name = file_path[len(partials_dir) + 1:]
-                    yield (file_name, normalize_newlines(fh.read().decode('utf-8')).replace('\n', ' '))
+class IndexView(View):
+    """Render main page."""
+
+    def get(self, request):
+        """Return html for main application page."""
+
+        abspath = open(os.path.join(settings.BASE_DIR, 'static_dist/index.html'), 'r')
+        return HttpResponse(content=abspath.read())
 
 
 @method_decorator(xframe_options_exempt, name='dispatch')
@@ -53,8 +51,6 @@ class HomePageView(TemplateView):
         else:
             context['title'] = 'l8pr'
             context['thumbnail'] = self.request.build_absolute_uri('static/images/L8PRtv.png')
-        # add templates
-        context['templates'] = angular_templates()
         # add GA
         context['GA'] = os.environ.get('GA')
         return context

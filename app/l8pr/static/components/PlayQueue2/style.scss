@@ -1,0 +1,51 @@
+
+.PlayQueue2 {
+    display: flex;
+    max-height: 50vh;
+    overflow: hidden;
+}
+.PlayQueue2__current-context, .PlayQueue2__next-context {
+    display: flex;
+    overflow: auto;
+    flex-grow: 1;
+    max-width: 50%;
+    min-width: 50%;
+}
+.PlayQueue2__current-context {
+    .Context {
+        width: 100%;
+    }
+}
+.PlayQueue2__next-context {
+    align-items: stretch;
+    .Context {
+        flex-grow: 1;
+        max-width: 300px;
+        align-items: stretch;
+    }
+}
+.PlayQueue2--banner {
+    .PlayQueue2__next-context{
+        max-width: 0;
+        max-height: 0;
+    }
+    .PlayQueue2__current-context {
+        max-width: 100%;
+        min-width: 100%;
+        .Context__list { max-height: 0; }
+        .Context__cover {
+            background-image: none !important;
+            background-color: $colorPlaying;
+        }
+        .Context__details{
+            opacity: 0;
+            max-height: 0;
+        }
+    }
+}
+// init transitions
+.PlayQueue2__current-context{transition: all 1s;}
+.PlayQueue2__next-context{
+    transition: all 1s;
+}
+.PlayQueue2__current-context .Context__list {transition: all 1s;}

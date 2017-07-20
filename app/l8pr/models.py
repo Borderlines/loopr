@@ -20,6 +20,10 @@ twitter = Twython(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRE
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     avatar = models.URLField(max_length=500, null=True, blank=True)
+    follows = models.ManyToManyField('Profile', related_name='followers', blank=True)
+
+    def __str__(self):
+        return '%s profile' % self.user.__str__()
 
 
 class Loop(models.Model):
@@ -103,6 +107,8 @@ class ItemsRelationship(models.Model):
     item = models.ForeignKey('Item')
     show = models.ForeignKey('Show')
     order = models.PositiveIntegerField()
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-order',)
@@ -119,6 +125,7 @@ class Item(models.Model):
         ('Vimeo', 'Vimeo'),
     )
     title = models.CharField(max_length=255, null=True, blank=True)
+    shows = models.ManyToManyField('Show', through='ItemsRelationship', related_name='ItemsRelationship')
     description = models.TextField(null=True, blank=True)
     author_name = models.CharField(max_length=255, null=True, blank=True)
     thumbnail = models.URLField(max_length=200, null=True, blank=True)
@@ -234,12 +241,14 @@ def completeItem(sender, instance, created, **kwargs):
         if instance.duration:
             instance.save()
 
+
 signals.post_save.connect(completeItem, sender=Item)
 
 
 def create_show_settings(sender, instance, created, **kwargs):
     if created and not getattr(instance, 'settings', None):
         ShowSettings.objects.create(show=instance)
+
 
 signals.post_save.connect(create_show_settings, sender=Show)
 

@@ -1,0 +1,36 @@
+.ContextsList {
+    flex-grow: 1;
+}
+
+.ContextsList__cover {
+    padding: 20px;
+    background-color: mediumspringgreen;
+    display: flex;
+
+}
+
+.ContextsList__filter {
+    padding: 20px;
+    background-color: purple;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.ContextsList__filter .context__actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ContextsList__filter .context__actions div {
+    margin-right: 25px;
+}
+
+.ContextsList__filter .context__actions i {
+    margin-left: .5rem;
+}
+.context__title {
+    font-weight: 600;
+}
+.context__details {
+
+}

@@ -1,33 +1,16 @@
 from django.contrib.auth.models import User
 from .models import Loop, Show, Item, ShowSettings, Profile, ItemsRelationship, get_metadata, ShowsRelationship
 from rest_framework import serializers, viewsets, views
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from drf_haystack.serializers import HaystackSerializer
+from drf_haystack.serializers import HaystackSerializerMixin, HaystackSerializer
 from drf_haystack.viewsets import HaystackViewSet
-from .search_indexes import ItemIndex, ShowIndex
+from .search_indexes import ItemIndex, ShowIndex, UserIndex
 from .youtube import youtube_search
 from django.utils import timezone
-
-
-class ItemSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
-
-    class Meta:
-        model = Item
-
-
-class ShowSettingsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ShowSettings
-        fields = ('shuffle', 'dj_layout', 'giphy', 'force_giphy', 'giphy_tags', 'hide_strip')
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
+from .permissions import IsOwnerOrReadOnly
 
 
 class ItemsField(serializers.Field):
@@ -46,6 +29,37 @@ class ItemsField(serializers.Field):
         return serializer.validated_data
 
 
+class ShowSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShowSettings
+        fields = ('shuffle', 'dj_layout', 'giphy', 'force_giphy', 'giphy_tags', 'hide_strip')
+
+
+class SimpleUserProfileSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='user.id', required=True)
+    username = serializers.CharField(source='user.username', required=True)
+    loops = serializers.PrimaryKeyRelatedField(source='user.loops', many=True, read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'username', 'loops')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    follows = SimpleUserProfileSerializer(many=True, required=False, read_only=True)
+    followers = SimpleUserProfileSerializer(many=True, required=False, read_only=True)
+
+    class Meta:
+        fields = '__all__'
+        model = Profile
+
+
+class SimpleUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
+
+
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False)
 
@@ -54,19 +68,23 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'loops', 'profile')
 
 
+class ShowNameSerializer(serializers.ModelSerializer):
+    user = SimpleUserSerializer()
+
+    class Meta:
+        model = Show
+        fields = ('id', 'title', 'user', 'show_type')
+
+
 class ShowSerializer(serializers.ModelSerializer):
     items = ItemsField()
     settings = ShowSettingsSerializer(required=False)
     user = UserSerializer(required=False, read_only=True)
-    username = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Show
         fields = ('id', 'added', 'updated', 'show_type', 'title', 'description',
-                  'items', 'user', 'settings', 'username')
-
-    def get_username(self, obj):
-        return obj.user.username
+                  'items', 'user', 'settings')
 
     def create(self, validated_data):
         validated_data.pop('settings', {})
@@ -116,8 +134,21 @@ class ShowSerializer(serializers.ModelSerializer):
         return instance
 
 
+class BaseItemSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
+    class Meta:
+        fields = '__all__'
+        model = Item
+
+
+class ItemSerializer(BaseItemSerializer):
+    shows = ShowNameSerializer(many=True, required=False)
+
+
 class LoopSerializer(serializers.ModelSerializer):
     shows_list = serializers.SerializerMethodField()
+    user = UserSerializer()
 
     def get_current_user(self):
         user = None
@@ -151,7 +182,19 @@ class UserViewSet(viewsets.ModelViewSet):
     @list_route(methods=['get'], url_path='me')
     def me(self, request):
         if (request.user.is_anonymous()):
-            return Response('nope', status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
+
+    @detail_route(methods=['post'], permission_classes=[IsOwnerOrReadOnly])
+    def follow(self, request, pk=None):
+        profile = get_object_or_404(Profile, user=pk)
+        request.user.profile.follows.add(profile)
+        return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
+
+    @detail_route(methods=['post'], permission_classes=[IsOwnerOrReadOnly])
+    def unfollow(self, request, pk=None):
+        profile = get_object_or_404(Profile, user=pk)
+        request.user.profile.follows.remove(profile)
         return Response(UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
 
 
@@ -176,34 +219,64 @@ class ShowViewSet(viewsets.ModelViewSet):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Item.objects.distinct()
     serializer_class = ItemSerializer
-    filter_fields = ('url',)
+    filter_fields = ('url', 'shows__user__username')
 
 
-class ItemSearchSerializer(HaystackSerializer):
-    id = serializers.CharField()
+class FeedView(viewsets.ReadOnlyModelViewSet):
+    queryset = Item.objects.distinct()
+    serializer_class = ItemSerializer
+    filter_fields = ('__all__')
 
+    def list(self, request):
+        following = [p.user.id for p in request.user.profile.follows.all()]
+        items = Item.objects \
+            .filter(shows__user__in=following, shows__show_type='normal') \
+            .order_by('-ItemsRelationship__updated')
+        page = self.paginate_queryset(items)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(items, many=True)
+        return Response(serializer.data)
+
+
+class ItemSearchSerializer(HaystackSerializerMixin, ItemSerializer):
+    class Meta(ItemSerializer.Meta):
+        search_fields = ('text', 'title',)
+        field_aliases = {}
+        exclude = []
+
+
+class ShowSearchSerializer(HaystackSerializerMixin, ShowSerializer):
+    class Meta(ShowSerializer.Meta):
+        search_fields = ('text', 'title',)
+        field_aliases = {}
+        exclude = []
+
+
+class UserSearchSerializer(HaystackSerializerMixin, UserSerializer):
+    class Meta(UserSerializer.Meta):
+        search_fields = ('text', 'username',)
+        field_aliases = {}
+        exclude = []
+
+
+class AggregateSearchSerializer(HaystackSerializer):
     class Meta:
-        # The `index_classes` attribute is a list of which search indexes
-        # we want to include in the search.
-        index_classes = [ItemIndex, ShowIndex]
-        # The `fields` contains all the fields we want to include.
-        # NOTE: Make sure you don't confuse these with model attributes. These
-        # fields belong to the search index!
-        fields = [
-            'title', 'author_name', 'autocomplete', 'thumbnail', 'id', 'url', 'provider_name'
-        ]
+        serializers = {
+            ItemIndex: ItemSearchSerializer,
+            ShowIndex: ShowSearchSerializer,
+            UserIndex: UserSearchSerializer,
+        }
 
 
 class ItemSearchView(HaystackViewSet):
-
-    # `index_models` is an optional list of which models you would like to include
-    # in the search result. You might have several models indexed, and this provides
-    # a way to filter out those of no interest for this particular view.
-    # (Translates to `SearchQuerySet().models(*index_models)` behind the scenes.
+    permission_classes = []
+    serializer_class = AggregateSearchSerializer
+    # to remove in order to have more than Items in results
     index_models = [Item, Show]
-    serializer_class = ItemSearchSerializer
 
 
 class SearchYoutubeView(views.APIView):
@@ -211,7 +284,7 @@ class SearchYoutubeView(views.APIView):
 
     def get(self, request, *args, **kw):
         result = youtube_search({'q': request.GET.get('q')})
-        return Response(ItemSerializer(result, many=True).data, status=status.HTTP_200_OK)
+        return Response(BaseItemSerializer(result, many=True).data, status=status.HTTP_200_OK)
 
 
 class MetadataView(views.APIView):
@@ -222,4 +295,4 @@ class MetadataView(views.APIView):
         result = Item.objects.filter(url=url).first()
         if not result:
             result = get_metadata(url)
-        return Response(ItemSerializer(result, many=False).data, status=status.HTTP_200_OK)
+        return Response(BaseItemSerializer(result, many=False).data, status=status.HTTP_200_OK)

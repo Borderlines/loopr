@@ -1,0 +1,157 @@
+$ITEM_HEIGHT: 50px; // do not change before changing the height value in JS
+.ListItem {
+    background-color: $body-bg;
+    display: flex;
+    width: 100%;
+    //border-bottom: 1px dotted $colorItem;
+    align-items: center;
+    min-height: $ITEM_HEIGHT;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.1);
+}
+
+.ListItem--User {
+    background-position: right center;
+    background-repeat: repeat-y;
+}
+
+.ListItem__title {
+    margin-right: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ListItem__details {
+    margin-right: 10px;
+}
+.ListItem__actions {
+    white-space: nowrap;
+    span {
+        margin-right: 5px;
+    }
+}
+.ListItem {
+    transition: all .25s;
+    &:hover {
+        .ListItem__details {display: block}
+        .ListItem__actions {display: block}
+    }
+    .ListItem__details {display: none}
+    .ListItem__actions {display: none}
+}
+.ListItem--Track
+    .ListItem__title {
+    color: $colorItem;
+    cursor: default;
+}
+
+
+.ListItem--Show
+    .ListItem__title {
+    font-family: 'Montserrat';
+    color: $colorShow;
+    font-size: 1.2rem; /* MEDIUM LARGE SCREENS */
+    margin-bottom: .25rem;
+    cursor: ne-resize;
+}
+
+.ListItem--User
+    .ListItem__title {
+    color: $brand-primary;
+    font-size: 1.4rem;  /* MEDIUM LARGE SCREENS */
+    margin-bottom: .25rem;
+
+}
+
+.ListItem__preview {
+    align-self: stretch;
+    display: flex;
+    //flex-direction: column;
+    flex-shrink: 0;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 7rem;
+    background-position: center center;
+    background-size: cover;
+    transition-property: all;
+    transition-duration: .1s;
+    transition-timing-function: ease-in-out;
+    padding: 0px 20px;
+
+
+    i {
+        color: white;
+        text-align: center;
+        z-index: 1;
+        font-size: 1.2rem;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+}
+.ListItem__preview:hover {
+    width: 11rem;
+    transition-property: all;
+    transition-duration: .1s;
+    transition-timing-function: ease-in-out;
+}
+
+.ListItem--Show .ListItem__preview:after {
+    background-color: rgba(black,.1 );
+}
+.ListItem--Track .ListItem__preview:after {
+    background-color: rgba(black,.1 );
+}
+.ListItem--isPlaying .ListItem__preview:after {
+    background-color: rgba($colorPlaying, .2);
+}
+
+.ListItem--User .ListItem__illuBox {
+    height: 100px !important;
+    width: 100px !important;
+    margin: 20px 25px;
+    background-color: transparent;
+    box-shadow: 0px 0px 10px rgba(0,0,0,.2);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.ListItem__body {
+    padding: 15px 25px;
+    min-width: 0;
+}
+
+.ListItem--Track .ListItem__row {
+    display: flex;
+    align-items: center;
+}
+
+.ListItem--isSelected {
+    background-color: $brand-primary;
+    color: $text-color-bright;
+}
+
+.ListItem--isPlaying .ListItem__title {
+    color: $colorPlaying;
+    font-size: 1.4rem;
+}
+
+.ListItem--isPlaying .ListItem__preview {
+
+    &:before {
+            content: 'pause';
+            font-family: 'Material Icons';
+            vertical-align: middle;
+            align-self: center;
+        }
+}
+
+.ListItem--isPlaying .ListItem__preview {
+    width: 10rem;
+}

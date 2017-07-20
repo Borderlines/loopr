@@ -3,9 +3,10 @@ from .settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
+        'NAME': 'loopr_dev',
+        'USER': 'loopr',
+        'PASSWORD': 'password',
+        'HOST': 'postgres',
         'PORT': 5432,
     }
 }

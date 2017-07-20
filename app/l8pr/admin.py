@@ -24,6 +24,7 @@ class LoopAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'active')
     inlines = (ShowsRelationshipInline,)
 
+
 admin.site.register(Loop, LoopAdmin)
 
 
@@ -31,21 +32,28 @@ class ShowAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'user', 'added', 'updated')
     inlines = (SettingsInline, ItemsRelationshipInline,)
 
+
 admin.site.register(Show, ShowAdmin)
 
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'title', 'author_name', 'provider_name', 'duration')
+
+
 admin.site.register(Item, ItemAdmin)
 
 
 class ShowsRelationshipAdmin(admin.ModelAdmin):
     pass
+
+
 admin.site.register(ShowsRelationship, ShowsRelationshipAdmin)
 
 
 class ItemsRelationshipAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['item__title', 'show__title', 'item__id', 'show__id']
+
+
 admin.site.register(ItemsRelationship, ItemsRelationshipAdmin)
 
 

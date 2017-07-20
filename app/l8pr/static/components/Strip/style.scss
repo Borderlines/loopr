@@ -1,0 +1,25 @@
+.Strip {
+    transition: opacity .2s ease;
+    opacity: 1;
+    @media (min-width: $screen-md) {
+        position: absolute;
+        bottom: $stripMargin--Desktop;
+        left:   $stripMargin--Desktop;
+        right:  $stripMargin--Desktop;
+    }
+    .Browser {
+        opacity: 1;
+        transition: all 1s ease;
+    }
+}
+
+.Strip--fixed {
+    opacity: 1 !important;
+}
+.Strip--hidden {
+    opacity: 0;
+    .Browser {
+        transition: all 2s ease;
+        opacity: 0;
+    }
+}
